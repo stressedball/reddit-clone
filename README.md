@@ -1,8 +1,7 @@
 # Build a social app. Basing project on site Reddit.
 This is the 3rd iteration after 2 first started projects where I got to the same point :
 - having to manage state and rerender components upon changes made to database.
-- messed up queries to Firebase and reads made skyrocketed (I'm sure I have some useEffect or other
-    part of my code not being controlled but couldn't find it)
+- messed up queries to Firebase and reads made skyrocketed (I'm sure I have some useEffect or other part of my code not being controlled but couldn't find it)
 
 # Use React for building components and client-side routing.
 
@@ -31,7 +30,7 @@ Using a User context : fetches the user details.
 
 # changes of plans
 Since I'm using the context to provide data for the components tree, I'm running into issues since a change in the firebase database isn't rerendered in nested components.
-I thought about fetching the data everytime the components mounts to make sure all the data is reflecting the state of firebase.
+I thought about fetching the data every time the components mounts to make sure all the data is reflecting the state of firebase.
 But the number of requests simply skyrocket when I have very few number of items. Plus it doesn't make a lot of sense to fetch the whole data just for a change.
 
 Studying cache and pagination and whatnots to make this better.
