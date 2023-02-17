@@ -1,0 +1,36 @@
+#subs-container{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.sub-preview {
+    border: 1px solid;
+    width: 80vw;
+    padding: 1rem;
+    margin: auto;
+}
+
+#posts-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.post-preview {
+    border: 1px solid;
+    width: 80vw;
+    margin: auto;
+    padding: 1rem;
+}
+
+.vote-container {
+    display: flex;
+    align-items: center;
+}
+
+svg.vote:hover{
+    color: red;
+}
