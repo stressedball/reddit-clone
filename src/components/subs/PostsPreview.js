@@ -10,8 +10,10 @@ export default function PostsPreview({ subs }) {
                     key={post.id}
                     className="post-preview"
                 >
-                    <p>{post.data.title}</p>
-                    <p>{post.data.text}</p>
+                    <div>
+                        <p>{post.data.title}</p>
+                        <p>{post.data.text}</p>
+                    </div>
                     < Votes
                         post={post}
                         postId={post.id}
