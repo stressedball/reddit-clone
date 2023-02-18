@@ -37,6 +37,7 @@ export default function CommentsList({ postId }) {
                         const user = users.filter(user => user.id === comment.poster)
                         return (
                             <Comment
+                                key={comment.timeStamp}
                                 user={user}
                                 comment={comment}
                             />

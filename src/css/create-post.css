@@ -1,0 +1,19 @@
+#create-post-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem;
+}
+
+#post-notifications{
+    display: flex;
+    align-items: center;
+}
+
+button#post{
+    width: fit-content;
+    font-weight: bold;
+    padding: 1rem;
+    border-radius: 25px;
+    align-self: end;
+}

@@ -14,7 +14,7 @@ function App() {
         <BrowserRouter>
           <Routes>
 
-            <Route path='*' element={<PrivateRoute userId={userId} />} />
+            <Route path='/*' element={<PrivateRoute userId={userId} />} />
 
             <Route path='/sign-up' element={<SignUp />} />
 
@@ -35,6 +35,7 @@ function PrivateRoute({ userId }) {
           />
           :
           <LogIn
+          path='/log-in'
           />
       }
     </>

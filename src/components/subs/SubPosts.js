@@ -1,5 +1,5 @@
-import '../../css/sub-list.css'
-import React, {useContext} from 'react'
+import '../../css/sub-posts.css'
+import React, { useContext } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
 import { GlobalContext } from '../providers/GlobalProvider'
 import PostsList from './PostsList'
@@ -28,11 +28,7 @@ export default function SubPosts() {
     const subPosts = posts.filter(post => sub[0].data.posts.filter(id => id === post.id))
 
     return (
-        <div
-            id='posts-container'
-        >
-            <PostsList posts={subPosts} />
-        </div>
+        <PostsList posts={subPosts} />
     )
 
 }

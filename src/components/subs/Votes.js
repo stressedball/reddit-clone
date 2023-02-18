@@ -1,4 +1,4 @@
-import '../../css/sub-list.css'
+import '../../css/sub-posts.css'
 import { doc, increment, setDoc } from 'firebase/firestore'
 import { db } from '../../firebase/getAuthDb'
 

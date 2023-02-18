@@ -9,13 +9,11 @@
     gap: 1rem;
     border: 1px solid;
     padding: 1rem;
-    min-width: 80%;
 }
 
 .comment {
     border: 1px solid;
     padding: 1rem;
-    min-width: 80%;
     /* display: flex; */
 }
 

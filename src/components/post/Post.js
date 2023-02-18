@@ -14,7 +14,7 @@ export default function Post() {
   const [posterName, setPosterName] = useState()
 
   useEffect(() => {
-    
+
     if (posts.length > 0) {
       setPost(posts.filter(el => el.id === postId)[0])
     }
@@ -29,30 +29,27 @@ export default function Post() {
 
   return (
 
-    <div
-      className='container'
-    >
+    <>
       <div
         className='post'
       >
 
         <section>
-          <section
-            style={{
-              display: "flex",
-              gap: "1rem"
-            }}
-          >
+
+          <div>
             <p>{post.data.title}</p>
             <p>Posted by {posterName}</p>
-          </section>
+          </div>
+
           <p>{post.data.text}</p>
 
-          <Votes
-            post={post}
-            postId={postId}
-          />
         </section>
+
+        <Votes
+          post={post}
+          postId={postId}
+        />
+
       </div>
 
       <AddComment
@@ -60,14 +57,10 @@ export default function Post() {
         postId={postId}
       />
 
-      <section
-        className='comments'
-      >
-        <CommentsList
-          postId={postId}
-        />
-      </section>
-    </div>
+      <CommentsList
+        postId={postId}
+      />
+    </>
   )
 }
 

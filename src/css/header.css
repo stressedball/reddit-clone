@@ -6,11 +6,20 @@ nav {
 }
 
 #dropdown-user {
-    border: 1px solid;
     position: relative;
+    width: 150px;
 }
 
 #dropdown-user .displayed {
     background-color: aliceblue;
     position: absolute;
+    width: inherit;
+}
+
+#dropdown-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: inherit;
+
 }

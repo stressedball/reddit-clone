@@ -7,41 +7,12 @@ This is the 3rd iteration after 2 first started projects where I got to the same
 
 # Use Firebase as BaaS.
 
-# Make use of React 'createContext' to pass user information and bulk data to components tree.
-Using a context for authentication : let app set a 'sign in' page or the 'home' page based on the authentication status.
-Using a 'General' context : fetches the rest of the data to pass it.
-Using a User context : fetches the user details.
+# Make use of React 'createContext' 
+To pass user authentication status at the root of the App. Returning 'Home' or 'Log In' page.
 
 # Structure
-'Sign in' or 'Home'
-'Home' => 
-    'Header', 
-    'Create Post' shortcut, 
-    'Content'.
-'Header' => 
-    Logo that takes to 'About', 
-    navigation dropdown to subs and users, 
-    search bar, 
-    user drop down menu
-'Create Post' shortcut. => 
-    Takes to 'submit' new post page
-'Content' => 
-    displays user subscribed to content.  
+Based on the Reddit site.
 
-# changes of plans
-Since I'm using the context to provide data for the components tree, I'm running into issues since a change in the firebase database isn't rerendered in nested components.
-I thought about fetching the data every time the components mounts to make sure all the data is reflecting the state of firebase.
-But the number of requests simply skyrocket when I have very few number of items. Plus it doesn't make a lot of sense to fetch the whole data just for a change.
-
-Studying cache and pagination and whatnots to make this better.
-
-# This is going out of hands. And I don't think I know why.
-I'm developing this app with great consideration to queries to Firebase.
-It seems that the more I'm careful the worse it gets.
-In the past week, the number of reads in Firestore barely went above 30 reads / day.
-Today, while being more cautious, I'm getting 35k reads / day. 
-WHAT!
-
-# Redoing the whole data fetching by using react-query-firebase library
-Hoping I'll be able to get the app to refresh, fetch data when needed.
-That could lift totally the need to manage a global state and rerender components.
+# Avatars
+Wanted to generate a unique avatar but it requires a lot of time.
+Resorted on using "https://dicebear.com/styles/initials" API by passing user name to API to return initials avatar.

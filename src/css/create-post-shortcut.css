@@ -3,6 +3,11 @@
     align-items: center;
     border: 1px solid;
     margin: auto;
-    gap: 1rem;
-    padding: 1rem;
+    width: 80vw;
+    justify-content: space-evenly;
+}
+
+#create-post-shortcut input{
+    flex: 1 0 auto;
+    max-width: 500px;
 }

@@ -1,30 +1,27 @@
-.container {
+.post {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: auto;
-    padding: 1rem;
+    flex-direction: row-reverse;
     border: 1px solid;
+    padding: 1rem;
+    margin: auto;
+    align-items: center;
     gap: 1rem;
 }
 
-.post {
-    width: 80%;
-    display: flex;
-    flex-direction: column;
-    border: 1px solid;
-    padding: 1rem;
+.post section {
+    flex: 1 0 auto;
 }
 
 #form {
-    width: 80%;
     border: 1px solid;
     padding: 1rem;
+    margin: auto;
 }
 
 textarea {
     width: 100%;
     box-sizing: border-box;
     height: 250px;
+    resize: none;
 }
 
