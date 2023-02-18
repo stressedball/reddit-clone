@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { signInWithEmailAndPassword } from 'firebase/auth'
-import { auth } from '../firebase/getAuthDb'
+import { auth } from '../../firebase/getAuthDb'
 import { useRef } from 'react'
-import '../css/log-in.css'
+import '../../css/log-in_sign-up.css'
 
 export default function LogIn() {
 

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { GlobalContext } from '../GlobalProvider';
+import { GlobalContext } from '../providers/GlobalProvider';
 import '../../css/sub-list.css'
 
 export default function SubList() {

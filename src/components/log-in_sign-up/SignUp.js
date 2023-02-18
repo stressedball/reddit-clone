@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
-import '../css/log-in.css'
-import { auth, db } from '../firebase/getAuthDb'
-import { setDoc, doc, addDoc } from 'firebase/firestore'
+import { auth, db } from '../../firebase/getAuthDb'
+import { setDoc, doc } from 'firebase/firestore'
 import { useNavigate } from 'react-router-dom'
+import '../../css/log-in_sign-up.css'
 
 export default function SignUp() {
 

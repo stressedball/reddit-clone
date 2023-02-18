@@ -1,7 +1,7 @@
 import '../../css/sub-list.css'
 import React, {useContext} from 'react'
 import { useLocation, useParams } from 'react-router-dom'
-import { GlobalContext } from '../GlobalProvider'
+import { GlobalContext } from '../providers/GlobalProvider'
 import PostsList from './PostsList'
 
 export default function SubPosts() {

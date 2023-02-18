@@ -1,9 +1,9 @@
+import LogIn from './log-in_sign-up/LogIn';
+import Home from './home/Home';
+import SignUp from './log-in_sign-up/SignUp';
 import React, { useContext } from 'react';
-import LogIn from './LogIn';
-import Home from './Home';
-import { AuthContext } from './AuthProvider';
+import { AuthContext } from './providers/AuthProvider';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import SignUp from './SignUp';
 
 function App() {
 
@@ -14,8 +14,7 @@ function App() {
         <BrowserRouter>
           <Routes>
 
-            <Route path='*' element={<PrivateRoute userId={userId} />} >
-            </Route>
+            <Route path='*' element={<PrivateRoute userId={userId} />} />
 
             <Route path='/sign-up' element={<SignUp />} />
 

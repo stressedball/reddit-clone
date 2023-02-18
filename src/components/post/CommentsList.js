@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react'
 import { useState } from 'react'
 import { db } from '../../firebase/getAuthDb'
 import { collection, onSnapshot } from 'firebase/firestore'
-import { GlobalContext } from '../GlobalProvider'
+import { GlobalContext } from '../providers/GlobalProvider'
 import Comment from '../comment/Comment'
 import '../../css/comment.css'
 

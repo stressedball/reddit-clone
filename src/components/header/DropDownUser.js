@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import { signOut } from 'firebase/auth'
 import { auth } from '../../firebase/getAuthDb'
-import { GlobalContext } from '../GlobalProvider'
+import { GlobalContext } from '../providers/GlobalProvider'
 
 export default function DropDownUser() {
 

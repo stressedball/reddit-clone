@@ -1,0 +1,8 @@
+#create-post-shortcut{
+    display: flex;
+    align-items: center;
+    border: 1px solid;
+    margin: auto;
+    gap: 1rem;
+    padding: 1rem;
+}

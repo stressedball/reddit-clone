@@ -1,7 +1,7 @@
 import React from 'react'
 import '../../css/comment.css'
 import { useContext } from 'react'
-import { GlobalContext } from '../GlobalProvider'
+import { GlobalContext } from '../providers/GlobalProvider'
 
 export default function CommentOptions({ comment }) {
 

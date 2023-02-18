@@ -1,6 +1,6 @@
 import '../../css/post.css'
 import Votes from '../subs/Votes'
-import { GlobalContext } from '../GlobalProvider'
+import { GlobalContext } from '../providers/GlobalProvider'
 import React, { useState, useContext, useEffect } from 'react'
 import { useParams } from 'react-router'
 import AddComment from './AddComment'
