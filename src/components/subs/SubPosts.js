@@ -1,12 +1,12 @@
 import '../../css/sub-list.css'
 import React, {useContext} from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 import { GlobalContext } from '../GlobalProvider'
-import PostsPreview from './PostsPreview'
+import PostsList from './PostsList'
 
 export default function SubPosts() {
 
-    const subId = useLocation().pathname.split('/').pop()
+    const subId = useParams().subId
     const { subs, posts } = useContext(GlobalContext)
 
     if (posts.length === 0 || subs.length === 0) {
@@ -31,7 +31,7 @@ export default function SubPosts() {
         <div
             id='posts-container'
         >
-            <PostsPreview subs={subPosts} />
+            <PostsList posts={subPosts} />
         </div>
     )
 

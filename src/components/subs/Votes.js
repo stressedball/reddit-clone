@@ -1,5 +1,5 @@
 import '../../css/sub-list.css'
-import { doc, setDoc } from 'firebase/firestore'
+import { doc, increment, setDoc } from 'firebase/firestore'
 import { db } from '../../firebase/getAuthDb'
 
 export default function Votes({ post, postId }) {
@@ -8,14 +8,17 @@ export default function Votes({ post, postId }) {
 
         let votes = post.data.votes
 
+        if (e.target.classList === '') return
+        
         if (e.target.classList.contains('up')) {
             setDoc(doc(db, 'posts', postId),
-                { votes: votes + 1 },
+                { votes: increment(1) },
                 { merge: true }
             )
         } else {
             setDoc(doc(db, 'posts', postId),
-                { votes: post.data.votes - 1 },
+            // no decrement?
+                { votes: votes-1 },
                 { merge: true }
             )
         }

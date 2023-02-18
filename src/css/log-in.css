@@ -1,0 +1,40 @@
+#container {
+    display: flex;
+    flex-direction: column;
+    width: 50vw;
+    margin: auto;
+    height: 100vh;
+}
+
+form#log-in {
+    display: flex;
+    flex-direction: column;
+    margin: auto auto;
+    gap: 1rem;
+    border: 1px solid;
+    padding: 1rem;
+}
+
+
+form#sign-up {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid;
+    margin: auto auto;
+    padding: 1rem;
+
+}
+
+#sign-up {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+
+#error {
+    background-color: rgb(223, 26, 26);
+    padding: 0.5rem;
+    color: rgb(61, 14, 14)
+}

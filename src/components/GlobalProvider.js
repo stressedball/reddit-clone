@@ -1,4 +1,3 @@
-import { useQuery, useMutation, QueryCache } from '@tanstack/react-query'
 import { doc, getDoc, getDocs, query, collection } from 'firebase/firestore'
 import { createContext, useState, useEffect } from "react";
 import { auth, db } from '../firebase/getAuthDb';
@@ -13,9 +12,10 @@ export function GlobalProvider({ children }) {
     const [userName, setUserName] = useState()
     const [posts, setPosts] = useState([])
     const [subs, setSubs] = useState()
-    const [comments, setComments] = useState([])
+    const [users, setUsers] = useState([])
 
     useEffect(() => {
+
         onAuthStateChanged(auth, (user) => {
 
             if (user) {
@@ -24,7 +24,7 @@ export function GlobalProvider({ children }) {
                     .then((user) => {
                         if (user) {
                             setUserName(user.data().userName)
-                            setUserId(user.uid)
+                            setUserId(user.id)
                         }
                     })
                     .catch((error) => {
@@ -32,6 +32,7 @@ export function GlobalProvider({ children }) {
                     })
             }
         })
+        
     }, [])
 
     useEffect(() => {
@@ -72,11 +73,31 @@ export function GlobalProvider({ children }) {
 
     }, [])
 
+    useEffect(() => {
+
+        const q = query(collection(db, 'users'))
+
+        const unSub = onSnapshot(q, (querySnapShot) => {
+
+            let usersArr = []
+
+            querySnapShot.forEach((doc) => {
+                usersArr.push({ id: doc.id, data: doc.data() })
+            })
+
+            setUsers(usersArr)
+        })
+
+        return () => unSub()
+
+    }, [])
 
     const value = {
         userName,
+        userId,
         subs,
-        posts
+        posts,
+        users
     }
 
     return (

@@ -20,7 +20,7 @@ export default function SubList() {
                         <p
                             className='sub-preview'
                             key={`${sub.id}`}
-                            onClick={() => navigate(`/subs/${sub.id}`)}
+                            onClick={() => navigate(`/${sub.id}`)}
                         >{sub.data.name}</p>
                     )
                 })

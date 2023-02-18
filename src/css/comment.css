@@ -1,0 +1,26 @@
+.comment-options {
+    display: flex;
+    align-items: center;
+}
+
+#comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border: 1px solid;
+    padding: 1rem;
+    min-width: 80%;
+}
+
+.comment {
+    border: 1px solid;
+    padding: 1rem;
+    min-width: 80%;
+    /* display: flex; */
+}
+
+.comment .details {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
