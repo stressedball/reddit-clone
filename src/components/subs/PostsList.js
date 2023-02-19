@@ -1,45 +1,33 @@
-import Votes from "./Votes"
 import '../../css/sub-posts.css'
-import { useLocation, useNavigate, useParams } from "react-router"
-import { useEffect } from "react"
+import { useContext, useEffect } from "react"
+import { GlobalContext } from "../providers/GlobalProvider"
+import PostPreview from "../post/PostPreview"
 
-export default function PostsList({ posts }) {
+export default function PostsList({ subs }) {
 
-    const navigate = useNavigate()
-    const location = useLocation().pathname
+    const { posts } = useContext(GlobalContext)
 
     useEffect(() => {
 
-        if (posts === undefined) return null
+    }, [subs, posts])
 
-    }, [posts])
+    if (subs === undefined || posts === undefined) return null
 
-    return (
+    return subs.map(sub => {
 
-        posts.map(post => {
+        return sub.data.posts.map(postID => {
+
+            const post = posts.filter(el => el.id === postID)[0]
 
             return (
-
-                <div
+                <PostPreview
                     key={post.id}
-                    className="post-preview"
-                >
-
-                    <div
-                        className="post-preview-text"
-                        onClick={() => navigate(`${post.id}`)}
-                    >
-                        <p>{post.data.title}</p>
-                        <p>{post.data.text}</p>
-                    </div>
-
-                    < Votes
-                        post={post}
-                        postId={post.id}
-                    />
-                </div>
+                    post={post}
+                    sub={sub}
+                />
             )
-        })
 
-    )
+        })
+    })
+
 }

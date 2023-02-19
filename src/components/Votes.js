@@ -1,6 +1,6 @@
-import '../../css/sub-posts.css'
+import '../css/sub-posts.css'
 import { doc, increment, setDoc } from 'firebase/firestore'
-import { db } from '../../firebase/getAuthDb'
+import { db } from '../firebase/getAuthDb'
 
 export default function Votes({ post, postId }) {
 

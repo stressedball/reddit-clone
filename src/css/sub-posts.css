@@ -9,6 +9,11 @@
     padding: 1rem;
 }
 
+.sub-preview:hover{
+    font-weight: bold;
+    cursor: pointer;
+}
+
 #posts-container {
     display: flex;
     flex-direction: column;

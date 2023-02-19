@@ -8,8 +8,7 @@ export const GlobalContext = createContext()
 
 export function GlobalProvider({ children }) {
 
-    const [userId, setUserId] = useState()
-    const [userName, setUserName] = useState()
+    const [user, setUser] = useState()
     const [posts, setPosts] = useState([])
     const [subs, setSubs] = useState()
     const [users, setUsers] = useState([])
@@ -23,8 +22,7 @@ export function GlobalProvider({ children }) {
                 getDoc(doc(db, "users", user.uid))
                     .then((user) => {
                         if (user) {
-                            setUserName(user.data().userName)
-                            setUserId(user.id)
+                            setUser({ id: user.id, data: user.data() })
                         }
                     })
                     .catch((error) => {
@@ -32,7 +30,7 @@ export function GlobalProvider({ children }) {
                     })
             }
         })
-        
+
     }, [])
 
     useEffect(() => {
@@ -93,8 +91,7 @@ export function GlobalProvider({ children }) {
     }, [])
 
     const value = {
-        userName,
-        userId,
+        user,
         subs,
         posts,
         users

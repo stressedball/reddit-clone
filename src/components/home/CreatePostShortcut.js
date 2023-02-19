@@ -7,7 +7,7 @@ import CreatePost from './CreatePost'
 
 export default function CreatePostShortcut() {
 
-    const { userName } = useContext(GlobalContext)
+    const { user } = useContext(GlobalContext)
     const navigate = useNavigate()
 
     return (
@@ -15,13 +15,18 @@ export default function CreatePostShortcut() {
             id='create-post-shortcut'
         >
             <div>
-                <img src={`https://api.dicebear.com/5.x/initials/svg?seed=${userName}`}
-                    style={{
-                        height: "30px",
-                        borderRadius: '50%'
-                    }}
-                // onClick={navigate to user page}
-                ></img>
+                {
+                    user ?
+                        <img src={`https://api.dicebear.com/5.x/initials/svg?seed=${user.data.userName}`}
+                            style={{
+                                height: "30px",
+                                borderRadius: '50%'
+                            }}
+                        // onClick={navigate to user page}
+                        ></img>
+                        :
+                        null
+                }
 
             </div>
 

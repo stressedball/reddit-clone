@@ -7,7 +7,7 @@ import '../../css/header.css'
 export default function DropDownUser() {
 
     const [isDisplay, setIsDisplay] = useState(false)
-    const { userName } = useContext(GlobalContext)
+    const { user } = useContext(GlobalContext)
 
     return (
         <div
@@ -17,29 +17,36 @@ export default function DropDownUser() {
                 id='dropdown-button'
                 onClick={() => setIsDisplay(!isDisplay)}
             >
-                <p>Welcome <strong>{userName}</strong></p>
 
-                <img src={`https://api.dicebear.com/5.x/initials/svg?seed=${userName}`}
-                    style={{
-                        height: "30px",
-                        borderRadius: '50%'
-                    }}
-                // onClick={navigate to user page}
-                ></img>
-
+                {
+                    user ?
+                        <>
+                            <p>Welcome {user.data.userName}<strong></strong></p>
+                            <img
+                                src={`https://api.dicebear.com/5.x/initials/svg?seed=${user.data.userName}`}
+                                style={{
+                                    height: "30px",
+                                    borderRadius: '50%'
+                                }}
+                            // onClick={navigate to user page}
+                            ></img>
+                        </>
+                        :
+                        null
+                }
             </button>
 
             {
                 isDisplay
                     ?
-            
+
                     <div
                         className='displayed'
                     >
-            
+
                         <p>More to come</p>
                         <p>About</p>
-            
+
                         <button
                             onClick={() => {
                                 signOut(auth)

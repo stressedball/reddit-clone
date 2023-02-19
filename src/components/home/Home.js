@@ -4,8 +4,9 @@ import { GlobalProvider } from '../providers/GlobalProvider';
 import Header from '../header/Header'
 import Post from '../post/Post'
 import SubPosts from '../subs/SubPosts'
-import SubList from '../subs/SubList'
+import MainPage from './MainPage'
 import UserSpace from '../user-space/UserSpace';
+
 import React, { useEffect } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom';
 
@@ -29,12 +30,12 @@ export default function Home() {
 
         <Routes>
 
-          <Route index exact path = '/' element={<SubList />} />
+          <Route index exact path = '/' element={<MainPage />} />
 
-          <Route path='submit' element={<CreatePost />} />
-          <Route path=':subId' element={<SubPosts />} />
-          <Route path=':subId/:postId' element={<Post />} />
-          <Route path=':userId' element={<UserSpace />} />
+           <Route path='submit' element={<CreatePost />} />
+          {/* <Route path=':subId' element={<SubPosts />} /> */}
+     {/*   <Route path=':userId' element={<UserSpace />} /> */}
+        <Route path=':postId' element={<Post />} />
 
         </Routes>
 
