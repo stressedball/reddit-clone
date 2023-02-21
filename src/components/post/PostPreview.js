@@ -20,6 +20,7 @@ export default function PostPreview({ subId, post }) {
             >
                 <PostHeader
                     subId={subId}
+                    post={post}
                     posterName={
                         users
                             ?
@@ -32,8 +33,9 @@ export default function PostPreview({ subId, post }) {
 
                 <div
                     onClick={(e) => {
-                        console.log(e.target)
+
                         if (e.target === undefined) return
+
                         subId === null ?
                             navigate(`p/${post.id}`)
                             :

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
 import { useState } from 'react'
 import { db } from '../../firebase/getAuthDb'
 import { collection, onSnapshot } from 'firebase/firestore'
@@ -26,7 +26,7 @@ export default function CommentsList({ postId }) {
 
     }, [])
 
-    if (comments === undefined) return <div>Loading</div>
+    if (comments === undefined || users === undefined) return <div>Loading</div>
 
     return (
             <section

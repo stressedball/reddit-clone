@@ -50,7 +50,11 @@ export default function Post() {
 
         <section>
 
-          <PostHeader sub={sub} posterName={posterName} />
+          <PostHeader
+            sub={sub}
+            posterName={posterName}
+            post={post}
+          />
 
           <h2>{post.data.title}</h2>
 

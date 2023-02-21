@@ -4,7 +4,7 @@ import { GlobalContext } from "../providers/GlobalProvider"
 
 export default function AddComment({ post, postId }) {
 
-    const { user, userId } = useContext(GlobalContext)
+    const { user } = useContext(GlobalContext)
     const comment = useRef('')
 
     return (
@@ -22,7 +22,7 @@ export default function AddComment({ post, postId }) {
                 post={post}
                 postId={postId}
                 text={comment}
-                userId={userId}
+                user={user}
             />
         </section>
     )

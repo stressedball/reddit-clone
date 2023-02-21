@@ -3,7 +3,7 @@ import '../../css/create-post.css'
 import { db } from '../../firebase/getAuthDb'
 import { GlobalContext } from '../providers/GlobalProvider'
 import DropDownSub from './create-post/DropDownSub'
-import { addDoc, arrayUnion, collection, doc, setDoc, updateDoc } from 'firebase/firestore'
+import { addDoc, arrayUnion, collection, doc, serverTimestamp, setDoc, updateDoc } from 'firebase/firestore'
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import NavBar from './create-post/NavBar'
@@ -129,6 +129,7 @@ async function handleSubmit(user, sub, title, text, notified) {
         text: text,
         poster: user.id,
         votes: 0,
+        timeStamp : serverTimestamp(),
         parentSub: sub
     })
 

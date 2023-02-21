@@ -1,8 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import '../../css/comment.css'
 import CommentOptions from './CommentOptions'
 
 export default function Comment({ comment, user }) {
+
+    useEffect(() => {
+    console.log(user)
+
+    }, [])
 
     return (
         <section
@@ -13,7 +18,8 @@ export default function Comment({ comment, user }) {
                 <div
                     className='details'
                 >
-                    <p>Posted by {user[0].data.userName}</p>
+                    <p>Posted by {
+                        user ? user[0].data.userName : null}</p>
                     <em>
                         {
                             comment.timeStamp === null ?

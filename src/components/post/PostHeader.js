@@ -1,7 +1,7 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { GlobalContext } from '../providers/GlobalProvider'
 
-export default function PostHeader({ subId, posterName }) {
+export default function PostHeader({ subId, posterName, post }) {
 
     const { subs } = useContext(GlobalContext)
 
@@ -25,7 +25,13 @@ export default function PostHeader({ subId, posterName }) {
 
             <p>&middot;</p>
             <p>Posted by {posterName}</p>
-            <p>timeStamp</p>
+            <p>{
+                post ?
+                    post.data.timeStamp ?
+                        post.data.timeStamp.toDate().toDateString()
+                        : null
+                    : null
+            }</p>
 
         </header>
     )

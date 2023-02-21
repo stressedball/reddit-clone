@@ -1,8 +1,7 @@
 import { db } from '../../firebase/getAuthDb'
 import { addDoc, collection, serverTimestamp, } from 'firebase/firestore'
 
-export default function AddCommentOptions({ post, postId, text, userId }) {
-
+export default function AddCommentOptions({ post, postId, text, user }) {
 
     const handleComment = () => {
 
@@ -10,7 +9,7 @@ export default function AddCommentOptions({ post, postId, text, userId }) {
 
         addDoc(comments,
             {
-                poster: `${userId}`,
+                poster: `${user.id}`,
                 text: `${text.current.value}`,
                 timeStamp: serverTimestamp(),
                 votes: 0
