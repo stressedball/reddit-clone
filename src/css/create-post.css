@@ -32,3 +32,22 @@ button#post{
     border-radius: 25px;
     align-self: end;
 }
+
+#create-shortcut-navbar {
+    display: flex;
+    justify-content: center;
+    gap:1rem;
+    font-size: 1.3rem;
+    font-weight: bold;
+    border: 1px solid;
+}
+
+.navbar-option{
+    padding: 0.5rem;
+    border: 1px solid;
+}
+
+.navbar-option:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}

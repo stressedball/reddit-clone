@@ -27,17 +27,21 @@ export default function Sub() {
         )
     }
 
-    const Sub = posts.filter(post =>
-        sub.data.posts.filter(id =>
-            id === post.id
-        )
+    let arr = []
+
+    sub.data.posts.map(postId =>
+        posts.map(post => {
+            if (post.id === postId) {
+                arr.push(post)
+            }
+        })
     )
 
     return (
         <>
             <h3>{sub.data.name}</h3>
             {
-                Sub.map(post => {
+                arr.map(post => {
 
                     return <PostPreview
                         key={post.id}

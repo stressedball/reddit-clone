@@ -19,6 +19,7 @@ export default function Votes({ post, postId }) {
 
                 const likedPost = likedPosts.filter(post => post.id === postId)[0]
                 
+                if (likedPost === undefined) return
                 if (likedPost.data.value === 1) setUpVote(true)
                 if (likedPost.data.value === -1) setDownVote(true)
             }
