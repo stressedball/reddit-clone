@@ -30,11 +30,11 @@ export default function Home() {
 
         <Routes>
 
-          <Route index exact path='/' element={<MainPage />} />
-          <Route path='submit' element={<CreatePost />} />
+          <Route index element={<MainPage />} />
+          <Route path='/submit' element={<CreatePost />} />
           <Route path=':subId' element={<SubPosts />} />
-          {/*   <Route path=':userId' element={<UserSpace />} /> */}
-          <Route path=':postId' element={<Post />} />
+          <Route path=':userId' element={<UserSpace />} />
+          <Route path=':subId/:postId' element={<Post />} />
 
         </Routes>
 

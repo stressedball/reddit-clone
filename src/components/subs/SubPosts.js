@@ -13,9 +13,9 @@ export default function SubPosts() {
         return <div>Hang tight, fetching data.</div>
     }
 
-    const sub = subs.filter(thisSub => thisSub.id === subId)
+    const sub = subs.filter(thisSub => thisSub.id === subId)[0]
 
-    if (sub[0].data.posts === undefined) {
+    if (sub.data.posts === undefined) {
 
         return (
 
@@ -28,22 +28,25 @@ export default function SubPosts() {
     }
 
     const subPosts = posts.filter(post =>
-        sub[0].data.posts.filter(id =>
+        sub.data.posts.filter(id =>
             id === post.id
         )
     )
 
     return (
+        <>
+            <h3>{sub.data.name}</h3>
+            {
+                subPosts.map(post => {
 
-        subPosts.map(post => {
-
-            return <PostPreview
-                key={post.id}
-                subId={null}
-                post={post}
-            />
-
-        })
+                    return <PostPreview
+                        key={post.id}
+                        subId={null}
+                        post={post}
+                    />
+                })
+            }
+        </>
     )
 
 }

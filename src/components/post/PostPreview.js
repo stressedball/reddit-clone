@@ -16,7 +16,12 @@ export default function PostPreview({ subId, post }) {
 
             <div
                 className="post-preview-text"
-                onClick={() => navigate(`${post.id}`)}
+                onClick={() => {
+                    subId === null ?
+                    navigate(`${post.id}`)
+                        :
+                    navigate(`${subId}/${post.id}`)
+                }}
             >
 
                 <PostHeader
