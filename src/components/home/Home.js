@@ -3,7 +3,7 @@ import CreatePostShortcut from './CreatePostShortcut';
 import { GlobalProvider } from '../providers/GlobalProvider';
 import Header from '../header/Header'
 import Post from '../post/Post'
-import SubPosts from '../subs/SubPosts'
+import Sub from './Sub'
 import MainPage from './MainPage'
 import UserSpace from '../user-space/UserSpace';
 
@@ -30,11 +30,11 @@ export default function Home() {
 
         <Routes>
 
-          <Route index element={<MainPage />} />
+          <Route path='/' index element={<MainPage />} />
           <Route path='/submit' element={<CreatePost />} />
-          <Route path=':subId' element={<SubPosts />} />
-          <Route path=':userId' element={<UserSpace />} />
-          <Route path=':subId/:postId' element={<Post />} />
+          <Route path='r/:subId' element={<Sub />} />
+          <Route path='u/:userId' element={<UserSpace />} />
+          <Route path='r/:subId/p/:postId' element={<Post />} />
 
         </Routes>
 

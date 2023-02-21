@@ -16,10 +16,9 @@ export default function PostHeader({ subId, posterName }) {
             {
                 sub !== undefined
                     ?
-                    <p>
-                        <a href={`/${sub.id}`}>
-                            r/{sub.data.name}
-                        </a></p>
+                    <a href={`r/${sub.id}`}>
+                        r/{sub.data.name}
+                    </a>
                     :
                     null
             }

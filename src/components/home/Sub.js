@@ -1,10 +1,10 @@
-import '../../css/sub-posts.css'
+import '../../css/sub.css'
 import React, { useContext } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
 import { GlobalContext } from '../providers/GlobalProvider'
 import PostPreview from '../post/PostPreview'
 
-export default function SubPosts() {
+export default function Sub() {
 
     const subId = useParams().subId
     const { subs, posts } = useContext(GlobalContext)
@@ -27,7 +27,7 @@ export default function SubPosts() {
         )
     }
 
-    const subPosts = posts.filter(post =>
+    const Sub = posts.filter(post =>
         sub.data.posts.filter(id =>
             id === post.id
         )
@@ -37,7 +37,7 @@ export default function SubPosts() {
         <>
             <h3>{sub.data.name}</h3>
             {
-                subPosts.map(post => {
+                Sub.map(post => {
 
                     return <PostPreview
                         key={post.id}

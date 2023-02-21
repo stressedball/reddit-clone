@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { GlobalContext } from '../providers/GlobalProvider'
 
 export default function DropDown() {
@@ -11,8 +11,15 @@ export default function DropDown() {
 
   useEffect(() => {
 
-    setSelectedOption(location.split('/')[1])
+    const locationArrStrings = location.split('/')
     
+    if (locationArrStrings[1] === 'r' || locationArrStrings[1] === 'u') {
+      setSelectedOption(`${locationArrStrings[1]}/${location.split('/')[2]}`)
+      return
+    }
+    
+    setSelectedOption(location.split('/')[1])
+
   }, [location])
 
   return (
@@ -35,7 +42,7 @@ export default function DropDown() {
             return (
               <option
                 key={sub.id}
-                value={`${sub.id}`}
+                value={`r/${sub.id}`}
               >{sub.data.name}</option>
             )
           })
@@ -48,7 +55,7 @@ export default function DropDown() {
           users.map(user => {
             return <option
               key={user.id}
-              value={`${user.id}`}
+              value={`u/${user.id}`}
             >{user.data.userName}</option>
           })
       }

@@ -1,8 +1,9 @@
-import React, { useContext } from 'react'
-import { useNavigate } from "react-router"
 import { GlobalContext } from '../providers/GlobalProvider'
 import Votes from "../Votes"
 import PostHeader from './PostHeader'
+import '../../css/post-preview.css'
+import React, { useContext } from 'react'
+import { useNavigate } from "react-router"
 
 export default function PostPreview({ subId, post }) {
 
@@ -15,15 +16,8 @@ export default function PostPreview({ subId, post }) {
         >
 
             <div
-                className="post-preview-text"
-                onClick={() => {
-                    subId === null ?
-                    navigate(`${post.id}`)
-                        :
-                    navigate(`${subId}/${post.id}`)
-                }}
+                id='content'
             >
-
                 <PostHeader
                     subId={subId}
                     posterName={
@@ -36,10 +30,24 @@ export default function PostPreview({ subId, post }) {
                             null
                     } />
 
-                <p>{post.data.title}</p>
-                <p>{post.data.text}</p>
+                <div
+                    onClick={(e) => {
+                        console.log(e.target)
+                        if (e.target === undefined) return
+                        subId === null ?
+                            navigate(`p/${post.id}`)
+                            :
+                            navigate(`r/${subId}/p/${post.id}`)
+                    }}
+                >
+
+                    <p>{post.data.title}</p>
+                    <p>{post.data.text}</p>
+
+                </div>
 
             </div>
+
 
             < Votes
                 post={post}

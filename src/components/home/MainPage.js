@@ -1,4 +1,3 @@
-import '../../css/sub-posts.css'
 import { GlobalContext } from '../providers/GlobalProvider';
 import React, { useContext } from 'react'
 import PostPreview from '../post/PostPreview';
