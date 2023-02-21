@@ -1,6 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { GlobalContext } from '../providers/GlobalProvider'
 
-export default function PostHeader({ sub, posterName }) {
+export default function PostHeader({ subId, posterName }) {
+
+    const { subs } = useContext(GlobalContext)
+
+    const sub = subs.filter(el => el.id === subId)[0]
 
     return (
 

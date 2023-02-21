@@ -5,6 +5,21 @@
     padding: 1rem;
 }
 
+#create-post-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+#create-post-options {
+    display: flex;
+    justify-content: space-between;
+}
+
+select#default-sub.true{
+   color: red;
+}
+
 #post-notifications{
     display: flex;
     align-items: center;

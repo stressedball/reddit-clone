@@ -16,3 +16,12 @@ Based on the Reddit site.
 # Avatars
 Wanted to generate a unique avatar but it requires a lot of time.
 Resorted on using "https://dicebear.com/styles/initials" API by passing user name to API to return initials avatar.
+
+TODO
+
+In Votes 
+User should only be able to vote once!
+
+Make routes better?
+
+WORK

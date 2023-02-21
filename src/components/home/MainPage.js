@@ -1,32 +1,48 @@
-import React, { useContext } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { GlobalContext } from '../providers/GlobalProvider';
 import '../../css/sub-posts.css'
-import PostsLists from '../subs/PostsList'
+import { GlobalContext } from '../providers/GlobalProvider';
+import React, { useContext } from 'react'
+import PostPreview from '../post/PostPreview';
 
-export default function SubList() {
+export default function MainPage() {
 
-    const navigate = useNavigate()
     const { posts, user, subs } = useContext(GlobalContext)
 
     if (subs === undefined || posts === undefined || user === undefined) {
         return <div>Loading data, sit tight</div>
     }
 
-    // user subscribed subs, showing their posts
-    let userSubs = []
-    subs.filter(sub => {
-        user.data.subscribed_subs.map(subId => {
+    // user subscribed subs, showing subs' posts
+    let contentPosts = []
+
+    if (user.data.subscribedSubs === undefined) return null
+
+    subs.map(sub => {
+
+        user.data.subscribedSubs.map(subId => {
+
             if (subId === sub.id) {
-                userSubs.push(sub)
+
+                sub.data.posts.map(postId => {
+
+                    const post = posts.filter(el => el.id === postId)[0]
+
+                    contentPosts.push(post)
+                })
             }
         })
     })
 
     return (
-        <PostsLists
-            subs={userSubs}
-        />
+
+        contentPosts.map(post => {
+
+            return <PostPreview
+                key={post.id}
+                subId={post.data.parentSub}
+                post={post}
+            />
+
+        })
     )
 
 }

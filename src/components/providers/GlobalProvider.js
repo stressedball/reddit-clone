@@ -12,6 +12,7 @@ export function GlobalProvider({ children }) {
     const [posts, setPosts] = useState([])
     const [subs, setSubs] = useState()
     const [users, setUsers] = useState([])
+    const [likedPosts, setLikedPosts] = useState([])
 
     useEffect(() => {
 
@@ -90,11 +91,34 @@ export function GlobalProvider({ children }) {
 
     }, [])
 
+
+    useEffect(() => {
+
+        if (!user) return
+
+        const q = query(collection(db, 'users', user.id, 'likedPosts'))
+
+        const unSub = onSnapshot(q, (querySnapShot) => {
+
+            let likedPostsArr = []
+
+            querySnapShot.forEach((doc) => {
+                likedPostsArr.push({ id: doc.id, data: doc.data() })
+            })
+
+            setLikedPosts(likedPostsArr)
+        })
+
+        return () => unSub()
+
+    }, [user])
+
     const value = {
         user,
         subs,
         posts,
-        users
+        users,
+        likedPosts
     }
 
     return (

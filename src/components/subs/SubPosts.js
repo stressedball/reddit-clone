@@ -2,7 +2,7 @@ import '../../css/sub-posts.css'
 import React, { useContext } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
 import { GlobalContext } from '../providers/GlobalProvider'
-import PostsList from './PostsList'
+import PostPreview from '../post/PostPreview'
 
 export default function SubPosts() {
 
@@ -16,7 +16,9 @@ export default function SubPosts() {
     const sub = subs.filter(thisSub => thisSub.id === subId)
 
     if (sub[0].data.posts === undefined) {
+
         return (
+
             <section>
                 <p>Swoooosh...</p>
                 <p>This sub is pretty empty.</p>
@@ -25,10 +27,23 @@ export default function SubPosts() {
         )
     }
 
-    const subPosts = posts.filter(post => sub[0].data.posts.filter(id => id === post.id))
+    const subPosts = posts.filter(post =>
+        sub[0].data.posts.filter(id =>
+            id === post.id
+        )
+    )
 
     return (
-        <PostsList posts={subPosts} />
+
+        subPosts.map(post => {
+
+            return <PostPreview
+                key={post.id}
+                subId={null}
+                post={post}
+            />
+
+        })
     )
 
 }

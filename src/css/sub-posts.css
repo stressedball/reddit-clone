@@ -35,12 +35,3 @@
     flex: 1 0 auto;
 }
 
-.vote-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-svg.vote:hover {
-    color: red;
-}

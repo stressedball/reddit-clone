@@ -24,18 +24,17 @@ export default function Home() {
 
       <Header />
 
-      {location.split('/').pop() !== 'submit' && <CreatePostShortcut /> }
+      {location.split('/').pop() !== 'submit' && <CreatePostShortcut />}
 
       <div id='container'>
 
         <Routes>
 
-          <Route index exact path = '/' element={<MainPage />} />
-
-           <Route path='submit' element={<CreatePost />} />
-          {/* <Route path=':subId' element={<SubPosts />} /> */}
-     {/*   <Route path=':userId' element={<UserSpace />} /> */}
-        <Route path=':postId' element={<Post />} />
+          <Route index exact path='/' element={<MainPage />} />
+          <Route path='submit' element={<CreatePost />} />
+          <Route path=':subId' element={<SubPosts />} />
+          {/*   <Route path=':userId' element={<UserSpace />} /> */}
+          <Route path=':postId' element={<Post />} />
 
         </Routes>
 
