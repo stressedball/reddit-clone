@@ -14,3 +14,15 @@
     flex-direction: column;
     /* align-items: center; */
 }
+
+.post-preview-details{
+    display: flex;
+    align-items: center;
+    gap : 1rem;
+}
+
+header#details{
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+}

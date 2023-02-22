@@ -1,9 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../../css/create-post-shortcut.css'
 import { GlobalContext } from '../providers/GlobalProvider'
-import UserSpace from './UserSpace'
-import CreatePost from './CreatePost'
 
 export default function CreatePostShortcut() {
 
@@ -32,6 +30,7 @@ export default function CreatePostShortcut() {
 
             <input
                 onClick={() => navigate('submit')}
+                placeholder="Create a post"
             ></input>
 
             <ImageShortcut />

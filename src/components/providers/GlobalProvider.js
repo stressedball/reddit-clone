@@ -19,11 +19,13 @@ export function GlobalProvider({ children }) {
         onAuthStateChanged(auth, (user) => {
 
             if (user) {
-
                 getDoc(doc(db, "users", user.uid))
                     .then((user) => {
                         if (user) {
-                            setUser({ id: user.id, data: user.data() })
+                            setUser({
+                                id: user.id,
+                                data: user.data(),
+                            })
                         }
                     })
                     .catch((error) => {
@@ -79,7 +81,6 @@ export function GlobalProvider({ children }) {
         const unSub = onSnapshot(q, (querySnapShot) => {
 
             let usersArr = []
-
             querySnapShot.forEach((doc) => {
                 usersArr.push({ id: doc.id, data: doc.data() })
             })
@@ -126,5 +127,20 @@ export function GlobalProvider({ children }) {
             {children}
         </GlobalContext.Provider>
     )
+
+}
+
+export async function getComments(postId) {
+
+    let arr = []
+
+    await getDocs(collection(db, 'posts', postId, 'comments'))
+        .then((querySnapShot) => {
+            querySnapShot.forEach((doc) => {
+                arr.push(doc.data())
+            })
+        })
+
+    return arr
 
 }

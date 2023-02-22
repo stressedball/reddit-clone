@@ -1,5 +1,6 @@
-import React, { useContext, useEffect } from 'react'
+import '../../css/post-preview.css'
 import { GlobalContext } from '../providers/GlobalProvider'
+import React, { useContext, useEffect } from 'react'
 
 export default function PostHeader({ subId, posterName, post }) {
 
@@ -12,7 +13,6 @@ export default function PostHeader({ subId, posterName, post }) {
         <header
             id='details'
         >
-            SUB LOGO
             {
                 sub !== undefined
                     ?
@@ -23,8 +23,8 @@ export default function PostHeader({ subId, posterName, post }) {
                     null
             }
 
-            <p>&middot;</p>
             <p>Posted by {posterName}</p>
+            <p>&middot;</p>
             <p>{
                 post ?
                     post.data.timeStamp ?

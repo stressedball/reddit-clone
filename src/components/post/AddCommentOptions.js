@@ -7,6 +7,8 @@ export default function AddCommentOptions({ post, postId, text, user }) {
 
         const comments = collection(db, 'posts', postId, 'comments')
 
+        if (text.current.value === '') return
+
         addDoc(comments,
             {
                 poster: `${user.id}`,

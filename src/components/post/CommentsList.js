@@ -1,10 +1,9 @@
+import '../../css/comment.css'
+import Comment from '../comment/Comment'
+import { GlobalContext } from '../providers/GlobalProvider'
+import { getComments } from '../providers/GlobalProvider'
 import React, { useContext, useEffect, useRef } from 'react'
 import { useState } from 'react'
-import { db } from '../../firebase/getAuthDb'
-import { collection, onSnapshot } from 'firebase/firestore'
-import { GlobalContext } from '../providers/GlobalProvider'
-import Comment from '../comment/Comment'
-import '../../css/comment.css'
 
 export default function CommentsList({ postId }) {
 
@@ -13,16 +12,12 @@ export default function CommentsList({ postId }) {
 
     useEffect(() => {
 
-        const unSub = onSnapshot(collection(db, 'posts', postId, 'comments'),
-            (querySnapShot) => {
-                let arr = []
-                querySnapShot.forEach((doc) => {
-                    arr.push(doc.data())
-                })
-                setComments(arr)
-            })
+        async function fetchComments() {
+            let arrOfComments = await getComments(postId)
+            setComments(arrOfComments)
+        }
 
-        return () => unSub()
+        fetchComments()
 
     }, [])
 

@@ -1,5 +1,14 @@
+@font-face {
+  font-family: OpenSans;
+  src: url('/public/assets/fonts/OpenSans/OpenSans-Regular.ttf');
+}
+
 body {
   margin: 0;
+}
+
+body, button {
+  font-family: OpenSans;
 }
 
 #App {
@@ -10,7 +19,6 @@ body {
 }
 
 #container{
-  background-color: rgb(136, 136, 136);
   width: 80vw;
   margin: auto;
 }

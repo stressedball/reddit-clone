@@ -18,6 +18,9 @@ export default function LogIn() {
             });
     }
 
+    // on login
+    // user : data : status : logged in
+    
     useEffect(() => { }, [error])
 
     return (

@@ -25,3 +25,11 @@ User should only be able to vote once!
 Make routes better?
 
 WORK
+
+# User
+When the user logs in add a status
+When the user creates account, add date creation to user data
+When the user logs out, change status and last seen value
+
+user : data : userName, dateCreated, status : online / offline, last seen : data / null if online
+damn bro
