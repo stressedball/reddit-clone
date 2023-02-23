@@ -1,84 +1,56 @@
-import '../../../css/dropdown-user.css'
-import { signOut } from 'firebase/auth'
-import { auth } from '../../../firebase/getAuthDb'
+import '../../../css/dropdown.css'
+import signOutUser from './signOutUser'
 import { GlobalContext } from '../../providers/GlobalProvider'
-import { ThemeContext } from '../../providers/ThemeProvider'
 import React, { useState, useContext } from 'react'
+import UserAvatar from '../../reusables/UserAvatar'
+import Theme from './Theme'
 
 export default function DropDownUser({ darkMode }) {
 
     const [isDisplay, setIsDisplay] = useState(false)
     const { user } = useContext(GlobalContext)
+    const [styleBorder, setStyleBorder] = useState('')
 
     return (
-        <div
-            id='dropdown-user'
-        >
-            <button
-                id='dropdown-button'
-                className={`${darkMode} buttonStyle mouse-pointer`}
-                onClick={() => setIsDisplay(!isDisplay)}
-            >
 
+        <div id='dropdown-container' className={`${styleBorder} ${darkMode}`}>
+
+            <div
+                id='dropdown-header'
+            >
                 {
                     user ?
-                        <>
-                            <p>Welcome <strong>{user.data.userName}</strong></p>
-                            <img
-                                src={`https://api.dicebear.com/5.x/initials/svg?seed=${user.data.userName}`}
-                                style={{
-                                    height: "30px",
-                                    borderRadius: '50%'
-                                }}
-                            // onClick={navigate to user page}
-                            ></img>
-                        </>
+                        <div
+                            className={`${darkMode} horizontal flex mouse-pointer`}
+                            onClick={() => {
+                                setIsDisplay(!isDisplay)
+                                styleBorder === '' ? setStyleBorder('bottom-border') : setStyleBorder('')
+                            }}
+                        >
+
+                            <p className='tile mouse-pointer'>Welcome <strong>{user.data.userName}</strong></p>
+                            <UserAvatar user={user} />
+
+                        </div>
                         : null
                 }
-            </button>
+                {
+                    isDisplay ?
 
-            {
-                isDisplay
-                    ?
+                        <div className={`${darkMode} displayed`}>
 
-                    <div
-                        className='displayed'
-                    >
+                            <Theme />
 
-                        <Theme />
+                            <div
+                                className='tile mouse-pointer'
+                                onClick={() => { signOutUser(user) }}
+                            >Log Out</div>
 
-                        <button
-                            className={`${darkMode} buttonStyle mouse-pointer`}
-                            onClick={() => {
-                                signOut(auth)
-                            }}
-                        >Log Out</button>
-
-                    </div>
-                    :
-                    null
-            }
+                        </div>
+                        : null
+                }
+            </div>
         </div>
     )
 }
 
-function Theme() {
-
-    const { darkMode, toggleDarkMode } = useContext(ThemeContext)
-
-    const handleTheme = () => {
-        toggleDarkMode()
-    }
-
-    return (
-        <button
-            className={`${darkMode} buttonStyle mouse-pointer`}
-            onClick={handleTheme}
-        >Switch to <span>
-                {
-                    darkMode === 'dark' ?
-                        'light' : 'dark'
-                }
-            </span> mode</button>
-    )
-}

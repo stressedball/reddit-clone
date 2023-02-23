@@ -9,7 +9,8 @@ import { ThemeContext } from './providers/ThemeProvider';
 function App() {
 
   const { userId } = useContext(AuthContext)
-  const {darkMode} = useContext(ThemeContext)
+  const { darkMode } = useContext(ThemeContext)
+  
   useEffect(() => {}, [darkMode])
   
   return (

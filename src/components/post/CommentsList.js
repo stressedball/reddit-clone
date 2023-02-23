@@ -5,7 +5,7 @@ import { getComments } from '../providers/GlobalProvider'
 import React, { useContext, useEffect, useRef } from 'react'
 import { useState } from 'react'
 
-export default function CommentsList({ postId }) {
+export default function CommentsList({ darkMode, postId }) {
 
     const [comments, setComments] = useState()
     const { users } = useContext(GlobalContext)
@@ -32,6 +32,7 @@ export default function CommentsList({ postId }) {
                         const user = users.filter(user => user.id === comment.poster)
                         return (
                             <Comment
+                                darkMode={darkMode}
                                 key={comment.timeStamp}
                                 user={user}
                                 comment={comment}

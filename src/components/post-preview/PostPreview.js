@@ -1,12 +1,12 @@
 import '../../css/post-preview.css'
 import { GlobalContext } from '../providers/GlobalProvider'
-import Votes from "../Votes"
+import Votes from "../reusables/Votes"
 import PostHeader from './PostHeader'
 import PostPreviewOptions from './PostPreviewOptions'
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState } from 'react'
 import { useNavigate } from "react-router"
 
-export default function PostPreview({ subId, post }) {
+export default function PostPreview({ darkMode, subId, post }) {
 
     const navigate = useNavigate()
     const { users } = useContext(GlobalContext)
@@ -24,6 +24,7 @@ export default function PostPreview({ subId, post }) {
                 < Votes
                     post={post}
                     postId={post.id}
+                    darkMode={darkMode}
                 />
 
                 <div>image/text preview</div>
@@ -56,10 +57,12 @@ export default function PostPreview({ subId, post }) {
                                 }).data.userName
                                 : null
                         }
+                        darkMode={darkMode}
                     />
 
                     <PostPreviewOptions
                         post={post}
+                        darkMode={darkMode}
                         showContent={showContent}
                     />
 

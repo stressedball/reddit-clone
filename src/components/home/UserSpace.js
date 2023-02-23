@@ -3,17 +3,41 @@ import { useParams } from 'react-router-dom'
 import { GlobalContext } from '../providers/GlobalProvider'
 import { auth } from '../../firebase/getAuthDb'
 
-export default function UserSpace() {
+export default function UserSpace({ darkMode }) {
 
   const params = useParams()
-  const { user } = useContext(GlobalContext)
+  const { user, users } = useContext(GlobalContext)
+
+  if (users.length === 0) return <div>Fetching data...</div>
+
+  const urlUser = users.filter(user => user.id === params.userId)[0]
 
   return (
+
     <div>
-      <p>hello {user.data.userName}</p>
-      <p>this is your id : {user.id}</p>
-      <p>better : you created your account : { }</p>
-      <p>And the best is : status</p>
+      {
+        user.id === params.userId ?
+          <>
+            <p>hello {user.data.userName}</p>
+            <p>this is your id : {user.id}</p>
+          </>
+          :
+          <>
+            <p>{urlUser.data.userName} profile</p>
+          </>
+      }
+      
+      {
+        urlUser.data.dateCreation ?
+          <p>Joined RedditClone : {`${urlUser.data.dateCreation.toDate().toDateString()}`}</p>
+          : null
+      }
+
+      {
+        urlUser.data.status ?
+          <p>Status : {urlUser.data.status}</p>
+          : null
+      }
     </div>
   )
 }

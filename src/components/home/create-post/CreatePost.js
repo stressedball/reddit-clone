@@ -6,11 +6,9 @@ import { addDoc, arrayUnion, collection, doc, serverTimestamp, updateDoc } from 
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import NavBar from './NavBar'
-import { ThemeContext } from '../../providers/ThemeProvider'
 
-export default function CreatePost() {
+export default function CreatePost({darkMode}) {
 
-    const { darkMode } = useContext(ThemeContext)
     const { user, subs } = useContext(GlobalContext)
     const title = useRef()
     const text = useRef()

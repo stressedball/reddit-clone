@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import '../../css/comment.css'
 import CommentOptions from './CommentOptions'
 
-export default function Comment({ comment, user }) {
+export default function Comment({ darkMode, comment, user }) {
 
     return (
 
@@ -34,6 +34,7 @@ export default function Comment({ comment, user }) {
                 <p>{comment.text}</p>
         
                 <CommentOptions
+                    darkMode={darkMode}
                     comment={comment}
                     user={user}
                 />

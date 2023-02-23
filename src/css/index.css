@@ -43,9 +43,9 @@ svg {
 }
 
 .buttonStyle {
-  border: 1px solid var(--dark-color);
+  border: 1px solid black;
 }
 
 .buttonStyle:hover {
-  border: 1px solid rgb(158, 158, 158);
+  border: 1px solid rgb(94, 94, 94);
 }

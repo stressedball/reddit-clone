@@ -1,5 +1,6 @@
 :root {
     --dark-background: rgb(46, 46, 46);
+    --hover-dark-background: rgb(105, 105, 105);
     --dark-color: white;
     --input-background: rgb(46, 46, 46);
 }
@@ -22,6 +23,11 @@ button.dark {
     color: white;
 }
 
+button.dark:hover {
+    background-color: rgb(133, 133, 133);
+    color: white;
+}
+
 input.dark {
     background-color: var(--input-background);
     border: inset 1px var(--dark-color);
@@ -35,4 +41,16 @@ textarea.dark {
 select.dark{
     color: var(--dark-color);
     background-color: var(--dark-background);
+}
+
+div.displayed.dark {
+    background-color: var(--dark-background);
+}
+
+#dropdown-container.dark {
+    border: 1Px solid var(--dark-color);
+}
+
+.tile:hover.dark {
+    background-color: var(--hover-dark-background);
 }

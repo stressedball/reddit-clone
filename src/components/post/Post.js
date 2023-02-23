@@ -1,5 +1,5 @@
 import '../../css/post.css'
-import Votes from '../Votes'
+import Votes from '../reusables/Votes'
 import { GlobalContext } from '../providers/GlobalProvider'
 import React, { useState, useContext, useEffect } from 'react'
 import { useParams } from 'react-router'
@@ -7,7 +7,7 @@ import AddComment from './AddComment'
 import CommentsList from './CommentsList'
 import PostHeader from '../post-preview/PostHeader'
 
-export default function Post() {
+export default function Post({darkMode}) {
 
   const postId = useParams().postId
   const { posts, users, subs } = useContext(GlobalContext)
@@ -54,6 +54,7 @@ export default function Post() {
             sub={sub}
             posterName={posterName}
             post={post}
+            darkMode={darkMode}
           />
 
           <h2>{post.data.title}</h2>
@@ -63,6 +64,7 @@ export default function Post() {
         </section>
 
         <Votes
+          darkMode={darkMode}
           post={post}
           postId={postId}
         />
@@ -71,10 +73,12 @@ export default function Post() {
 
       <AddComment
         post={post}
+        darkMode={darkMode}
         postId={postId}
       />
 
       <CommentsList
+        darkMode={darkMode}
         postId={postId}
       />
     </>

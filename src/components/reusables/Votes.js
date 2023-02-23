@@ -1,10 +1,10 @@
-import '../css/votes.css'
+import '../../css/votes.css'
 import { collection, doc, setDoc } from 'firebase/firestore'
-import { db } from '../firebase/getAuthDb'
+import { db } from '../../firebase/getAuthDb'
 import { useContext, useEffect, useState } from 'react'
-import { GlobalContext } from './providers/GlobalProvider'
+import { GlobalContext } from '../providers/GlobalProvider'
 
-export default function Votes({ post, postId }) {
+export default function Votes({ darkMode, post, postId }) {
 
     const { likedPosts, user } = useContext(GlobalContext)
     const [upVote, setUpVote] = useState()
@@ -61,7 +61,7 @@ export default function Votes({ post, postId }) {
         >
             <svg
                 onClick={handleVote}
-                className={`vote ${upVote}`}
+                className={`vote ${upVote} ${darkMode}`}
                 data-key="vote"
                 data-value="1"
                 fill="currentColor" width="25px" height="25px"
@@ -69,7 +69,7 @@ export default function Votes({ post, postId }) {
             <p>{post.data.votes}</p>
             <svg
                 onClick={handleVote}
-                className={`vote ${downVote}`}
+                className={`vote ${downVote} ${darkMode}`}
                 data-key="vote"
                 data-value="-1"
                 fill="currentColor" width="25px" height="25px"

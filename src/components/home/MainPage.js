@@ -2,7 +2,7 @@ import { GlobalContext } from '../providers/GlobalProvider';
 import React, { useContext } from 'react'
 import PostPreview from '../post-preview/PostPreview';
 
-export default function MainPage() {
+export default function MainPage({ darkMode }) {
 
     const { posts, user, subs } = useContext(GlobalContext)
 
@@ -36,6 +36,7 @@ export default function MainPage() {
         contentPosts.map(post => {
 
             return <PostPreview
+                darkMode={darkMode}
                 key={post.id}
                 subId={post.data.parentSub}
                 post={post}

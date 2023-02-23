@@ -1,12 +1,10 @@
 import '../../css/post-preview.css'
 import { GlobalContext } from '../providers/GlobalProvider'
-import React, { useContext, useEffect } from 'react'
-import { ThemeContext } from '../providers/ThemeProvider'
+import React, { useContext } from 'react'
 
-export default function PostHeader({ subId, posterName, post }) {
+export default function PostHeader({ darkMode, subId, posterName, post }) {
 
     const { subs } = useContext(GlobalContext)
-    const {darkMode} = useContext(ThemeContext)
     const sub = subs.filter(el => el.id === subId)[0]
 
     return (

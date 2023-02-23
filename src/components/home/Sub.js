@@ -4,7 +4,7 @@ import { useLocation, useParams } from 'react-router-dom'
 import { GlobalContext } from '../providers/GlobalProvider'
 import PostPreview from '../post-preview/PostPreview'
 
-export default function Sub() {
+export default function Sub({ darkMode }) {
 
     const subId = useParams().subId
     const { subs, posts } = useContext(GlobalContext)
@@ -47,6 +47,7 @@ export default function Sub() {
                         key={post.id}
                         subId={null}
                         post={post}
+                        darkMode={darkMode}
                     />
                 })
             }

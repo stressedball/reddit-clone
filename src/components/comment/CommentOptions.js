@@ -4,36 +4,42 @@ import { useContext } from 'react'
 import { GlobalContext } from '../providers/GlobalProvider'
 import CommentVotes from './CommentVotes'
 
-export default function CommentOptions({ comment }) {
+export default function CommentOptions({ darkMode, comment }) {
 
     const { user } = useContext(GlobalContext)
 
     if (user.id === comment.poster) {
-        return <EditComment />
+        return <EditComment darkMode={darkMode} />
 
     }
 
-    return <ReplyVote />
+    return <ReplyVote darkMode={darkMode} />
 
 }
 
-function EditComment() {
+function EditComment({ darkMode }) {
 
     return (
         <div>
             <button
+                className={`${darkMode} buttonStyle mouse-pointer`}
             >Edit</button>
-            <button>Delete</button>
+            
+            <button
+                className={`${darkMode} buttonStyle mouse-pointer`}
+            >Delete</button>
         </div>
     )
 }
 
-function ReplyVote() {
+function ReplyVote({ darkMode }) {
 
     return (
         <div>
             <CommentVotes />
-            <button>Reply</button>
+            <button
+                className={`${darkMode} buttonStyle mouse-pointer`}
+            >Reply</button>
         </div>
     )
 }

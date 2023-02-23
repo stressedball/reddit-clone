@@ -1,66 +1,91 @@
+import '../../css/dropdown.css'
+import { GlobalContext } from '../providers/GlobalProvider'
 import React, { useState, useContext, useEffect } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
-import { GlobalContext } from '../providers/GlobalProvider'
 
-export default function DropDown({darkMode}) {
+export default function DropDown({ darkMode }) {
 
   const navigate = useNavigate()
   const location = useLocation().pathname
   const { users, subs, posts } = useContext(GlobalContext)
   const [selectedOption, setSelectedOption] = useState('')
+  const [display, setDisplay] = useState(false)
+  const [styleBorder, setStyleBorder] = useState('')
 
   useEffect(() => {
 
     const locationArrStrings = location.split('/')
-    
+
     if (locationArrStrings[1] === 'r' || locationArrStrings[1] === 'u') {
       setSelectedOption(`${locationArrStrings[1]}/${location.split('/')[2]}`)
       return
     }
-    
+
     setSelectedOption(location.split('/')[1])
 
   }, [location])
 
   return (
 
-    <select
-      className={`${darkMode} mouse-pointer`}
-      value={selectedOption}  
-      onChange={(e) => {
-        navigate(`/${e.target.value}`)
-      }}
-    >
+    <div id='dropdown-container' className={`${styleBorder} ${darkMode}`}>
 
-      <option value={''}>Home</option>
-      <option value={'submit'}>Create Post</option>
-      <option>Subs</option>
+      <div id='dropdown-header'>
 
+        <p className='tile mouse-pointer'
+          onClick={() => {
+            setDisplay(!display)
+            styleBorder === '' ? setStyleBorder('bottom-border') : setStyleBorder('')
+          }}
+        >Home</p>
+
+        {
+          display ?
+            <Menu
+              darkMode={darkMode}
+              users={users}
+              subs={subs}
+            />
+            : null
+        }
+      </div>
+
+    </div>
+  )
+}
+
+
+function Menu({ darkMode, subs, users }) {
+
+  return (
+    <div className={`${darkMode} displayed`}>
+
+      <div style={{
+        paddingLeft: '0.5rem'
+      }}>
+        <input
+          className={`${darkMode}`}
+          placeholder={'Filter'}
+        />
+      </div>
+
+      <p className='tile mouse-pointer'>Subs</p>
       {
-        subs === undefined ?
-          null :
-          subs.map(sub => {
-            return (
-              <option
-                key={sub.id}
-                value={`r/${sub.id}`}
-              >{sub.data.name}</option>
-            )
-          })
+        subs.map(sub => {
+          return (
+            <p className='tile mouse-pointer'>{sub.data.name}</p>
+          )
+        })
       }
 
-      <option>Users</option>
-      {
-        users === undefined ?
-          null :
-          users.map(user => {
-            return <option
-              key={user.id}
-              value={`u/${user.id}`}
-            >{user.data.userName}</option>
-          })
-      }
+      <p className='tile mouse-pointer'>Users</p>
 
-    </select>
+      {
+        users.map(user => {
+          return (
+            <p className='tile mouse-pointer'>{user.data.userName}</p>
+          )
+        })
+      }
+    </div>
   )
 }

@@ -2,11 +2,9 @@ import React, { useState, useEffect, useContext } from 'react'
 import { getComments } from '../providers/GlobalProvider'
 import CommentsCount from './CommentsCount'
 import '../../css/post-preview.css'
-import { ThemeContext } from '../providers/ThemeProvider'
 
-export default function PostPreviewOptions({ showContent, post }) {
+export default function PostPreviewOptions({ darkMode, showContent, post }) {
 
-    const {darkMode} = useContext(ThemeContext)
     const [comments, setComments] = useState()
 
     useEffect(() => {

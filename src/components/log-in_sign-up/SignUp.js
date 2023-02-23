@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { auth, db } from '../../firebase/getAuthDb'
-import { setDoc, doc } from 'firebase/firestore'
+import { setDoc, doc, serverTimestamp } from 'firebase/firestore'
 import { useNavigate } from 'react-router-dom'
 import '../../css/log-in_sign-up.css'
 
@@ -35,9 +35,11 @@ export default function SignUp() {
 
         createUserWithEmailAndPassword(auth, emailValue, passwordValue)
             .then((user) => {
-                console.log(user.user.uid)
                 setDoc(doc(db, 'users', `${user.user.uid}`), {
-                    userName: userNameValue
+                    userName: userNameValue,
+                    dateCreation: serverTimestamp(),
+                    status: null,
+                    lastSeen : null
                 })
                 navigate('/')
             })
