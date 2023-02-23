@@ -1,6 +1,6 @@
 import { GlobalContext } from '../providers/GlobalProvider';
 import React, { useContext } from 'react'
-import PostPreview from '../post/PostPreview';
+import PostPreview from '../post-preview/PostPreview';
 
 export default function MainPage() {
 

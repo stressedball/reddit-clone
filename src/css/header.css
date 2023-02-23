@@ -11,8 +11,9 @@ nav {
 }
 
 #dropdown-user .displayed {
-    background-color: aliceblue;
     position: absolute;
+    display: flex;
+    flex-direction: column;
     width: inherit;
 }
 
@@ -21,9 +22,5 @@ nav {
     align-items: center;
     justify-content: space-between;
     width: inherit;
-    border: 1px solid transparent;
 }
 
-#dropdown-button:hover {
-    border: 1px solid rgb(158, 158, 158);
-}

@@ -1,7 +1,5 @@
-.vote-container {
+#vote-container {
     flex: 0 1 auto;
-    display: flex;
-    flex-direction: column;
     align-items: center;
 }
 

@@ -1,15 +1,16 @@
-
-import '../../css/create-post.css'
-import { db } from '../../firebase/getAuthDb'
-import { GlobalContext } from '../providers/GlobalProvider'
-import DropDownSub from './create-post/DropDownSub'
-import { addDoc, arrayUnion, collection, doc, serverTimestamp, setDoc, updateDoc } from 'firebase/firestore'
+import '../../../css/create-post.css'
+import { db } from '../../../firebase/getAuthDb'
+import { GlobalContext } from '../../providers/GlobalProvider'
+import DropDownSub from './DropDownSub'
+import { addDoc, arrayUnion, collection, doc, serverTimestamp, updateDoc } from 'firebase/firestore'
 import React, { useContext, useEffect, useRef, useState } from 'react'
-import { useLocation, useNavigate, useParams } from 'react-router-dom'
-import NavBar from './create-post/NavBar'
+import { useNavigate, useParams } from 'react-router-dom'
+import NavBar from './NavBar'
+import { ThemeContext } from '../../providers/ThemeProvider'
 
 export default function CreatePost() {
 
+    const { darkMode } = useContext(ThemeContext)
     const { user, subs } = useContext(GlobalContext)
     const title = useRef()
     const text = useRef()
@@ -24,6 +25,7 @@ export default function CreatePost() {
         if (params === '') {
             setContainer(
                 <textarea
+                    className={`${darkMode}`}
                     placeholder='say something (optional)'
                     ref={text}
                     type='text'
@@ -43,7 +45,7 @@ export default function CreatePost() {
             )
         }
 
-    }, [params])
+    }, [params, darkMode])
 
 
     return (
@@ -64,12 +66,14 @@ export default function CreatePost() {
                     setSub={setSub}
                     sub={sub}
                     subs={subs}
+                    darkMode={darkMode}
                 />
 
                 <NavBar />
 
 
                 <input
+                    className={`${darkMode}`}
                     placeholder='Enter a title'
                     ref={title}
                     required={true}
@@ -77,9 +81,11 @@ export default function CreatePost() {
                 ></input>
 
                 {
-                    <>
+                    <div
+                        
+                    >
                         {container}
-                    </>
+                    </div>
                 }
 
                 <div
@@ -97,6 +103,7 @@ export default function CreatePost() {
                     </div>
 
                     <button
+                        className={`${darkMode} buttonStyle mouse-pointer`}
                         id='post'
                         onClick={(e) => {
                             if (sub === 'null') {
@@ -115,8 +122,6 @@ export default function CreatePost() {
 
                 </div>
             </form >
-
-
         </div >
     )
 }
@@ -129,11 +134,11 @@ async function handleSubmit(user, sub, title, text, notified) {
         text: text,
         poster: user.id,
         votes: 0,
-        timeStamp : serverTimestamp(),
+        timeStamp: serverTimestamp(),
         parentSub: sub
     })
 
     updateDoc(doc(db, 'subs', sub), {
-        posts : arrayUnion(postRef.id)
+        posts: arrayUnion(postRef.id)
     })
 }

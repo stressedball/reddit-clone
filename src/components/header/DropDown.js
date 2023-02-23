@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { GlobalContext } from '../providers/GlobalProvider'
 
-export default function DropDown() {
+export default function DropDown({darkMode}) {
 
   const navigate = useNavigate()
   const location = useLocation().pathname
@@ -25,6 +25,7 @@ export default function DropDown() {
   return (
 
     <select
+      className={`${darkMode} mouse-pointer`}
       value={selectedOption}  
       onChange={(e) => {
         navigate(`/${e.target.value}`)

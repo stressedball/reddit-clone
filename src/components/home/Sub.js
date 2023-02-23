@@ -2,7 +2,7 @@ import '../../css/sub.css'
 import React, { useContext } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
 import { GlobalContext } from '../providers/GlobalProvider'
-import PostPreview from '../post/PostPreview'
+import PostPreview from '../post-preview/PostPreview'
 
 export default function Sub() {
 

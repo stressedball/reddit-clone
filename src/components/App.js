@@ -1,16 +1,19 @@
 import LogIn from './log-in_sign-up/LogIn';
 import Home from './home/Home';
 import SignUp from './log-in_sign-up/SignUp';
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { AuthContext } from './providers/AuthProvider';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { ThemeContext } from './providers/ThemeProvider';
 
 function App() {
 
   const { userId } = useContext(AuthContext)
-
+  const {darkMode} = useContext(ThemeContext)
+  useEffect(() => {}, [darkMode])
+  
   return (
-    <div id='App'>
+      <div id='App' className={`${darkMode}`} >
         <BrowserRouter>
           <Routes>
 
@@ -20,7 +23,7 @@ function App() {
 
           </Routes>
         </BrowserRouter>
-    </div>
+      </div>
   );
 }
 
@@ -31,11 +34,11 @@ function PrivateRoute({ userId }) {
       {
         userId
           ?
-          <Home 
+          <Home
           />
           :
           <LogIn
-          path='/log-in'
+            path='/log-in'
           />
       }
     </>

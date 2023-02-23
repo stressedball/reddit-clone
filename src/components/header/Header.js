@@ -1,30 +1,40 @@
 import '../../css/header.css'
-import React from 'react'
+import React, { useContext } from 'react'
 import DropDown from './DropDown'
-import DropDownUser from './DropDownUser'
+import DropDownUser from './drop-down-user/DropDownUser'
 import SearchBar from './SearchBar'
 import { useNavigate } from 'react-router-dom'
+import { ThemeContext } from '../providers/ThemeProvider'
 
 export default function Header({ userName }) {
-    
+
+    const { darkMode } = useContext(ThemeContext)
     const navigate = useNavigate()
 
     return (
 
         <nav>
-        
+
             <h3
+                className='mouse-pointer'
                 onClick={() => navigate('/')}
             >RedditClone</h3>
-        
-            <DropDown />
-        
-            <SearchBar />
-        
+
+            <DropDown
+                darkMode={darkMode}
+            />
+
+            <SearchBar
+                darkMode={darkMode}
+
+            />
+
             <DropDownUser
                 userName={userName}
+                darkMode={darkMode}
+
             />
-        
+
         </nav>
     )
 }

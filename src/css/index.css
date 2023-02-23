@@ -7,7 +7,8 @@ body {
   margin: 0;
 }
 
-body, button {
+body,
+button {
   font-family: OpenSans;
 }
 
@@ -18,7 +19,33 @@ body, button {
   gap: 2rem;
 }
 
-#container{
+#container {
   width: 80vw;
   margin: auto;
+}
+
+.horizontal.flex {
+  display: flex;
+  align-items: center;
+}
+
+.vertical.flex {
+  display: flex;
+  flex-direction: column;
+}
+
+.mouse-pointer:hover {
+  cursor: pointer;
+}
+
+svg {
+  color: black;
+}
+
+.buttonStyle {
+  border: 1px solid var(--dark-color);
+}
+
+.buttonStyle:hover {
+  border: 1px solid rgb(158, 158, 158);
 }

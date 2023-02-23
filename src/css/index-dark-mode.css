@@ -1,0 +1,38 @@
+:root {
+    --dark-background: rgb(46, 46, 46);
+    --dark-color: white;
+    --input-background: rgb(46, 46, 46);
+}
+
+svg.dark {
+    color: rgb(223, 223, 223)
+}
+
+#App.dark {
+    color: var(--dark-color);
+    background-color: var(--dark-background);
+}
+
+a.dark {
+    color: white;
+}
+
+button.dark {
+    background-color: var(--dark-background);
+    color: white;
+}
+
+input.dark {
+    background-color: var(--input-background);
+    border: inset 1px var(--dark-color);
+}
+
+textarea.dark {
+    color: var(--dark-color);
+    background-color: var(--dark-background);
+}
+
+select.dark{
+    color: var(--dark-color);
+    background-color: var(--dark-background);
+}

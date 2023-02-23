@@ -5,7 +5,7 @@ import React, { useState, useContext, useEffect } from 'react'
 import { useParams } from 'react-router'
 import AddComment from './AddComment'
 import CommentsList from './CommentsList'
-import PostHeader from './PostHeader'
+import PostHeader from '../post-preview/PostHeader'
 
 export default function Post() {
 

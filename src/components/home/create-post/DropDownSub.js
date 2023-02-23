@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function DropDownSub({ error, sub, subs, setError, setSub }) {
+export default function DropDownSub({ darkMode, error, sub, subs, setError, setSub }) {
 
     const handleSelection = (e) => {
 
@@ -19,6 +19,7 @@ export default function DropDownSub({ error, sub, subs, setError, setSub }) {
             id=''
         >
             <select
+                className={`${darkMode}`}
                 value={sub}
                 onChange={handleSelection}
             >

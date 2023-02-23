@@ -1,10 +1,11 @@
-import React, { useState, useContext } from 'react'
+import '../../../css/dropdown-user.css'
 import { signOut } from 'firebase/auth'
-import { auth } from '../../firebase/getAuthDb'
-import { GlobalContext } from '../providers/GlobalProvider'
-import '../../css/header.css'
+import { auth } from '../../../firebase/getAuthDb'
+import { GlobalContext } from '../../providers/GlobalProvider'
+import { ThemeContext } from '../../providers/ThemeProvider'
+import React, { useState, useContext } from 'react'
 
-export default function DropDownUser() {
+export default function DropDownUser({ darkMode }) {
 
     const [isDisplay, setIsDisplay] = useState(false)
     const { user } = useContext(GlobalContext)
@@ -15,13 +16,14 @@ export default function DropDownUser() {
         >
             <button
                 id='dropdown-button'
+                className={`${darkMode} buttonStyle mouse-pointer`}
                 onClick={() => setIsDisplay(!isDisplay)}
             >
 
                 {
                     user ?
                         <>
-                            <p>Welcome {user.data.userName}<strong></strong></p>
+                            <p>Welcome <strong>{user.data.userName}</strong></p>
                             <img
                                 src={`https://api.dicebear.com/5.x/initials/svg?seed=${user.data.userName}`}
                                 style={{
@@ -31,8 +33,7 @@ export default function DropDownUser() {
                             // onClick={navigate to user page}
                             ></img>
                         </>
-                        :
-                        null
+                        : null
                 }
             </button>
 
@@ -44,10 +45,10 @@ export default function DropDownUser() {
                         className='displayed'
                     >
 
-                        <p>More to come</p>
-                        <p>About</p>
+                        <Theme />
 
                         <button
+                            className={`${darkMode} buttonStyle mouse-pointer`}
                             onClick={() => {
                                 signOut(auth)
                             }}
@@ -57,7 +58,27 @@ export default function DropDownUser() {
                     :
                     null
             }
-
         </div>
+    )
+}
+
+function Theme() {
+
+    const { darkMode, toggleDarkMode } = useContext(ThemeContext)
+
+    const handleTheme = () => {
+        toggleDarkMode()
+    }
+
+    return (
+        <button
+            className={`${darkMode} buttonStyle mouse-pointer`}
+            onClick={handleTheme}
+        >Switch to <span>
+                {
+                    darkMode === 'dark' ?
+                        'light' : 'dark'
+                }
+            </span> mode</button>
     )
 }

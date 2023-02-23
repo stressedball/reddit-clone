@@ -1,5 +1,5 @@
 import '../css/votes.css'
-import { collection, arrayUnion, doc, setDoc, updateDoc, addDoc } from 'firebase/firestore'
+import { collection, doc, setDoc } from 'firebase/firestore'
 import { db } from '../firebase/getAuthDb'
 import { useContext, useEffect, useState } from 'react'
 import { GlobalContext } from './providers/GlobalProvider'
@@ -56,7 +56,8 @@ export default function Votes({ post, postId }) {
 
     return (
         <div
-            className='vote-container'
+            className='vertical flex'
+            id='vote-container'
         >
             <svg
                 onClick={handleVote}
