@@ -2,7 +2,10 @@ import '../../../css/dropdown.css'
 import { GlobalContext } from '../../providers/GlobalProvider'
 import React, { useState, useContext, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
-import Menu from './Menu'
+import Menu from './drop-down-menu/Menu'
+import { createContext } from 'react'
+
+const DisplayContext = createContext()
 
 export default function DropDown({ darkMode }) {
 
@@ -16,7 +19,7 @@ export default function DropDown({ darkMode }) {
     const locationArrStrings = location.split('/')
 
     if (locationArrStrings[1] === 'r') {
-      if (subs.length === 0) return
+      if (subs === undefined || subs.length === 0) return
       const sub = subs.filter(sub => sub.id === locationArrStrings[2])[0]
       setSelectedOption(`r/${sub.data.name}`)
       return

@@ -9,6 +9,7 @@ import UserSpace from './UserSpace';
 import React, { useContext } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { ThemeContext } from '../providers/ThemeProvider';
+import SubSettings from './sub-settings.js/SubSettings';
 
 export default function Home() {
 
@@ -27,10 +28,11 @@ export default function Home() {
 
           <Route path='/' index element={<MainPage darkMode={darkMode}/>} />
           <Route path='/submit/*' element={<CreatePost darkMode={darkMode}/>} />
-          <Route path='r/:subId' element={<Sub darkMode={darkMode}/>} />
+          <Route path='r/:subId' element={<Sub darkMode={darkMode} />}>
+            <Route path='r/:subId/subSettings' element={<SubSettings darkMode={darkMode} />} />
+          </Route>
           <Route path='u/:userId' element={<UserSpace darkMode={darkMode}/>} />
           <Route path='r/:subId/p/:postId' element={<Post darkMode={darkMode}/>} />
-
         </Routes>
       </div>
     </GlobalProvider>

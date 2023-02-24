@@ -9,11 +9,10 @@ export default function DropDownUser({ darkMode }) {
 
     const [isDisplay, setIsDisplay] = useState(false)
     const { user } = useContext(GlobalContext)
-    const [styleBorder, setStyleBorder] = useState('')
 
     return (
 
-        <div id='dropdown-container' className={`${styleBorder} ${darkMode}`}>
+        <div id='dropdown-container' className={`${darkMode}`}>
 
             <div
                 id='dropdown-header'
@@ -25,7 +24,6 @@ export default function DropDownUser({ darkMode }) {
                             className={`${darkMode} horizontal tile flex mouse-pointer`}
                             onClick={() => {
                                 setIsDisplay(!isDisplay)
-                                styleBorder === '' ? setStyleBorder('bottom-border') : setStyleBorder('')
                             }}
                         >
 

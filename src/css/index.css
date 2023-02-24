@@ -43,9 +43,9 @@ svg {
 }
 
 .buttonStyle {
-  border: 1px solid black;
+  border: 1px solid inherit;
 }
 
 .buttonStyle:hover {
-  border: 1px solid rgb(94, 94, 94);
+  background-color: aquamarine;
 }

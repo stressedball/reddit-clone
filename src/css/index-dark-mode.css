@@ -54,3 +54,8 @@ div.displayed.dark {
 .tile:hover.dark {
     background-color: var(--hover-dark-background);
 }
+
+#create-sub.dark{
+    background-color: var(--dark-background);
+    opacity: 0.4;
+}
