@@ -21,35 +21,36 @@ export default function DropDownUser({ darkMode }) {
                 {
                     user ?
                         <div
-                            className={`${darkMode} horizontal flex mouse-pointer`}
+                            id='avatar-container'
+                            className={`${darkMode} horizontal tile flex mouse-pointer`}
                             onClick={() => {
                                 setIsDisplay(!isDisplay)
                                 styleBorder === '' ? setStyleBorder('bottom-border') : setStyleBorder('')
                             }}
                         >
 
-                            <p className='tile mouse-pointer'>Welcome <strong>{user.data.userName}</strong></p>
+                            <p style={{ padding: '0', margin: "0" }}>Welcome <strong>{user.data.userName}</strong></p>
                             <UserAvatar user={user} />
 
                         </div>
                         : null
                 }
-                {
-                    isDisplay ?
-
-                        <div className={`${darkMode} displayed`}>
-
-                            <Theme />
-
-                            <div
-                                className='tile mouse-pointer'
-                                onClick={() => { signOutUser(user) }}
-                            >Log Out</div>
-
-                        </div>
-                        : null
-                }
             </div>
+            {
+                isDisplay ?
+
+                    <div className={`${darkMode} displayed`}>
+
+                        <Theme />
+
+                        <div
+                            className={`${darkMode} tile mouse-pointer`}
+                            onClick={() => { signOutUser(user) }}
+                        >Log Out</div>
+
+                    </div>
+                    : null
+            }
         </div>
     )
 }

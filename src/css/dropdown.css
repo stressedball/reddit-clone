@@ -1,6 +1,7 @@
 #dropdown-container {
     border: 1px solid black;
     width: 200px;
+    position: relative;
 }
 
 #dropdown-container.bottom-border {
@@ -11,8 +12,10 @@
 }
 
 #dropdown-header {
-    position: relative;
     width: inherit;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 div.displayed {
@@ -30,6 +33,10 @@ div.displayed {
     border-left: 1px solid;
 }
 
+#avatar-container {
+    justify-content: space-between;
+}
+
 .tile {
     padding: 0;
     padding: 0.3rem 1rem 0.3rem 1rem;
@@ -38,4 +45,14 @@ div.displayed {
 
 .tile:hover {
     background-color: beige;
+}
+
+#dropdown-search{
+    width: 80%;
+    margin: auto;
+}
+
+img.avatar{
+    height: 25px;
+    border-radius: 50%;
 }
