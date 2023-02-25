@@ -31,6 +31,7 @@ button.dark:hover {
 input.dark {
     background-color: var(--input-background);
     border: inset 1px var(--dark-color);
+    color: var(--dark-color);
 }
 
 textarea.dark {
@@ -38,7 +39,7 @@ textarea.dark {
     background-color: var(--dark-background);
 }
 
-select.dark{
+select.dark {
     color: var(--dark-color);
     background-color: var(--dark-background);
 }
@@ -55,7 +56,11 @@ div.displayed.dark {
     background-color: var(--hover-dark-background);
 }
 
-#create-sub.dark{
+#create-sub.dark {
+    background-color: rgba(46, 46, 46, 0.521);
+}
+
+#create-sub-form.dark{
     background-color: var(--dark-background);
-    opacity: 0.4;
+    color: var(--dark-color);
 }

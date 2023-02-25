@@ -7,7 +7,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import NavBar from './NavBar'
 
-export default function CreatePost({darkMode}) {
+export default function CreatePost({ darkMode }) {
 
     const { user, subs } = useContext(GlobalContext)
     const title = useRef()
@@ -80,7 +80,7 @@ export default function CreatePost({darkMode}) {
 
                 {
                     <div
-                        
+
                     >
                         {container}
                     </div>
@@ -111,10 +111,8 @@ export default function CreatePost({darkMode}) {
                             }
                             if (title.current.value === '') return
                             e.preventDefault()
-
-                            handleSubmit(user, sub, title.current.value, text.current.value, notified.current.checked)
-
-                            navigate(`r/${sub}`)
+                            const postId = handleSubmit(user, sub, title.current.value, text.current.value, notified.current.checked)
+                            navigate(`r/${sub.id}/p/${postId}`)
                         }}
                     >POST</button>
 
@@ -133,10 +131,8 @@ async function handleSubmit(user, sub, title, text, notified) {
         poster: user.id,
         votes: 0,
         timeStamp: serverTimestamp(),
-        parentSub: sub
+        parent: sub
     })
 
-    updateDoc(doc(db, 'subs', sub), {
-        posts: arrayUnion(postRef.id)
-    })
+    return postRef.id
 }

@@ -26,13 +26,12 @@ export default function Home() {
       <div id='container'>
         <Routes>
 
-          <Route path='/' index element={<MainPage darkMode={darkMode}/>} />
-          <Route path='/submit/*' element={<CreatePost darkMode={darkMode}/>} />
-          <Route path='r/:subId' element={<Sub darkMode={darkMode} />}>
-            <Route path='r/:subId/subSettings' element={<SubSettings darkMode={darkMode} />} />
-          </Route>
-          <Route path='u/:userId' element={<UserSpace darkMode={darkMode}/>} />
-          <Route path='r/:subId/p/:postId' element={<Post darkMode={darkMode}/>} />
+          <Route path='/' index element={<MainPage darkMode={darkMode} />} />
+          <Route path='/submit/*' element={<CreatePost darkMode={darkMode} />} />
+          <Route path='r/:subId' element={<Sub darkMode={darkMode} />} />
+          <Route path='r/:subId/subSettings' element={<SubSettings darkMode={darkMode} />} />
+          <Route path='u/:userId' element={<UserSpace darkMode={darkMode} />} />
+          <Route path='r/:subId/p/:postId' element={<Post darkMode={darkMode} />} />
         </Routes>
       </div>
     </GlobalProvider>

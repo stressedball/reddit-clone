@@ -1,22 +1,82 @@
-import React, { useContext, useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
+import React, { useRef, useState, useContext, useEffect } from 'react'
+import { useLocation, useParams } from 'react-router-dom'
 import { GlobalContext } from '../../providers/GlobalProvider'
+import { db } from '../../../firebase/getAuthDb'
+import { setDoc, doc } from 'firebase/firestore'
 
-export default function SubSettings() {
+
+export default function SubSettings({ darkMode }) {
 
     const { subs } = useContext(GlobalContext)
-    const location = useLocation().pathname.split('/')[-1]
+    const [sub, setSub] = useState()
+    const params = useParams()
+    const descriptionRef = useRef()
+    const [confirmSave, setConfirmSave] = useState(false)
+    const [description, setDescription] = useState('')
 
-    const sub = subs.filter(sub => sub.id === location)
+    async function handleDescriptionChange() {
+
+        if (descriptionRef.current.value === '') return
+
+        const docRef = doc(db, 'subs', sub.id)
+        await setDoc(docRef, {
+            description: descriptionRef.current.value
+        }, { merge: true })
+
+        setConfirmSave(true)
+
+        setTimeout(() => {
+            setConfirmSave(false)
+        }, [2000])
+    }
 
     useEffect(() => {
 
-        console.log(subs)
+        if (subs !== undefined) setSub(() => subs.filter(sub => sub.id === params.subId)[0])
+
     }, [subs])
+
+
+    useEffect(() => {
+
+        if (sub !== undefined) setDescription(sub.data.description)
+
+    }, [sub])
+
+    if (sub === undefined) return <div>Loading Sub settings</div>
 
     return (
         <div>
-            <p>sub : {sub.data.name}</p>
+
+            <p>{sub.data.name}</p>
+
+            <p>Created : {sub.data.dateOfCreation.toDate().toDateString()}</p>
+
+            <div>
+
+                <p>You can change the sub description</p>
+
+                <textarea
+                    className={`${darkMode}`}
+                    ref={descriptionRef}
+                    value={description}
+                    onChange={(e) => { setDescription(e.target.value) }}
+                ></textarea>
+
+                <div>
+                    <button onClick={handleDescriptionChange} className={`${darkMode} buttonStyle`}>Save Changes</button>
+                    {
+                        confirmSave ?
+                            <p>Changes saved!</p>
+                            : null
+                    }
+                </div>
+            </div>
+
+            <div>
+                <p>Users</p>
+            </div>
         </div>
+
     )
 }

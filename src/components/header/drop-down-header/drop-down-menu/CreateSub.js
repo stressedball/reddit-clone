@@ -2,7 +2,7 @@ import React, { useRef, useState, useContext } from 'react'
 import '../../../../css/create-sub.css'
 import { GlobalContext } from '../../../providers/GlobalProvider'
 import { useNavigate } from 'react-router-dom'
-import { addDoc, collection, setDoc } from 'firebase/firestore'
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import { db } from '../../../../firebase/getAuthDb'
 
 export default function CreateSub({ darkMode, setMakeSub, handleDisplay }) {
@@ -29,7 +29,7 @@ export default function CreateSub({ darkMode, setMakeSub, handleDisplay }) {
 
         <div id='create-sub' className={`${darkMode}`}>
 
-            <div id='create-sub-form'>
+            <div id='create-sub-form' className={`${darkMode}`}>
 
                 <header>Create a community</header>
 
@@ -38,6 +38,7 @@ export default function CreateSub({ darkMode, setMakeSub, handleDisplay }) {
                 <p style={{ fontSize: '0.8rem' }}>Beware, you can not change the name. <span style={{ fontSize: '0.7rem' }}><strong>Five</strong> characters minimum</span></p>
 
                 <input
+                    className={`${darkMode}`}
                     id='create-sub-input'
                     placeholder='r/'
                     ref={subName}
@@ -72,8 +73,9 @@ async function createSub(name, userId) {
 
     const subDoc = await addDoc(collection(db, 'subs'), {
         name: name,
+        dateOfCreation : serverTimestamp(),
         creator: userId,
-        description: '',
+        description: '',    
         users: []
     })
     return subDoc.id
