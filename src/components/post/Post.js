@@ -1,18 +1,19 @@
 import '../../css/post.css'
 import Votes from '../reusables/Votes'
 import { GlobalContext } from '../providers/GlobalProvider'
-import React, { useState, useContext, useEffect } from 'react'
-import { useParams } from 'react-router'
-import AddComment from './AddComment'
+import AddComment from './add-comment/AddComment'
 import CommentsList from './CommentsList'
 import PostHeader from '../post-preview/PostHeader'
-import getImage from './getImage'
-
+import DefaultOptions from './components/DefaultOptions'
+import AdminOptions from './components/AdminOptions'
+import { useParams } from 'react-router'
+import React, { useState, useContext, useEffect } from 'react'
+import ImageDisplay from './components/ImageDisplay'
 
 export default function Post({ darkMode }) {
 
   const postId = useParams().postId
-  const { posts, users, subs } = useContext(GlobalContext)
+  const { posts, users, subs, user } = useContext(GlobalContext)
   const [post, setPost] = useState()
   const [posterName, setPosterName] = useState()
   const [sub, setSubs] = useState()
@@ -22,8 +23,8 @@ export default function Post({ darkMode }) {
     if (posts.length > 0) setPost(posts.filter(el => el.id === postId)[0])
 
     if (users.length > 0 && post !== undefined) {
-      const posterName = users.filter(user => user.id === post.data.poster)
-      setPosterName(posterName[0].data.userName)
+      const posterName = users.filter(user => user.id === post.data.poster)[0]
+      setPosterName(posterName.data.userName)
     }
 
     if (subs !== undefined) {
@@ -43,7 +44,7 @@ export default function Post({ darkMode }) {
 
   return (
 
-    <>
+    <>-
       <div className='post'>
 
         <section>
@@ -60,6 +61,13 @@ export default function Post({ darkMode }) {
             post.data.image ? <ImageDisplay post={post} /> : null
           }
 
+
+          {
+            post.data.poster === user.id ?
+              <AdminOptions post={post} darkMode={darkMode} />
+              :
+              <DefaultOptions post={post} darkMode={darkMode} />
+          }
         </section>
 
         <Votes darkMode={darkMode} post={post} postId={postId} />
@@ -73,29 +81,5 @@ export default function Post({ darkMode }) {
   )
 }
 
-function ImageDisplay({ post }) {
 
-  const [image, setImage] = useState()
-  const [isImage, setIsImage] = useState(false)
-
-  useEffect(() => {
-
-    async function fetchImage() {
-
-      const imageUrl = await getImage(post)
-
-      setImage(imageUrl)
-      // setIsImage(true)
-    }
-
-    fetchImage()
-
-  }, [])
-
-  // if (!isImage) return <p>Loading data</p>
-
-  return (
-    <img src={`${image}`} crossOrigin="anonymous"/>
-  )
-}
 

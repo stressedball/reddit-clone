@@ -9,6 +9,7 @@ export default function NavBar({ darkMode }) {
         <div
             id='create-shortcut-navbar'
         >
+            {/* text */}
             <svg
                 className={`${darkMode} mouse-pointer`}
                 onClick={() => navigate('/submit')}
@@ -17,6 +18,7 @@ export default function NavBar({ darkMode }) {
                 <path fill="currentColor" d="M4.5 6.99542H4V7.99542H4.5V6.99542ZM10.5 7.99542H11V6.99542H10.5V7.99542ZM4.5 10H4V11H4.5V10ZM10.5 11H11V10H10.5V11ZM4.5 3.99738H4V4.99738H4.5V3.99738ZM10.5 4.99738H11V3.99738H10.5V4.99738ZM13.5 3.5H14V3.29289L13.8536 3.14645L13.5 3.5ZM10.5 0.5L10.8536 0.146447L10.7071 0H10.5V0.5ZM4.5 7.99542H10.5V6.99542H4.5V7.99542ZM4.5 11H10.5V10H4.5V11ZM4.5 4.99738H10.5V3.99738H4.5V4.99738ZM12.5 14H2.5V15H12.5V14ZM2 13.5V1.5H1V13.5H2ZM13 3.5V13.5H14V3.5H13ZM2.5 1H10.5V0H2.5V1ZM10.1464 0.853553L13.1464 3.85355L13.8536 3.14645L10.8536 0.146447L10.1464 0.853553ZM2.5 14C2.22386 14 2 13.7761 2 13.5H1C1 14.3284 1.67157 15 2.5 15V14ZM12.5 15C13.3284 15 14 14.3284 14 13.5H13C13 13.7761 12.7761 14 12.5 14V15ZM2 1.5C2 1.22386 2.22386 1 2.5 1V0C1.67157 0 1 0.671574 1 1.5H2Z" />
             </svg>
 
+            {/* image */}
             <svg
                 className={`${darkMode} mouse-pointer`}
                 onClick={() => navigate('/submit/img')}
@@ -36,6 +38,7 @@ export default function NavBar({ darkMode }) {
                     d="M17.2046 9.54315C17.2046 10.4294 16.4862 11.1478 15.6 11.1478C14.7138 11.1478 13.9954 10.4294 13.9954 9.54315C13.9954 8.65695 14.7138 7.93854 15.6 7.93854C16.4862 7.93854 17.2046 8.65695 17.2046 9.54315Z" />
             </svg>
 
+            {/* poll */}
             <svg
                 className={`${darkMode} mouse-pointer`}
                 onClick={() => navigate('/submit/poll')}

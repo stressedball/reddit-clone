@@ -1,6 +1,6 @@
 import { useContext, useRef } from "react"
 import AddCommentOptions from "./AddCommentOptions"
-import { GlobalContext } from "../providers/GlobalProvider"
+import { GlobalContext } from "../../providers/GlobalProvider"
 
 export default function AddComment({ darkMode, post, postId }) {
 

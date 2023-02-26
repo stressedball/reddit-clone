@@ -1,4 +1,4 @@
-import { db } from '../../firebase/getAuthDb'
+import { db } from '../../../firebase/getAuthDb'
 import { addDoc, collection, serverTimestamp, } from 'firebase/firestore'
 
 export default function AddCommentOptions({ darkMode, postId, text, user }) {

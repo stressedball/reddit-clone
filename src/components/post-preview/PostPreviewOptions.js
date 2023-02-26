@@ -54,7 +54,7 @@ export default function PostPreviewOptions({ darkMode, showContent, post }) {
 
 function ExpandText({ post, showContent, darkMode }) {
 
-    const handleDisplayText = () => { if (post.data.text) showContent() }
+    const handleDisplayText = () => { showContent() }
 
     return (
         <svg

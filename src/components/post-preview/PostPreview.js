@@ -1,15 +1,14 @@
 import '../../css/post-preview.css'
-import { GlobalContext } from '../providers/GlobalProvider'
 import Votes from "../reusables/Votes"
 import PostHeader from './PostHeader'
 import PostPreviewOptions from './PostPreviewOptions'
-import React, { useContext, useState } from 'react'
-import { useNavigate } from "react-router"
+import React, { useState } from 'react'
+import PostPreviewBody from './PostPreviewBody'
+import PreviewPlaceholder from './PreviewPlaceholder'
+import ImageDisplay from '../post/components/ImageDisplay'
 
 export default function PostPreview({ darkMode, subId, post }) {
 
-    const navigate = useNavigate()
-    const { users } = useContext(GlobalContext)
     const [displayText, setDisplayText] = useState(false)
     const showContent = () => setDisplayText(!displayText)
 
@@ -21,50 +20,17 @@ export default function PostPreview({ darkMode, subId, post }) {
             <div
                 className='horizontal flex content'
             >
-                < Votes
-                    post={post}
-                    postId={post.id}
-                    darkMode={darkMode}
-                />
+                < Votes post={post} postId={post.id} darkMode={darkMode} />
 
-                <div>image/text preview</div>
+                <PreviewPlaceholder post={post} darkMode={darkMode} subId={subId} />
 
                 <div className='vertical flex'>
 
-                    <div
-                        className='mouse-pointer'
-                        onClick={(e) => {
+                    <PostPreviewBody post={post} subId={subId} />
 
-                            if (e.target === undefined) return
+                    <PostHeader subId={subId} post={post} darkMode={darkMode} />
 
-                            subId === null ?
-                                navigate(`p/${post.id}`)
-                                :
-                                navigate(`r/${subId}/p/${post.id}`)
-                        }}
-                    >
-                        <p>{post.data.title}</p>
-                    </div>
-
-                    <PostHeader
-                        subId={subId}
-                        post={post}
-                        posterName=
-                        {
-                            users ?
-                                users.find(user => {
-                                    return user.id === post.data.poster
-                                }).data.userName
-                                : null
-                        }
-                        darkMode={darkMode}
-                    />
-
-                    <PostPreviewOptions
-                        post={post}
-                        darkMode={darkMode}
-                        showContent={showContent}
-                    />
+                    <PostPreviewOptions post={post} darkMode={darkMode} showContent={showContent} />
 
                 </div>
 
@@ -73,10 +39,14 @@ export default function PostPreview({ darkMode, subId, post }) {
             <div>
                 {
                     displayText ?
-                        <p>{post.data.text}</p>
+                        post.data.text ? <p>{post.data.text}</p>
+                            : 
+                            post.data.image ? <ImageDisplay post={post} />
+                                :
+                                post.data.poll ? <p>poll</p>
+                                    : null
                         : null
-                }
-
+                } 
             </div>
         </div >
     )
