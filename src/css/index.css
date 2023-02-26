@@ -8,7 +8,9 @@ body {
 }
 
 body,
-button {
+button,
+textarea,
+input {
   font-family: OpenSans;
 }
 
@@ -17,9 +19,11 @@ button {
   flex-direction: column;
   justify-content: space-between;
   gap: 2rem;
+  min-height: 100vh;
 }
 
 #container {
+  flex: 1 0 auto;
   width: 80vw;
   margin: auto;
 }
@@ -48,4 +52,8 @@ svg {
 
 .buttonStyle:hover {
   background-color: aquamarine;
+}
+
+textarea {
+  resize: none;
 }

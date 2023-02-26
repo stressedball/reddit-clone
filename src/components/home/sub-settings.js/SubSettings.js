@@ -48,7 +48,7 @@ export default function SubSettings({ darkMode }) {
     return (
         <div>
 
-            <p>{sub.data.name}</p>
+            <h4>{sub.data.name}</h4>
 
             <p>Created : {sub.data.dateOfCreation.toDate().toDateString()}</p>
 

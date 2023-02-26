@@ -1,6 +1,6 @@
 import '../../css/sub.css'
-import React, { useState, useContext, useEffect } from 'react'
-import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import React, { useState, useContext } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import { GlobalContext } from '../providers/GlobalProvider'
 import PostPreview from '../post-preview/PostPreview'
 
@@ -14,6 +14,9 @@ export default function Sub({ darkMode }) {
     if (subs === undefined) return <div>Fetching data...</div>
 
     const subPosts = posts.filter(post => post.data.parent === subId)
+
+    if (subPosts.length === 0) return <div>Be the first to post!</div>
+
     const sub = subs.filter(sub => sub.id === subId)[0]
 
     return (

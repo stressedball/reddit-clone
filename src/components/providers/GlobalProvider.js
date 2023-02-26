@@ -129,18 +129,3 @@ export function GlobalProvider({ children }) {
     )
 
 }
-
-export async function getComments(postId) {
-
-    let arr = []
-
-    await getDocs(collection(db, 'posts', postId, 'comments'))
-        .then((querySnapShot) => {
-            querySnapShot.forEach((doc) => {
-                arr.push(doc.data())
-            })
-        })
-
-    return arr
-
-}

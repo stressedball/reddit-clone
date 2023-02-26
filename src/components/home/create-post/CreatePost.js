@@ -1,50 +1,26 @@
 import '../../../css/create-post.css'
-import { db } from '../../../firebase/getAuthDb'
 import { GlobalContext } from '../../providers/GlobalProvider'
 import DropDownSub from './DropDownSub'
-import { addDoc, arrayUnion, collection, doc, serverTimestamp, updateDoc } from 'firebase/firestore'
 import React, { useContext, useEffect, useRef, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import NavBar from './NavBar'
+import CreatePostOptions from './CreatePostOptions'
 
 export default function CreatePost({ darkMode }) {
 
-    const { user, subs } = useContext(GlobalContext)
+    const { subs } = useContext(GlobalContext)
+    const params = useParams()['*']
+    const [error, setError] = useState(false)
+    const [subId, setSubId] = useState('null')
+
     const title = useRef()
     const text = useRef()
     const notified = useRef()
-    const [sub, setSub] = useState('null')
-    const [error, setError] = useState(false)
-    const params = useParams()['*']
-    const [container, setContainer] = useState()
-    const navigate = useNavigate()
+    const [image, setImage] = useState(null)
 
-    useEffect(() => {
-        if (params === '') {
-            setContainer(
-                <textarea
-                    className={`${darkMode}`}
-                    placeholder='say something (optional)'
-                    ref={text}
-                    type='text'
-                ></textarea>
-            )
-        }
-
-        if (params === 'img') {
-            setContainer(
-                <p>Add image</p>
-            )
-        }
-
-        if (params === 'poll') {
-            setContainer(
-                <p>Add Poll</p>
-            )
-        }
-
-    }, [params, darkMode])
-
+    const changeSub = (subId) => {
+        setSubId(subId)
+    }
 
     return (
 
@@ -61,78 +37,72 @@ export default function CreatePost({ darkMode }) {
                 <DropDownSub
                     error={error}
                     setError={setError}
-                    setSub={setSub}
-                    sub={sub}
+                    changeSub={changeSub}
                     subs={subs}
                     darkMode={darkMode}
                 />
 
-                <NavBar />
-
+                <NavBar darkMode={darkMode} />
 
                 <input
-                    className={`${darkMode}`}
-                    placeholder='Enter a title'
-                    ref={title}
-                    required={true}
-                    type='text'
+                    className={`${darkMode}`} ref={title} required={true}
+                    placeholder='Enter a title' type='text'
                 ></input>
 
                 {
-                    <div
-
-                    >
-                        {container}
+                    <div id='create-post-content-container'>
+                        {
+                            params === '' ? <TextContainer text={text} darkMode={darkMode} /> : null
+                        }
+                        {
+                            params === 'img' ? <ImageContainer darkMode={darkMode} setImage={setImage} /> : null
+                        }
+                        {
+                            params === 'poll' ? <PollContainer darkMode={darkMode} /> : null
+                        }
                     </div>
                 }
 
-                <div
-                    id='create-post-options'
-                >
 
-                    <div
-                        id='post-notifications'
-                    >
-                        <input
-                            type="checkbox"
-                            ref={notified}
-                        ></input>
-                        <p>Send notifications</p>
-                    </div>
+                <CreatePostOptions notified={notified} darkMode={darkMode}
+                    subId={subId} title={title} text={text} setError={setError}
+                    image={image}
+                />
 
-                    <button
-                        className={`${darkMode} buttonStyle mouse-pointer`}
-                        id='post'
-                        onClick={(e) => {
-                            if (sub === 'null') {
-                                setError(true)
-                                e.preventDefault()
-                                return
-                            }
-                            if (title.current.value === '') return
-                            e.preventDefault()
-                            const postId = handleSubmit(user, sub, title.current.value, text.current.value, notified.current.checked)
-                            navigate(`r/${sub.id}/p/${postId}`)
-                        }}
-                    >POST</button>
-
-                </div>
             </form >
         </div >
     )
 }
 
+function TextContainer({ darkMode, text }) {
+    return (
+        <textarea
+            className={`${darkMode}`}
+            placeholder='say something (optional)'
+            ref={text}
+            type='text'
+        ></textarea>
+    )
+}
 
-async function handleSubmit(user, sub, title, text, notified) {
+function ImageContainer({ darkMode, setImage }) {
 
-    const postRef = await addDoc(collection(db, 'posts'), {
-        title: title,
-        text: text,
-        poster: user.id,
-        votes: 0,
-        timeStamp: serverTimestamp(),
-        parent: sub
-    })
+    const handleImage = (e) => {
+        setImage(e.target.files[0])
+    }
 
-    return postRef.id
+    return (
+
+        <input
+            onChange={handleImage}
+            type="file"
+            className={`${darkMode} mouse-pointer`}
+        ></input>
+    )
+}
+
+function PollContainer({ darkMode }) {
+    return (
+        <p>Poll thingy</p>
+    )
 }

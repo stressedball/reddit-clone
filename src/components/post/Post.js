@@ -6,8 +6,10 @@ import { useParams } from 'react-router'
 import AddComment from './AddComment'
 import CommentsList from './CommentsList'
 import PostHeader from '../post-preview/PostHeader'
+import getImage from './getImage'
 
-export default function Post({darkMode}) {
+
+export default function Post({ darkMode }) {
 
   const postId = useParams().postId
   const { posts, users, subs } = useContext(GlobalContext)
@@ -17,9 +19,7 @@ export default function Post({darkMode}) {
 
   useEffect(() => {
 
-    if (posts.length > 0) {
-      setPost(posts.filter(el => el.id === postId)[0])
-    }
+    if (posts.length > 0) setPost(posts.filter(el => el.id === postId)[0])
 
     if (users.length > 0 && post !== undefined) {
       const posterName = users.filter(user => user.id === post.data.poster)
@@ -44,44 +44,58 @@ export default function Post({darkMode}) {
   return (
 
     <>
-      <div
-        className='post'
-      >
+      <div className='post'>
 
         <section>
 
-          <PostHeader
-            sub={sub}
-            posterName={posterName}
-            post={post}
-            darkMode={darkMode}
-          />
+          <PostHeader sub={sub} posterName={posterName} post={post} darkMode={darkMode} />
 
           <h2>{post.data.title}</h2>
 
-          <p>{post.data.text}</p>
+          {
+            post.data.text ? <p>{post.data.text}</p> : null
+          }
+
+          {
+            post.data.image ? <ImageDisplay post={post} /> : null
+          }
 
         </section>
 
-        <Votes
-          darkMode={darkMode}
-          post={post}
-          postId={postId}
-        />
+        <Votes darkMode={darkMode} post={post} postId={postId} />
 
       </div>
 
-      <AddComment
-        post={post}
-        darkMode={darkMode}
-        postId={postId}
-      />
+      <AddComment post={post} darkMode={darkMode} postId={postId} />
 
-      <CommentsList
-        darkMode={darkMode}
-        postId={postId}
-      />
+      <CommentsList darkMode={darkMode} postId={postId} />
     </>
+  )
+}
+
+function ImageDisplay({ post }) {
+
+  const [image, setImage] = useState()
+  const [isImage, setIsImage] = useState(false)
+
+  useEffect(() => {
+
+    async function fetchImage() {
+
+      const imageUrl = await getImage(post)
+
+      setImage(imageUrl)
+      // setIsImage(true)
+    }
+
+    fetchImage()
+
+  }, [])
+
+  // if (!isImage) return <p>Loading data</p>
+
+  return (
+    <img src={`${image}`} crossOrigin="anonymous"/>
   )
 }
 

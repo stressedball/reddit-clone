@@ -1,22 +1,33 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { getComments } from '../providers/GlobalProvider'
 import CommentsCount from './CommentsCount'
 import '../../css/post-preview.css'
+import { db } from '../../firebase/getAuthDb';
+import { onSnapshot, query, doc, collection } from 'firebase/firestore';
 
 export default function PostPreviewOptions({ darkMode, showContent, post }) {
 
     const [comments, setComments] = useState()
+    const [display, setDisplay] = useState(false)
 
     useEffect(() => {
 
-        async function fetchComments() {
-            let arrOfComments = await getComments(post.id)
-            setComments(arrOfComments)
-        }
+        const q = query(collection(db, 'posts', post.id, 'comments'))
 
-        fetchComments()
+        const unSub = onSnapshot(q, (querySnapShot) => {
+
+            let commentsArr = []
+
+            querySnapShot.forEach((doc) => {
+                commentsArr.push({ id: doc.id, data: doc.data() })
+            })
+
+            setComments(commentsArr)
+        })
+
+        return () => unSub()
 
     }, [])
+
 
     return (
         <div

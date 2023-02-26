@@ -18,11 +18,12 @@
     margin: auto;
 }
 
-textarea {
-    width: 100%;
-    box-sizing: border-box;
-    height: 250px;
-    resize: none;
+#create-post-content-container{
+    border: 1px solid;
+    height: 351px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 span#dot {

@@ -1,6 +1,8 @@
-import React from 'react'
+import React,{useState} from 'react'
 
-export default function DropDownSub({ darkMode, error, sub, subs, setError, setSub }) {
+export default function DropDownSub({ changeSub, darkMode, error, subs, setError }) {
+
+    const [sub, setSub] = useState('null')
 
     const handleSelection = (e) => {
 
@@ -9,6 +11,7 @@ export default function DropDownSub({ darkMode, error, sub, subs, setError, setS
             return
         }
 
+        changeSub(e.target.value)
         setSub(e.target.value)
         setError(false)
     }
@@ -16,9 +19,9 @@ export default function DropDownSub({ darkMode, error, sub, subs, setError, setS
     return (
 
         <div
-            id=''
         >
             <select
+                id='dropdown-create-post'
                 className={`${darkMode}`}
                 value={sub}
                 onChange={handleSelection}

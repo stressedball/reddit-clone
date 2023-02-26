@@ -3,6 +3,9 @@
     flex-direction: column;
     gap: 0.5rem;
     padding: 1rem;
+    width: 50vw;
+    margin: auto;
+    height: 50vh;
 }
 
 #create-post-form {
@@ -16,16 +19,16 @@
     justify-content: space-between;
 }
 
-select#default-sub.true{
-   color: red;
+select#default-sub.true {
+    color: red;
 }
 
-#post-notifications{
+#post-notifications {
     display: flex;
     align-items: center;
 }
 
-button#post{
+button#post {
     width: fit-content;
     font-weight: bold;
     padding: 1rem;
@@ -36,18 +39,17 @@ button#post{
 #create-shortcut-navbar {
     display: flex;
     justify-content: center;
-    gap:1rem;
+    gap: 1rem;
     font-size: 1.3rem;
     font-weight: bold;
     border: 1px solid;
 }
 
-.navbar-option{
-    padding: 0.5rem;
-    border: 1px solid;
+#create-shortcut-navbar svg:hover {
+    background-color: aliceblue;
 }
 
-.navbar-option:hover{
-    text-decoration: underline;
-    cursor: pointer;
+#dropdown-create-post {
+    width: 250px;
+    padding: 0.5rem;
 }
