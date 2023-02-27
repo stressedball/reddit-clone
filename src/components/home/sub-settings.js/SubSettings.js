@@ -5,6 +5,7 @@ import { db } from '../../../firebase/getAuthDb'
 import { setDoc, doc } from 'firebase/firestore'
 import AvatarSettings from './avatar-settings/AvatarSettings'
 import "../../../css/sub-settings.css"
+import BannerSettings from './banner-settings/BannerSettings'
 
 export default function SubSettings({ darkMode }) {
 

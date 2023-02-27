@@ -16,6 +16,7 @@ export default function Home() {
   const location = useLocation().pathname
   const { darkMode } = useContext(ThemeContext)
 
+  console.log(location.split('/'))
   return (
     <GlobalProvider>
 

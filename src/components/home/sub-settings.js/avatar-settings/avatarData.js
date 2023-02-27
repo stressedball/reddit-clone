@@ -18,6 +18,8 @@ async function handleAvatarSubmit(sub, avatar) {
 
 }
 
+
+
 async function getAvatar(sub) {
 
     if (!sub.data.avatar) return
@@ -28,4 +30,4 @@ async function getAvatar(sub) {
 
 }
 
-export {handleAvatarSubmit, getAvatar}
+export { handleAvatarSubmit, getAvatar }

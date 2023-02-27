@@ -3,7 +3,6 @@ import { getAvatar, handleAvatarSubmit } from './avatarData'
 
 export default function AvatarSettings({ sub, darkMode }) {
 
-    const [avatar, setAvatar] = useState()
     const [path, setPath] = useState()
     const [display, setDisplay] = useState()
 
@@ -14,7 +13,7 @@ export default function AvatarSettings({ sub, darkMode }) {
             setPath(path)
         }
         fetchData()
-    }, [])
+    }, [sub])
 
     return (
         <div style={{ position: "relative" }} className={`${darkMode}`}>
@@ -29,16 +28,16 @@ export default function AvatarSettings({ sub, darkMode }) {
                     setDisplay(false)
                 }}
                 onClick={() => {
-
+                    handleAvatarUpload(sub)
                 }}
-                style={{ width: "50px", borderRadius: "50%", border: "1px solid" }}
+                style={{ width: "50px", height:"50px", borderRadius: "50%", border: "1px solid" }}
                 alt=""
             />
 
             {
                 display ?
                     <p id='avatar-message' className={`${darkMode}`}
-                    >Click on avatar to change it</p>
+                    >Click to upload a new avatar</p>
                     : null
             }
 
@@ -47,22 +46,15 @@ export default function AvatarSettings({ sub, darkMode }) {
     )
 }
 
-// function Avatar({ sub, darkMode, setAvatar }) {
 
+async function handleAvatarUpload(sub) {
+    const imageUpload = document.createElement('input')
+    imageUpload.type = 'file'
+    imageUpload.onchange = async (e) => {
+        const avatar = e.target.files[0]
+        handleAvatarSubmit(sub, avatar)
+    }
+    imageUpload.click()
+}
 
-
-//     useEffect(() => { }, [sub.data.avatar])
-
-//     return (
-//         <div className='flex horizontal' style={{ gap: "1rem" }}>
-
-//             <img style={{ width: "50px", borderRadius: "50%", border: "1px solid" }}
-//                 src={`${path}`} alt="" />
-
-//             <input type="file" className={`${darkMode}`}
-//                 onChange={(e) => setAvatar(e.target.files[0])}
-//             ></input>
-//         </div>
-//     )
-// }
 
