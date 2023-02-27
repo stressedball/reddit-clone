@@ -8,7 +8,7 @@ export default function CommentOptions({ darkMode, comment }) {
 
     const { user } = useContext(GlobalContext)
 
-    if (user.id === comment.poster) {
+    if (user.id === comment.data.poster) {
         return <EditComment darkMode={darkMode} />
 
     }
@@ -20,7 +20,7 @@ export default function CommentOptions({ darkMode, comment }) {
 function EditComment({ darkMode }) {
 
     return (
-        <div>
+        <div className='horizontal flex' style={{gap:'1rem'}}>
             <button
                 className={`${darkMode} buttonStyle mouse-pointer`}
             >Edit</button>

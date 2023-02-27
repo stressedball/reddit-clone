@@ -23,7 +23,7 @@ export default function AddCommentOptions({ darkMode, postId, text, user }) {
         <div
             className='comment-options'
         >
-            <svg
+            {/* <svg
                 className={`${darkMode} mouse-pointer`}
                 width="30px" height="30px"
                 version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
@@ -46,7 +46,7 @@ export default function AddCommentOptions({ darkMode, postId, text, user }) {
   c0.544,0.513,1.383,0.499,1.911-0.029l11.145-11.146c0.145-0.146,0.38-0.146,0.526-0.001l9.622,9.566
   c0.196,0.196,0.513,0.194,0.707-0.002c0.195-0.196,0.194-0.512-0.002-0.707L27.73,11.086z"/>
                 </g>
-            </svg>
+            </svg> */}
 
             <button
                 className={`${darkMode} buttonStyle mouse-pointer`}

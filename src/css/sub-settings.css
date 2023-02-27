@@ -1,0 +1,13 @@
+
+#avatar-message{
+    width: fit-content;
+    padding: 0.3rem;
+    margin: 0;
+    position: absolute;
+    width: max-content;
+    top: -35px; 
+    background-color: white;
+    border: 1px solid;
+    font-size: 0.8rem;
+    border-radius: 15px;
+}

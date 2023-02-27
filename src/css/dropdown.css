@@ -2,6 +2,7 @@
     border: 1px solid black;
     width: 200px;
     position: relative;
+    z-index: 1;
 }
 
 #dropdown-container.bottom-border {

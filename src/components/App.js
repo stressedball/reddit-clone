@@ -10,21 +10,22 @@ function App() {
 
   const { userId } = useContext(AuthContext)
   const { darkMode } = useContext(ThemeContext)
-  
-  useEffect(() => {}, [darkMode])
-  
+
+  useEffect(() => { }, [darkMode])
+
   return (
-      <div id='App' className={`${darkMode}`} >
-        <BrowserRouter>
-          <Routes>
+    <div id='App' className={`${darkMode}`} >
+      <BrowserRouter>
+        <Routes>
 
-            <Route path="*" element={<PrivateRoute userId={userId} />} />
+          <Route path="*" element={<PrivateRoute userId={userId} />} />
 
-            <Route path='/sign-up' element={<SignUp />} />
+          <Route path='/sign-up' element={<SignUp />} />
 
-          </Routes>
-        </BrowserRouter>
-      </div>
+        </Routes>
+      </BrowserRouter>
+      <footer>Brought to you by TS</footer>
+    </div>
   );
 }
 

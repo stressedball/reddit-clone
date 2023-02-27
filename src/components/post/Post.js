@@ -44,7 +44,7 @@ export default function Post({ darkMode }) {
 
   return (
 
-    <>-
+    <>
       <div className='post'>
 
         <section>
@@ -61,7 +61,6 @@ export default function Post({ darkMode }) {
             post.data.image ? <ImageDisplay post={post} /> : null
           }
 
-
           {
             post.data.poster === user.id ?
               <AdminOptions post={post} darkMode={darkMode} />
@@ -70,7 +69,7 @@ export default function Post({ darkMode }) {
           }
         </section>
 
-        <Votes darkMode={darkMode} post={post} postId={postId} />
+        <Votes dimension="25" flexDirection={"vertical"} darkMode={darkMode} post={post} postId={postId} />
 
       </div>
 

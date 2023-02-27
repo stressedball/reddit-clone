@@ -16,6 +16,7 @@
     border: 1px solid;
     padding: 1rem;
     margin: auto;
+    width: 100%;
 }
 
 #create-post-content-container{

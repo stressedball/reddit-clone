@@ -3,7 +3,8 @@ import { useLocation, useParams } from 'react-router-dom'
 import { GlobalContext } from '../../providers/GlobalProvider'
 import { db } from '../../../firebase/getAuthDb'
 import { setDoc, doc } from 'firebase/firestore'
-
+import AvatarSettings from './avatar-settings/AvatarSettings'
+import "../../../css/sub-settings.css"
 
 export default function SubSettings({ darkMode }) {
 
@@ -46,31 +47,37 @@ export default function SubSettings({ darkMode }) {
     if (sub === undefined) return <div>Loading Sub settings</div>
 
     return (
-        <div>
 
-            <h4>{sub.data.name}</h4>
+        <div className='flex vertical' style={{ gap: "1rem" }}>
 
-            <p>Created : {sub.data.dateOfCreation.toDate().toDateString()}</p>
+            <div className='flex horizontal' style={{ gap: "1rem" }}>
+                <AvatarSettings sub={sub} darkMode={darkMode} />
+                <h4>{sub.data.name}</h4>
+                <p>Created : {sub.data.dateOfCreation.toDate().toDateString()}</p>
+            </div>
+
 
             <div>
 
-                <p>You can change the sub description</p>
+                <p>Sub description</p>
 
                 <textarea
+                    style={{ width: "80%", height: "100px" }}
                     className={`${darkMode}`}
                     ref={descriptionRef}
                     value={description}
                     onChange={(e) => { setDescription(e.target.value) }}
                 ></textarea>
 
-                <div>
-                    <button onClick={handleDescriptionChange} className={`${darkMode} buttonStyle`}>Save Changes</button>
-                    {
-                        confirmSave ?
-                            <p>Changes saved!</p>
-                            : null
-                    }
-                </div>
+            </div>
+
+            <div>
+                <button onClick={handleDescriptionChange} className={`${darkMode} buttonStyle mouse-pointer`}>Save Changes</button>
+                {
+                    confirmSave ?
+                        <p>Changes saved!</p>
+                        : null
+                }
             </div>
 
             <div>

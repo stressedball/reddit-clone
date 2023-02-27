@@ -22,9 +22,14 @@ input {
   min-height: 100vh;
 }
 
+footer {
+  text-align: center;
+  padding: 0.5rem;
+}
+
 #container {
   flex: 1 0 auto;
-  width: 80vw;
+  width: 50vw;
   margin: auto;
 }
 
@@ -47,11 +52,14 @@ svg {
 }
 
 .buttonStyle {
-  border: 1px solid inherit;
+  border: 1px solid;
+  padding: 0.5rem;
+  border-radius: 5px;
 }
 
 .buttonStyle:hover {
-  background-color: aquamarine;
+  background-color: grey;
+  color: white;
 }
 
 textarea {

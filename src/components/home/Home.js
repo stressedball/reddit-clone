@@ -3,7 +3,7 @@ import CreatePostShortcut from './create-post-shortcut/CreatePostShortcut';
 import { GlobalProvider } from '../providers/GlobalProvider';
 import Header from '../header/Header'
 import Post from '../post/Post'
-import Sub from './Sub'
+import Sub from './sub/Sub'
 import MainPage from './MainPage'
 import UserSpace from './UserSpace';
 import React, { useContext } from 'react'
@@ -25,7 +25,6 @@ export default function Home() {
 
       <div id='container'>
         <Routes>
-
           <Route path='/' index element={<MainPage darkMode={darkMode} />} />
           <Route path='/submit/*' element={<CreatePost darkMode={darkMode} />} />
           <Route path='r/:subId' element={<Sub darkMode={darkMode} />} />

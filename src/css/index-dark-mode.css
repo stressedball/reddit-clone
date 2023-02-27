@@ -64,3 +64,8 @@ div.displayed.dark {
     background-color: var(--dark-background);
     color: var(--dark-color);
 }
+
+#avatar-message.dark{
+    background-color: var(--dark-background);
+    color: var(--dark-color);
+}
