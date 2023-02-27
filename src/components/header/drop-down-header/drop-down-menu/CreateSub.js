@@ -27,18 +27,19 @@ export default function CreateSub({ darkMode, setMakeSub, handleDisplay }) {
 
     return (
 
-        <div id='create-sub' className={`${darkMode}`}>
+        <div id='create-sub' className={`${darkMode} drop-down-menu`}>
 
-            <div id='create-sub-form' className={`${darkMode}`}>
+            <div id='create-sub-form' className={`${darkMode} drop-down-menu`}>
 
-                <header>Create a community</header>
+                <header className='drop-down-menu'>Create a community</header>
 
-                <p>Name</p>
+                <p className='drop-down-menu'>Name</p>
 
-                <p style={{ fontSize: '0.8rem' }}>Beware, you can not change the name. <span style={{ fontSize: '0.7rem' }}><strong>Five</strong> characters minimum</span></p>
+                <p style={{ fontSize: '0.8rem' }} className='drop-down-menu'
+                >Beware, you can not change the name. <span style={{ fontSize: '0.7rem' }}><strong>Five</strong> characters minimum</span></p>
 
                 <input
-                    className={`${darkMode}`}
+                    className={`${darkMode} drop-down-menu`}
                     id='create-sub-input'
                     placeholder='r/'
                     ref={subName}
@@ -47,17 +48,17 @@ export default function CreateSub({ darkMode, setMakeSub, handleDisplay }) {
 
                 {
                     error ?
-                        <p style={{ fontSize: '0.8rem' }}>Please enter a name of 5 or more characters.</p>
+                        <p className='drop-down-menu' style={{ fontSize: '0.8rem' }}>Please enter a name of 5 or more characters.</p>
                         : null
                 }
 
-                <div id='buttons-container'>
+                <div id='buttons-container' className='drop-down-menu'>
 
-                    <button className={`${darkMode} buttonStyle`}
+                    <button className={`${darkMode} buttonStyle drop-down-menu`}
                         onClick={() => setMakeSub(false)}
                     >Cancel</button>
 
-                    <button className={`${darkMode} buttonStyle`}
+                    <button className={`${darkMode} buttonStyle drop-down-menu`}
                         onClick={() => {
                             handleCreateSub()
                         }}

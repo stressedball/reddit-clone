@@ -3,9 +3,6 @@ import { GlobalContext } from '../../providers/GlobalProvider'
 import React, { useState, useContext, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import Menu from './drop-down-menu/Menu'
-import { createContext } from 'react'
-
-const DisplayContext = createContext()
 
 export default function DropDown({ darkMode }) {
 
@@ -18,42 +15,34 @@ export default function DropDown({ darkMode }) {
 
     const locationArrStrings = location.split('/')
 
-    if (locationArrStrings[1] === 'r') {
-      if (subs === undefined || subs.length === 0) return
-      const sub = subs.filter(sub => sub.id === locationArrStrings[2])[0]
-      setSelectedOption(`r/${sub.data.name}`)
-      return
-    }
-
-    if (locationArrStrings[1] === 'u') {
-      if (users.length === 0) return
-      const user = users.filter(user => user.id === locationArrStrings[2])[0]
-      setSelectedOption(`u/${user.data.userName}`)
-      return
-    }
-
-    if (locationArrStrings[1] === '') {
-      setSelectedOption('Home')
-      return
-    }
-
-    if (locationArrStrings[1] === 'submit') {
-      setSelectedOption('Create post')
-      return
-    }
+    const option = getOption(locationArrStrings, users, subs)
+    setSelectedOption(option)
 
   }, [users, subs, location, display])
 
+  useEffect(() => {
+
+    function toggleDisplay(e) {
+      if (display) {
+        if (!e.target.classList.contains('drop-down-menu')) setDisplay(false)
+      }
+    }
+
+    window.addEventListener('click', toggleDisplay)
+
+    return () => window.removeEventListener('click', toggleDisplay)
+
+  }, [display])
 
   const handleDisplay = () => { setDisplay(!display) }
 
   return (
 
-    <div id='dropdown-container' className={`${darkMode}`}>
+    <div id='dropdown-container' className={`${darkMode} drop-down-menu`}>
 
-      <div id='dropdown-header'>
+      <div id='dropdown-header' className='drop-down-menu'>
 
-        <p className={`${darkMode} tile mouse-pointer`}
+        <p className={`${darkMode} tile mouse-pointer drop-down-menu`}
           onClick={() => {
             setDisplay(!display)
           }}
@@ -69,3 +58,28 @@ export default function DropDown({ darkMode }) {
   )
 }
 
+function getOption(locationArrStrings, users, subs) {
+
+  if (locationArrStrings[1] === 'r') {
+    if (subs === undefined || subs.length === 0) return
+    const sub = subs.filter(sub => sub.id === locationArrStrings[2])[0]
+    return `r/${sub.data.name}`
+  }
+
+  if (locationArrStrings[1] === 'u') {
+    if (users.length === 0) return
+    const user = users.filter(user => user.id === locationArrStrings[2])[0]
+    return `u/${user.data.userName}`
+    
+  }
+
+  if (locationArrStrings[1] === '') {
+    return 'Home'
+    
+  }
+
+  if (locationArrStrings[1] === 'submit') {
+    return 'Create post'
+    
+  }
+}

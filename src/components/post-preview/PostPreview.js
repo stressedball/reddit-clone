@@ -20,7 +20,7 @@ export default function PostPreview({ darkMode, subId, post }) {
             <div
                 className='horizontal flex content'
             >
-                < Votes post={post} postId={post.id} darkMode={darkMode} />
+                < Votes post={post} darkMode={darkMode} />
 
                 <PreviewPlaceholder post={post} darkMode={darkMode} subId={subId} />
 

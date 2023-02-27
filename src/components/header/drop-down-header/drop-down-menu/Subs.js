@@ -9,11 +9,11 @@ export default function Subs({ handleDisplay, darkMode, subs }) {
 
     return (
         <>
-            <p className={`${darkMode} tile mouse-pointer`} value='Subs'>Communities</p>
+            <p className={`${darkMode} tile mouse-pointer drop-down-menu`} value='Subs'>Communities</p>
 
-            <div className={`${darkMode} tile mouse-pointer horizontal flex`} style={{ gap: '0.3rem' }}>
+            <div className={`${darkMode} tile mouse-pointer horizontal flex drop-down-menu`} style={{ gap: '0.3rem' }}>
                 <svg
-                    fill="currentColor" className={`${darkMode}`}
+                    fill="currentColor" className={`${darkMode} drop-down-menu`}
                     width="15px" height="15px"
                     viewBox="0 0 128 128" id="Layer_1" version="1.1" xmlSpace="preserve" xmlns="http://www.w3.org/2000/svg">
                     <g>
@@ -25,7 +25,7 @@ export default function Subs({ handleDisplay, darkMode, subs }) {
                         <path d="M50.1,20C50.1,9.5,41.5,0.9,31,0.9S11.9,9.5,11.9,20S20.5,39.1,31,39.1S50.1,30.5,50.1,20z M31,31.1   c-6.1,0-11.1-5-11.1-11.1S24.9,8.9,31,8.9s11.1,5,11.1,11.1S37.1,31.1,31,31.1z" />
                     </g>
                 </svg>
-                <p
+                <p className="drop-down-menu"
                     onClick={() => {
                         setMakeSub(!makeSub)
                     }}
@@ -41,7 +41,7 @@ export default function Subs({ handleDisplay, darkMode, subs }) {
                                 navigate(`r/${sub.id}`)
                                 handleDisplay()
                             }}
-                            className={`${darkMode} tile mouse-pointer`}
+                            className={`${darkMode} tile mouse-pointer drop-down-menu`}
                             value={sub.data.name}
                         >{sub.data.name}</p>
                     )

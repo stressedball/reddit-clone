@@ -4,7 +4,7 @@ import { db } from '../../firebase/getAuthDb'
 import { useContext, useEffect, useState } from 'react'
 import { GlobalContext } from '../providers/GlobalProvider'
 
-export default function Votes({ darkMode, post, postId }) {
+export default function Votes({ darkMode, post }) {
 
     const { likedPosts, user } = useContext(GlobalContext)
     const [upVote, setUpVote] = useState()
@@ -15,9 +15,9 @@ export default function Votes({ darkMode, post, postId }) {
 
         if (likedPosts.length !== 0) {
 
-            if (likedPosts.filter(post => post.id === postId)) {
+            if (likedPosts.filter(p => p.id === post.id)) {
 
-                const likedPost = likedPosts.filter(post => post.id === postId)[0]
+                const likedPost = likedPosts.filter(p => p.id === post.id)[0]
                 
                 if (likedPost === undefined) return
                 if (likedPost.data.value === 1) setUpVote(true)
@@ -37,8 +37,8 @@ export default function Votes({ darkMode, post, postId }) {
             || downVote === true && voteValue === -1) {
             setDownVote(false)
             setUpVote(false)
-            updateUserVotes(0, user, postId)
-            updatePostVotes(votes, -voteValue, postId)
+            updateUserVotes(0, user, post.id)
+            updatePostVotes(votes, -voteValue, post.id)
             return
         }
 
@@ -50,8 +50,8 @@ export default function Votes({ darkMode, post, postId }) {
             setUpVote(true)
         }
 
-        updateUserVotes(voteValue, user, postId)
-        updatePostVotes(votes, voteValue, postId)
+        updateUserVotes(voteValue, user, post.id)
+        updatePostVotes(votes, voteValue, post.id)
     }
 
     return (

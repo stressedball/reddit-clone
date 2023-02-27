@@ -6,7 +6,7 @@ export default function Users({ handleDisplay, darkMode, users }) {
 
     return (
         <>
-            <p className={`${darkMode} tile mouse-pointer`} value='Users'>Users</p>
+            <p className={`${darkMode} tile mouse-pointer drop-down-menu`} value='Users'>Users</p>
 
             {
                 users.map(user => {
@@ -17,7 +17,7 @@ export default function Users({ handleDisplay, darkMode, users }) {
                                 handleDisplay()
                                 navigate(`u/${user.id}`)
                             }}
-                            className={`${darkMode} tile mouse-pointer`}
+                            className={`${darkMode} tile mouse-pointer drop-down-menu`}
                         >{user.data.userName}</p>
                     )
                 })

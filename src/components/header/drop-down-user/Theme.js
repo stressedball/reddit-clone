@@ -11,7 +11,7 @@ export default function Theme() {
 
     return (
         <div
-            className={`${darkMode} tile mouse-pointer`}
+            className={`${darkMode} tile mouse-pointer drop-down-user`}
             onClick={handleTheme}
         >Switch to <span>
                 {
