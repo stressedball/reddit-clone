@@ -49,7 +49,7 @@ export default function SubSettings({ darkMode }) {
 
     return (
 
-        <div className='flex vertical' style={{ gap: "1rem" }}>
+        <div className='flex vertical' style={{ gap: "1rem", padding:"2rem"}}>
 
             <div className='flex horizontal' style={{ gap: "1rem" }}>
                 <AvatarSettings sub={sub} darkMode={darkMode} />
@@ -81,6 +81,7 @@ export default function SubSettings({ darkMode }) {
                 }
             </div>
 
+            <BannerSettings sub={sub} />
             <div>
                 <p>Users</p>
             </div>

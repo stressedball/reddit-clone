@@ -10,19 +10,23 @@ import React, { useContext } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { ThemeContext } from '../providers/ThemeProvider';
 import SubSettings from './sub-settings.js/SubSettings';
+import SubHeader from './sub/SubHeader';
 
 export default function Home() {
 
   const location = useLocation().pathname
   const { darkMode } = useContext(ThemeContext)
 
-  console.log(location.split('/'))
+  console.log(location.split('/').length)
   return (
     <GlobalProvider>
 
       <Header darkMode={darkMode} />
 
-      {location.split('/')[1] !== 'submit' && <CreatePostShortcut darkMode={darkMode} />}
+      {location.split('/')[1] === 'r' && location.split('/').length <= 3 && <SubHeader darkMode={darkMode} />}
+
+      {location.split('/')[1] !== 'submit' && location.split('/').length <= 3 && <CreatePostShortcut darkMode={darkMode} />}
+
 
       <div id='container'>
         <Routes>

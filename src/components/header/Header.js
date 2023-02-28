@@ -13,7 +13,7 @@ export default function Header({ userName }) {
 
     return (
 
-        <nav>
+        <header>
 
             <h3
                 className='mouse-pointer'
@@ -35,6 +35,6 @@ export default function Header({ userName }) {
 
             />
 
-        </nav>
+        </header>
     )
 }
