@@ -8,7 +8,6 @@
     z-index: 1;
 }
 
-
 #create-sub-form {
     position: absolute;
     top: 50%;
@@ -31,6 +30,6 @@
 #buttons-container {
     margin-top: 1rem;
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     gap: 1rem;
 }

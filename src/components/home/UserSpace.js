@@ -1,9 +1,11 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { GlobalContext } from '../providers/GlobalProvider'
 import { auth } from '../../firebase/getAuthDb'
 
-export default function UserSpace({ darkMode }) {
+export default function UserSpace({ darkMode, handleDisplay }) {
+  
+  useEffect(() => {handleDisplay(false)}, [])
 
   const params = useParams()
   const { user, users } = useContext(GlobalContext)
@@ -14,7 +16,7 @@ export default function UserSpace({ darkMode }) {
 
   return (
 
-    <div>
+    <div >
       {
         user.id === params.userId ?
           <>

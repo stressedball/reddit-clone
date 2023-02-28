@@ -28,6 +28,8 @@ footer {
 
 #container {
   flex: 1 0 auto;
+  margin-top: 18px;
+  position: relative;
 }
 
 .horizontal.flex {
@@ -51,7 +53,7 @@ svg {
 .buttonStyle {
   border: 1px solid;
   padding: 0.5rem;
-  border-radius: 5px;
+  border-radius: 4px;
 }
 
 .buttonStyle:hover {
@@ -61,4 +63,17 @@ svg {
 
 textarea {
   resize: none;
+}
+
+#side-container {
+  grid-column: 2;
+  min-height: 500px;
+  border: 1px solid;
+  margin: 0 12px 0 12px;
+  border-radius: 4px;
+  padding: 0.3rem;
+}
+
+#content-wrapper {
+  grid-area: 1;
 }

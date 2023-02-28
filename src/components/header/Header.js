@@ -21,7 +21,7 @@ export default function Header({ userName }) {
             >RedditClone</h3>
 
             <DropDown
-                darkMode={darkMode}
+                darkMode={darkMode} 
             />
 
             <SearchBar

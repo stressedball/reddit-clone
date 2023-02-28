@@ -1,8 +1,11 @@
 import { GlobalContext } from '../providers/GlobalProvider';
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import PostPreview from '../post-preview/PostPreview';
 
-export default function MainPage({ darkMode }) {
+export default function MainPage({ darkMode, handleDisplay }) {
+
+
+    useEffect(() => {handleDisplay(true)}, [])
 
     const { posts, user, subs } = useContext(GlobalContext)
 

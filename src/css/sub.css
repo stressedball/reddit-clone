@@ -1,24 +1,32 @@
-#subs-container {
+#sub-container {
     display: flex;
-    flex-direction: column;
+    margin: 38px 12px 0 12px;
     gap: 1rem;
 }
 
-.sub-preview {
-    border: 1px solid;
-    padding: 1rem;
+#sub-posts-list {
+    flex: 1 0 auto;
 }
 
-.sub-preview:hover{
-    font-weight: bold;
-    cursor: pointer;
-}
+/* .sub-preview { */
+/* border: 1px solid; */
+/* padding: 1rem; */
+/* } */
+
+/* .sub-preview:hover{ */
+/* font-weight: bold; */
+/* cursor: pointer; */
+/* } */
 
 
-#sub-settings-shortcut{
+#sub-settings-shortcut {
     justify-content: space-between;
     gap: 1rem;
     padding: 0 1rem 0 1rem;
 }
 
 
+#about-sub {
+    border: 1px solid;
+    padding: 0.5rem;
+}

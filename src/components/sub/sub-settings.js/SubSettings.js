@@ -7,8 +7,9 @@ import AvatarSettings from './avatar-settings/AvatarSettings'
 import "../../../css/sub-settings.css"
 import BannerSettings from './banner-settings/BannerSettings'
 
-export default function SubSettings({ darkMode }) {
+export default function SubSettings({ darkMode, handleDisplay }) {
 
+    useEffect(() => {handleDisplay(false)}, [])
     const { subs } = useContext(GlobalContext)
     const [sub, setSub] = useState()
     const params = useParams()
@@ -81,7 +82,8 @@ export default function SubSettings({ darkMode }) {
                 }
             </div>
 
-            <BannerSettings sub={sub} />
+            <BannerSettings sub={sub} darkMode={darkMode} />
+
             <div>
                 <p>Users</p>
             </div>

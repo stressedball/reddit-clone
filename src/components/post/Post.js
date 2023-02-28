@@ -10,7 +10,9 @@ import { useParams } from 'react-router'
 import React, { useState, useContext, useEffect } from 'react'
 import ImageDisplay from './components/ImageDisplay'
 
-export default function Post({ darkMode }) {
+export default function Post({ darkMode, handleDisplay }) {
+
+  useEffect(() => {handleDisplay(false)}, [])
 
   const postId = useParams().postId
   const { posts, users, subs, user } = useContext(GlobalContext)

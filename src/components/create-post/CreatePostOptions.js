@@ -1,6 +1,6 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { GlobalContext } from '../../providers/GlobalProvider'
+import { GlobalContext } from '../providers/GlobalProvider'
 import handleSubmit from './handleSubmit'
 
 export default function CreatePostOptions({ notified, darkMode, setError, subId, title, text, image }) {

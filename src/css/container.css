@@ -1,0 +1,5 @@
+#container.grid{
+  display: grid;
+  grid-template-columns: 75% 25%;
+
+}

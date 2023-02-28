@@ -1,5 +1,5 @@
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
-import { db, storage } from '../../../firebase/getAuthDb'
+import { db, storage } from '../../firebase/getAuthDb'
 import { ref, uploadBytes } from 'firebase/storage'
 import { setDoc, doc } from 'firebase/firestore'
 

@@ -68,18 +68,13 @@ function getOption(locationArrStrings, users, subs) {
 
   if (locationArrStrings[1] === 'u') {
     if (users.length === 0) return
+
     const user = users.filter(user => user.id === locationArrStrings[2])[0]
     return `u/${user.data.userName}`
-    
   }
 
-  if (locationArrStrings[1] === '') {
-    return 'Home'
-    
-  }
+  if (locationArrStrings[1] === '') return 'Home'
 
-  if (locationArrStrings[1] === 'submit') {
-    return 'Create post'
-    
-  }
+  if (locationArrStrings[1] === 'submit') return 'Create post'
+
 }

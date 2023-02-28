@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import CreateSub from "./CreateSub";
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
 export default function Subs({ handleDisplay, darkMode, subs }) {
 

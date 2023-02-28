@@ -3,6 +3,7 @@
     width: 200px;
     position: relative;
     z-index: 1;
+    border-radius: 4px;
 }
 
 #dropdown-container.bottom-border {
@@ -10,6 +11,8 @@
     border-right: 1px solid;
     border-left: 1px solid;
     border-bottom: 1px solid transparent;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
 #dropdown-header {

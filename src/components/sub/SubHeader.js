@@ -1,10 +1,10 @@
 import { useLocation } from 'react-router-dom'
 import React, { useState, useContext, useEffect } from 'react'
-import { GlobalContext } from '../../providers/GlobalProvider'
-import { getBanner } from '../sub-settings.js/banner-settings/bannerData'
+import { GlobalContext } from '../providers/GlobalProvider'
+import { getBanner } from './sub-settings.js/banner-settings/bannerData'
 import SubSettingsShortcut from './SubSettingsShortcut'
 import SubSubscribe from './SubSubscribe'
-import { getAvatar } from '../sub-settings.js/avatar-settings/avatarData'
+import { getAvatar } from './sub-settings.js/avatar-settings/avatarData'
 
 export default function SubHeader({ darkMode }) {
 
@@ -36,15 +36,13 @@ export default function SubHeader({ darkMode }) {
   }, [subId, subs])
 
   if (sub === undefined) return <div>Fetching sub data</div>
-  
+
   return (
 
     <div>
 
       <img src={`${bannerPath}`}
-        style={{
-          height: "245px", width: "100vw",
-        }}></img>
+        style={{ height: "245px", width: "100vw", }}></img>
 
       <div id='sub-settings-shortcut' className='horizontal flex'>
 
