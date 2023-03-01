@@ -1,23 +1,15 @@
 #sub-container {
     display: flex;
-    margin: 38px 12px 0 12px;
-    gap: 1rem;
+    flex-direction: column;
+    margin-top: 38px;
+    /* gap: 1rem; */
+    justify-content: start;
+    box-sizing: border-box;
 }
 
 #sub-posts-list {
     flex: 1 0 auto;
 }
-
-/* .sub-preview { */
-/* border: 1px solid; */
-/* padding: 1rem; */
-/* } */
-
-/* .sub-preview:hover{ */
-/* font-weight: bold; */
-/* cursor: pointer; */
-/* } */
-
 
 #sub-settings-shortcut {
     justify-content: space-between;

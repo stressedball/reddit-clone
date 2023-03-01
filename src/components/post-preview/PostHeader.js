@@ -2,7 +2,7 @@ import '../../css/post-preview.css'
 import { GlobalContext } from '../providers/GlobalProvider'
 import React, { useContext, useEffect, useState } from 'react'
 
-export default function PostHeader({ darkMode, subId, post }) {
+export default function Postsection({ darkMode, subId, post }) {
 
     const { subs, users } = useContext(GlobalContext)
     const sub = subs.filter(el => el.id === subId)[0]
@@ -21,7 +21,7 @@ export default function PostHeader({ darkMode, subId, post }) {
 
     return (
 
-        <header
+        <section
             id='details'
         >
             {
@@ -47,6 +47,6 @@ export default function PostHeader({ darkMode, subId, post }) {
                     : null
             }</p>
 
-        </header>
+        </section>
     )
 }

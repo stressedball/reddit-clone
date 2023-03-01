@@ -4,6 +4,7 @@ import { auth, db } from '../../firebase/getAuthDb'
 import { setDoc, doc, serverTimestamp } from 'firebase/firestore'
 import { useNavigate } from 'react-router-dom'
 import '../../css/log-in_sign-up.css'
+import JustAHeader from './JustAHeader'
 
 export default function SignUp() {
 
@@ -39,7 +40,7 @@ export default function SignUp() {
                     userName: userNameValue,
                     dateCreation: serverTimestamp(),
                     status: null,
-                    lastSeen : null
+                    lastSeen: null
                 })
                 navigate('/')
             })
@@ -53,64 +54,47 @@ export default function SignUp() {
 
     return (
 
-        <div
-            id='container'
-        >
+        <div id='container'>
 
-            <form
-                id='sign-up'
-            >
+            <JustAHeader />
+            
+            <form id='unsigned'>
 
                 {
-                    error
-                        ?
-                        <p
-                            id='error'
-                        >{error}</p>
-                        :
-                        null
+                    error ? <p id='error'>{error}</p> : null
                 }
 
                 <input
-                    placeholder='Enter your username'
                     ref={userName}
-                    minLength='5'
-                    required={true}
-                    type="text"
+                    placeholder='Enter your username' minLength='5' required={true} type="text"
+                ></input>
+
+                <input ref={email}
+                    placeholder='Enter your email' type='email' required={true}
                 ></input>
 
                 <input
-                    placeholder='Enter your email'
-                    type='email'
-                    ref={email}
-                    required={true}
-                ></input>
-
-                <input
-                    type='password'
-                    placeholder='Password'
                     ref={password}
-                    minLength='6'
-                    required={true}
+                    type='password' placeholder='Password' minLength='6' required={true}
                 ></input>
 
                 <input
-                    type='password'
-                    placeholder='Confirm password'
                     ref={confirmPassword}
-                    minLength='6'
-                    required={true}
+                    type='password' placeholder='Confirm password' minLength='6' required={true}
                 ></input>
 
                 <button
                     onClick={handleCreateAccount}
                 >Create RedditClone account</button>
 
-                <p>Or</p>
+                <p style={{ textAlign: 'center' }}>Or</p>
 
                 <GoogleAuth />
 
-                <a href='/'>Return to log-in</a>
+                <p onClick={() => navigate('/')}
+                    className='mouse-pointer'
+                    style={{ textDecoration: "underline", alignSelf: "center" }}
+                >Return to log-in</p>
 
             </form>
         </div>

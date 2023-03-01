@@ -6,6 +6,7 @@ export default function SearchBar({ darkMode }) {
         <input
             className={`${darkMode}`}
             placeholder='Search RedditClone'
+            style={{height:"38px"}}
         ></input>
     )
 }

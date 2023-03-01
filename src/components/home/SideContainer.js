@@ -53,7 +53,7 @@ function Sub({ darkMode, subId }) {
 
   return (
     <div id='side-container' className={`${darkMode}`}>
-      <p>Welcome to {sub.data.name}</p>
+      <p>Welcome to <strong>{sub.data.name}</strong></p>
       <p>{sub.data.description}</p>
       <p>Created {sub.data.dateOfCreation.toDate().toDateString()}</p>
       <p>{sub.data.users.length} members</p>

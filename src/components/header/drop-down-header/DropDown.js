@@ -10,6 +10,7 @@ export default function DropDown({ darkMode }) {
   const { users, subs } = useContext(GlobalContext)
   const [selectedOption, setSelectedOption] = useState('')
   const [display, setDisplay] = useState(false)
+  const [borderRadius, setBorderRadius] = useState('round')
 
   useEffect(() => {
 
@@ -21,6 +22,8 @@ export default function DropDown({ darkMode }) {
   }, [users, subs, location, display])
 
   useEffect(() => {
+
+    display ? setBorderRadius('square') : setBorderRadius('round')
 
     function toggleDisplay(e) {
       if (display) {
@@ -38,14 +41,12 @@ export default function DropDown({ darkMode }) {
 
   return (
 
-    <div id='dropdown-container' className={`${darkMode} drop-down-menu`}>
+    <div id='dropdown-container' className={`${darkMode} drop-down-menu ${borderRadius}`}>
 
       <div id='dropdown-header' className='drop-down-menu'>
 
         <p className={`${darkMode} tile mouse-pointer drop-down-menu`}
-          onClick={() => {
-            setDisplay(!display)
-          }}
+          onClick={() => { setDisplay(!display) }}
         >{selectedOption}</p>
       </div>
 

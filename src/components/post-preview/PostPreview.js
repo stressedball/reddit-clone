@@ -24,7 +24,7 @@ export default function PostPreview({ darkMode, subId, post }) {
 
                 <PreviewPlaceholder post={post} darkMode={darkMode} subId={subId} />
 
-                <div className='vertical flex'>
+                <div className='vertical flex' style={{ gap: "15px" }}>
 
                     <PostPreviewBody post={post} subId={subId} />
 
@@ -40,13 +40,13 @@ export default function PostPreview({ darkMode, subId, post }) {
                 {
                     displayText ?
                         post.data.text ? <p>{post.data.text}</p>
-                            : 
+                            :
                             post.data.image ? <ImageDisplay post={post} />
                                 :
                                 post.data.poll ? <p>poll</p>
                                     : null
                         : null
-                } 
+                }
             </div>
         </div >
     )

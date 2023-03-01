@@ -1,22 +1,22 @@
 import React, { useContext, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { GlobalContext } from '../providers/GlobalProvider'
-import { auth } from '../../firebase/getAuthDb'
+import '../../css/userspace.css'
 
 export default function UserSpace({ darkMode, handleDisplay }) {
-  
-  useEffect(() => {handleDisplay(false)}, [])
 
+  useEffect(() => { handleDisplay(false) }, [])
+  
   const params = useParams()
   const { user, users } = useContext(GlobalContext)
 
-  if (users.length === 0) return <div>Fetching data...</div>
+  if (users.length === 0 || user=== undefined) return <div>Fetching data...</div>
 
-  const urlUser = users.filter(user => user.id === params.userId)[0]
+  const userByUrl = users.filter(user => user.id === params.userId)[0]
 
   return (
 
-    <div >
+    <div id='userspace-container'>
       {
         user.id === params.userId ?
           <>
@@ -25,19 +25,24 @@ export default function UserSpace({ darkMode, handleDisplay }) {
           </>
           :
           <>
-            <p>{urlUser.data.userName} profile</p>
+            <p>{userByUrl.data.userName} profile</p>
           </>
       }
-      
-      {
-        urlUser.data.dateCreation ?
-          <p>Joined RedditClone : {`${urlUser.data.dateCreation.toDate().toDateString()}`}</p>
+
+        {
+        userByUrl.data.dateCreation ?
+          <p>Joined RedditClone : {`${userByUrl.data.dateCreation.toDate().toDateString()}`}</p>
           : null
       }
 
       {
-        urlUser.data.status ?
-          <p>Status : {urlUser.data.status}</p>
+        user.id === params.userId ? null
+          : <p>Last seen : {userByUrl.data.lastSeen.toDate().toDateString() }</p>
+      }
+
+      {
+        userByUrl.data.status ?
+          <p>Status : {userByUrl.data.status}</p>
           : null
       }
     </div>

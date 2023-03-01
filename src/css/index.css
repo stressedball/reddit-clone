@@ -29,7 +29,6 @@ footer {
 #container {
   flex: 1 0 auto;
   margin-top: 18px;
-  position: relative;
 }
 
 .horizontal.flex {

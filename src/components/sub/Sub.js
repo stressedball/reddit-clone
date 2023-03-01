@@ -18,25 +18,17 @@ export default function Sub({ darkMode, handleDisplay }) {
 
     return (
         <div id='sub-container'>
-            <div id='sub-posts-list'>
-                {
-                    subPosts.length === 0 ?
-                        <EmptySub />
-                        :
-                        subPosts.map(post => {
-                            return <PostPreview key={post.id} subId={null} post={post} darkMode={darkMode} />
-                        })
-                }
-
-            </div>
+            {
+                subPosts.length === 0 ?
+                    <EmptySub />
+                    :
+                    subPosts.map(post => {
+                        return <PostPreview key={post.id} subId={null} post={post} darkMode={darkMode} />
+                    })
+            }
         </div>
     )
-
 }
-
-
-
-
 
 function EmptySub() {
     return (

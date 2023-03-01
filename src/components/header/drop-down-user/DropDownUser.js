@@ -9,9 +9,12 @@ export default function DropDownUser({ darkMode }) {
 
     const [isDisplay, setIsDisplay] = useState(false)
     const { user } = useContext(GlobalContext)
+    const [borderRadius, setBorderRadius] = useState('round')
 
     useEffect(() => {
         
+        isDisplay ? setBorderRadius('square') : setBorderRadius('round')
+
         function toggleDisplay(e) {
             if (isDisplay) {
                 if(!e.target.classList.contains('drop-down-user')) setIsDisplay(false)
@@ -26,7 +29,7 @@ export default function DropDownUser({ darkMode }) {
 
     return (
 
-        <div id='dropdown-container' className={`${darkMode} drop-down-user`}>
+        <div id='dropdown-container' className={`${darkMode} drop-down-user ${borderRadius}`}>
 
             <div
                 id='dropdown-header' className='drop-down-user'

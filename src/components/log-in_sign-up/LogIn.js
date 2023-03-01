@@ -3,9 +3,12 @@ import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../../firebase/getAuthDb'
 import { useRef } from 'react'
 import '../../css/log-in_sign-up.css'
+import { useNavigate } from 'react-router-dom'
+import JustAHeader from './JustAHeader'
 
 export default function LogIn() {
 
+    const navigate = useNavigate()
     const email = useRef()
     const password = useRef()
     const [error, setError] = useState()
@@ -18,31 +21,20 @@ export default function LogIn() {
             });
     }
 
-    // on login
-    // user : data : status : logged in
-    
     useEffect(() => { }, [error])
 
     return (
         <div
             id='container'
         >
+            
+            <JustAHeader />
 
-            <form
-                id='log-in'
-            >
+            <form id='unsigned'>
 
-                {
-                    error
-                        ?
-                        <p
-                            id='error'
-                        >{error}</p>
-                        :
-                        null
-                }
+                {error ? <p id='error'>{error}</p> : null}
 
-                <p>Welcome To RedditClone</p>
+                <p>Sign in</p>
 
                 <input
                     type="email"
@@ -62,11 +54,11 @@ export default function LogIn() {
                     onClick={handleLogIn}
                 >Log in</button>
 
-                <div
-                    id='sign-up'
-                >
+                <div className='flex horizontal' style={{ gap: "1rem" }}>
                     <p>New to RedditClone?</p>
-                    <a href='/sign-up'>Create an account</a>
+
+                    <p className='mouse-pointer' style={{ textDecoration: "underline" }}
+                        onClick={() => navigate('/sign-up')}>Create an account</p>
                 </div>
 
             </form>

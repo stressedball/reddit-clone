@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import CommentsCount from './CommentsCount'
 import '../../css/post-preview.css'
 import { db } from '../../firebase/getAuthDb';
-import { onSnapshot, query, doc, collection } from 'firebase/firestore';
+import { onSnapshot, query, collection } from 'firebase/firestore';
 
 export default function PostPreviewOptions({ darkMode, showContent, post }) {
 

@@ -1,29 +1,16 @@
-form#log-in {
+form#unsigned {
     display: flex;
     flex-direction: column;
-    margin: auto auto;
     gap: 1rem;
     border: 1px solid;
     padding: 1rem;
-}
-
-
-form#sign-up {
-    display: flex;
-    flex-direction: column;
-    border: 1px solid;
-    margin: auto auto;
-    padding: 1rem;
-
-}
-
-#sign-up {
-    display: flex;
-    align-items: center;
+    width: fit-content;
     justify-content: center;
-    gap: 1rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
-
 
 #error {
     background-color: rgb(223, 26, 26);

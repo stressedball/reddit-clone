@@ -1,4 +1,4 @@
-import { doc, getDoc, getDocs, query, collection } from 'firebase/firestore'
+import { doc, getDoc, getDocs, query, collection, setDoc } from 'firebase/firestore'
 import { createContext, useState, useEffect } from "react";
 import { auth, db } from '../../firebase/getAuthDb';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -19,18 +19,22 @@ export function GlobalProvider({ children }) {
         onAuthStateChanged(auth, (user) => {
 
             if (user) {
-                getDoc(doc(db, "users", user.uid))
-                    .then((user) => {
-                        if (user) {
-                            setUser({
-                                id: user.id,
-                                data: user.data(),
-                            })
-                        }
-                    })
-                    .catch((error) => {
-                        console.log(error)
-                    })
+                setDoc(doc(db, "users", user.uid), {
+                    status: "online"
+                }, { merge: true }).then(() => {
+                    getDoc(doc(db, "users", user.uid))
+                        .then((user) => {
+                            if (user) {
+                                setUser({
+                                    id: user.id,
+                                    data: user.data(),
+                                })
+                            }
+                        })
+                        .catch((error) => {
+                            console.log(error)
+                        })
+                })
             }
         })
 

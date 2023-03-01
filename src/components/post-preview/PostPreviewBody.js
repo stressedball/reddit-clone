@@ -8,7 +8,7 @@ export default function PostPreviewBody({ post, subId }) {
         if (e.target === undefined) return
         subId === null ? navigate(`p/${post.id}`) : navigate(`r/${subId}/p/${post.id}`)
     }
-    
+
     return (
 
         <div
@@ -16,7 +16,7 @@ export default function PostPreviewBody({ post, subId }) {
             onClick={handleClick}
         >
 
-            <p>{post.data.title}</p>
+            <p style={{ margin: "0" }}>{post.data.title}</p>
 
         </div>
     )
