@@ -17,6 +17,7 @@ export default function DropDown({ darkMode }) {
     const locationArrStrings = location.split('/')
 
     const option = getOption(locationArrStrings, users, subs)
+
     setSelectedOption(option)
 
   }, [users, subs, location, display])
@@ -62,14 +63,13 @@ export default function DropDown({ darkMode }) {
 function getOption(locationArrStrings, users, subs) {
 
   if (locationArrStrings[1] === 'r') {
-    if (subs === undefined || subs.length === 0) return
+    if (subs === undefined) return
     const sub = subs.filter(sub => sub.id === locationArrStrings[2])[0]
     return `r/${sub.data.name}`
   }
 
   if (locationArrStrings[1] === 'u') {
-    if (users.length === 0) return
-
+    if (users === undefined) return
     const user = users.filter(user => user.id === locationArrStrings[2])[0]
     return `u/${user.data.userName}`
   }

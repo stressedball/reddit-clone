@@ -19,6 +19,8 @@
 }
 
 #dropdown-header {
+    z-index: 2;
+
     width: inherit;
     white-space: nowrap;
     overflow: hidden;
@@ -26,6 +28,7 @@
 }
 
 div.displayed {
+    z-index: 2;
     background-color: white;
     position: absolute;
     top: 100%;

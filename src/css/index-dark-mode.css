@@ -69,3 +69,8 @@ div.displayed.dark {
     background-color: var(--dark-background);
     color: var(--dark-color);
 }
+
+#post-wrapper > div.dark {
+    background-color: var(--dark-background);
+    color: var(--dark-color);
+}

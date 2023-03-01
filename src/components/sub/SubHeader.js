@@ -8,15 +8,20 @@ import { getAvatar } from './sub-settings.js/avatar-settings/avatarData'
 
 export default function SubHeader({ darkMode }) {
 
-  const subId = useLocation().pathname.split('/')[2]
+  const [subId, setSubId] = useState()
+  const location = useLocation().pathname
   const { subs, user } = useContext(GlobalContext)
   const [sub, setSub] = useState()
   const [bannerPath, setBannerPath] = useState()
   const [avatarPath, setAvatarPath] = useState(null)
 
   useEffect(() => {
+    if (location.split('/')[2]) setSubId(location.split('/')[2])
+    else (setSubId(location.split('/')[4]))
+  }, [location])
 
-    if (subs === undefined) return
+  useEffect(() => {
+    if (subs === undefined || subId === undefined) return
 
     const tempSub = subs.filter(sub => sub.id === subId)[0]
     setSub(tempSub)
@@ -35,14 +40,13 @@ export default function SubHeader({ darkMode }) {
 
   }, [subId, subs])
 
-  if (sub === undefined) return <div>Fetching sub data</div>
+  if (sub === undefined || user === undefined) return <div>Fetching sub data</div>
 
   return (
 
     <div>
 
-      <img src={`${bannerPath}`}
-        style={{ height: "245px", width: "100vw", }}></img>
+      <img src={`${bannerPath}`} style={{ height: "245px", width: "100vw" }}></img>
 
       <div id='sub-settings-shortcut' className='horizontal flex'>
 

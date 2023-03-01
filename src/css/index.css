@@ -76,3 +76,7 @@ textarea {
 #content-wrapper {
   grid-area: 1;
 }
+
+.aRef:hover {
+  text-decoration: underline;
+}

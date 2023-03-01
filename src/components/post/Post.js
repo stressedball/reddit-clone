@@ -3,82 +3,79 @@ import Votes from '../reusables/Votes'
 import { GlobalContext } from '../providers/GlobalProvider'
 import AddComment from './add-comment/AddComment'
 import CommentsList from './CommentsList'
-import PostHeader from '../post-preview/PostHeader'
+import PostDetails from './components/PostDetails'
 import DefaultOptions from './components/DefaultOptions'
 import AdminOptions from './components/AdminOptions'
 import { useParams } from 'react-router'
 import React, { useState, useContext, useEffect } from 'react'
 import ImageDisplay from './components/ImageDisplay'
+import SideContainer from '../home/SideContainer'
 
 export default function Post({ darkMode, handleDisplay }) {
 
-  useEffect(() => {handleDisplay(false)}, [])
+  useEffect(() => { handleDisplay(true) }, [])
 
   const postId = useParams().postId
   const { posts, users, subs, user } = useContext(GlobalContext)
   const [post, setPost] = useState()
-  const [posterName, setPosterName] = useState()
   const [sub, setSubs] = useState()
 
   useEffect(() => {
 
-    if (posts.length > 0) setPost(posts.filter(el => el.id === postId)[0])
+    if (posts) setPost(posts.filter(el => el.id === postId)[0])
 
-    if (users.length > 0 && post !== undefined) {
-      const posterName = users.filter(user => user.id === post.data.poster)[0]
-      setPosterName(posterName.data.userName)
-    }
+  }, [posts, users, subs, postId])
 
-    if (subs !== undefined) {
+  useEffect(() => {
 
-      subs.filter(sub => {
-        if (sub.data.posts) {
-          if (sub.data.posts.filter(id => id === postId)) {
-            setSubs(sub)
-          }
-        }
-      })
-    }
+    if (post) setSubs(subs.filter(el => el.id === post.data.parent)[0])
 
-  }, [posts, users, post, subs])
+  }, [post])
 
-  if (post === undefined) return <div>Loading</div>
+  if (post === undefined || sub === undefined || user === undefined) return <div>Loading</div>
 
   return (
 
-    <>
-      <div className='post'>
+    <div id='post-wrapper'>
 
-        <section>
+      <div className={`${darkMode}`}>
 
-          <PostHeader sub={sub} posterName={posterName} post={post} darkMode={darkMode} />
+        <div className='vertical flex' style={{ gap: "8px" }}>
 
-          <h2>{post.data.title}</h2>
+          <section className={`${darkMode} post horizontal flex`}>
 
-          {
-            post.data.text ? <p>{post.data.text}</p> : null
-          }
+            <Votes dimension="25" flexDirection={"vertical"} darkMode={darkMode} post={post} postId={postId} />
 
-          {
-            post.data.image ? <ImageDisplay post={post} /> : null
-          }
+            <div className='vertical flex'>
 
-          {
-            post.data.poster === user.id ?
-              <AdminOptions post={post} darkMode={darkMode} />
-              :
-              <DefaultOptions post={post} darkMode={darkMode} />
-          }
-        </section>
+              <PostDetails sub={sub} post={post} darkMode={darkMode} />
 
-        <Votes dimension="25" flexDirection={"vertical"} darkMode={darkMode} post={post} postId={postId} />
+              <h1 style={{ margin: "0" }}>{post.data.title}</h1>
 
+              {post.data.text ? <p style={{ margin: "0" }}>{post.data.text}</p> : null}
+
+              {post.data.image ? <ImageDisplay post={post} /> : null}
+
+              {
+                post.data.poster === user.id ?
+                  <AdminOptions post={post} darkMode={darkMode} /> :
+                  <DefaultOptions post={post} darkMode={darkMode} />
+              }
+            </div>
+          </section>
+
+
+          <AddComment post={post} darkMode={darkMode} postId={postId} />
+
+          <CommentsList darkMode={darkMode} postId={postId} />
+
+        </div>
+
+        <div style={{ maxWidth: "312px" }}>
+          <SideContainer />
+        </div>
       </div>
-
-      <AddComment post={post} darkMode={darkMode} postId={postId} />
-
-      <CommentsList darkMode={darkMode} postId={postId} />
-    </>
+    </div>
   )
 }
 

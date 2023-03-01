@@ -1,25 +1,36 @@
-.post {
-    display: flex;
-    flex-direction: row-reverse;
-    border: 1px solid;
-    padding: 1rem;
-    margin: auto;
-    align-items: center;
-    gap: 1rem;
+#post-wrapper {
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgb(135 135 135 / 88%);;
 }
 
-.post section {
-    flex: 1 0 auto;
+#post-wrapper > div{
+    max-width: 1240px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    background-color:#FFFFFF;
+    min-height: 100%;
+}
+
+.post {
+    border: 1px solid;
+    padding: 1rem;
+    align-items: center;
+    max-width: 740px;
+}
+
+.post #vote-container {
+    align-self: flex-start;
 }
 
 #form {
     border: 1px solid;
     padding: 1rem;
-    margin: auto;
-    width: 100%;
 }
 
-#create-post-content-container{
+#create-post-content-container {
     border: 1px solid;
     height: 351px;
     display: flex;
@@ -29,4 +40,10 @@
 
 span#dot {
     display: inline-block;
+}
+
+#post-header {
+    font-size: 12px;
+    gap: 0.4rem;
+    height: 20px;
 }

@@ -42,7 +42,7 @@ export default function CommentsList({ darkMode, postId }) {
     if (!display) return <div>Loading</div>
 
     return (
-        <section
+        <div
             id='comments-list'
         >
             {
@@ -59,6 +59,6 @@ export default function CommentsList({ darkMode, postId }) {
                     )
                 })
             }
-        </section>
+        </div>
     )
 }
