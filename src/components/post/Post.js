@@ -4,12 +4,12 @@ import { GlobalContext } from '../providers/GlobalProvider'
 import AddComment from './add-comment/AddComment'
 import CommentsList from './CommentsList'
 import PostDetails from './components/PostDetails'
-import DefaultOptions from './components/DefaultOptions'
-import AdminOptions from './components/AdminOptions'
+import PostOptions from './components/PostOptions'
 import { useParams } from 'react-router'
 import React, { useState, useContext, useEffect } from 'react'
 import ImageDisplay from './components/ImageDisplay'
 import SideContainer from '../home/SideContainer'
+import getComments from '../comment/getComments'
 
 export default function Post({ darkMode, handleDisplay }) {
 
@@ -19,6 +19,7 @@ export default function Post({ darkMode, handleDisplay }) {
   const { posts, users, subs, user } = useContext(GlobalContext)
   const [post, setPost] = useState()
   const [sub, setSubs] = useState()
+  const [comments, setComments] = useState()
 
   useEffect(() => {
 
@@ -31,6 +32,11 @@ export default function Post({ darkMode, handleDisplay }) {
     if (post) setSubs(subs.filter(el => el.id === post.data.parent)[0])
 
   }, [post])
+
+  useEffect(() => {
+    getComments(postId)
+      .then((data) => setComments(data))
+  }, [])
 
   if (post === undefined || sub === undefined || user === undefined) return <div>Loading</div>
 
@@ -50,24 +56,21 @@ export default function Post({ darkMode, handleDisplay }) {
 
               <PostDetails sub={sub} post={post} darkMode={darkMode} />
 
-              <h1 style={{ margin: "0" }}>{post.data.title}</h1>
+              <h1 className='no-margin'>{post.data.title}</h1>
 
-              {post.data.text ? <p style={{ margin: "0" }}>{post.data.text}</p> : null}
+              {post.data.text ? <p className='no-margin'>{post.data.text}</p> : null}
 
               {post.data.image ? <ImageDisplay post={post} /> : null}
 
-              {
-                post.data.poster === user.id ?
-                  <AdminOptions post={post} darkMode={darkMode} /> :
-                  <DefaultOptions post={post} darkMode={darkMode} />
-              }
+              <PostOptions user={user} post={post} darkMode={darkMode} comments={comments} />
+
             </div>
           </section>
 
 
           <AddComment post={post} darkMode={darkMode} postId={postId} />
 
-          <CommentsList darkMode={darkMode} postId={postId} />
+          <CommentsList darkMode={darkMode} postId={postId} comments={comments} />
 
         </div>
 

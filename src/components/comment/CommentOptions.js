@@ -2,7 +2,9 @@ import React from 'react'
 import '../../css/comment.css'
 import { useContext } from 'react'
 import { GlobalContext } from '../providers/GlobalProvider'
-import CommentVotes from './CommentVotes'
+import Votes from '../reusables/Votes'
+import DeleteButton from '../reusables/DeleteButton'
+import EditButton from '../reusables/EditButton'
 
 export default function CommentOptions({ darkMode, comment }) {
 
@@ -21,13 +23,8 @@ function EditComment({ darkMode }) {
 
     return (
         <div className='horizontal flex' style={{gap:'1rem'}}>
-            <button
-                className={`${darkMode} buttonStyle mouse-pointer`}
-            >Edit</button>
-            
-            <button
-                className={`${darkMode} buttonStyle mouse-pointer`}
-            >Delete</button>
+            <EditButton darkMode={darkMode} />
+            <DeleteButton darkMode={darkMode} />
         </div>
     )
 }
@@ -36,7 +33,7 @@ function ReplyVote({ darkMode }) {
 
     return (
         <div>
-            <CommentVotes />
+            <Votes />
             <button
                 className={`${darkMode} buttonStyle mouse-pointer`}
             >Reply</button>

@@ -9,6 +9,10 @@ svg.dark {
     color: rgb(223, 223, 223)
 }
 
+.hover.dark:hover {
+    background-color: var(--hover-dark-background);
+}
+
 #App.dark {
     color: var(--dark-color);
     background-color: var(--dark-background);
@@ -60,17 +64,22 @@ div.displayed.dark {
     background-color: rgba(46, 46, 46, 0.521);
 }
 
-#create-sub-form.dark{
+#create-sub-form.dark {
     background-color: var(--dark-background);
     color: var(--dark-color);
 }
 
-#avatar-message.dark{
+#avatar-message.dark {
     background-color: var(--dark-background);
     color: var(--dark-color);
 }
 
-#post-wrapper > div.dark {
+#post-wrapper>div.dark {
+    background-color: var(--dark-background);
+    color: var(--dark-color);
+}
+
+.post-exposed-options.dark{
     background-color: var(--dark-background);
     color: var(--dark-color);
 }

@@ -1,23 +1,26 @@
 #post-wrapper {
-    position: fixed;
-    height: 100vh;
-    width: 100vw;
-    background-color: rgb(135 135 135 / 88%);;
+    position: absolute;
+    top: 48px;
+    min-height: 100%;
+    min-width: 100%;
+    background-color: rgb(135 135 135 / 88%);
 }
 
-#post-wrapper > div{
+#post-wrapper>div {
     max-width: 1240px;
-    margin: auto;
+    width: fit-content;
+    margin: 12px auto 0 auto;
     display: flex;
     justify-content: center;
-    background-color:#FFFFFF;
+    background-color: #FFFFFF;
     min-height: 100%;
 }
 
 .post {
     border: 1px solid;
-    padding: 1rem;
+    border-radius: 4px;
     align-items: center;
+    min-width: 500px;
     max-width: 740px;
 }
 
@@ -25,12 +28,14 @@
     align-self: flex-start;
 }
 
-#form {
+#add-comment {
     border: 1px solid;
-    padding: 1rem;
+    max-width: 740px;
+    border-radius: 4px;
 }
 
 #create-post-content-container {
+    border-radius: 4px;
     border: 1px solid;
     height: 351px;
     display: flex;
@@ -46,4 +51,25 @@ span#dot {
     font-size: 12px;
     gap: 0.4rem;
     height: 20px;
+}
+
+.post-option {
+    padding: 4px;
+    min-height: 26px;
+    /* margin: auto; */
+}
+
+.post-option p {
+    font-size: 12px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.post-exposed-options {
+    box-sizing: border-box;
+    border: 1px solid white;
+    background-color: #FFFFFF;
+    position: absolute;
+    top: 100%;
+    left: 0;
 }

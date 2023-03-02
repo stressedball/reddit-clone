@@ -1,9 +1,10 @@
 import React from 'react'
 
-export default function DefaultOptions() {
+export default function DefaultOptions({darkMode}) {
+
   return (
-    <div>
-      
+    <div className={`${darkMode} post-exposed-options vertical flex`}>
+      <button>Report</button>
     </div>
   )
 }

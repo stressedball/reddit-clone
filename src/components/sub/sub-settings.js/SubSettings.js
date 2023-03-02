@@ -35,8 +35,10 @@ export default function SubSettings({ darkMode, handleDisplay }) {
 
     useEffect(() => {
 
-        if (subs !== undefined) setSub(() => subs.filter(sub => sub.id === params.subId)[0])
+        if (subs !== undefined) {
+            if (subs.filter(el => el.id === params.subId)) setSub(() => subs.filter(sub => sub.id === params.subId)[0])
 
+        }
     }, [subs])
 
 
@@ -55,7 +57,11 @@ export default function SubSettings({ darkMode, handleDisplay }) {
             <div className='flex horizontal' style={{ gap: "1rem" }}>
                 <AvatarSettings sub={sub} darkMode={darkMode} />
                 <h4>{sub.data.name}</h4>
-                <p>Created : {sub.data.dateOfCreation.toDate().toDateString()}</p>
+                {
+                    sub.data.dateOfCreation ?
+                    <p>Created : {sub.data.dateOfCreation.toDate().toDateString()}</p>
+                    : null
+                }
             </div>
 
 

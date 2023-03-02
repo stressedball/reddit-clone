@@ -7,7 +7,6 @@ import { onSnapshot, query, collection } from 'firebase/firestore';
 export default function PostPreviewOptions({ darkMode, showContent, post }) {
 
     const [comments, setComments] = useState()
-    const [display, setDisplay] = useState(false)
 
     useEffect(() => {
 
@@ -34,18 +33,11 @@ export default function PostPreviewOptions({ darkMode, showContent, post }) {
             className='horizontal flex'
             id='expand-comments-container'
         >
-            <ExpandText
-                post={post}
-                showContent={showContent}
-                darkMode={darkMode}
-            />
+            <ExpandText post={post} showContent={showContent} darkMode={darkMode} />
 
             {
                 comments === undefined ?
-                    null : <CommentsCount
-                        comments={comments}
-                        darkMode={darkMode}
-                    />
+                    null : <CommentsCount comments={comments} darkMode={darkMode} />
             }
 
         </div>
@@ -58,7 +50,7 @@ function ExpandText({ post, showContent, darkMode }) {
 
     return (
         <svg
-            className={`mouse-pointer ${darkMode}`}
+            className={`mouse-pointer ${darkMode} hover`}
             onClick={handleDisplayText}
             width="20px" height="20px"
             fill='currentColor'

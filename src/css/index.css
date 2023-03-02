@@ -46,7 +46,12 @@ footer {
 }
 
 svg {
+  padding: 2px;
   color: black;
+}
+
+.hover:hover {
+  background-color: beige;
 }
 
 .buttonStyle {
@@ -61,16 +66,18 @@ svg {
 }
 
 textarea {
-  resize: none;
+  resize: vertical;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 #side-container {
   grid-column: 2;
-  min-height: 500px;
+  height: fit-content;
   border: 1px solid;
   margin: 0 12px 0 12px;
   border-radius: 4px;
-  padding: 0.3rem;
+  padding: 12px;
 }
 
 #content-wrapper {
@@ -79,4 +86,8 @@ textarea {
 
 .aRef:hover {
   text-decoration: underline;
+}
+
+.no-margin {
+  margin: 0;
 }

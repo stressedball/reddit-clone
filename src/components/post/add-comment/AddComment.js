@@ -9,7 +9,7 @@ export default function AddComment({ darkMode, post, postId }) {
 
     return (
         <section
-            id="form"
+            id="add-comment"
         >
             <p>Comment as <strong>{user.data.userName}</strong></p>
 
