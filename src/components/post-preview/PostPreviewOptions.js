@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import CommentsCount from './CommentsCount'
+import CommentsCount from '../multi-usage/CommentsCount';
 import '../../css/post-preview.css'
 import { db } from '../../firebase/getAuthDb';
 import { onSnapshot, query, collection } from 'firebase/firestore';

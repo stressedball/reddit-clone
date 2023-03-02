@@ -1,5 +1,5 @@
 import '../../css/comment.css'
-import Comment from '../comment/Comment'
+import Comment from './Comment'
 import { GlobalContext } from '../providers/GlobalProvider'
 import React, { useContext, useEffect } from 'react'
 import { useState } from 'react'

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import AdminOptions from '../post/components/AdminOptions'
-import DefaultOptions from '../post/components/DefaultOptions'
+import AdminOptions from './AdminOptions'
+import DefaultOptions from './DefaultOptions'
 
 export default function Etcetera({ user, post, darkMode }) {
 

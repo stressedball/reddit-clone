@@ -1,8 +1,8 @@
 import React from 'react'
-import CommentsCount from '../../post-preview/CommentsCount'
-import ShareButton from '../../reusables/ShareButton'
-import Etcetera from '../../reusables/Etcetera'
-import SaveButton from '../../reusables/SaveButton'
+import CommentsCount from '../../multi-usage/CommentsCount'
+import ShareButton from '../../multi-usage/ShareButton'
+import Etcetera from './Etcetera'
+import SaveButton from '../../multi-usage/SaveButton'
 
 export default function DefaultOptions({ user, post, darkMode, comments }) {
 

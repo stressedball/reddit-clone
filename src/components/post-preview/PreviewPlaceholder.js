@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import ImageDisplay from '../post/components/ImageDisplay'
+import ImageDisplay from '../multi-usage/ImageDisplay'
 import { useNavigate } from 'react-router-dom'
 
 export default function PreviewPlaceholder({ post, darkMode, subId }) {

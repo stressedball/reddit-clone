@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react'
 import '../../css/comment.css'
 import { GlobalContext } from '../providers/GlobalProvider'
-import CommentOptions from './CommentOptions'
+import CommentOptions from './comment-options/CommentOptions'
+import UserAvatar from '../multi-usage/UserAvatar'
 
 export default function Comment({ darkMode, comment }) {
 
     const [display, setDisplay] = useState(false)
     const { users } = useContext(GlobalContext)
-    const user = users.filter(user => user.id === comment.data.poster)
+    const user = users.filter(user => user.id === comment.data.poster)[0]
 
     useEffect(() => {
 
@@ -24,13 +25,15 @@ export default function Comment({ darkMode, comment }) {
             key={comment.data.timeStamp}
         >
 
+            <UserAvatar user={user} />
+
             <article className='comment'>
 
                 <div
                     className='details'
                 >
 
-                    <p>Posted by {user ? user[0].data.userName : null}</p>
+                    <p className='no-margin'>{user ? user.data.userName : null}</p>
 
                     <em>
                         {
@@ -41,7 +44,9 @@ export default function Comment({ darkMode, comment }) {
 
                 </div>
 
-                <p>{comment.data.text}</p>
+                <div className='comment-content'>
+                    <p>{comment.data.text}</p>
+                </div>
 
                 <CommentOptions
                     darkMode={darkMode}

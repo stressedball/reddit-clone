@@ -8,12 +8,20 @@
 
 #post-wrapper>div {
     max-width: 1240px;
-    width: fit-content;
-    margin: 12px auto 0 auto;
+    width: calc(100% - 160px);
+    margin: 0 auto 0 auto;
     display: flex;
     justify-content: center;
+    background-color: #6d6d6d;
+    min-height: 100vh;
+}
+
+#post-wrapper>div>div {
+    margin: 32px 12px 32px 0;
+}
+
+#post-wrapper div div:nth-child(2) #side-container {
     background-color: #FFFFFF;
-    min-height: 100%;
 }
 
 .post {
@@ -22,25 +30,25 @@
     align-items: center;
     min-width: 500px;
     max-width: 740px;
+    background-color: #FFFFFF;
 }
 
 .post #vote-container {
+    display: flex;
+    flex-direction: column;
     align-self: flex-start;
+}
+
+.post #vote-container svg {
+    width: 20px;
+    height: 20px;
 }
 
 #add-comment {
     border: 1px solid;
     max-width: 740px;
     border-radius: 4px;
-}
-
-#create-post-content-container {
-    border-radius: 4px;
-    border: 1px solid;
-    height: 351px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background-color: #FFFFFF;
 }
 
 span#dot {

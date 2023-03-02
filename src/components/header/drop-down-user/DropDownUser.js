@@ -2,7 +2,7 @@ import '../../../css/dropdown.css'
 import signOutUser from './signOutUser'
 import { GlobalContext } from '../../providers/GlobalProvider'
 import React, { useState, useContext, useEffect } from 'react'
-import UserAvatar from '../../reusables/UserAvatar'
+import UserAvatar from '../../multi-usage/UserAvatar'
 import Theme from './Theme'
 
 export default function DropDownUser({ darkMode }) {

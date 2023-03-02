@@ -1,11 +1,11 @@
 import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import '../../../css/create-post-shortcut.css'
-import { GlobalContext } from '../../providers/GlobalProvider'
-import { ThemeContext } from '../../providers/ThemeProvider'
+import '../../css/create-post-shortcut.css'
+import { GlobalContext } from '../providers/GlobalProvider'
+import { ThemeContext } from '../providers/ThemeProvider'
 import PollShortcut from './PollShortcut'
 import ImageShortcut from './ImageShortcut'
-import UserAvatar from '../../reusables/UserAvatar'
+import UserAvatar from '../multi-usage/UserAvatar'
 
 export default function CreatePostShortcut() {
 
@@ -18,9 +18,7 @@ export default function CreatePostShortcut() {
             id='create-post-shortcut'
         >
 
-            <UserAvatar
-                user={user}
-            />
+            <UserAvatar user={user} />
 
             <input
                 className={`${darkMode} mouse-pointer`}
@@ -28,13 +26,9 @@ export default function CreatePostShortcut() {
                 placeholder="Create a post"
             ></input>
 
-            <ImageShortcut
-                darkMode={darkMode}
-            />
+            <ImageShortcut darkMode={darkMode} />
 
-            <PollShortcut
-                darkMode={darkMode}
-            />
+            <PollShortcut darkMode={darkMode} />
 
         </div>
     )

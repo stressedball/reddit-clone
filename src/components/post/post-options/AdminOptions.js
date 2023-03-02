@@ -1,6 +1,6 @@
 import React from 'react'
-import DeleteButton from '../../reusables/DeleteButton'
-import EditButton from '../../reusables/EditButton'
+import DeleteButton from '../../multi-usage/DeleteButton'
+import EditButton from '../../multi-usage/EditButton'
 
 export default function AdminOptions({ darkMode }) {
 

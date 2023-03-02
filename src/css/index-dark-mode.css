@@ -5,6 +5,11 @@
     --input-background: rgb(46, 46, 46);
 }
 
+.dark {
+    color: var(--dark-color);
+    background-color: var(--dark-background);
+}
+
 svg.dark {
     color: rgb(223, 223, 223)
 }
@@ -16,10 +21,6 @@ svg.dark {
 #App.dark {
     color: var(--dark-color);
     background-color: var(--dark-background);
-}
-
-a.dark {
-    color: white;
 }
 
 button.dark {
@@ -36,16 +37,6 @@ input.dark {
     background-color: var(--input-background);
     border: inset 1px var(--dark-color);
     color: var(--dark-color);
-}
-
-textarea.dark {
-    color: var(--dark-color);
-    background-color: var(--dark-background);
-}
-
-select.dark {
-    color: var(--dark-color);
-    background-color: var(--dark-background);
 }
 
 div.displayed.dark {
@@ -79,7 +70,20 @@ div.displayed.dark {
     color: var(--dark-color);
 }
 
-.post-exposed-options.dark{
+.post-exposed-options.dark {
     background-color: var(--dark-background);
     color: var(--dark-color);
+}
+
+.post.dark {
+    background-color: var(--dark-background);
+    color: var(--dark-color);
+}
+
+/* .post-option.dark:hover{
+    background-color: var(--hover-dark-background);
+} */
+
+#add-comment.dark {
+    background-color: var(--dark-background);
 }

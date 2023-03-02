@@ -11,8 +11,8 @@ import Sub from '../sub/Sub'
 import SubHeader from '../sub/SubHeader';
 import SideContainer from './SideContainer';
 import CreatePost from '../create-post/CreatePost'
-import CreatePostShortcut from './create-post-shortcut/CreatePostShortcut';
 import '../../css/container.css'
+import CreatePostShortcut from '../create-post-shortcut/CreatePostShortcut';
 
 export default function Home() {
 

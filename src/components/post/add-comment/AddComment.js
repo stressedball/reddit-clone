@@ -9,7 +9,7 @@ export default function AddComment({ darkMode, post, postId }) {
 
     return (
         <section
-            id="add-comment"
+            id="add-comment" className={`${darkMode}`}
         >
             <p>Comment as <strong>{user.data.userName}</strong></p>
 

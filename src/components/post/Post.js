@@ -1,15 +1,15 @@
 import '../../css/post.css'
-import Votes from '../reusables/Votes'
 import { GlobalContext } from '../providers/GlobalProvider'
 import AddComment from './add-comment/AddComment'
-import CommentsList from './CommentsList'
-import PostDetails from './components/PostDetails'
-import PostOptions from './components/PostOptions'
+import CommentsList from '../comment/CommentsList'
+import PostDetails from './post-options/PostDetails'
+import PostOptions from './post-options/PostOptions'
 import { useParams } from 'react-router'
 import React, { useState, useContext, useEffect } from 'react'
-import ImageDisplay from './components/ImageDisplay'
+import ImageDisplay from '../multi-usage/ImageDisplay'
 import SideContainer from '../home/SideContainer'
 import getComments from '../comment/getComments'
+import PostVotes from './PostVotes'
 
 export default function Post({ darkMode, handleDisplay }) {
 
@@ -22,15 +22,11 @@ export default function Post({ darkMode, handleDisplay }) {
   const [comments, setComments] = useState()
 
   useEffect(() => {
-
     if (posts) setPost(posts.filter(el => el.id === postId)[0])
-
   }, [posts, users, subs, postId])
 
   useEffect(() => {
-
     if (post) setSubs(subs.filter(el => el.id === post.data.parent)[0])
-
   }, [post])
 
   useEffect(() => {
@@ -43,14 +39,12 @@ export default function Post({ darkMode, handleDisplay }) {
   return (
 
     <div id='post-wrapper'>
-
       <div className={`${darkMode}`}>
-
         <div className='vertical flex' style={{ gap: "8px" }}>
 
           <section className={`${darkMode} post horizontal flex`}>
 
-            <Votes dimension="25" flexDirection={"vertical"} darkMode={darkMode} post={post} postId={postId} />
+            <PostVotes darkMode={darkMode} post={post} user={user} />
 
             <div className='vertical flex'>
 
@@ -75,6 +69,7 @@ export default function Post({ darkMode, handleDisplay }) {
         </div>
 
         <div style={{ maxWidth: "312px" }}>
+
           <SideContainer />
         </div>
       </div>

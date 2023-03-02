@@ -1,11 +1,11 @@
 import '../../css/post-preview.css'
-import Votes from "../reusables/Votes"
 import PostHeader from './PostHeader'
 import PostPreviewOptions from './PostPreviewOptions'
 import React, { useState } from 'react'
 import PostPreviewBody from './PostPreviewBody'
 import PreviewPlaceholder from './PreviewPlaceholder'
-import ImageDisplay from '../post/components/ImageDisplay'
+import ImageDisplay from '../multi-usage/ImageDisplay'
+import PostVotes from '../post/PostVotes'
 
 export default function PostPreview({ darkMode, subId, post }) {
 
@@ -17,10 +17,9 @@ export default function PostPreview({ darkMode, subId, post }) {
             className="vertical flex post-preview"
         >
 
-            <div
-                className='horizontal flex content'
-            >
-                < Votes dimension="25" flexDirection="vertical" post={post} darkMode={darkMode} />
+            <div className='horizontal flex content'>
+                
+                <PostVotes darkMode={darkMode} post={post} />
 
                 <PreviewPlaceholder post={post} darkMode={darkMode} subId={subId} />
 
