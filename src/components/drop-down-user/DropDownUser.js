@@ -3,14 +3,16 @@ import signOutUser from './signOutUser'
 import { GlobalContext } from '../providers/GlobalProvider'
 import React, { useState, useContext, useEffect } from 'react'
 import Theme from './Theme'
-import { DropDownContainerStyled, DropDownHeaderStyled, DropDownDisplayed } from '../header/DropDownStyle'
+import { DropDownContainerStyled, DropDownHeaderStyled, DropDownDisplayed, Tile } from '../../sc-css/DropDownStyle'
 import ProfileKnown from './profile/ProfileKnown'
 import ProfileUnknown from './profile/ProfileUnknown'
+import AuthenticateUser from '../log-in_sign-up/AuthenticateUser'
 
 export default function DropDownUser({ darkMode }) {
 
     const [display, setDisplay] = useState(false)
     const { user } = useContext(GlobalContext)
+    const [logInScreen, setLogInScreen] = useState(false)
 
     useEffect(() => {
 
@@ -27,6 +29,7 @@ export default function DropDownUser({ darkMode }) {
     }, [display])
 
     const handleDisplay = () => { setDisplay(!display) }
+    const handleLoginScreen = () => { setLogInScreen(!logInScreen) }
 
     return (
 
@@ -49,14 +52,16 @@ export default function DropDownUser({ darkMode }) {
 
                         <Theme />
 
-                        <div
-                            className={`${darkMode} tile mouse-pointer drop-down-user`}
-                            onClick={() => { signOutUser(user) }}
-                        >Log In</div>
+                        <Tile className={`${darkMode} drop-down-user`} onClick={() => { setLogInScreen(true) }}>Log In</Tile>
 
                     </DropDownDisplayed>
                     : null
             }
+
+            {
+                logInScreen ? <AuthenticateUser handleLoginScreen={handleLoginScreen} /> : null
+            }
+
         </DropDownContainerStyled>
     )
 }

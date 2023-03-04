@@ -2,7 +2,7 @@ import { GlobalContext } from '../providers/GlobalProvider'
 import React, { useState, useContext, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import Menu from '../menu/Menu'
-import { DropDownContainerStyled, DropDownHeaderStyled } from './DropDownStyle'
+import { DropDownContainerStyled, DropDownHeaderStyled } from '../../sc-css/DropDownStyle'
 
 export default function DropDown({ darkMode }) {
 

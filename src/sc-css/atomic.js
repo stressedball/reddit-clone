@@ -48,4 +48,8 @@ export const SVGStyled = styled.svg`
     &.dark {
 
     }
+
+    &:hover {
+        cursor : pointer;
+    }
 `

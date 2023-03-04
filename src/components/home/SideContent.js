@@ -9,9 +9,12 @@ const StyledSideContent = styled.div`
   width:fit-content;
   display: flex;
   flex-direction:column;
-  max-width:350px;
+  max-width:310px;
   border: 1px solid ${lightBorder};
   background-color: ${lightBackgroundColor};
+  font-size:14px;
+  padding : 0 8px 0 8px;
+  border-box: box-sizing;
 
   &.dark {
     background-color: #1a1a1b;

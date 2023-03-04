@@ -2,7 +2,7 @@ import { ThemeContext } from '../providers/ThemeProvider'
 import React, { useContext } from 'react'
 import { SVGStyled } from '../../sc-css/atomic'
 import styled from 'styled-components'
-import { Tile } from '../header/DropDownStyle'
+import { Tile } from '../../sc-css/DropDownStyle'
 
 export default function Theme() {
 

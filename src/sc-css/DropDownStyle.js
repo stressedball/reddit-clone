@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { lightBorder, lightBackgroundColor } from "../../sc-css/COLORS";
+import { lightBorder, lightBackgroundColor } from "./COLORS";
 
 export const DropDownContainerStyled = styled.div`
     position: relative;
@@ -47,6 +47,7 @@ export const DropDownDisplayed = styled.div`
 export const Tile = styled.div`
     display: flex;
     align-items:center;
+    min-height : 50px;
 
     &:hover{
         background-color: #0079d3;

@@ -8,6 +8,7 @@ import styled from 'styled-components'
 import { BlueButton } from '../../sc-css/atomic'
 import { lightBackgroundColor } from '../../sc-css/COLORS'
 import { GlobalContext } from '../providers/GlobalProvider'
+import AuthenticateUser from '../log-in_sign-up/AuthenticateUser'
 
 const H3 = styled.h3`
     &:hover {
@@ -39,9 +40,10 @@ export default function Header({ userId }) {
     const { darkMode } = useContext(ThemeContext)
     const navigate = useNavigate()
     const {user} = useContext(GlobalContext)
+    const [userAuthenticate, setUserAuthenticate] = useState(false)
 
     useEffect(() => {
-        if (userId) {
+        if (userId) {   
         setUserName(user.userName)
     }}, [userId])
 
@@ -58,10 +60,14 @@ export default function Header({ userId }) {
             </StyledDiv>
 
             <StyledDiv>
-                {userId ? null : <BlueButton>Log In</BlueButton>}
+                {userId ? null : <BlueButton onClick={() => setUserAuthenticate(true)}>Log In</BlueButton>}
 
                 <DropDownUser userName={userName} darkMode={darkMode} />
             </StyledDiv>
+
+            {
+                userAuthenticate ? <AuthenticateUser /> : null
+            }
         </HeaderStyled>
     )
 }

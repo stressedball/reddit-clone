@@ -27,7 +27,6 @@ const StyledDiv = styled.div`
     color:#d7dadc;
   }
 `
-
 function App() {
 
   const { darkMode } = useContext(ThemeContext)

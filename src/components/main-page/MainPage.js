@@ -50,17 +50,10 @@ export default function MainPage({ }) {
             {
                 user ? <Menu /> : <PublicMenu />
             }
-            <SideContent />
+            <div>
+                {/* Main content */}
+                <SideContent />
+            </div>
         </StyledDiv>
-    )
-}
-
-function EmptySubs({ user }) {
-    return (
-        <div>
-            <p>Hey there {user.data.userName}</p>
-            <p>You haven't subscribed to any community</p>
-            <p>Here are some suggestions</p>
-        </div>
     )
 }
