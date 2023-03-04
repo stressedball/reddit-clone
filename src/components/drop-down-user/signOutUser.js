@@ -1,5 +1,5 @@
 import { signOut } from 'firebase/auth'
-import { auth, db } from '../../../firebase/getAuthDb'
+import { auth, db } from '../../firebase/getAuthDb'
 import { setDoc, doc, serverTimestamp } from 'firebase/firestore'
 
 export default async function signOutUser(user) {

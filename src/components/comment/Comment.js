@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import '../../css/comment.css'
+// import '../../css/comment.css'
 import { GlobalContext } from '../providers/GlobalProvider'
 import CommentOptions from './comment-options/CommentOptions'
 import UserAvatar from '../multi-usage/UserAvatar'

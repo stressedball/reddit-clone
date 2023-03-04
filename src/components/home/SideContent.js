@@ -1,42 +1,61 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { GlobalContext } from '../providers/GlobalProvider'
+import styled from 'styled-components'
+import { lightBorder, lightBackgroundColor } from '../../sc-css/COLORS'
+import { ThemeContext } from '../providers/ThemeProvider'
 
-export default function SideContainer({ darkMode }) {
+const StyledSideContent = styled.div`
+  width:fit-content;
+  display: flex;
+  flex-direction:column;
+  max-width:350px;
+  border: 1px solid ${lightBorder};
+  background-color: ${lightBackgroundColor};
+
+  &.dark {
+    background-color: #1a1a1b;
+  }
+`
+
+export default function SideContent() {
 
   const location = useLocation().pathname
   const [content, setContent] = useState()
+  const {darkMode} = useContext(ThemeContext)
 
   useEffect(() => {
 
-    if (location === '/') setContent(<Home darkMode={darkMode} />)
+    if (location === '/')
+      setContent(<Home darkMode={darkMode} />)
 
-    if (location.split('/')[1] === 'r') setContent(<Sub darkMode={darkMode} subId={location.split('/')[2]} />)
+    if (location.split('/')[1] === 'r')
+      setContent(<Sub darkMode={darkMode} subId={location.split('/')[2]} />)
 
   }, [location])
 
 
   return (
-    <>
+    <StyledSideContent className={`${darkMode}`}>
       {content}
-    </>
+    </StyledSideContent>
   )
 }
 
 
-function Home({ darkMode }) {
+function Home() {
   return (
-    <div id='side-container' className={`${darkMode}`}>
+    <>
       <h4>Welcome to RedditClone</h4>
       <p>I did my best to offer as much functionalities as the real deal.</p>
       <p>Create new communities.</p>
       <p>Share your interests by posting new subjects.</p>
       <p>Like or dislike a post.</p>
-    </div>
+    </>
   )
 }
 
-function Sub({ darkMode, subId }) {
+function Sub({ subId }) {
 
   const { subs } = useContext(GlobalContext)
   const [sub, setSub] = useState()
@@ -52,11 +71,11 @@ function Sub({ darkMode, subId }) {
   if (sub === undefined) return <div>Loading</div>
 
   return (
-    <div id='side-container' className={`${darkMode}`}>
+    <>
       <p>Welcome to <strong>{sub.data.name}</strong></p>
       <p>{sub.data.description}</p>
       <p>Created {sub.data.dateOfCreation.toDate().toDateString()}</p>
       <p>{sub.data.users.length} members</p>
-    </div>
+    </>
   )
 }

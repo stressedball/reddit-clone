@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../../firebase/getAuthDb'
 import { useRef } from 'react'
-import '../../css/log-in_sign-up.css'
+// import '../../css/log-in_sign-up.css'
 import { useNavigate } from 'react-router-dom'
 import JustAHeader from './JustAHeader'
+import { CenteredForm } from '../../sc-css/CenteredForm'
 
 export default function LogIn() {
 
@@ -30,7 +31,7 @@ export default function LogIn() {
             
             <JustAHeader />
 
-            <form id='unsigned'>
+            <CenteredForm>
 
                 {error ? <p id='error'>{error}</p> : null}
 
@@ -61,7 +62,7 @@ export default function LogIn() {
                         onClick={() => navigate('/sign-up')}>Create an account</p>
                 </div>
 
-            </form>
+            </CenteredForm>
         </div>
     )
 }

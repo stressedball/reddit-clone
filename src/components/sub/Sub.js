@@ -1,4 +1,4 @@
-import '../../css/sub.css'
+// import '../../css/sub.css'
 import { GlobalContext } from '../providers/GlobalProvider'
 import PostPreview from '../post-preview/PostPreview'
 import { useParams } from 'react-router-dom'

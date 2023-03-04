@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import '../../css/create-post-shortcut.css'
+// import '../../css/create-post-shortcut.css'
 import { GlobalContext } from '../providers/GlobalProvider'
 import { ThemeContext } from '../providers/ThemeProvider'
 import PollShortcut from './PollShortcut'

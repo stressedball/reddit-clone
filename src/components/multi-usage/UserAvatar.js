@@ -1,5 +1,15 @@
 import { useNavigate } from 'react-router-dom'
+import styled from 'styled-components'
 
+const Avatar = styled.img`
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    
+    &:hover{ 
+        cursor : pointer; 
+    }
+`
 
 export default function UserAvatar({ user }) {
 
@@ -9,10 +19,10 @@ export default function UserAvatar({ user }) {
         <>
             {
                 user ?
-                    <img src={`https://api.dicebear.com/5.x/initials/svg?seed=${user.data.userName}`}
-                        className='mouse-pointer avatar'
+                    <Avatar
                         onClick={() => navigate(`u/${user.id}`)}
-                    ></img>
+                        src={`https://api.dicebear.com/5.x/initials/svg?seed=${user.data.userName}`}
+                    />
                     :
                     null
             }

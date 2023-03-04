@@ -1,4 +1,4 @@
-import '../../css/comment.css'
+// import '../../css/comment.css'
 import Comment from './Comment'
 import { GlobalContext } from '../providers/GlobalProvider'
 import React, { useContext, useEffect } from 'react'

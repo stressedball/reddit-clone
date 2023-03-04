@@ -1,51 +1,69 @@
-import LogIn from './log-in_sign-up/LogIn';
-import Home from './home/Home';
-import SignUp from './log-in_sign-up/SignUp';
-import React, { useContext, useState, useEffect } from 'react';
-import { AuthContext } from './providers/AuthProvider';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ThemeContext } from './providers/ThemeProvider';
+import styled from 'styled-components';
+import Header from './header/Header';
+import { Outlet } from 'react-router-dom';
+import CreatePost from './create-post/CreatePost';
+import MainPage from './main-page/MainPage';
+import Post from './post/Post';
+import Sub from './sub/Sub';
+import SubSettings from './sub/sub-settings.js/SubSettings';
+import UserSpace from './home/UserSpace';
+
+const Footer = styled.footer`
+  position:absolute;
+  bottom:0;
+  width:100vw;
+  text-align:center;
+`
+
+const StyledDiv = styled.div`
+  background-color:#dae0e6;
+  min-height:100vh;
+
+  &.dark {
+    background-color:#030303;
+    color:#d7dadc;
+  }
+`
 
 function App() {
 
-  const { userId } = useContext(AuthContext)
   const { darkMode } = useContext(ThemeContext)
 
   useEffect(() => { }, [darkMode])
 
   return (
-    <div id='App' className={`${darkMode}`} >
+    <StyledDiv id='App' className={`${darkMode}`} >
       <BrowserRouter>
+
+        <Header />
+
         <Routes>
 
-          <Route path="*" element={<PrivateRoute userId={userId} />} />
+          <Route exact path="/*" index element={<App />} />
 
-          <Route path='/sign-up' element={<SignUp />} />
+          <Route index element={<MainPage />} />
+
+          <Route path='/submit/*' element={<CreatePost />} />
+
+          <Route path='r/:subId' element={<Sub />} />
+
+          <Route path='r/:subId/subSettings' element={<SubSettings />} />
+
+          <Route path='u/:userId' element={<UserSpace />} />
+
+          <Route path='r/:subId/p/:postId' element={<Post />} />
 
         </Routes>
+
+        <Outlet />
+
       </BrowserRouter>
-      <footer>Brought to you by TS</footer>
-    </div>
+      <Footer>Brought to you by TS</Footer>
+    </StyledDiv>
   );
-}
-
-function PrivateRoute({ userId }) {
-
-  return (
-    <>
-      {
-        userId
-          ?
-          <Home
-          />
-          :
-          <LogIn
-            path='/log-in'
-          />
-      }
-    </>
-  )
-
 }
 
 export default App;

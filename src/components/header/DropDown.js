@@ -1,62 +1,52 @@
-import '../../../css/dropdown.css'
-import { GlobalContext } from '../../providers/GlobalProvider'
+import { GlobalContext } from '../providers/GlobalProvider'
 import React, { useState, useContext, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
-import Menu from './drop-down-menu/Menu'
+import Menu from '../menu/Menu'
+import { DropDownContainerStyled, DropDownHeaderStyled } from './DropDownStyle'
 
 export default function DropDown({ darkMode }) {
 
+  const [display, setDisplay] = useState(false)
   const location = useLocation().pathname
   const { users, subs } = useContext(GlobalContext)
   const [selectedOption, setSelectedOption] = useState('')
-  const [display, setDisplay] = useState(false)
-  const [borderRadius, setBorderRadius] = useState('round')
 
   useEffect(() => {
-
     const locationArrStrings = location.split('/')
-
     const option = getOption(locationArrStrings, users, subs)
-
     setSelectedOption(option)
-
   }, [users, subs, location, display])
 
   useEffect(() => {
-
-    display ? setBorderRadius('square') : setBorderRadius('round')
-
     function toggleDisplay(e) {
       if (display) {
         if (!e.target.classList.contains('drop-down-menu')) setDisplay(false)
       }
     }
-
     window.addEventListener('click', toggleDisplay)
-
     return () => window.removeEventListener('click', toggleDisplay)
-
   }, [display])
 
   const handleDisplay = () => { setDisplay(!display) }
 
   return (
 
-    <div id='dropdown-container' className={`${darkMode} drop-down-menu ${borderRadius}`}>
+    <DropDownContainerStyled className={`${display} ${darkMode}`}>
 
-      <div id='dropdown-header' className='drop-down-menu'>
+      <DropDownHeaderStyled className='drop-down-menu'>
 
         <p className={`${darkMode} tile mouse-pointer drop-down-menu`}
           onClick={() => { setDisplay(!display) }}
         >{selectedOption}</p>
-      </div>
+      </DropDownHeaderStyled>
 
       {
         display ?
           <Menu darkMode={darkMode} users={users} subs={subs} handleDisplay={handleDisplay} />
           : null
       }
-    </div>
+      </DropDownContainerStyled>
+      
   )
 }
 

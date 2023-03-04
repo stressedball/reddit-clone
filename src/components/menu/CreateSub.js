@@ -1,9 +1,8 @@
 import React, { useRef, useState, useContext } from 'react'
-import '../../../../css/create-sub.css'
-import { GlobalContext } from '../../../providers/GlobalProvider'
+import { GlobalContext } from '../providers/GlobalProvider'
 import { useNavigate } from 'react-router-dom'
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
-import { db } from '../../../../firebase/getAuthDb'
+import { db } from '../../firebase/getAuthDb'
 
 export default function CreateSub({ darkMode, setMakeSub, handleDisplay }) {
 

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { GlobalContext } from '../providers/GlobalProvider'
-import '../../css/userspace.css'
+// import '../../css/userspace.css'
 
 export default function UserSpace({ darkMode, handleDisplay }) {
 

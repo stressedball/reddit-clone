@@ -9,12 +9,12 @@ import { ThemeContext } from '../providers/ThemeProvider';
 import SubSettings from '../sub/sub-settings.js/SubSettings';
 import Sub from '../sub/Sub'
 import SubHeader from '../sub/SubHeader';
-import SideContainer from './SideContainer';
+import SideContainer from './SideContent';
 import CreatePost from '../create-post/CreatePost'
-import '../../css/container.css'
+// import '../../css/container.css'
 import CreatePostShortcut from '../create-post-shortcut/CreatePostShortcut';
 
-export default function Home() {
+export default function Home({ userId }) {
 
   const location = useLocation().pathname
   const { darkMode } = useContext(ThemeContext)
@@ -31,53 +31,27 @@ export default function Home() {
     }
   }
 
-  useEffect(() => { 
+  useEffect(() => {
     if (location.split('/')[1] === 'r' && location.split('/').length < 3) setDisplay(true)
   }, [location])
 
   return (
-    <GlobalProvider>
 
-      <Header darkMode={darkMode} handleDisplay={handleDisplay} />
+    <div id='container' className={`${containerClass}`}>
 
-      {location.split('/')[1] === 'r' && location.split('/').length <= 3 && <SubHeader darkMode={darkMode} />}
+      <Header userId={userId} userName={null} />
+      {display ? <SideContainer darkMode={darkMode} /> : null}
 
-      <div id='container' className={`${containerClass}`}>
+      <div id='content-wrapper'>
 
-        {display ? <SideContainer darkMode={darkMode} /> : null}
 
-        <div id='content-wrapper'>
+        {userId && location.split('/')[1] !== 'submit' && location.split('/').length <= 3 && <CreatePostShortcut darkMode={darkMode} />}
 
-          {location.split('/')[1] !== 'submit' && location.split('/').length <= 3 && <CreatePostShortcut darkMode={darkMode} />}
-
-          <Routes>
-            <Route path='/' index
-              element={<MainPage darkMode={darkMode} handleDisplay={handleDisplay} />}
-            />
-
-            <Route path='/submit/*'
-              element={<CreatePost darkMode={darkMode} handleDisplay={handleDisplay} />}
-            />
-
-            <Route path='r/:subId'
-              element={<Sub darkMode={darkMode} handleDisplay={handleDisplay} />}
-            />
-
-            <Route path='r/:subId/subSettings'
-              element={<SubSettings darkMode={darkMode} handleDisplay={handleDisplay} />}
-            />
-
-            <Route path='u/:userId'
-              element={<UserSpace darkMode={darkMode} handleDisplay={handleDisplay} />}
-            />
-
-            <Route path='r/:subId/p/:postId'
-              element={<Post darkMode={darkMode} handleDisplay={handleDisplay} />}
-            />
-
-          </Routes>
-        </div>
       </div>
-    </GlobalProvider>
+    </div>
   )
 }
+
+{/* <Header darkMode={darkMode} handleDisplay={handleDisplay} /> */ }
+
+      // {location.split('/')[1] === 'r' && location.split('/').length <= 3 && <SubHeader darkMode={darkMode} />}

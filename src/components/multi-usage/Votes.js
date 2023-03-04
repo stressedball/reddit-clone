@@ -1,4 +1,4 @@
-import '../../css/votes.css'
+// import '../../css/votes.css'
 
 export default function Votes({ darkMode, item, handleVote, upVote, downVote }) {
 

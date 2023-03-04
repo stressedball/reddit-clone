@@ -1,4 +1,4 @@
-import '../../css/post-preview.css'
+// import '../../css/post-preview.css'
 import { GlobalContext } from '../providers/GlobalProvider'
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'

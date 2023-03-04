@@ -1,4 +1,4 @@
-import '../../css/post-preview.css'
+// import '../../css/post-preview.css'
 import PostHeader from './PostHeader'
 import PostPreviewOptions from './PostPreviewOptions'
 import React, { useState } from 'react'

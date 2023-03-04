@@ -1,40 +1,67 @@
-import '../../css/header.css'
-import React, { useContext } from 'react'
-import DropDown from './drop-down-header/DropDown'
-import DropDownUser from './drop-down-user/DropDownUser'
+import React, { useContext, useEffect, useState } from 'react'
+import DropDown from './DropDown'
+import DropDownUser from '../drop-down-user/DropDownUser'
 import SearchBar from './SearchBar'
 import { useNavigate } from 'react-router-dom'
 import { ThemeContext } from '../providers/ThemeProvider'
+import styled from 'styled-components'
+import { BlueButton } from '../../sc-css/atomic'
+import { lightBackgroundColor } from '../../sc-css/COLORS'
+import { GlobalContext } from '../providers/GlobalProvider'
 
-export default function Header({ userName }) {
+const H3 = styled.h3`
+    &:hover {
+        cursor:pointer;
+    }
+`
+const HeaderStyled = styled.header`
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border-bottom: 1px solid;
+    gap: 1rem;
+    height: 48px;
+    background-color: ${lightBackgroundColor};
 
+    &.dark {
+        background-color: #1a1a1b;
+    }
+`
+const StyledDiv = styled.div`
+    display: flex;
+    align-items: center;
+    gap:4px;
+`
+
+export default function Header({ userId }) {
+
+    const [userName, setUserName] = useState()
     const { darkMode } = useContext(ThemeContext)
     const navigate = useNavigate()
+    const {user} = useContext(GlobalContext)
+
+    useEffect(() => {
+        if (userId) {
+        setUserName(user.userName)
+    }}, [userId])
 
     return (
+        <HeaderStyled className={`${darkMode}`}>
 
-        <header>
+            <StyledDiv>
+                <H3 onClick={() => navigate('/')}
+                >RedditClone</H3>
 
-            <h3
-                className='mouse-pointer'
-                onClick={() => navigate('/')}
-            >RedditClone</h3>
+                {userId ? <DropDown darkMode={darkMode} /> : null}
 
-            <DropDown
-                darkMode={darkMode} 
-            />
+                <SearchBar darkMode={darkMode} />
+            </StyledDiv>
 
-            <SearchBar
-                darkMode={darkMode}
+            <StyledDiv>
+                {userId ? null : <BlueButton>Log In</BlueButton>}
 
-            />
-
-            <DropDownUser
-                userName={userName}
-                darkMode={darkMode}
-
-            />
-
-        </header>
+                <DropDownUser userName={userName} darkMode={darkMode} />
+            </StyledDiv>
+        </HeaderStyled>
     )
 }

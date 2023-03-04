@@ -1,0 +1,5 @@
+export const lightBorder = '#edeff1'
+export const borderColor = 'black'
+export const borderColorDark = 'white'
+export const border = '1px solid'
+export const lightBackgroundColor = '#ffffff'

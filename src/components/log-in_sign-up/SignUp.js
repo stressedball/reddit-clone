@@ -3,8 +3,10 @@ import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { auth, db } from '../../firebase/getAuthDb'
 import { setDoc, doc, serverTimestamp } from 'firebase/firestore'
 import { useNavigate } from 'react-router-dom'
-import '../../css/log-in_sign-up.css'
+// import '../../css/log-in_sign-up.css'
 import JustAHeader from './JustAHeader'
+import { CenteredForm } from '../../sc-css/CenteredForm'
+
 
 export default function SignUp() {
 
@@ -57,8 +59,8 @@ export default function SignUp() {
         <div id='container'>
 
             <JustAHeader />
-            
-            <form id='unsigned'>
+
+            <CenteredForm>
 
                 {
                     error ? <p id='error'>{error}</p> : null
@@ -96,7 +98,7 @@ export default function SignUp() {
                     style={{ textDecoration: "underline", alignSelf: "center" }}
                 >Return to log-in</p>
 
-            </form>
+            </CenteredForm>
         </div>
     )
 }
