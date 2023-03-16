@@ -52,7 +52,12 @@ export default function DropDownUser({ darkMode }) {
 
                         <Theme />
 
-                        <Tile className={`${darkMode} drop-down-user`} onClick={() => { setLogInScreen(true) }}>Log In</Tile>
+                        {
+                            user ?
+                                <Tile className={`${darkMode} drop-down-user`} onClick={() => { signOutUser(user) }}>Log Out</Tile>
+                                :
+                                <Tile className={`${darkMode} drop-down-user`} onClick={() => { setLogInScreen(true) }}>Log In</Tile>
+                        }
 
                     </DropDownDisplayed>
                     : null

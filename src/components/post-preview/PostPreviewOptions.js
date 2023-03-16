@@ -1,8 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react'
 import CommentsCount from '../multi-usage/CommentsCount';
-import '../../css/post-preview.css'
 import { db } from '../../firebase/getAuthDb';
 import { onSnapshot, query, collection } from 'firebase/firestore';
+import styled from 'styled-components';
+
+const Div = styled.div`
+    display: flex;
+    align-items: center;
+`
 
 export default function PostPreviewOptions({ darkMode, showContent, post }) {
 
@@ -29,8 +34,7 @@ export default function PostPreviewOptions({ darkMode, showContent, post }) {
 
 
     return (
-        <div
-            className='horizontal flex'
+        <Div
             id='expand-comments-container'
         >
             <ExpandText post={post} showContent={showContent} darkMode={darkMode} />
@@ -40,7 +44,7 @@ export default function PostPreviewOptions({ darkMode, showContent, post }) {
                     null : <CommentsCount comments={comments} darkMode={darkMode} />
             }
 
-        </div>
+        </Div>
     )
 }
 

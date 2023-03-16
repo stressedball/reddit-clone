@@ -36,12 +36,16 @@ export const DropDownDisplayed = styled.div`
     position:absolute;
     top:39px;
     left:0;
-    background-color : ${lightBackgroundColor}
+    background-color : ${lightBackgroundColor};
     display: flex;
     flex-direction:column;
     width:max-content;
     font-weight:bold;
     font-size: 14px;
+
+    &.dark{
+        background-color : rgb(26 26 27);
+    }
 `
 
 export const Tile = styled.div`
@@ -52,6 +56,7 @@ export const Tile = styled.div`
     &:hover{
         background-color: #0079d3;
         color:${lightBackgroundColor};
+        cursor:pointer;
     }
 
     &:hover > * {

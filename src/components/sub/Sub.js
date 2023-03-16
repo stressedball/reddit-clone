@@ -4,9 +4,9 @@ import PostPreview from '../post-preview/PostPreview'
 import { useParams } from 'react-router-dom'
 import React, { useContext, useEffect } from 'react'
 
-export default function Sub({ darkMode, handleDisplay }) {
+export default function Sub({ darkMode }) {
 
-    useEffect(() => { handleDisplay(true) }, [])
+    // useEffect(() => { handleDisplay(true) }, [])
 
     const subId = useParams().subId
     const { subs, posts, user } = useContext(GlobalContext)

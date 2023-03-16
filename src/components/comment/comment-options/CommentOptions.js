@@ -1,5 +1,4 @@
 import React from 'react'
-import '../../../css/comment.css'
 import { useContext } from 'react'
 import { GlobalContext } from '../../providers/GlobalProvider'
 import DeleteButton from '../../multi-usage/DeleteButton'

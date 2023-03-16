@@ -7,14 +7,15 @@ import { ThemeContext } from '../providers/ThemeProvider'
 
 const StyledSideContent = styled.div`
   width:fit-content;
-  display: flex;
-  flex-direction:column;
   max-width:310px;
   border: 1px solid ${lightBorder};
   background-color: ${lightBackgroundColor};
   font-size:14px;
   padding : 0 8px 0 8px;
   border-box: box-sizing;
+  height: fit-content;
+  border-radius:4px;
+  margin-left:24px;
 
   &.dark {
     background-color: #1a1a1b;
@@ -54,6 +55,7 @@ function Home() {
       <p>Create new communities.</p>
       <p>Share your interests by posting new subjects.</p>
       <p>Like or dislike a post.</p>
+      <footer>Brought to you by TS</footer>
     </>
   )
 }

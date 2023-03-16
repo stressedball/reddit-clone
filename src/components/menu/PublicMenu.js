@@ -6,13 +6,14 @@ import { StyledMenu } from '../../sc-css/StyledMenu'
 
 export default function PublicMenu() {
 
-    const {darkMode} = useContext(ThemeContext)
-    const {subs} = useContext(GlobalContext)  
-  
+  const { darkMode } = useContext(ThemeContext)
+  const { subs } = useContext(GlobalContext)
+
   return (
-    <StyledMenu className={`${darkMode}`}>
-      hello
+    <>
       <Tile>Gaming</Tile>
-    </StyledMenu>
+      <Tile>Watches</Tile>
+      <Tile>Programming</Tile>
+    </>
   )
 }

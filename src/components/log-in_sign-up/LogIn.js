@@ -6,9 +6,8 @@ import { ThemeContext } from '../providers/ThemeProvider'
 import { SVGStyled } from '../../sc-css/atomic'
 import { Button, Input, StyledText } from './Style'
 
-export default function LogIn({ handleSignUp }) {
+export default function LogIn({ handleLoginScreen, handleSignUp }) {
 
-    const { darkMode } = useContext(ThemeContext)
     const email = useRef()
     const password = useRef()
     const [error, setError] = useState()
@@ -16,6 +15,7 @@ export default function LogIn({ handleSignUp }) {
     const handleLogIn = (e) => {
         e.preventDefault()
         signInWithEmailAndPassword(auth, email.current.value, password.current.value)
+            .then(() => handleLoginScreen())
             .catch(() => {
                 setError('Failed to login')
             });
@@ -43,7 +43,7 @@ export default function LogIn({ handleSignUp }) {
                 <p style={{ width: "100%" }}>Continue with Google</p>
             </Button>
 
-            <StyledText style={{textAlign:"center"}}>Or</StyledText>
+            <StyledText style={{ textAlign: "center" }}>Or</StyledText>
 
             <Input
                 type="email"

@@ -53,7 +53,7 @@ export default function AuthenticateUser({ handleLoginScreen }) {
         <StyledContainer>
             <CenteredForm>
 
-                <SVGStyled onClick={() => handleLoginScreen()}
+                <SVGStyled onClick={handleLoginScreen}
                     style={{ position: "absolute", height: "30px", width: "30px", top: "5px", right: "5px" }}
                     viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" >
                     <g id="icomoon-ignore">
@@ -64,8 +64,10 @@ export default function AuthenticateUser({ handleLoginScreen }) {
                 <StyledDiv>
 
                     {
-                        isSignUp ? <SignUp handleSignUp={handleSignUp} /> : <LogIn handleSignUp={handleSignUp} />
-
+                        isSignUp ?
+                            <SignUp handleLoginScreen={handleLoginScreen} handleSignUp={handleSignUp} />
+                            :
+                            <LogIn handleSignUp={handleSignUp} />
                     }
                 </StyledDiv>
             </CenteredForm>

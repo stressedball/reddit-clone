@@ -53,3 +53,12 @@ export const SVGStyled = styled.svg`
         cursor : pointer;
     }
 `
+
+export const StyledLink = styled.p`
+    font-size:12px;
+    text-decoration:underline;
+    
+    &:hover{
+        cursor:pointer;
+    }
+`
