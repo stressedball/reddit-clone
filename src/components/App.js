@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Outlet } from 'react-router-dom';
 import { AuthContext } from './providers/AuthProvider';
 import { ThemeContext } from './providers/ThemeProvider';
 import CreatePost from './create-post/CreatePost';
@@ -16,6 +15,7 @@ import SubSettings from './sub/sub-settings.js/SubSettings';
 import UserSpace from './home/UserSpace';
 import { StyledMenu } from '../sc-css/StyledMenu';
 import SideContent from './home/SideContent';
+import { GlobalContext } from './providers/GlobalProvider';
 
 const StyledApp = styled.div`
   background-color:#dae0e6;
@@ -56,9 +56,10 @@ const StyledOutlet = styled.div`
 function App() {
 
   const { darkMode } = useContext(ThemeContext)
-  const { user } = useContext(AuthContext)
+  const { user } = useContext(GlobalContext)
 
-  useEffect(() => { }, [darkMode, user])
+  useEffect(() => { }, [darkMode])
+  useEffect(() => { }, [user])
 
   return (
     <BrowserRouter>

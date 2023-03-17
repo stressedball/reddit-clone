@@ -28,6 +28,8 @@ export default function DropDownUser({ darkMode }) {
 
     }, [display])
 
+    useEffect(() => { }, [user, logInScreen])
+    
     const handleDisplay = () => { setDisplay(!display) }
     const handleLoginScreen = () => { setLogInScreen(!logInScreen) }
 

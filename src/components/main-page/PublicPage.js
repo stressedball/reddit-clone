@@ -6,9 +6,8 @@ import SideContent from '../home/SideContent';
 import { ThemeContext } from '../providers/ThemeProvider';
 
 export default function PublicPage({ }) {
-    console.log('ok')
+
     // useEffect(() => { handleDisplay(true) }, [])
-    const { userId } = useContext(AuthContext)
     const { posts, user, subs } = useContext(GlobalContext)
     const { darkMode } = useContext(ThemeContext)
 

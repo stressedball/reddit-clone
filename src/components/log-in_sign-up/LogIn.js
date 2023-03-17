@@ -12,16 +12,26 @@ export default function LogIn({ handleLoginScreen, handleSignUp }) {
     const password = useRef()
     const [error, setError] = useState()
 
-    const handleLogIn = (e) => {
+    async function handleLogIn(e) {
         e.preventDefault()
-        signInWithEmailAndPassword(auth, email.current.value, password.current.value)
-            .then(() => handleLoginScreen())
-            .catch(() => {
-                setError('Failed to login')
-            });
+        try {
+            signInWithEmailAndPassword(auth, email.current.value, password.current.value)
+            handleLoginScreen()
+        } catch (error) {
+            setError('Failed to login')
+        }
     }
 
-    useEffect(() => { }, [error])
+    // const handleLogIn = (e) => {
+        // e.preventDefault()
+            // .then(() => {
+                // return
+            // })
+            // .catch(() => {
+            // });
+    // }
+
+    // useEffect(() => { }, [error])
 
     return (
         <>

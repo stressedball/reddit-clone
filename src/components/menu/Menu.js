@@ -1,10 +1,15 @@
 import { useNavigate } from "react-router-dom"
 import Users from "./Users"
 import Subs from "./Subs"
+import { useContext } from "react"
+import { GlobalContext } from "../providers/GlobalProvider"
+import { ThemeContext } from "../providers/ThemeProvider"
 
-export default function Menu({ darkMode, subs, users, handleDisplay }) {
+export default function Menu({ handleDisplay }) {
 
     const navigate = useNavigate()
+    const { subs, users } = useContext(GlobalContext)
+    const { darkMode } = useContext(ThemeContext)
 
     return (
         <div className={`${darkMode} displayed drop-down-menu`}>

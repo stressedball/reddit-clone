@@ -6,20 +6,20 @@ export const AuthContext = createContext()
 
 export default function AuthProvider({ children }) {
 
-    const [userId, setUserId] = useState(null)
+    const [user, setUser] = useState(null)
 
     useEffect(() => {
 
         onAuthStateChanged(auth, (user) => {
-            if (user) setUserId(user.uid)
-            else setUserId(null)
+            if (user) setUser(user)
+            else setUser(null)
         })
 
     }, [])
 
 
     const value = {
-        userId: userId,
+        user: user,
     }
 
     return (

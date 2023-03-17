@@ -34,7 +34,7 @@ const StyledDiv = styled.div`
     gap:4px;
 `
 
-export default function Header({ userId }) {
+export default function Header() {
 
     const [userName, setUserName] = useState()
     const { darkMode } = useContext(ThemeContext)
@@ -48,6 +48,8 @@ export default function Header({ userId }) {
             setUserAuthenticate(false)
         }
     }, [user])
+
+    const handleLoginScreen = () => { setUserAuthenticate(!userAuthenticate) }
 
     return (
         <HeaderStyled className={`${darkMode}`}>
@@ -67,8 +69,8 @@ export default function Header({ userId }) {
                 <DropDownUser userName={userName} darkMode={darkMode} />
             </StyledDiv>
 
-            {userAuthenticate ? <AuthenticateUser /> : null}
-            
+            {userAuthenticate ? <AuthenticateUser handleLoginScreen={handleLoginScreen} /> : null}
+
         </HeaderStyled>
     )
 }

@@ -36,6 +36,8 @@ export function GlobalProvider({ children }) {
                             console.log(error)
                         })
                 })
+            } else {
+                setUser(null)
             }
         })
 
