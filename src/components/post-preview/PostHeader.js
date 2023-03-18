@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { GlobalContext } from '../providers/GlobalProvider'
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { StyledLink } from '../../sc-css/atomic'
+import { StyledLink, LightText, Hoverable } from '../../sc-css/atomic'
 
 const Section = styled.section`
     display: flex;
@@ -11,22 +11,11 @@ const Section = styled.section`
     font-size:12px;
 `
 
-const LightText = styled.p`
-    color:rgb(120, 124, 126);
-`
-
-const Hoverable = styled.span`
-    &:hover {
-        text-decoration:underline;
-        cursor:pointer;
-    }
-`
-export default function PostHeader({ darkMode, post }) {
+export default function PostHeader({ darkMode, post, sub }) {
 
     const location = useLocation().pathname
     const navigate = useNavigate()
-    const { subs, users } = useContext(GlobalContext)
-    const sub = subs.filter(el => el.id === post.data.parent)[0]
+    const { users } = useContext(GlobalContext)
     const [poster, setPoster] = useState()
 
     useEffect(() => {
@@ -46,7 +35,7 @@ export default function PostHeader({ darkMode, post }) {
             {
                 location.split('/')[1] === 'r' ? null :
                 <>
-                    <StyledLink onClick={() => navigate(`r/${sub.id}`)}
+                    <StyledLink onClick={() => navigate(`/r/${sub.id}`)}
                         className={`${darkMode}`}
                     ><strong>r/{sub.data.name}</strong>
                     </StyledLink>
@@ -55,7 +44,7 @@ export default function PostHeader({ darkMode, post }) {
             }
 
             <LightText>Posted by <Hoverable
-                onClick={() => navigate(`u/${poster.id}`)}
+                onClick={() => navigate(`/u/${poster.id}`)}
                 className={`${darkMode}`}
             >u/{poster.data.userName}</Hoverable></LightText>
 

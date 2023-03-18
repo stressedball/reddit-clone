@@ -1,4 +1,3 @@
-// import '../../css/post.css'
 import { GlobalContext } from '../providers/GlobalProvider'
 import AddComment from './add-comment/AddComment'
 import CommentsList from '../comment/CommentsList'
@@ -7,13 +6,25 @@ import PostOptions from './post-options/PostOptions'
 import { useParams } from 'react-router'
 import React, { useState, useContext, useEffect } from 'react'
 import ImageDisplay from '../multi-usage/ImageDisplay'
-import SideContainer from '../home/SideContent'
 import getComments from '../comment/getComments'
 import PostVotes from './PostVotes'
+import styled from 'styled-components'
 
-export default function Post({ darkMode, handleDisplay }) {
+const PostWrapper = styled.div`
+  border: 1px solid;
+`
 
-  useEffect(() => { handleDisplay(true) }, [])
+const PostSection = styled.section`
+  display: flex;
+`
+
+const VerticalFlex = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`
+
+export default function Post({ darkMode }) {
 
   const postId = useParams().postId
   const { posts, users, subs, user } = useContext(GlobalContext)
@@ -38,15 +49,16 @@ export default function Post({ darkMode, handleDisplay }) {
 
   return (
 
-    <div id='post-wrapper'>
+    <PostWrapper>
       <div className={`${darkMode}`}>
-        <div className='vertical flex' style={{ gap: "8px" }}>
 
-          <section className={`${darkMode} post horizontal flex`}>
+        <VerticalFlex>
+
+          <PostSection className={`${darkMode} post`}>
 
             <PostVotes darkMode={darkMode} post={post} user={user} />
 
-            <div className='vertical flex'>
+            <VerticalFlex style={{ gap: "0" }}>
 
               <PostDetails sub={sub} post={post} darkMode={darkMode} />
 
@@ -58,22 +70,22 @@ export default function Post({ darkMode, handleDisplay }) {
 
               <PostOptions user={user} post={post} darkMode={darkMode} comments={comments} />
 
-            </div>
-          </section>
+            </VerticalFlex>
+          </PostSection>
 
 
-          <AddComment post={post} darkMode={darkMode} postId={postId} />
+          {user ?
+            <AddComment post={post} darkMode={darkMode} postId={postId} />
+            :
+            <p>Log in to comment</p>
+          }
 
           <CommentsList darkMode={darkMode} postId={postId} comments={comments} />
 
-        </div>
+        </VerticalFlex>
 
-        <div style={{ maxWidth: "312px" }}>
-
-          <SideContainer />
-        </div>
       </div>
-    </div>
+    </PostWrapper>
   )
 }
 

@@ -1,4 +1,3 @@
-// import '../../css/create-post.css'
 import { GlobalContext } from '../providers/GlobalProvider'
 import DropDownSub from './DropDownSub'
 import React, { useContext, useEffect, useRef, useState } from 'react'
@@ -6,9 +5,7 @@ import { useParams } from 'react-router-dom'
 import NavBar from './NavBar'
 import CreatePostOptions from './CreatePostOptions'
 
-export default function CreatePost({ darkMode, handleDisplay }) {
-
-    useEffect(() => { handleDisplay(false) }, [])
+export default function CreatePost({ darkMode }) {
 
     const { subs } = useContext(GlobalContext)
     const params = useParams()['*']

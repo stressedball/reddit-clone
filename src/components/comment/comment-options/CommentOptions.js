@@ -9,14 +9,19 @@ export default function CommentOptions({ darkMode, comment }) {
 
     const { user } = useContext(GlobalContext)
 
+    if (comment === undefined) return null
+
     return (
         <div className='horizontal flex'>
             <CommentVotes darkMode={darkMode} comment={comment} />
 
             {
-                user.id === comment.data.poster ?
-                    <EditComment darkMode={darkMode} /> :
-                    <ReplyVote darkMode={darkMode} comment={comment} user={user} />
+                user ?
+                    user.id === comment.data.poster ?
+                        <EditComment darkMode={darkMode} /> :
+                        <ReplyVote darkMode={darkMode} comment={comment} user={user} />
+                    :
+                    <PublicOptions />
             }
         </div>
     )
@@ -37,9 +42,13 @@ function ReplyVote({ darkMode, comment, user }) {
     return (
         <div>
 
-            <p
-                className={`${darkMode} buttonStyle mouse-pointer`}
-            >Reply</p>
+            <p className={`${darkMode}`}>Reply</p>
         </div>
+    )
+}
+
+function PublicOptions() {
+    return (
+        <p>Public options</p>
     )
 }

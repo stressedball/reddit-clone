@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { GlobalContext } from '../providers/GlobalProvider'
-import { Tile } from '../../sc-css/DropDownStyle'
+import { Tile } from '../../sc-css/atomic'
 import { ThemeContext } from '../providers/ThemeProvider'
 import { StyledMenu } from '../../sc-css/StyledMenu'
 

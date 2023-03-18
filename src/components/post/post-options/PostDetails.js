@@ -2,6 +2,7 @@ import { GlobalContext } from '../../providers/GlobalProvider'
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { getAvatar } from '../../sub/sub-settings.js/avatar-settings/avatarData'
+import { HorizontalFlex, Hoverable, LightText, StyledLink } from '../../../sc-css/atomic'
 
 export default function PostDetails({ darkMode, sub, post }) {
 
@@ -20,14 +21,14 @@ export default function PostDetails({ darkMode, sub, post }) {
     useEffect(() => {
         if (sub.data.avatar) {
             getAvatar(sub)
-            .then((data) => setAvatarPath(data))
+                .then((data) => setAvatarPath(data))
         }
     })
 
     if (poster === undefined) return <div>Loading</div>
 
     return (
-        <div id='post-header' className='horizontal flex'>
+        <HorizontalFlex style={{ gap: "3px" }}>
 
             {
                 sub.data.avatar ?
@@ -36,26 +37,26 @@ export default function PostDetails({ darkMode, sub, post }) {
                     <img src="#" style={{ width: "20px", height: "20px", borderRadius: "50%" }} />
             }
 
-            <p onClick={() => navigate(`/r/${sub.id}`)}
-                className={`${darkMode} mouse-pointer aRef`}
-            ><strong>r/{sub.data.name}</strong></p>
+            <StyledLink onClick={() => navigate(`/r/${sub.id}`)}
+                className={`${darkMode}`}
+            ><strong>r/{sub.data.name}</strong></StyledLink>
 
-            <p style={{ margin: "0" }}>&middot;</p>
+            <LightText style={{ margin: "0" }}>&middot;</LightText>
 
-            <p style={{ margin: "0" }}>Posted by <span
+            <LightText style={{ margin: "0" }}>Posted by <Hoverable
                 onClick={() => navigate(`/u/${poster.id}`)}
                 className={`${darkMode} mouse-pointer aRef`}
-            >{poster.data.userName}</span></p>
+            >{poster.data.userName}</Hoverable></LightText>
 
-            <p style={{ margin: "0" }}>{
+            <LightText style={{ margin: "0" }}>{
                 post ?
                     post.data.timeStamp ?
                         post.data.timeStamp.toDate().toDateString()
                         : null
                     : null
-            }</p>
+            }</LightText>
 
-        </div>
+        </HorizontalFlex>
 
     )
 }

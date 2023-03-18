@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom'
 import Menu from '../menu/Menu'
 import { DropDownContainerStyled, DropDownHeaderStyled } from '../../sc-css/DropDownStyle'
 
-export default function DropDown({ darkMode }) {
+export default function DropDown({ darkMode, dropdownMenu }) {
 
   const [display, setDisplay] = useState(false)
   const location = useLocation().pathname
@@ -31,22 +31,22 @@ export default function DropDown({ darkMode }) {
 
   return (
 
-    <DropDownContainerStyled className={`${display} ${darkMode}`}>
+    <DropDownContainerStyled className={`${display} ${darkMode} drop-down-menu`}>
 
       <DropDownHeaderStyled className='drop-down-menu'>
 
-        <p className={`${darkMode} tile mouse-pointer drop-down-menu`}
-          onClick={() => { setDisplay(!display) }}
+        <p className={`${darkMode} drop-down-menu`} onClick={() => { if (dropdownMenu) setDisplay(!display) }}
         >{selectedOption}</p>
       </DropDownHeaderStyled>
 
       {
         display ?
+          dropdownMenu ?
           <Menu darkMode={darkMode} users={users} subs={subs} handleDisplay={handleDisplay} />
-          : null
+          : null : null
       }
-      </DropDownContainerStyled>
-      
+    </DropDownContainerStyled>
+
   )
 }
 

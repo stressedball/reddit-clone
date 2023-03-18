@@ -1,9 +1,9 @@
+import { HorizontalFlex } from "../../sc-css/atomic"
+
 export default function CommentsCount({ comments, darkMode }) {
 
     return (
-        <div
-            style={{ display: "flex", alignItems: "center", padding: "4px" }}
-        >
+        <HorizontalFlex style={{ padding: "4px" }}>
 
             <svg
                 className={`${darkMode}`}
@@ -19,6 +19,6 @@ export default function CommentsCount({ comments, darkMode }) {
                     <p style={{ margin: "0", fontSize: "12px", fontWeight: 'bold' }}>{comments.length} Comments</p> : null
             }
 
-        </div>
+        </HorizontalFlex>
     )
 }

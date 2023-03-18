@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { AuthContext } from './providers/AuthProvider';
@@ -57,20 +57,30 @@ function App() {
 
   const { darkMode } = useContext(ThemeContext)
   const { user } = useContext(GlobalContext)
+  const [dropdownMenu, setDropdownMenu] = useState(false)
 
   useEffect(() => { }, [darkMode])
   useEffect(() => { }, [user])
+  useEffect(() => { }, [dropdownMenu])
+
+  const handleMenuDisplay = () => setDropdownMenu(!dropdownMenu)
 
   return (
     <BrowserRouter>
       <StyledApp id='App' className={`${darkMode}`} >
 
-        <Header />
+        <Header dropdownMenu={dropdownMenu} handleMenuDisplay={handleMenuDisplay} />
 
-        <StyledMenu className={`${darkMode}`}>
-          {user ? <Menu /> : <PublicMenu />}
-        </StyledMenu>
-
+        {!user ?
+          <StyledMenu className={`${darkMode}`}>
+            <PublicMenu />
+          </StyledMenu>
+          :
+          dropdownMenu ? null :
+            <StyledMenu className={`${darkMode}`}>
+              <Menu dropdownMenu={dropdownMenu} handleMenuDisplay={handleMenuDisplay} />
+            </StyledMenu>
+        }
         <StyledDiv>
           <StyledOutlet>
 

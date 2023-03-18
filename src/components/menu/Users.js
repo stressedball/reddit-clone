@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom"
+import { Tile } from "../../sc-css/atomic"
 
-export default function Users({ handleDisplay, darkMode, users }) {
+export default function Users({ darkMode, users }) {
 
     const navigate = useNavigate()
 
@@ -11,14 +12,11 @@ export default function Users({ handleDisplay, darkMode, users }) {
             {
                 users.map(user => {
                     return (
-                        <p
+                        <Tile
                             key={user.id}
-                            onClick={() => {
-                                handleDisplay()
-                                navigate(`u/${user.id}`)
-                            }}
+                            onClick={() => { navigate(`u/${user.id}`) }}
                             className={`${darkMode} tile mouse-pointer drop-down-menu`}
-                        >{user.data.userName}</p>
+                        >{user.data.userName}</Tile>
                     )
                 })
             }

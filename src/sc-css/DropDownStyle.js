@@ -6,10 +6,17 @@ export const DropDownContainerStyled = styled.div`
     z-index: 1;
     border-radius: 4px;
     border: 1px solid transparent;
+    font-size:14px;
+    font-weight:500;
 
     &:hover {
         border : 1px solid ${lightBorder};
         cursor:pointer;
+    }
+
+    &.drop-down-menu.false:hover {
+        border: none;
+        cursor : default;
     }
 
     &.true {
@@ -23,7 +30,11 @@ export const DropDownContainerStyled = styled.div`
         border-bottom-left-radius: 4px;
     }
 `
+
 export const DropDownHeaderStyled = styled.div`
+    display:flex;
+    align-items: center;
+    justify-content:center;
     z-index: 2;
     width: inherit;
     white-space: nowrap;
@@ -32,6 +43,7 @@ export const DropDownHeaderStyled = styled.div`
     height: 32px;
     position:relative;
 `
+
 export const DropDownDisplayed = styled.div`
     position:absolute;
     top:39px;
@@ -39,7 +51,6 @@ export const DropDownDisplayed = styled.div`
     background-color : ${lightBackgroundColor};
     display: flex;
     flex-direction:column;
-    width:max-content;
     font-weight:bold;
     font-size: 14px;
 
@@ -48,18 +59,3 @@ export const DropDownDisplayed = styled.div`
     }
 `
 
-export const Tile = styled.div`
-    display: flex;
-    align-items:center;
-    min-height : 50px;
-
-    &:hover{
-        background-color: #0079d3;
-        color:${lightBackgroundColor};
-        cursor:pointer;
-    }
-
-    &:hover > * {
-        color:${lightBackgroundColor};
-    }
-`

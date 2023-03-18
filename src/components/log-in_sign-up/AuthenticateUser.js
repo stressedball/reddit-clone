@@ -64,7 +64,6 @@ export default function AuthenticateUser({ handleLoginScreen }) {
                 </SVGStyled>
 
                 <StyledDiv>
-
                     {
                         isSignUp ?
                             <SignUp handleSignUp={handleSignUp} />

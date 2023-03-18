@@ -9,8 +9,10 @@ export default function Etcetera({ user, post, darkMode }) {
 
     useEffect(() => {
         if (post) {
-            post.data.poster === user.id ?
-                setAdmin(true) : setAdmin(false)
+            if (user) {
+                post.data.poster === user.id ?
+                    setAdmin(true) : setAdmin(false)
+            }
         }
     }, [post])
 

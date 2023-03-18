@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import { lightBorder, lightBackgroundColor } from "./COLORS";
 
 export const noMarginP = styled.p`
 `
@@ -43,10 +44,9 @@ export const BlueButton = styled.button`
 export const SVGStyled = styled.svg`
     width : 20px;
     height : 20px;
-    color : #878a8c;
-
+    
     &.dark {
-
+        fill : rgb(215 218 220);
     }
 
     &:hover {
@@ -60,5 +60,37 @@ export const StyledLink = styled.p`
     
     &:hover{
         cursor:pointer;
+    }
+`
+
+export const LightText = styled.p`
+    color:rgb(120, 124, 126);
+`
+
+export const Hoverable = styled.span`
+    &:hover {
+        text-decoration:underline;
+        cursor:pointer;
+    }
+`
+
+export const HorizontalFlex = styled.div`
+    display: flex;
+    align-items: center;
+`
+
+export const Tile = styled.div`
+    display: flex;
+    align-items:center;
+    min-height : 50px;
+    padding : 2px 4px;
+
+    &:hover {
+        cursor:pointer;
+        background-color: rgba(0, 0, 0, 0.04);
+    }
+    
+    &.dark:hover {
+        background-color: rgba(255, 255, 255, 0.04);
     }
 `

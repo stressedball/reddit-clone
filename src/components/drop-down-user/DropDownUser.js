@@ -1,18 +1,21 @@
-// import '../../../css/dropdown.css'
 import signOutUser from './signOutUser'
 import { GlobalContext } from '../providers/GlobalProvider'
 import React, { useState, useContext, useEffect } from 'react'
 import Theme from './Theme'
-import { DropDownContainerStyled, DropDownHeaderStyled, DropDownDisplayed, Tile } from '../../sc-css/DropDownStyle'
+import { Tile } from '../../sc-css/atomic'
+import { DropDownContainerStyled, DropDownHeaderStyled, DropDownDisplayed } from '../../sc-css/DropDownStyle'
 import ProfileKnown from './profile/ProfileKnown'
 import ProfileUnknown from './profile/ProfileUnknown'
 import AuthenticateUser from '../log-in_sign-up/AuthenticateUser'
+import { SVGStyled } from '../../sc-css/atomic'
+import { ThemeContext } from '../providers/ThemeProvider.js'
 
-export default function DropDownUser({ darkMode }) {
+export default function DropDownUser() {
 
     const [display, setDisplay] = useState(false)
     const { user } = useContext(GlobalContext)
     const [logInScreen, setLogInScreen] = useState(false)
+    const { darkMode } = useContext(ThemeContext)
 
     useEffect(() => {
 
@@ -29,7 +32,7 @@ export default function DropDownUser({ darkMode }) {
     }, [display])
 
     useEffect(() => { }, [user, logInScreen])
-    
+
     const handleDisplay = () => { setDisplay(!display) }
     const handleLoginScreen = () => { setLogInScreen(!logInScreen) }
 
@@ -37,30 +40,25 @@ export default function DropDownUser({ darkMode }) {
 
         <DropDownContainerStyled className={`${display} drop-down-user ${darkMode}`}>
 
-            <DropDownHeaderStyled className={`drop-down-user ${darkMode}`}
-            >
+            <DropDownHeaderStyled className={`drop-down-user ${darkMode}`}>
                 {
                     user ?
                         <ProfileKnown darkMode={darkMode} handleDisplay={handleDisplay} user={user} />
                         :
                         <ProfileUnknown darkMode={darkMode} handleDisplay={handleDisplay} />
                 }
-
             </DropDownHeaderStyled>
+
             {
                 display ?
-
                     <DropDownDisplayed className={`${darkMode} drop-down-user`}>
-
                         <Theme />
-
                         {
                             user ?
-                                <Tile className={`${darkMode} drop-down-user`} onClick={() => { signOutUser(user) }}>Log Out</Tile>
+                                <LogOut darkMode={darkMode} user={user} />
                                 :
-                                <Tile className={`${darkMode} drop-down-user`} onClick={() => { setLogInScreen(true) }}>Log In</Tile>
+                                <Tile className={`${darkMode} drop-down-user`} onClick={() => { setLogInScreen(true) }}><p>Log In</p></Tile>
                         }
-
                     </DropDownDisplayed>
                     : null
             }
@@ -73,3 +71,16 @@ export default function DropDownUser({ darkMode }) {
     )
 }
 
+function LogOut({ darkMode, user }) {
+
+    return (
+        <Tile className={`${darkMode} drop-down-user`} onClick={() => { signOutUser(user) }}>
+            <SVGStyled style={{fill:"none"}}
+                className={`${darkMode} drop-down-user`}
+                viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15 4H18C19.1046 4 20 4.89543 20 6V18C20 19.1046 19.1046 20 18 20H15M8 8L4 12M4 12L8 16M4 12L16 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </SVGStyled>
+            <p>Log Out</p>
+        </Tile>
+    )
+}

@@ -20,10 +20,9 @@ const HeaderStyled = styled.header`
     align-items: center;
     justify-content: space-around;
     border-bottom: 1px solid;
-    gap: 1rem;
     background-color: ${lightBackgroundColor};
     grid-area: 1/1/1/3;
-
+    
     &.dark {
         background-color: #1a1a1b;
     }
@@ -34,9 +33,9 @@ const StyledDiv = styled.div`
     gap:4px;
 `
 
-export default function Header() {
+export default function Header({ dropdownMenu, handleMenuDisplay }) {
 
-    const [userName, setUserName] = useState()
+    // const [userName, setUserName] = useState()
     const { darkMode } = useContext(ThemeContext)
     const navigate = useNavigate()
     const { user } = useContext(GlobalContext)
@@ -44,7 +43,6 @@ export default function Header() {
 
     useEffect(() => {
         if (user) {
-            setUserName(user.userName)
             setUserAuthenticate(false)
         }
     }, [user])
@@ -54,19 +52,17 @@ export default function Header() {
     return (
         <HeaderStyled className={`${darkMode}`}>
 
-            <StyledDiv>
-                <H3 onClick={() => navigate('/')}
-                >RedditClone</H3>
+            <H3 onClick={() => navigate('/')}
+            >RedditClone</H3>
 
-                {user ? <DropDown darkMode={darkMode} /> : null}
+            {user ? <DropDown darkMode={darkMode} dropdownMenu={dropdownMenu} /> : null}
 
-                <SearchBar darkMode={darkMode} />
-            </StyledDiv>
+            <SearchBar darkMode={darkMode} />
 
             <StyledDiv>
                 {user ? null : <BlueButton onClick={() => setUserAuthenticate(true)}>Log In</BlueButton>}
 
-                <DropDownUser userName={userName} darkMode={darkMode} />
+                <DropDownUser />
             </StyledDiv>
 
             {userAuthenticate ? <AuthenticateUser handleLoginScreen={handleLoginScreen} /> : null}

@@ -1,17 +1,18 @@
 import { useNavigate } from "react-router-dom";
 import CreateSub from "./CreateSub";
 import React, { useState } from 'react'
+import { HorizontalFlex, Tile } from "../../sc-css/atomic";
 
-export default function Subs({ handleDisplay, darkMode, subs }) {
+export default function Subs({ darkMode, subs }) {
 
     const navigate = useNavigate()
     const [makeSub, setMakeSub] = useState(false)
 
     return (
         <>
-            <p className={`${darkMode} tile mouse-pointer drop-down-menu`} value='Subs'>Communities</p>
+            <Tile className={`${darkMode} tile mouse-pointer drop-down-menu`} value='Subs'>Communities</Tile>
 
-            <div className={`${darkMode} tile mouse-pointer horizontal flex drop-down-menu`} style={{ gap: '0.3rem' }}>
+            <Tile className={`${darkMode} tile mouse-pointer drop-down-menu`} style={{ gap: '0.3rem' }}>
                 <svg
                     fill="currentColor" className={`${darkMode} drop-down-menu`}
                     width="15px" height="15px"
@@ -31,25 +32,24 @@ export default function Subs({ handleDisplay, darkMode, subs }) {
                     }}
                     style={{ margin: '0', padding: '0' }}
                 >Create community</p>
-            </div>
+            </Tile>
             {
                 subs.map(sub => {
                     return (
-                        <p
+                        <Tile
                             key={sub.id}
                             onClick={() => {
                                 navigate(`r/${sub.id}`)
-                                handleDisplay()
                             }}
                             className={`${darkMode} tile mouse-pointer drop-down-menu`}
                             value={sub.data.name}
-                        >{sub.data.name}</p>
+                        >{sub.data.name}</Tile>
                     )
                 })
             }
             {
                 makeSub ?
-                    <CreateSub darkMode={darkMode} setMakeSub={setMakeSub} handleDisplay={handleDisplay} />
+                    <CreateSub darkMode={darkMode} setMakeSub={setMakeSub} />
                     : null
             }
         </>

@@ -8,6 +8,7 @@ const Avatar = styled.img`
     
     &:hover{ 
         cursor : pointer; 
+        transform : rotateX(360deg);
     }
 `
 
