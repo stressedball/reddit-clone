@@ -10,4 +10,8 @@ export const StyledMenu = styled.div`
     &.dark {
         background-color : rgb(26 26 27);
     }
+
+    &.whole {
+        grid-area : none;
+    }
 `

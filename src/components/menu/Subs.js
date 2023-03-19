@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import CreateSub from "./CreateSub";
 import React, { useState } from 'react'
-import { HorizontalFlex, Tile } from "../../sc-css/atomic";
+import { MenuSmallTitles, Tile } from "../../sc-css/atomic";
 
 export default function Subs({ darkMode, subs }) {
 
@@ -10,9 +10,9 @@ export default function Subs({ darkMode, subs }) {
 
     return (
         <>
-            <Tile className={`${darkMode} tile mouse-pointer drop-down-menu`} value='Subs'>Communities</Tile>
+            <MenuSmallTitles className={`${darkMode} drop-down-menu`} value='Subs'>Communities</MenuSmallTitles>
 
-            <Tile className={`${darkMode} tile mouse-pointer drop-down-menu`} style={{ gap: '0.3rem' }}>
+            <Tile className={`${darkMode} drop-down-menu`} style={{ gap: '0.3rem' }}>
                 <svg
                     fill="currentColor" className={`${darkMode} drop-down-menu`}
                     width="15px" height="15px"
@@ -27,29 +27,22 @@ export default function Subs({ darkMode, subs }) {
                     </g>
                 </svg>
                 <p className="drop-down-menu"
-                    onClick={() => {
-                        setMakeSub(!makeSub)
-                    }}
+                    onClick={() => { setMakeSub(!makeSub) }}
                     style={{ margin: '0', padding: '0' }}
                 >Create community</p>
             </Tile>
             {
                 subs.map(sub => {
                     return (
-                        <Tile
-                            key={sub.id}
-                            onClick={() => {
-                                navigate(`r/${sub.id}`)
-                            }}
-                            className={`${darkMode} tile mouse-pointer drop-down-menu`}
-                            value={sub.data.name}
+                        <Tile value={sub.data.name} key={sub.id}
+                            onClick={() => { navigate(`r/${sub.id}`) }}
+                            className={`${darkMode} drop-down-menu`}
                         >{sub.data.name}</Tile>
                     )
                 })
             }
             {
-                makeSub ?
-                    <CreateSub darkMode={darkMode} setMakeSub={setMakeSub} />
+                makeSub ? <CreateSub darkMode={darkMode} setMakeSub={setMakeSub} />
                     : null
             }
         </>

@@ -14,7 +14,7 @@ export const DropDownContainerStyled = styled.div`
         cursor:pointer;
     }
 
-    &.drop-down-menu.false:hover {
+    &.drop-down-menu.not-drop:hover {
         border: none;
         cursor : default;
     }

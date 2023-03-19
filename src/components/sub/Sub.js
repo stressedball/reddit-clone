@@ -12,12 +12,10 @@ export default function Sub({ darkMode }) {
     const { subs, posts, user } = useContext(GlobalContext)
     const subPosts = posts.filter(post => post.data.parent === subId)
 
-    if (subPosts.length === 0) return <div>Be the first to post!</div>
-
     const sub = subs.filter(sub => sub.id === subId)[0]
 
     return (
-        <div id='sub-container'>
+        <>
             {
                 subPosts.length === 0 ?
                     <EmptySub />
@@ -26,7 +24,7 @@ export default function Sub({ darkMode }) {
                         return <PostPreview key={post.id} subId={null} post={post} darkMode={darkMode} />
                     })
             }
-        </div>
+        </>
     )
 }
 

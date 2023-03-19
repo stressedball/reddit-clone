@@ -35,6 +35,10 @@ const StyledDiv = styled.div`
     display: flex;
     overflow: hidden;
     flex: 1 0 auto;
+
+    &.whole {
+      grid-area: 2/1/2/3;
+    }
     `
 
 const PostPreviewFlex = styled.div`
@@ -58,10 +62,14 @@ function App() {
   const { darkMode } = useContext(ThemeContext)
   const { user } = useContext(GlobalContext)
   const [dropdownMenu, setDropdownMenu] = useState(false)
+  const [gridArea, setGridArea] = useState('')
 
   useEffect(() => { }, [darkMode])
   useEffect(() => { }, [user])
-  useEffect(() => { }, [dropdownMenu])
+  useEffect(() => {
+    if (dropdownMenu) setGridArea('whole')
+    else setGridArea('')
+  }, [dropdownMenu])
 
   const handleMenuDisplay = () => setDropdownMenu(!dropdownMenu)
 
@@ -71,20 +79,19 @@ function App() {
 
         <Header dropdownMenu={dropdownMenu} handleMenuDisplay={handleMenuDisplay} />
 
-        {!user ?
-          <StyledMenu className={`${darkMode}`}>
+        <StyledMenu className={`${darkMode} ${gridArea}`}>
+          {!user ?
             <PublicMenu />
-          </StyledMenu>
-          :
-          dropdownMenu ? null :
-            <StyledMenu className={`${darkMode}`}>
+            :
+            dropdownMenu ? null :
               <Menu dropdownMenu={dropdownMenu} handleMenuDisplay={handleMenuDisplay} />
-            </StyledMenu>
-        }
-        <StyledDiv>
-          <StyledOutlet>
+          }
+        </StyledMenu>
 
+        <StyledDiv className={`${gridArea}`}>
+          <StyledOutlet>
             <PostPreviewFlex>
+
               <Routes>
                 <Route exact path="/" element={<PublicPage />} />
                 <Route path='r/:subId' element={<Sub />} />

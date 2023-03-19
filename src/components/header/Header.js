@@ -55,7 +55,7 @@ export default function Header({ dropdownMenu, handleMenuDisplay }) {
             <H3 onClick={() => navigate('/')}
             >RedditClone</H3>
 
-            {user ? <DropDown darkMode={darkMode} dropdownMenu={dropdownMenu} /> : null}
+            {user ? <DropDown darkMode={darkMode} dropdownMenu={dropdownMenu} handleMenuDisplay={handleMenuDisplay} /> : null}
 
             <SearchBar darkMode={darkMode} />
 

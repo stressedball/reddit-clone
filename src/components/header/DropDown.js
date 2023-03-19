@@ -2,14 +2,16 @@ import { GlobalContext } from '../providers/GlobalProvider'
 import React, { useState, useContext, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import Menu from '../menu/Menu'
-import { DropDownContainerStyled, DropDownHeaderStyled } from '../../sc-css/DropDownStyle'
+import { DropDownContainerStyled, DropDownHeaderStyled, DropDownDisplayed } from '../../sc-css/DropDownStyle'
+import { StyledMenu } from '../../sc-css/StyledMenu'
 
-export default function DropDown({ darkMode, dropdownMenu }) {
+export default function DropDown({ darkMode, dropdownMenu, handleMenuDisplay }) {
 
   const [display, setDisplay] = useState(false)
   const location = useLocation().pathname
-  const { users, subs } = useContext(GlobalContext)
   const [selectedOption, setSelectedOption] = useState('')
+  const [isDropdownMenu, setIsDropdownMenu] = useState('not-drop')
+  const { users, subs } = useContext(GlobalContext)
 
   useEffect(() => {
     const locationArrStrings = location.split('/')
@@ -27,26 +29,33 @@ export default function DropDown({ darkMode, dropdownMenu }) {
     return () => window.removeEventListener('click', toggleDisplay)
   }, [display])
 
-  const handleDisplay = () => { setDisplay(!display) }
+  useEffect(() => {
+    if (dropdownMenu) setIsDropdownMenu('dropped')
+    else setIsDropdownMenu('not-drop')
+  }, [dropdownMenu])
 
   return (
 
-    <DropDownContainerStyled className={`${display} ${darkMode} drop-down-menu`}>
+    <DropDownContainerStyled className={`${display} ${darkMode} ${isDropdownMenu} drop-down-menu`}
+      onClick={() => { if (dropdownMenu) setDisplay(!display) }}
+    >
 
       <DropDownHeaderStyled className='drop-down-menu'>
 
-        <p className={`${darkMode} drop-down-menu`} onClick={() => { if (dropdownMenu) setDisplay(!display) }}
-        >{selectedOption}</p>
+        <p className={`${darkMode} drop-down-menu`}>{selectedOption}</p>
       </DropDownHeaderStyled>
 
-      {
-        display ?
-          dropdownMenu ?
-          <Menu darkMode={darkMode} users={users} subs={subs} handleDisplay={handleDisplay} />
-          : null : null
-      }
+      <DropDownDisplayed>
+        {
+          display ?
+            dropdownMenu ?
+              <StyledMenu className={`${darkMode}`}>
+                <Menu dropdownMenu={dropdownMenu} handleMenuDisplay={handleMenuDisplay} />
+              </StyledMenu>
+              : null : null
+        }
+      </DropDownDisplayed>
     </DropDownContainerStyled>
-
   )
 }
 

@@ -94,3 +94,14 @@ export const Tile = styled.div`
         background-color: rgba(255, 255, 255, 0.04);
     }
 `
+
+export const MenuSmallTitles = styled.p`
+    font-size:10px;
+    font-weight:500;
+    text-transform:uppercase;
+    color:#878a8c;
+
+    &:hover {
+        cursor: default;
+    }
+`
