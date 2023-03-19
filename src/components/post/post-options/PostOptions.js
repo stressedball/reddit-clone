@@ -6,8 +6,6 @@ import SaveButton from '../../multi-usage/SaveButton'
 import { HorizontalFlex } from '../../../sc-css/atomic'
 
 export default function DefaultOptions({ user, post, darkMode, comments }) {
-
-
   return (
     <div >
       <HorizontalFlex style={{ gap: "4px" }}>

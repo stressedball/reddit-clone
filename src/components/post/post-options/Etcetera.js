@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Tile } from '../../../sc-css/atomic'
 import AdminOptions from './AdminOptions'
 import DefaultOptions from './DefaultOptions'
 
@@ -18,7 +19,7 @@ export default function Etcetera({ user, post, darkMode }) {
 
     return (
 
-        <div className={`${darkMode} mouse-pointer post-option`}
+        <Tile className={`${darkMode} mouse-pointer post-option`}
             style={{ position: 'relative' }}
         >
 
@@ -38,6 +39,6 @@ export default function Etcetera({ user, post, darkMode }) {
                         : <DefaultOptions post={post} darkMode={darkMode} user={user} />
                     : null
             }
-        </div>
+        </Tile>
     )
 }

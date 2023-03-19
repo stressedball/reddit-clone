@@ -1,18 +1,13 @@
-// import '../../css/sub.css'
 import { GlobalContext } from '../providers/GlobalProvider'
 import PostPreview from '../post-preview/PostPreview'
 import { useParams } from 'react-router-dom'
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 
 export default function Sub({ darkMode }) {
 
-    // useEffect(() => { handleDisplay(true) }, [])
-
     const subId = useParams().subId
-    const { subs, posts, user } = useContext(GlobalContext)
+    const { posts } = useContext(GlobalContext)
     const subPosts = posts.filter(post => post.data.parent === subId)
-
-    const sub = subs.filter(sub => sub.id === subId)[0]
 
     return (
         <>
