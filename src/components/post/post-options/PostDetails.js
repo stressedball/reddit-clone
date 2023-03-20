@@ -1,15 +1,15 @@
 import { GlobalContext } from '../../providers/GlobalProvider'
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { getAvatar } from '../../sub/sub-settings.js/avatar-settings/avatarData'
 import { HorizontalFlex, Hoverable, LightText, StyledLink } from '../../../sc-css/atomic'
+import SubAvatar from '../../multi-usage/SubAvatar'
+import { lightBackgroundColor } from '../../../sc-css/COLORS'
 
 export default function PostDetails({ darkMode, sub, post }) {
 
     const navigate = useNavigate()
     const { users } = useContext(GlobalContext)
     const [poster, setPoster] = useState()
-    const [avatarPath, setAvatarPath] = useState()
 
     useEffect(() => {
         if (users) {
@@ -18,25 +18,12 @@ export default function PostDetails({ darkMode, sub, post }) {
         }
     }, [users, sub, post])
 
-    useEffect(() => {
-        if (sub.data.avatar) {
-            getAvatar(sub)
-                .then((data) => setAvatarPath(data))
-        }
-    })
-
     if (poster === undefined) return <div>Loading</div>
 
     return (
         <HorizontalFlex style={{ gap: "3px" }}>
 
-            {
-                sub.data.avatar ?
-                    <img src={`${avatarPath}`} style={{ width: "20px", height: "20px", borderRadius: "50%" }} />
-                    :
-                    <img src="#" style={{ width: "20px", height: "20px", borderRadius: "50%" }} />
-            }
-
+            <SubAvatar sub={sub} />
             <StyledLink onClick={() => navigate(`/r/${sub.id}`)}
                 className={`${darkMode}`}
             ><strong>r/{sub.data.name}</strong></StyledLink>

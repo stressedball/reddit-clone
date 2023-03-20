@@ -2,7 +2,8 @@ import styled from 'styled-components'
 import { GlobalContext } from '../providers/GlobalProvider'
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { StyledLink, LightText, Hoverable } from '../../sc-css/atomic'
+import { StyledLink, LightText, Hoverable, SVGStyled } from '../../sc-css/atomic'
+import SubAvatar from '../multi-usage/SubAvatar'
 
 const Section = styled.section`
     display: flex;
@@ -34,13 +35,14 @@ export default function PostHeader({ darkMode, post, sub }) {
         <Section>
             {
                 location.split('/')[1] === 'r' ? null :
-                <>
-                    <StyledLink onClick={() => navigate(`/r/${sub.id}`)}
-                        className={`${darkMode}`}
-                    ><strong>r/{sub.data.name}</strong>
-                    </StyledLink>
-                    <LightText>&middot;</LightText>
-                </>
+                    <>
+                        <SubAvatar sub={sub} />
+                        <StyledLink onClick={() => navigate(`/r/${sub.id}`)}
+                            className={`${darkMode}`}
+                        ><strong>r/{sub.data.name}</strong>
+                        </StyledLink>
+                        <LightText>&middot;</LightText>
+                    </>
             }
 
             <LightText>Posted by <Hoverable
