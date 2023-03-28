@@ -37,8 +37,16 @@ export default function Menu({ dropdownMenu, handleMenuDisplay }) {
     const navigate = useNavigate()
     const { subs, users } = useContext(GlobalContext)
     const { darkMode } = useContext(ThemeContext)
-    const inputValue = useRef()
-    
+    const [inputValue, setInputValue] = useState('')
+    const [filteredSubs, setFilteredSubs] = useState()
+    const [filteredUsers, setFilteredUsers] = useState()
+
+    const handleFilterSearch = (e) => {
+        setInputValue(e.target.value)
+        setFilteredSubs(subsFilterFunction(e.target.value, subs))
+        setFilteredUsers(usersFilterFunction(e.target.value, users))
+    }
+
     return (
         <div>
             {/* Either close menu or pin menu svg */}
@@ -67,10 +75,20 @@ export default function Menu({ dropdownMenu, handleMenuDisplay }) {
                 <p style={{ margin: '0', marginLeft: "8px" }}>Create Post</p>
             </Tile>
 
-            <StyledInput type='text' id="input" ref={inputValue} className={`${darkMode}  drop-down-menu`} placeholder={'Filter'} onClick={(e) => e.stopPropagation()} />
+            <StyledInput onChange={(e) => handleFilterSearch(e)} type='text' id="input" value={inputValue} className={`${darkMode}  drop-down-menu`} placeholder={'Filter'} onClick={(e) => e.stopPropagation()} />
 
-            <Subs darkMode={darkMode} subs={subs} />
-            <Users darkMode={darkMode} users={users} />
+            {
+                inputValue === '' ?
+                    <>
+                        <Subs darkMode={darkMode} subs={subs} />
+                        <Users darkMode={darkMode} users={users} />
+                    </>
+                    :
+                    <>
+                        {filteredSubs.length > 0 ? <Subs darkMode={darkMode} subs={filteredSubs} /> : null}
+                        {filteredUsers.length > 0 ? <Users darkMode={darkMode} users={filteredUsers} /> : null}
+                    </>
+            }
 
             {/* Home */}
             <Tile className={`${darkMode}`} onClick={() => { navigate('/') }}>
@@ -82,3 +100,12 @@ export default function Menu({ dropdownMenu, handleMenuDisplay }) {
 }
 
 
+function subsFilterFunction(string, subs) {
+    if (subs === undefined) return
+    return subs.filter(sub => sub.data.name.toLowerCase().includes(string.toLowerCase()))
+}
+
+function usersFilterFunction(string, users) {
+    if (users === undefined) return
+    return users.filter(user => user.data.userName.toLowerCase().includes(string.toLowerCase()))
+}

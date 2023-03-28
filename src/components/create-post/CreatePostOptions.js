@@ -59,7 +59,6 @@ export default function CreatePostOptions({ notified, darkMode, setError, subId,
     }
 
     useEffect(() => {
-        console.log(title)
         if (title === undefined || text === undefined) return
         if (title.length <= 0 ||
             subId === "null" ||
