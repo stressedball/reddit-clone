@@ -9,7 +9,7 @@ export default function PollShortcut({ darkMode }) {
         <svg
             className={`${darkMode} mouse-pointer`}
             onClick={() => navigate('submit/poll')}
-            width="30px" height="30px" fill="none"
+            width="20px" height="20px" fill="none"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
         >

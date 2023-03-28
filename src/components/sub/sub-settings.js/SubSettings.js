@@ -6,9 +6,8 @@ import { setDoc, doc } from 'firebase/firestore'
 import AvatarSettings from './avatar-settings/AvatarSettings'
 import BannerSettings from './banner-settings/BannerSettings'
 
-export default function SubSettings({ darkMode, handleDisplay }) {
+export default function SubSettings({ darkMode }) {
 
-    useEffect(() => {handleDisplay(false)}, [])
     const { subs } = useContext(GlobalContext)
     const [sub, setSub] = useState()
     const params = useParams()
@@ -33,7 +32,6 @@ export default function SubSettings({ darkMode, handleDisplay }) {
     }
 
     useEffect(() => {
-
         if (subs !== undefined) {
             if (subs.filter(el => el.id === params.subId)) setSub(() => subs.filter(sub => sub.id === params.subId)[0])
 

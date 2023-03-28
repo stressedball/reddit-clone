@@ -5,6 +5,13 @@ import { getBanner } from './sub-settings.js/banner-settings/bannerData'
 import SubSettingsShortcut from './SubSettingsShortcut'
 import SubSubscribe from './SubSubscribe'
 import { getAvatar } from './sub-settings.js/avatar-settings/avatarData'
+import styled from 'styled-components'
+import { HorizontalFlex } from '../../sc-css/atomic'
+import { lightBackgroundColor } from '../../sc-css/COLORS'
+
+const StyledDiv = styled.div`
+  background-color:${lightBackgroundColor}
+`
 
 export default function SubHeader({ darkMode }) {
 
@@ -26,6 +33,8 @@ export default function SubHeader({ darkMode }) {
     const tempSub = subs.filter(sub => sub.id === subId)[0]
     setSub(tempSub)
 
+    if (!tempSub) return
+
     if (tempSub.data.banner) {
       getBanner(tempSub).then(path => {
         setBannerPath(path)
@@ -40,17 +49,18 @@ export default function SubHeader({ darkMode }) {
 
   }, [subId, subs])
 
-  if (sub === undefined || user === undefined) return <div>Fetching sub data</div>
+  if (sub === undefined || user === undefined) return null
+  if (location.split('/')[1] !== 'r') return null
 
   return (
 
-    <div>
+    <StyledDiv >
 
-      <img src={`${bannerPath}`} style={{ height: "245px", width: "100vw" }}></img>
+      <img src={`${bannerPath}`} style={{ height: "245px", width: "100%" }}></img>
 
-      <div id='sub-settings-shortcut' className='horizontal flex'>
+      <HorizontalFlex style={{ justifyContent: "space-between", padding:"0 24px" }}>
 
-        <div className='horizontal flex' style={{ gap: "1rem" }}>
+        <HorizontalFlex style={{ gap: "1rem", marginTop: "-14px" }}>
 
           <img src={`${avatarPath}`}
             style={{
@@ -60,18 +70,19 @@ export default function SubHeader({ darkMode }) {
               border: "1px solid"
             }}></img>
 
-          <h3>{sub.data.name}</h3>
+          <h1 style={{ fontSize: "28px", fontWeight: "700" }}>{sub.data.name}</h1>
 
-          <SubSubscribe darkMode={darkMode} sub={sub} user={user} />
+          <SubSubscribe darkMode={darkMode} subs={subs} sub={sub} user={user} />
 
-        </div>
+        </HorizontalFlex>
 
         {
-          sub.data.creator === user.id ?
-            <SubSettingsShortcut darkMode={darkMode} sub={sub} /> : null
+          user ?
+            sub.data.creator === user.id ?
+              <SubSettingsShortcut darkMode={darkMode} sub={sub} /> : null
+            : null
         }
-
-      </div>
-    </div>
+      </HorizontalFlex>
+    </StyledDiv>
   )
 }

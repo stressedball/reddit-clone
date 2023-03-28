@@ -4,6 +4,13 @@ import { collection, doc, setDoc } from 'firebase/firestore'
 import { useContext, useEffect, useState } from 'react'
 import { db } from '../../../firebase/getAuthDb'
 import { GlobalContext } from '../../providers/GlobalProvider'
+import styled from 'styled-components'
+
+const StyledVotes = styled.div`
+    display:flex;
+    align-items:center;
+    gap:3px;
+`
 
 export default function CommentVotes({ darkMode, comment }) {
 
@@ -55,9 +62,11 @@ export default function CommentVotes({ darkMode, comment }) {
     }, [likedComments])
 
     return (
-        <Votes darkMode={darkMode} item={comment}
-            handleVote={handleVote}
-            upVote={upVote} downVote={downVote} />
+        <StyledVotes>
+            <Votes darkMode={darkMode} item={comment}
+                handleVote={handleVote}
+                upVote={upVote} downVote={downVote} />
+        </StyledVotes>
     )
 }
 

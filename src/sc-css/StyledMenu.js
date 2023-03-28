@@ -6,7 +6,8 @@ export const StyledMenu = styled.div`
     background-color : rgb(255 255 255);
     overflow-y: auto;
     grid-area: 2/1/3/1;
-
+    font-size:14px;
+        
     &.dark {
         background-color : rgb(26 26 27);
     }

@@ -19,7 +19,7 @@ export default function DeleteButton({darkMode}) {
                     </g>
                 </g>
             </svg>
-            <p className='no-margin'>Delete</p>
+            <p>Delete</p>
         </>
     )
 }

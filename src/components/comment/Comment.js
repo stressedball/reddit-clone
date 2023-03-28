@@ -3,7 +3,21 @@ import React, { useState, useEffect, useContext } from 'react'
 import { GlobalContext } from '../providers/GlobalProvider'
 import CommentOptions from './comment-options/CommentOptions'
 import UserAvatar from '../multi-usage/UserAvatar'
+import styled from 'styled-components'
+import { HorizontalFlex } from '../../sc-css/atomic'
 
+const CommentHeader = styled.div`
+    display:flex;
+    align-items:center;
+    gap:3px;
+    font-size:12px;
+    font-weight:500;
+    padding-top:6px;
+`
+
+const CommentStyled = styled.article`
+
+`
 export default function Comment({ darkMode, comment }) {
 
     const [display, setDisplay] = useState(false)
@@ -20,41 +34,31 @@ export default function Comment({ darkMode, comment }) {
 
     return (
 
-        <section
-            className='comment-container'
-            key={comment.data.timeStamp}
-        >
+        <HorizontalFlex style={{ paddingTop: "8px", paddingBottom: "8px" }} key={comment.data.timeStamp}>
 
-            <UserAvatar user={user} />
+            <div style={{ alignSelf: "start", width: '28px', display: "flex", justifyContent: "center", alignItems: "center" }}>
+                <UserAvatar user={user} />
+            </div>
 
-            <article className='comment'>
+            <div>
+                <CommentHeader>
 
-                <div
-                    className='details'
-                >
-
-                    <p className='no-margin'>{user ? user.data.userName : null}</p>
+                    <p style={{ margin: "0" }}>{user ? user.data.userName : null}</p>
 
                     <em>
-                        {
-                            comment.data.timeStamp === null ? null :
-                                comment.data.timeStamp.toDate().toDateString()
-                        }
+                        {comment.data.timeStamp === null ? null :
+                            comment.data.timeStamp.toDate().toDateString()}
                     </em>
 
-                </div>
+                </CommentHeader>
 
-                <div className='comment-content'>
+                <div style={{ fontSize: "14px" }}>
                     <p>{comment.data.text}</p>
                 </div>
 
-                <CommentOptions
-                    darkMode={darkMode}
-                    comment={comment}
-                    user={user}
-                />
+                <CommentOptions darkMode={darkMode} comment={comment} user={user} />
 
-            </article>
-        </section>
+            </div>
+        </HorizontalFlex>
     )
 }

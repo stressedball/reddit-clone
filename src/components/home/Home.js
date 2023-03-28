@@ -1,57 +1,49 @@
-import { Routes, Route, useLocation } from 'react-router-dom';
-import React, { useState, useContext, useEffect } from 'react'
-import { GlobalProvider } from '../providers/GlobalProvider';
-import Header from '../header/Header'
-import Post from '../post/Post'
-import MainPage from './MainPage'
-import UserSpace from './UserSpace';
+import { GlobalContext } from '../providers/GlobalProvider';
+import React, { useContext, useEffect, useState } from 'react'
+import PostPreview from '../post-preview/PostPreview';
 import { ThemeContext } from '../providers/ThemeProvider';
-import SubSettings from '../sub/sub-settings.js/SubSettings';
-import Sub from '../sub/Sub'
-import SubHeader from '../sub/SubHeader';
-import SideContainer from './SideContent';
-import CreatePost from '../create-post/CreatePost'
-// import '../../css/container.css'
-import CreatePostShortcut from '../create-post-shortcut/CreatePostShortcut';
+import styled from 'styled-components';
 
-export default function Home({ userId }) {
-
-  const location = useLocation().pathname
-  const { darkMode } = useContext(ThemeContext)
-  const [containerClass, setContainerClass] = useState()
-  const [display, setDisplay] = useState(false)
-
-  const handleDisplay = (bool) => {
-    if (bool) {
-      setContainerClass('grid')
-      setDisplay(true)
-    } else {
-      setContainerClass()
-      setDisplay(false)
+const PostPreviewFlex = styled.div`
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    gap: 16px;
+    width:100%;
+      
+    &.private{
+      gap:0;
     }
-  }
+`
+
+export default function Home({ }) {
+
+  const { posts, user, subs } = useContext(GlobalContext)
+  const { darkMode } = useContext(ThemeContext)
+  const [display, setDisplay] = useState('')
+
+  useEffect(() => { }, [subs, posts, user])
 
   useEffect(() => {
-    if (location.split('/')[1] === 'r' && location.split('/').length < 3) setDisplay(true)
-  }, [location])
+    if (user) setDisplay('private')
+    else setDisplay('public')
+  }, [user])
 
+  // make logic to select "random" posts
+  if (!user) return (
+    posts.map(post =>
+      <PostPreview key={post.id} post={post} darkMode={darkMode} />
+    )
+  )
+
+  // make logic to get user's subscribed subs and display content
   return (
-
-    <div id='container' className={`${containerClass}`}>
-
-      <Header userId={userId} userName={null} />
-      {display ? <SideContainer darkMode={darkMode} /> : null}
-
-      <div id='content-wrapper'>
-
-
-        {userId && location.split('/')[1] !== 'submit' && location.split('/').length <= 3 && <CreatePostShortcut darkMode={darkMode} />}
-
-      </div>
-    </div>
+    <PostPreviewFlex className={`${display}`}>
+      {
+        posts.map(post =>
+          <PostPreview key={post.id} post={post} darkMode={darkMode} />
+        )
+      }
+    </PostPreviewFlex>
   )
 }
-
-{/* <Header darkMode={darkMode} handleDisplay={handleDisplay} /> */ }
-
-      // {location.split('/')[1] === 'r' && location.split('/').length <= 3 && <SubHeader darkMode={darkMode} />}

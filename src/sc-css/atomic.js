@@ -1,8 +1,5 @@
 import styled from "styled-components"
-import { lightBorder, lightBackgroundColor } from "./COLORS";
-
-export const noMarginP = styled.p`
-`
+import { darkHoverLight, lightGrayHover } from "./COLORS";
 
 export const mousePointer = styled.p`
     &:hover{
@@ -44,9 +41,18 @@ export const BlueButton = styled.button`
 export const SVGStyled = styled.svg`
     width : 20px;
     height : 20px;
+    fill: rgb(135, 138, 140);
+
+    & > path {
+        stroke: rgb(135, 138, 140);
+    }
     
     &.dark {
         fill : rgb(215 218 220);
+    }
+
+    &.dark > path {
+        stroke : rgb(215 218 220);
     }
 
     &:hover {
@@ -57,7 +63,9 @@ export const SVGStyled = styled.svg`
 export const StyledLink = styled.p`
     font-size:12px;
     text-decoration:underline;
-    
+    margin: 0;
+    height: 20px;
+
     &:hover{
         cursor:pointer;
     }
@@ -65,6 +73,9 @@ export const StyledLink = styled.p`
 
 export const LightText = styled.p`
     color:rgb(120, 124, 126);
+    margin-top:0;
+    margin: 0;
+    height: 20px;
 `
 
 export const Hoverable = styled.span`
@@ -82,16 +93,15 @@ export const HorizontalFlex = styled.div`
 export const Tile = styled.div`
     display: flex;
     align-items:center;
-    min-height : 50px;
-    padding : 2px 4px;
+    padding : 8px 24px;
 
     &:hover {
         cursor:pointer;
-        background-color: rgba(0, 0, 0, 0.04);
+        background-color: ${lightGrayHover};
     }
     
     &.dark:hover {
-        background-color: rgba(255, 255, 255, 0.04);
+        background-color: ${darkHoverLight};
     }
 `
 
@@ -100,8 +110,20 @@ export const MenuSmallTitles = styled.p`
     font-weight:500;
     text-transform:uppercase;
     color:#878a8c;
+    padding-left:20px;
 
     &:hover {
         cursor: default;
     }
+`
+
+export const StyledOptionText = styled.p`
+    font-size: 12px;
+    font-weight: 700;
+    color: rgb(135, 138, 140);
+
+    &.dark{
+        color: rgb(133, 135, 137);
+    }
+
 `

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { HorizontalFlex } from '../../sc-css/atomic'
 import { getAvatar } from '../sub/sub-settings.js/avatar-settings/avatarData'
 
 export default function SubAvatar({sub}) {
@@ -13,14 +14,13 @@ export default function SubAvatar({sub}) {
     })
 
     return (
-        <div style={{display:"flex"}} >
+        <HorizontalFlex >
             {   
                 sub.data.avatar ?
-                    <img src={`${avatarPath}`} style={{ margin:"auto", width: "20px", height: "20px", borderRadius: "50%", border: "1px solid" }} />
+                    <img className='drop-down-menu' src={`${avatarPath}`} style={{ margin:"auto", width: "20px", height: "20px", borderRadius: "50%", border: "1px solid" }} />
                     :
-                    <img src="#" style={{ width: "20px", height: "20px", borderRadius: "50%" }} />
+                    <img className='drop-down-menu' src="#" style={{ width: "20px", height: "20px", borderRadius: "50%" }} />
             }
-
-        </div>
+        </HorizontalFlex>
     )
 }

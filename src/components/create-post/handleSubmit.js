@@ -9,8 +9,8 @@ export default async function handleSubmit({ params, user, subId, title, text, i
 
     if (params === '') {
         postRef = await addDoc(collection(db, 'posts'), {
-            title: title.current.value,
-            text: text.current.value,
+            title: title,
+            text: text,
             poster: user.id,
             votes: 0,
             timeStamp: serverTimestamp(),
@@ -21,7 +21,7 @@ export default async function handleSubmit({ params, user, subId, title, text, i
 
     if (params === 'img') {
         postRef = await addDoc(collection(db, 'posts'), {
-            title: title.current.value,
+            title: title,
             poster: user.id,
             votes: 0,
             timeStamp: serverTimestamp(),

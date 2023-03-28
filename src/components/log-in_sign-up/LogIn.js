@@ -22,17 +22,6 @@ export default function LogIn({ handleLoginScreen, handleSignUp }) {
         }
     }
 
-    // const handleLogIn = (e) => {
-        // e.preventDefault()
-            // .then(() => {
-                // return
-            // })
-            // .catch(() => {
-            // });
-    // }
-
-    // useEffect(() => { }, [error])
-
     return (
         <>
             {error ? <p id='error'>{error}</p> : null}

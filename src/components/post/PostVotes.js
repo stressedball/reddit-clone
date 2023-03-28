@@ -4,13 +4,34 @@ import { collection, doc, setDoc } from 'firebase/firestore'
 import { db } from '../../firebase/getAuthDb'
 import { useContext, useEffect, useState } from 'react'
 import { GlobalContext } from '../providers/GlobalProvider'
+import { useLocation } from 'react-router-dom'
+import styled from 'styled-components'
+import { darkMain } from '../../sc-css/COLORS'
+
+const StyledDiv = styled.div`
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content: start;
+    width:40px;
+
+    &.clear, &.dark.clear {
+        background-color: inherit;
+    }
+
+    &.dark {
+        background-color: ${darkMain}
+    }
+`
 
 export default function PostVotes({ darkMode, post }) {
 
+    const location = useLocation().pathname.split('/')
     const { user, likedPosts } = useContext(GlobalContext)
     const [upVote, setUpVote] = useState()
     const [downVote, setDownVote] = useState()
     let votes = post.data.votes
+    const [votesBackground, setVotesBackground] = useState('')
 
     function handleVote(e) {
 
@@ -40,6 +61,10 @@ export default function PostVotes({ darkMode, post }) {
     }
 
     useEffect(() => {
+        if (location[3] === 'p') setVotesBackground('clear')
+    }, [location])
+
+    useEffect(() => {
 
         if (likedPosts.length > 0) {
 
@@ -55,9 +80,11 @@ export default function PostVotes({ darkMode, post }) {
     }, [likedPosts])
 
     return (
-        <Votes darkMode={darkMode} item={post}
-            handleVote={handleVote}
-            upVote={upVote} downVote={downVote} />
+        <StyledDiv className={`${votesBackground} ${darkMode}`}>
+            <Votes darkMode={darkMode} item={post}
+                handleVote={handleVote}
+                upVote={upVote} downVote={downVote} />
+        </StyledDiv>
     )
 }
 

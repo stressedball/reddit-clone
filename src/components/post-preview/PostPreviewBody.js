@@ -35,11 +35,8 @@ export default function PostPreviewBody({ darkMode, post, sub }) {
     }
 
     return (
-
         <StyledDiv onClick={handleClick} className={`${darkMode}`}>
-
-            <h3 style={{ margin: "0", fontWeight: "500", fontSize: "18px" }}>{post.data.title}</h3>
-
+            <h3 style={{ margin: "0", fontWeight: "500", fontSize: "16px" }}>{post.data.title}</h3>
         </StyledDiv>
     )
 }

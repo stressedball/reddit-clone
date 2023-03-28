@@ -1,13 +1,14 @@
 import styled from "styled-components";
-import { lightBorder, lightBackgroundColor } from "./COLORS";
+import { lightBorder, lightBackgroundColor, darkTwo } from "./COLORS";
 
-export const DropDownContainerStyled = styled.div`
+export const DropDownContainerStyled = styled.div`  
     position: relative;
     z-index: 100;
     border-radius: 4px;
     border: 1px solid transparent;
     font-size:14px;
     font-weight:500;
+    width:270px;
 
     &:hover {
         border : 1px solid ${lightBorder};
@@ -15,7 +16,7 @@ export const DropDownContainerStyled = styled.div`
     }
 
     &.drop-down-menu.not-drop:hover {
-        border: none;
+        border: 1px solid transparent;
         cursor : default;
     }
 
@@ -32,31 +33,30 @@ export const DropDownContainerStyled = styled.div`
 `
 
 export const DropDownHeaderStyled = styled.div`
-    display:flex;
-    align-items: center;
-    justify-content:center;
     z-index: 2;
     width: inherit;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    height: 32px;
+    height: 34px;
     position:relative;
-
+    display:flex;
+    align-items: center;
 `
 
 export const DropDownDisplayed = styled.div`
     position:absolute;
-    top:39px;
+    top: 40px;
     left:0;
     background-color : ${lightBackgroundColor};
     display: flex;
     flex-direction:column;
     font-weight:bold;
     font-size: 14px;
+    width:inherit;
     
     &.dark{
-        background-color : rgb(26 26 27);
+        background-color : ${darkTwo};
     }
 `
 

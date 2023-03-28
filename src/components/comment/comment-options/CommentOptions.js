@@ -4,6 +4,26 @@ import { GlobalContext } from '../../providers/GlobalProvider'
 import DeleteButton from '../../multi-usage/DeleteButton'
 import EditButton from '../../multi-usage/EditButton'
 import CommentVotes from './CommentVotes'
+import { HorizontalFlex, Tile } from '../../../sc-css/atomic'
+import styled from 'styled-components'
+import { lightGrayHover, darkHoverLight } from '../../../sc-css/COLORS'
+
+const StyledTile = styled(Tile)`
+    font-size:12px;
+    min-height:0;
+    font-weight:700;
+    &:hover {
+        background-color:${lightGrayHover}
+    }
+
+    &.dark:hover {
+        background-color:${darkHoverLight}
+    }
+
+    & > p {
+        margin:0;
+    }
+`
 
 export default function CommentOptions({ darkMode, comment }) {
 
@@ -12,38 +32,41 @@ export default function CommentOptions({ darkMode, comment }) {
     if (comment === undefined) return null
 
     return (
-        <div className='horizontal flex'>
+        <HorizontalFlex>
             <CommentVotes darkMode={darkMode} comment={comment} />
-
             {
                 user ?
                     user.id === comment.data.poster ?
-                        <EditComment darkMode={darkMode} /> :
+                        <EditComment darkMode={darkMode} />
+                        :
                         <ReplyVote darkMode={darkMode} comment={comment} user={user} />
                     :
                     <PublicOptions />
             }
-        </div>
+        </HorizontalFlex>
     )
 }
 
 function EditComment({ darkMode }) {
 
     return (
-        <div className='horizontal flex' style={{ gap: '1rem' }}>
-            <EditButton darkMode={darkMode} />
-            <DeleteButton darkMode={darkMode} />
-        </div>
+        <HorizontalFlex style={{ gap: '1rem' }}>
+            <StyledTile className={`${darkMode}`}>
+                <EditButton darkMode={darkMode} />
+            </StyledTile>
+            <StyledTile className={`${darkMode}`}>
+                <DeleteButton darkMode={darkMode} />
+            </StyledTile>
+        </HorizontalFlex>
     )
 }
 
 function ReplyVote({ darkMode, comment, user }) {
 
     return (
-        <div>
-
-            <p className={`${darkMode}`}>Reply</p>
-        </div>
+        <StyledTile className={`${darkMode}`}>
+            <p>Reply</p>
+        </StyledTile>
     )
 }
 

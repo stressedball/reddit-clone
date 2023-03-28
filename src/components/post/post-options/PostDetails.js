@@ -3,7 +3,6 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { HorizontalFlex, Hoverable, LightText, StyledLink } from '../../../sc-css/atomic'
 import SubAvatar from '../../multi-usage/SubAvatar'
-import { lightBackgroundColor } from '../../../sc-css/COLORS'
 
 export default function PostDetails({ darkMode, sub, post }) {
 
@@ -21,7 +20,7 @@ export default function PostDetails({ darkMode, sub, post }) {
     if (poster === undefined) return <div>Loading</div>
 
     return (
-        <HorizontalFlex style={{ gap: "3px" }}>
+        <HorizontalFlex style={{ gap: "3px", fontSize:'12px', fontWeight:"400" }}>
 
             <SubAvatar sub={sub} />
             <StyledLink onClick={() => navigate(`/r/${sub.id}`)}

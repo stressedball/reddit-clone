@@ -1,5 +1,34 @@
 import { db } from '../../../firebase/getAuthDb'
 import { addDoc, collection, serverTimestamp, } from 'firebase/firestore'
+import { lightBorder } from '../../../sc-css/COLORS'
+import styled from 'styled-components'
+
+const StyledDiv = styled.div`
+    box-sizing: border-box;
+    display:flex;
+    justify-content: end;
+    background-color: inherit;
+    width: calc(100% - 38px);
+    padding:4px 8px 4px 8px;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+    margin-bottom:12px;
+    border: 1px solid ${lightBorder};
+`
+
+const CommentButton = styled.button`
+    font-size: 12px;
+    font-weight:700;
+
+    background-color:#364266;
+    filter:grayscale(1);
+
+    border-radius:14px;
+    padding: 4px 20px 4px 20px;
+    border:none;
+
+    color:rgba(255, 255, 255, 0.5);
+`
 
 export default function AddCommentOptions({ darkMode, postId, text, user }) {
 
@@ -20,9 +49,7 @@ export default function AddCommentOptions({ darkMode, postId, text, user }) {
     }
 
     return (
-        <div
-            className='comment-options'
-        >
+        <StyledDiv >
             {/* <svg
                 className={`${darkMode} mouse-pointer`}
                 width="30px" height="30px"
@@ -48,10 +75,10 @@ export default function AddCommentOptions({ darkMode, postId, text, user }) {
                 </g>
             </svg> */}
 
-            <button
+            <CommentButton
                 className={`${darkMode} buttonStyle mouse-pointer`}
                 onClick={handleComment}
-            >Comment</button>
-        </div>
+            >Comment</CommentButton>
+        </StyledDiv>
     )
 }

@@ -6,25 +6,21 @@ import { useNavigate } from 'react-router-dom'
 import { ThemeContext } from '../providers/ThemeProvider'
 import styled from 'styled-components'
 import { BlueButton } from '../../sc-css/atomic'
-import { lightBackgroundColor } from '../../sc-css/COLORS'
+import { darkSecondary, lightBackgroundColor } from '../../sc-css/COLORS'
 import { GlobalContext } from '../providers/GlobalProvider'
 import AuthenticateUser from '../log-in_sign-up/AuthenticateUser'
 
-const H3 = styled.h3`
-    &:hover {
-        cursor:pointer;
-    }
-`
 const HeaderStyled = styled.header`
     display: flex;
     align-items: center;
-    justify-content: space-around;
     border-bottom: 1px solid;
     background-color: ${lightBackgroundColor};
     grid-area: 1/1/1/3;
-    
+    padding:0 20px;
+    gap: 12px;
+
     &.dark {
-        background-color: #1a1a1b;
+        background-color: ${darkSecondary};
     }
 `
 const StyledDiv = styled.div`
@@ -33,18 +29,23 @@ const StyledDiv = styled.div`
     gap:4px;
 `
 
+const H3 = styled.h3`
+    margin-right: 12px;
+
+    &:hover {
+        cursor:pointer;
+    }
+`
+
 export default function Header({ dropdownMenu, handleMenuDisplay }) {
 
-    // const [userName, setUserName] = useState()
     const { darkMode } = useContext(ThemeContext)
     const navigate = useNavigate()
     const { user } = useContext(GlobalContext)
     const [userAuthenticate, setUserAuthenticate] = useState(false)
 
     useEffect(() => {
-        if (user) {
-            setUserAuthenticate(false)
-        }
+        if (user) { setUserAuthenticate(false) }
     }, [user])
 
     const handleLoginScreen = () => { setUserAuthenticate(!userAuthenticate) }

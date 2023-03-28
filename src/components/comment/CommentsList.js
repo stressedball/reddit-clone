@@ -4,7 +4,7 @@ import { GlobalContext } from '../providers/GlobalProvider'
 import React, { useContext, useEffect } from 'react'
 import { useState } from 'react'
 
-export default function CommentsList({ darkMode,comments }) {
+export default function CommentsList({ darkMode, comments }) {
 
     const { users } = useContext(GlobalContext)
     const [display, setDisplay] = useState(false)

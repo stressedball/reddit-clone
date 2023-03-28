@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import CreateSub from "./CreateSub";
 import React, { useState } from 'react'
 import { MenuSmallTitles, Tile } from "../../sc-css/atomic";
+import SubAvatar from "../multi-usage/SubAvatar";
 
 export default function Subs({ darkMode, subs }) {
 
@@ -12,9 +13,9 @@ export default function Subs({ darkMode, subs }) {
         <>
             <MenuSmallTitles className={`${darkMode} drop-down-menu`} value='Subs'>Communities</MenuSmallTitles>
 
-            <Tile className={`${darkMode} drop-down-menu`} style={{ gap: '0.3rem' }}>
+            <Tile className={`${darkMode}`} style={{ gap: '3px' }}>
                 <svg
-                    fill="currentColor" className={`${darkMode} drop-down-menu`}
+                    fill="currentColor" className={`${darkMode}`}
                     width="15px" height="15px"
                     viewBox="0 0 128 128" id="Layer_1" version="1.1" xmlSpace="preserve" xmlns="http://www.w3.org/2000/svg">
                     <g>
@@ -26,18 +27,19 @@ export default function Subs({ darkMode, subs }) {
                         <path d="M50.1,20C50.1,9.5,41.5,0.9,31,0.9S11.9,9.5,11.9,20S20.5,39.1,31,39.1S50.1,30.5,50.1,20z M31,31.1   c-6.1,0-11.1-5-11.1-11.1S24.9,8.9,31,8.9s11.1,5,11.1,11.1S37.1,31.1,31,31.1z" />
                     </g>
                 </svg>
-                <p className="drop-down-menu"
-                    onClick={() => { setMakeSub(!makeSub) }}
-                    style={{ margin: '0', padding: '0' }}
+                <p onClick={() => { setMakeSub(!makeSub) }} style={{ margin: '0', padding: '0' }}
                 >Create community</p>
             </Tile>
+
             {
                 subs.map(sub => {
                     return (
                         <Tile value={sub.data.name} key={sub.id}
                             onClick={() => { navigate(`r/${sub.id}`) }}
-                            className={`${darkMode} drop-down-menu`}
-                        >{sub.data.name}</Tile>
+                            className={`${darkMode}`} style={{ gap: "3px" }}>
+                            <SubAvatar sub={sub} />
+                            <p style={{ margin: "0" }}>r/{sub.data.name}</p>
+                        </Tile>
                     )
                 })
             }

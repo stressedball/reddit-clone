@@ -2,13 +2,15 @@ import { GlobalContext } from '../providers/GlobalProvider'
 import PostPreview from '../post-preview/PostPreview'
 import { useParams } from 'react-router-dom'
 import React, { useContext } from 'react'
+import { ThemeContext } from '../providers/ThemeProvider'
 
-export default function Sub({ darkMode }) {
+export default function Sub() {
 
     const subId = useParams().subId
     const { posts } = useContext(GlobalContext)
     const subPosts = posts.filter(post => post.data.parent === subId)
-
+    const {darkMode} = useContext(ThemeContext)
+    
     return (
         <>
             {

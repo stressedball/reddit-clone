@@ -6,8 +6,8 @@ import { lightBorder, lightBackgroundColor } from '../../sc-css/COLORS'
 import { ThemeContext } from '../providers/ThemeProvider'
 
 const StyledSideContent = styled.div`
-  width:fit-content;
-  max-width:310px;
+  min-width: 312px;
+  width:312px;
   border: 1px solid ${lightBorder};
   background-color: ${lightBackgroundColor};
   font-size:14px;
@@ -36,6 +36,8 @@ export default function SideContent() {
     if (location.split('/')[1] === 'r')
       setContent(<Sub darkMode={darkMode} subId={location.split('/')[2]} />)
 
+    if (location === '/submit')
+      setContent(<Submit />)
   }, [location])
 
 
@@ -66,11 +68,9 @@ function Sub({ subId }) {
   const [sub, setSub] = useState()
 
   useEffect(() => {
-
     if (subs !== undefined) {
       setSub(subs.filter(sub => sub.id === subId)[0])
     }
-
   }, [subs, subId])
 
   if (sub === undefined) return <div>Loading</div>
@@ -81,6 +81,17 @@ function Sub({ subId }) {
       <p>{sub.data.description}</p>
       <p>Created {sub.data.dateOfCreation.toDate().toDateString()}</p>
       <p>{sub.data.users.length} members</p>
+    </>
+  )
+}
+
+function Submit() {
+  return (
+    <>
+      <h4>Posting to RedditClone</h4>
+      <p>Just remember to be civil.</p>
+      <p>Behave like you would in real life.</p>
+      <p>Have fun!</p>
     </>
   )
 }

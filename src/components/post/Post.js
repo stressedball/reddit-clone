@@ -11,17 +11,19 @@ import PostVotes from './PostVotes'
 import styled from 'styled-components'
 import SideContent from '../home/SideContent'
 import { SVGStyled, Tile } from '../../sc-css/atomic'
-import { lightBackgroundColor } from '../../sc-css/COLORS'
+import { darkMain, darkSecondary, lightBackgroundColor } from '../../sc-css/COLORS'
+import { ThemeContext } from '../providers/ThemeProvider'
 
 const PostPage = styled.div`
   position: fixed;
   left:0;
   top:48px;
   width:100vw;
-  min-height:100%;
   z-index:10;
   background-color:rgb(28 28 28 / 90%);
-`
+  height:100vh;
+  overflow-y: auto;
+  `
 
 const PostContainer = styled.div`
   margin:auto;
@@ -31,10 +33,16 @@ const PostContainer = styled.div`
   max-width: 1280px;
   width: calc(100% - 160px);
   background-color: rgb(218 224 230);
-`
+  padding-bottom:48px;
+
+  &.dark {
+    background-color:${darkMain}
+  }
+  `
 
 const PostSection = styled.section`
   display: flex;
+  padding-top:8px;
 `
 
 const VerticalFlex = styled.div`
@@ -43,7 +51,34 @@ const VerticalFlex = styled.div`
   gap: 8px;
 `
 
-export default function Post({ darkMode }) {
+const PostColumn = styled(VerticalFlex)`
+  border-radius:4px;
+  width:100%;
+  max-width:740px;
+  gap:4px;
+  background-color: ${lightBackgroundColor};
+  margin-bottom:20px;
+
+  &.dark {
+    background-color:${darkSecondary}
+  }
+  `
+
+const TileNoHover = styled(Tile)`
+  justify-content:end;
+  background-color: inherit;
+
+  &:hover {
+    cursor: default;
+    background-color: inherit;
+  }
+
+  &.dark {
+    background-color:inherit;
+  }
+`
+
+export default function Post({ }) {
 
   const navigate = useNavigate()
   const subId = useParams().subId
@@ -52,6 +87,7 @@ export default function Post({ darkMode }) {
   const [post, setPost] = useState()
   const [sub, setSubs] = useState()
   const [comments, setComments] = useState()
+  const { darkMode } = useContext(ThemeContext)
 
   useEffect(() => {
     if (posts) setPost(posts.filter(el => el.id === postId)[0])
@@ -64,7 +100,7 @@ export default function Post({ darkMode }) {
   useEffect(() => {
     getComments(postId)
       .then((data) => setComments(data))
-  }, [])
+  }, [postId])
 
   if (post === undefined || sub === undefined || user === undefined) return <div>Loading</div>
 
@@ -73,20 +109,20 @@ export default function Post({ darkMode }) {
     <PostPage>
       <PostContainer className={`${darkMode}`}>
 
-        <Tile className={`${darkMode}`} style={{ justifyContent: "end", backgroundColor: "rgb(218 224 230)" }}>
+        <TileNoHover className={`${darkMode}`} >
           <SVGStyled
             style={{ width: "30px", height: "30px" }} onClick={() => navigate(`/r/${subId}`)}
             viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
             <g id="icomoon-ignore"></g>
             <path d="M10.722 9.969l-0.754 0.754 5.278 5.278-5.253 5.253 0.754 0.754 5.253-5.253 5.253 5.253 0.754-0.754-5.253-5.253 5.278-5.278-0.754-0.754-5.278 5.278z" fill="currentColor"></path>
           </SVGStyled>
-        </Tile>
+        </TileNoHover>
 
-        <div style={{ display: "flex", margin: "auto" }}>
+        <div style={{ display: "flex", justifyContent: "center" }}>
 
-          <VerticalFlex style={{backgroundColor: `${lightBackgroundColor}`, borderRadius:"4px"}}>
+          <PostColumn className={`${darkMode}`}>
 
-            <PostSection className={`${darkMode} post`}>
+            <PostSection>
 
               <PostVotes darkMode={darkMode} post={post} user={user} />
 
@@ -94,7 +130,7 @@ export default function Post({ darkMode }) {
 
                 <PostDetails sub={sub} post={post} darkMode={darkMode} />
 
-                <h1 className='no-margin'>{post.data.title}</h1>
+                <h1 style={{fontSize:"20px", fontWeight:'500'}} className='no-margin'>{post.data.title}</h1>
 
                 {post.data.text ? <p className='no-margin'>{post.data.text}</p> : null}
 
@@ -113,7 +149,7 @@ export default function Post({ darkMode }) {
 
             <CommentsList darkMode={darkMode} postId={postId} comments={comments} />
 
-          </VerticalFlex>
+          </PostColumn>
 
           <SideContent />
 
