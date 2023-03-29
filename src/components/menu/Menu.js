@@ -15,6 +15,11 @@ const StyledInput = styled.input`
     margin-left: 24px;
     border: 1px solid transparent;
     background-color: #f6f7f8;
+    margin-top:4px;
+    
+    &:hover {
+        border : 1px solid #0079d3;
+    }
 
     &:focus {
         border : 1px solid #0079d3;
@@ -26,10 +31,9 @@ const StyledInput = styled.input`
         color:${lightText};
     }
 
-    &.dark:focus {
-        border : 1px solid ${lightBorder}
+    &.dark:focus, &.dark:hover {
+        border : 1px solid ${lightBorder};
     }
-
 `
 
 export default function Menu({ dropdownMenu, handleMenuDisplay }) {

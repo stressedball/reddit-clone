@@ -111,6 +111,7 @@ export const MenuSmallTitles = styled.p`
     text-transform:uppercase;
     color:#878a8c;
     padding-left:20px;
+    margin-bottom: 1px;
 
     &:hover {
         cursor: default;

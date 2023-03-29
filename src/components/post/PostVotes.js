@@ -6,7 +6,7 @@ import { useContext, useEffect, useState } from 'react'
 import { GlobalContext } from '../providers/GlobalProvider'
 import { useLocation } from 'react-router-dom'
 import styled from 'styled-components'
-import { darkMain } from '../../sc-css/COLORS'
+import { darkMain, lightSecondary } from '../../sc-css/COLORS'
 
 const StyledDiv = styled.div`
     display:flex;
@@ -14,7 +14,9 @@ const StyledDiv = styled.div`
     align-items:center;
     justify-content: start;
     width:40px;
-
+    background-color: ${lightSecondary};
+    padding-top : 8px;
+    
     &.clear, &.dark.clear {
         background-color: inherit;
     }

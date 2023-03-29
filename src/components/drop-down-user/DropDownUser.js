@@ -18,30 +18,26 @@ export default function DropDownUser() {
     const { darkMode } = useContext(ThemeContext)
 
     useEffect(() => {
-
         function toggleDisplay(e) {
             if (display) {
                 if (!e.target.classList.contains('drop-down-user')) setDisplay(false)
             }
         }
-
         window.addEventListener('click', toggleDisplay)
-
         return () => window.removeEventListener('click', toggleDisplay)
-
     }, [display])
 
     useEffect(() => { }, [user, logInScreen])
 
-    const handleDisplay = () => { setDisplay(!display) }
+    const handleDisplay = () => {
+        setDisplay(!display)
+    }
     const handleLoginScreen = () => { setLogInScreen(!logInScreen) }
 
     return (
 
         <DropDownContainerStyled className={`${display} drop-down-user ${darkMode}`}
-            style={{
-                width: "fit-content", padding: "0 8px"
-            }}>
+            style={{ width: "fit-content", padding: "0 8px" }}>
 
             <DropDownHeaderStyled className={`drop-down-user ${darkMode}`}>
                 {
@@ -66,9 +62,7 @@ export default function DropDownUser() {
                     : null
             }
 
-            {
-                logInScreen ? <AuthenticateUser handleLoginScreen={handleLoginScreen} /> : null
-            }
+            {logInScreen ? <AuthenticateUser handleLoginScreen={handleLoginScreen} /> : null}
 
         </DropDownContainerStyled>
     )

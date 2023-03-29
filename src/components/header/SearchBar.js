@@ -1,28 +1,64 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import styled from "styled-components"
-import { darkThree, lightBorder, lightSecondary, lightText } from "../../sc-css/COLORS"
+import { darkDefaultBorder, darkThree, lightBorder, lightSecondary, lightText } from "../../sc-css/COLORS"
+import { GlobalContext } from '../providers/GlobalProvider'
+import Subs from '../menu/Subs'
+import Users from '../menu/Users'
+
+const DropDown = styled.div`
+    height: 40px;
+    padding: 2px 0;
+    position: relative;
+    grid-column: 2;
+    align-self:center;
+`
 
 const StyledInput = styled.input`
-    height:30px;
     outline:none;
     margin:auto;
-    flex: 1 0 auto;
-    border-radius : 12px;
+    border-radius : 1.25rem;
     border: 1px solid ${lightBorder};
-    max-width: 690px; 
     background-color: ${lightSecondary};
     font-weight: 400;
     font-size:14px;
     padding:0 8px;
+    height:100%;
+    width: 690px; 
+    box-sizing:border-box;
 
-    &.dark{
+    &:hover, &:focus {
+        border : 1px solid #0079d3;
+        background-color: inherit;
+    }
+
+    &.dark {
+        border : 1px solid ${darkDefaultBorder};
         background-color: ${darkThree};
         color: ${lightText}
+    }
+    
+    &.dark:hover, &.dark:focus {
+        border : 1px solid ${lightBorder};
     }
 `
 export default function SearchBar({ darkMode }) {
 
+    const [display, setDisplay] = useState(false)
+    const [inputValue, setInputValue] = useState()
+
     return (
-        <StyledInput className={`${darkMode}`} placeholder='Search RedditClone' />
+        <DropDown>
+            <StyledInput onClick={() => { setDisplay(!display) }} value={inputValue} onChange={e => setInputValue(e.target.value)} className={`${darkMode}`} placeholder='Search RedditClone' />
+
+            {display ? <ShowContent string={inputValue} /> : null}
+
+        </DropDown>
     )
+}
+
+
+function ShowContent({ string }) {
+    const { users, subs } = useContext(GlobalContext)
+
+
 }

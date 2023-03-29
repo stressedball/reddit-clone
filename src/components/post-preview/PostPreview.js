@@ -5,14 +5,14 @@ import ImageDisplay from '../multi-usage/ImageDisplay'
 import PostVotes from '../post/PostVotes'
 import styled from 'styled-components'
 import { GlobalContext } from '../providers/GlobalProvider'
-import { darkTwo, lightBackgroundColor, lightBorder } from '../../sc-css/COLORS'
+import { darkDefaultBorder, darkTwo, lightBackgroundColor, lightBorder, lightDefaultBorder } from '../../sc-css/COLORS'
 import PreviewPlaceholder from './PreviewPlaceholder'
 import PostPreviewOptions from './PostPreviewOptions'
 import PostExpand from './PostExpand'
 
 const Container = styled.div`
     display: flex;
-    border: 1px solid ${lightBorder};
+    border: 1px solid ${lightDefaultBorder};
     border-radius:4px;
     background-color: ${lightBackgroundColor};
 
@@ -26,6 +26,11 @@ const Container = styled.div`
 
     &.dark {
         background-color: ${darkTwo};
+        border: 1px solid ${darkDefaultBorder};
+    }
+
+    &.dark:hover {
+        border: 1px solid ${lightDefaultBorder};
     }
 
 `
@@ -105,8 +110,6 @@ export default function PostPreview({ darkMode, post }) {
                 {displayText ? <PostExpand post={post} darkMode={darkMode} /> : null}
 
             </div>
-
-
         </Container>
     )
 }

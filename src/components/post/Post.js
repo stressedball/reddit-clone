@@ -42,7 +42,6 @@ const PostContainer = styled.div`
 
 const PostSection = styled.section`
   display: flex;
-  padding-top:8px;
 `
 
 const VerticalFlex = styled.div`
@@ -126,7 +125,7 @@ export default function Post({ }) {
 
               <PostVotes darkMode={darkMode} post={post} user={user} />
 
-              <VerticalFlex style={{ gap: "0" }}>
+              <VerticalFlex style={{ gap: "0", paddingTop:"8px" }}>
 
                 <PostDetails sub={sub} post={post} darkMode={darkMode} />
 
