@@ -20,9 +20,12 @@ export default function PostDetails({ darkMode, sub, post }) {
     if (poster === undefined) return <div>Loading</div>
 
     return (
-        <HorizontalFlex style={{ gap: "3px", fontSize:'12px', fontWeight:"400" }}>
+        <HorizontalFlex style={{ gap: "3px", fontSize: '12px', fontWeight: "400" }}>
 
-            <SubAvatar sub={sub} />
+            <HorizontalFlex style={{ justifyContent: "center", height: "20px", width: "20px" }}>
+                <SubAvatar sub={sub} />
+            </HorizontalFlex>
+
             <StyledLink onClick={() => navigate(`/r/${sub.id}`)}
                 className={`${darkMode}`}
             ><strong>r/{sub.data.name}</strong></StyledLink>

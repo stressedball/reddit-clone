@@ -7,13 +7,19 @@ import SubSubscribe from './SubSubscribe'
 import { getAvatar } from './sub-settings.js/avatar-settings/avatarData'
 import styled from 'styled-components'
 import { HorizontalFlex } from '../../sc-css/atomic'
-import { lightBackgroundColor } from '../../sc-css/COLORS'
+import { darkTwo, lightBackgroundColor } from '../../sc-css/COLORS'
+import { ThemeContext } from '../providers/ThemeProvider'
 
 const StyledDiv = styled.div`
-  background-color:${lightBackgroundColor}
+  background-color:${lightBackgroundColor};
+
+  &.dark {
+    background-color: ${darkTwo};
+    color: inherit;
+  }
 `
 
-export default function SubHeader({ darkMode }) {
+export default function SubHeader() {
 
   const [subId, setSubId] = useState()
   const location = useLocation().pathname
@@ -21,6 +27,7 @@ export default function SubHeader({ darkMode }) {
   const [sub, setSub] = useState()
   const [bannerPath, setBannerPath] = useState()
   const [avatarPath, setAvatarPath] = useState(null)
+  const { darkMode } = useContext(ThemeContext)
 
   useEffect(() => {
     if (location.split('/')[2]) setSubId(location.split('/')[2])
@@ -50,15 +57,15 @@ export default function SubHeader({ darkMode }) {
   }, [subId, subs])
 
   if (sub === undefined || user === undefined) return null
-  if (location.split('/')[1] !== 'r') return null
+  if (location.split('/')[1] !== 'r' || location.split('/')[3] === 'submit') return null
 
   return (
 
-    <StyledDiv >
+    <StyledDiv className={`${darkMode}`} >
 
       <img src={`${bannerPath}`} style={{ height: "245px", width: "100%" }}></img>
 
-      <HorizontalFlex style={{ justifyContent: "space-between", padding:"0 24px" }}>
+      <HorizontalFlex style={{ justifyContent: "space-between", padding: "0 24px" }}>
 
         <HorizontalFlex style={{ gap: "1rem", marginTop: "-14px" }}>
 

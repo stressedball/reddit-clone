@@ -21,50 +21,52 @@ const StyledP = styled.h1`
 
 export default function getOption(locationArrStrings, users, subs, darkMode) {
 
-    if (locationArrStrings[1] === 'r') {
-      if (subs === undefined) return
-      const sub = subs.filter(sub => sub.id === locationArrStrings[2])[0]
-      return (
-        <HorizontalFlex>
-          <SVGDiv className='drop-down-menu'>
+  if (locationArrStrings[1] === 'r') {
+    if (subs === undefined) return
+    const sub = subs.filter(sub => sub.id === locationArrStrings[2])[0]
+    return (
+      <HorizontalFlex>
+        <SVGDiv className='drop-down-menu'>
+          <HorizontalFlex style={{ width: "20px" }}>
             <SubAvatar sub={sub} />
-          </SVGDiv>
-          <StyledP className="drop-down-menu">r/{sub.data.name}</StyledP>
-        </HorizontalFlex>
-      )
-    }
-  
-    if (locationArrStrings[1] === 'u') {
-      if (users === undefined) return
-      const user = users.filter(user => user.id === locationArrStrings[2])[0]
-      return (
-        <HorizontalFlex>
-          <SVGDiv className='drop-down-menu'>
-            <SVGDiv style={{ width: "20px" }}> {/* quick easy cheat */}
-              <UserAvatar user={user} />
-            </SVGDiv>
-          </SVGDiv>
-          <StyledP className="drop-down-menu">u/{user.data.userName}</StyledP>
-        </HorizontalFlex>
-      )
-    }
-  
-    if (locationArrStrings[1] === '') return (
-      <HorizontalFlex>
-        <SVGDiv className='drop-down-menu'>
-          <HomeMenuTile darkMode={darkMode} />
+          </HorizontalFlex>
         </SVGDiv>
-        <StyledP className="drop-down-menu">Home</StyledP>
+        <StyledP className="drop-down-menu">r/{sub.data.name}</StyledP>
       </HorizontalFlex>
     )
-  
-    if (locationArrStrings[1] === 'submit') return (
-      <HorizontalFlex>
-        <SVGDiv className='drop-down-menu'>
-          <CreatePostTile darkMode={darkMode} />
-        </SVGDiv>
-        <StyledP className="drop-down-menu">Create post</StyledP>
-      </HorizontalFlex>
-    )
-  
   }
+
+  if (locationArrStrings[1] === 'u') {
+    if (users === undefined) return
+    const user = users.filter(user => user.id === locationArrStrings[2])[0]
+    return (
+      <HorizontalFlex>
+        <SVGDiv className='drop-down-menu'>
+          <SVGDiv style={{ width: "20px" }}> {/* quick easy cheat */}
+            <UserAvatar user={user} />
+          </SVGDiv>
+        </SVGDiv>
+        <StyledP className="drop-down-menu">u/{user.data.userName}</StyledP>
+      </HorizontalFlex>
+    )
+  }
+
+  if (locationArrStrings[1] === '') return (
+    <HorizontalFlex>
+      <SVGDiv className='drop-down-menu'>
+        <HomeMenuTile darkMode={darkMode} />
+      </SVGDiv>
+      <StyledP className="drop-down-menu">Home</StyledP>
+    </HorizontalFlex>
+  )
+
+  if (locationArrStrings[1] === 'submit') return (
+    <HorizontalFlex>
+      <SVGDiv className='drop-down-menu'>
+        <CreatePostTile darkMode={darkMode} />
+      </SVGDiv>
+      <StyledP className="drop-down-menu">Create post</StyledP>
+    </HorizontalFlex>
+  )
+
+}

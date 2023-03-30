@@ -5,9 +5,8 @@ import { useParams } from 'react-router-dom'
 import NavBar from './NavBar'
 import CreatePostOptions from './CreatePostOptions'
 import styled from 'styled-components'
-import { darkHoverLight, darkTwo, lightBackgroundColor, lightBorder, lightMain, lightText } from '../../sc-css/COLORS'
+import { darkTwo, lightBackgroundColor, lightBorder } from '../../sc-css/COLORS'
 import { ThemeContext } from '../providers/ThemeProvider'
-import { doc } from 'firebase/firestore'
 
 const Container = styled.div`
     max-width: 740px;
@@ -51,7 +50,7 @@ const Input = styled.input`
 export default function CreatePost() {
 
     const { darkMode } = useContext(ThemeContext)
-    const { subs, users } = useContext(GlobalContext)
+    const { subs } = useContext(GlobalContext)
     const params = useParams()['*']
     const [error, setError] = useState(false)
     const [subId, setSubId] = useState('null')
@@ -61,15 +60,14 @@ export default function CreatePost() {
     const notified = useRef()
     const [image, setImage] = useState(null)
 
-    const changeSub = (subId) => {
-        setSubId(subId)
-    }
+    const changeSub = (subId) => { setSubId(subId) }
 
     useEffect(() => {
         document.querySelector('#div-styled-query').style.width = '690px';
         return () => document.querySelector('#div-styled-query').style.width = '100%';
     }, [])
 
+    console.log(params)
     return (
 
         <Container >

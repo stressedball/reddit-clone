@@ -1,18 +1,17 @@
+import React, { useState, useContext, useEffect } from 'react'
+import { useParams, useNavigate } from 'react-router'
+import styled from 'styled-components'
 import { GlobalContext } from '../providers/GlobalProvider'
+import { ThemeContext } from '../providers/ThemeProvider'
+import { SVGStyled, Tile } from '../../sc-css/atomic'
+import { darkMain, darkSecondary, lightBackgroundColor } from '../../sc-css/COLORS'
 import AddComment from './add-comment/AddComment'
 import CommentsList from '../comment/CommentsList'
 import PostDetails from './post-options/PostDetails'
 import PostOptions from './post-options/PostOptions'
-import { useParams, useNavigate } from 'react-router'
-import React, { useState, useContext, useEffect } from 'react'
 import ImageDisplay from '../multi-usage/ImageDisplay'
-import getComments from '../comment/getComments'
 import PostVotes from './PostVotes'
-import styled from 'styled-components'
 import SideContent from '../home/SideContent'
-import { SVGStyled, Tile } from '../../sc-css/atomic'
-import { darkMain, darkSecondary, lightBackgroundColor } from '../../sc-css/COLORS'
-import { ThemeContext } from '../providers/ThemeProvider'
 
 const PostPage = styled.div`
   position: fixed;
@@ -93,13 +92,11 @@ export default function Post({ }) {
   }, [posts, users, subs, postId])
 
   useEffect(() => {
-    if (post) setSubs(subs.filter(el => el.id === post.data.parent)[0])
+    if (post) {
+      setSubs(subs.filter(el => el.id === post.data.parent)[0])
+      setComments(post.comments)
+    }
   }, [post])
-
-  useEffect(() => {
-    getComments(postId)
-      .then((data) => setComments(data))
-  }, [postId])
 
   if (post === undefined || sub === undefined || user === undefined) return <div>Loading</div>
 

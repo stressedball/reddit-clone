@@ -53,9 +53,6 @@ const SubContainer = styled.div`
     margin-left:8px;
 `
 
-const PostContent = styled.div`
-`
-
 export default function PostPreview({ darkMode, post }) {
 
     const [displayText, setDisplayText] = useState(false)
@@ -90,7 +87,7 @@ export default function PostPreview({ darkMode, post }) {
                             <>
                                 <PostHeader post={post} darkMode={darkMode} sub={sub} />
 
-                                <PostContent>
+                                <div>
                                     {
                                         post.data.text ? <p>{post.data.text}</p>
                                             :
@@ -98,7 +95,7 @@ export default function PostPreview({ darkMode, post }) {
                                                 :
                                                 <p>poll</p>
                                     }
-                                </PostContent>
+                                </div>
                             </>
                         }
 

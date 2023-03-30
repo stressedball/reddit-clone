@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import CreateSub from "./CreateSub";
 import React, { useState } from 'react'
-import { MenuSmallTitles, Tile } from "../../sc-css/atomic";
+import { HorizontalFlex, MenuSmallTitles, Tile } from "../../sc-css/atomic";
 import SubAvatar from "../multi-usage/SubAvatar";
 
 export default function Subs({ darkMode, subs }) {
@@ -27,26 +27,29 @@ export default function Subs({ darkMode, subs }) {
                         <path d="M50.1,20C50.1,9.5,41.5,0.9,31,0.9S11.9,9.5,11.9,20S20.5,39.1,31,39.1S50.1,30.5,50.1,20z M31,31.1   c-6.1,0-11.1-5-11.1-11.1S24.9,8.9,31,8.9s11.1,5,11.1,11.1S37.1,31.1,31,31.1z" />
                     </g>
                 </svg>
+
                 <p onClick={() => { setMakeSub(!makeSub) }} style={{ margin: '0', padding: '0' }}
+                
                 >Create community</p>
             </Tile>
 
-            {
-                subs.map(sub => {
-                    return (
-                        <Tile value={sub.data.name} key={sub.id}
-                            onClick={() => { navigate(`r/${sub.id}`) }}
-                            className={`${darkMode}`} style={{ gap: "3px" }}>
+            {subs.map(sub => {
+                return (
+                    <Tile value={sub.data.name} key={sub.id}
+                        onClick={() => { navigate(`r/${sub.id}`) }}
+                        className={`${darkMode}`} style={{ gap: "3px" }}>
+
+                        <HorizontalFlex style={{ justifyContent: "center", height: "20px", width: "20px" }}>
                             <SubAvatar sub={sub} />
-                            <p style={{ margin: "0" }}>r/{sub.data.name}</p>
-                        </Tile>
-                    )
-                })
-            }
-            {
-                makeSub ? <CreateSub darkMode={darkMode} setMakeSub={setMakeSub} />
-                    : null
-            }
+                        </HorizontalFlex>
+
+                        <p style={{ margin: "0" }}>r/{sub.data.name}</p>
+
+                    </Tile>
+                )
+            })}
+
+            {makeSub ? <CreateSub darkMode={darkMode} setMakeSub={setMakeSub} /> : null}
         </>
     )
 }

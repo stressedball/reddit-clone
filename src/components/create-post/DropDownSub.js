@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 import { HorizontalFlex, SVGStyled, Tile } from '../../sc-css/atomic'
 import { darkHoverLight, darkTwo, lightBackgroundColor, lightBorder, lightText } from '../../sc-css/COLORS'
@@ -20,10 +21,10 @@ const StyledHeader = styled.div`
         background-color: ${darkTwo};
         border: 1px solid ${lightBorder};
     }
-`
 
-const StyledSelect = styled.select`
-
+    &:hover {
+        cursor:pointer;
+    }
 `
 
 const StyledInput = styled.input`
@@ -55,15 +56,27 @@ const DropDownStyled = styled.div`
 
 export default function DropDownSub({ changeSub, darkMode, subs }) {
 
+    const location = useLocation().pathname.split('/')
     const [displayMenu, setDisplayMenu] = useState(false)
     const [selectedSub, setSelectedSub] = useState()
+    const [inputValue, setInputValue] = useState()
+
+    useEffect(() => {
+        if (location[1] === 'r') {
+            if (subs === undefined) return
+            setSelectedSub(subs.filter(sub => sub.id === location[2])[0].id)
+        }
+    }, [])
 
     return (
 
         <StyledHeader className={`${darkMode}`}>
+
             <HorizontalFlex style={{ width: "100%" }}>
                 {selectedSub ?
-                    <SubAvatar sub={subs.filter(sub => sub.id === selectedSub)[0]} />
+                    <HorizontalFlex style={{ justifyContent: "center", height: "20px", width: "20px" }}>
+                        <SubAvatar sub={subs.filter(sub => sub.id === selectedSub)[0]} />
+                    </HorizontalFlex>
                     :
                     <NoHover viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg">
                         <path fillRule="evenodd"
@@ -73,6 +86,7 @@ export default function DropDownSub({ changeSub, darkMode, subs }) {
 
                 <StyledInput
                     value={selectedSub ? subs.filter(sub => sub.id === selectedSub)[0].data.name : null}
+                    onChange={(e) => setInputValue(e.target.value)}
                     onClick={() => setDisplayMenu(!displayMenu)}
                     placeholder='Choose a community' />
 
@@ -80,17 +94,25 @@ export default function DropDownSub({ changeSub, darkMode, subs }) {
             </HorizontalFlex>
 
             {displayMenu ?
-                <DropDownStyled >
+                <DropDownStyled>
                     {
                         subs ?
                             subs.map(sub => {
                                 return (
-                                    <Tile onClick={() => {
-                                        setSelectedSub(sub.id)
-                                        changeSub(sub.id)
-                                    }}>
-                                        <SubAvatar sub={sub} />
-                                        <p style={{ margin: "0" }} key={sub.id} >r/{sub.data.name}</p>
+                                    <Tile style={{ paddingLeft: '0' }}
+                                        onClick={() => {
+                                            setSelectedSub(sub.id)
+                                            changeSub(sub.id)
+                                        }}>
+
+                                        <HorizontalFlex style={{ justifyContent: "center", height: "30px", width: "30px", boxSizing: "border-box" }}>
+                                            <SubAvatar sub={sub} />
+                                        </HorizontalFlex>
+
+                                        <div>
+                                            <p style={{ margin: "0" }} key={sub.id} >r/{sub.data.name}</p>
+                                            <p style={{ margin: "0" }}>{sub.data.users.length} members</p>
+                                        </div>
                                     </Tile>
                                 )
                             }) : null

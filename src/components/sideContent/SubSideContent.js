@@ -1,10 +1,48 @@
 import React, { useContext, useEffect, useState } from 'react'
+import styled from 'styled-components'
+import { useLocation } from 'react-router-dom'
 import { GlobalContext } from '../providers/GlobalProvider'
 import { HorizontalFlex, SVGStyled } from '../../sc-css/atomic'
+import { lightText } from '../../sc-css/COLORS'
+import { ThemeContext } from '../providers/ThemeProvider'
 
-export default
-  function SubSideContent({ subId }) {
+const Button = styled.button`
+  font-size:14px;
+  font-weight:700;
+  background-color: #4a96c4;
+  min-height: 32px;
+  width: 100%;
+  padding:4px 0;
+  border:none;
+  border-radius: 1.5rem;
+  color:#ffffff;
+  margin-bottom:14px;
+  box-sizing:border-box;
 
+  &.dark {
+    color: #1a1a1b;
+    background-color: #d7dadc;
+  }
+`
+
+const HR = styled.hr`
+  margin: 16px 0;
+  min-width: 100%; 
+  border: none;
+  background-color: rgb(26 26 27 / 7%); 
+  height: 1px;
+`
+
+const StyledText = styled.p`
+  margin: 0; 
+  font-size: 12px; 
+  color: rgb(124, 124, 124); 
+  fontWeight: 400;
+`
+
+export default function SubSideContent({ subId }) {
+
+  const { darkMode } = useContext(ThemeContext)
   const { subs } = useContext(GlobalContext)
   const [sub, setSub] = useState()
 
@@ -59,14 +97,20 @@ export default
         <p style={{ margin: "0", fontSize: "14px", color: "rgb(124, 124, 124)", fontWeight: "400" }}>Created {sub.data.dateOfCreation.toDate().toDateString()}</p>
       </HorizontalFlex>
 
-      <hr style={{ margin: "16px 0", minWidth: "100%", border: "none", backgroundColor: "rgb(26 26 27 / 7%)", height: "1px" }} />
+      <HR />
 
       <HorizontalFlex style={{ gap: "4px" }}>
         <p style={{ margin: "0", fontSize: "16px", fontWeight: "500" }}>{sub.data.users.length}</p>
-        <p style={{ margin: "0", fontSize: "12px", color: "rgb(124, 124, 124)", fontWeight: "400" }}>Members</p>
+        {sub.data.users.length <= 1 ?
+          <StyledText>Member</StyledText>
+          :
+          <StyledText>Members</StyledText>
+        }
       </HorizontalFlex>
 
-      <hr style={{ margin: "16px 0", minWidth: "100%", border: "none", backgroundColor: "rgb(26 26 27 / 7%)", height: "1px" }} />
+      <HR />
+
+      <Button className={`${darkMode}`}>Create Post</Button>
 
     </div>
   )

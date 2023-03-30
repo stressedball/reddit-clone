@@ -18,6 +18,7 @@ import { GlobalContext } from './providers/GlobalProvider';
 import { ThemeContext } from './providers/ThemeProvider';
 import { darkMain, lightMain } from '../sc-css/COLORS';
 import { StyledMenu } from '../sc-css/StyledMenu';
+import { doc } from 'firebase/firestore';
 
 const StyledApp = styled.div`
   background-color: ${lightMain};
@@ -49,21 +50,35 @@ const StyledOutlet = styled.div`
     padding:20px 24px;
 `
 
+const DisplayPreview = styled.div`
+  width: 100%;
+  gap: 16px;
+    display:flex;
+    flex-direction:column;
+
+  &.private{
+    gap:0;
+  }
+`
+
 function App() {
 
   const { darkMode } = useContext(ThemeContext)
   const { user } = useContext(GlobalContext)
   const [dropdownMenu, setDropdownMenu] = useState(false)
   const [gridArea, setGridArea] = useState('')
+  const [display, setDisplay] = useState('')
 
   useEffect(() => { }, [darkMode])
-
-
 
   useEffect(() => {
     if (dropdownMenu) setGridArea('whole')
     else if (!dropdownMenu || !user) setGridArea('')
   }, [dropdownMenu])
+
+  useEffect(() => {
+    if (user) setDisplay('private')
+  }, [user])
 
   const handleMenuDisplay = () => setDropdownMenu(!dropdownMenu)
 
@@ -86,8 +101,8 @@ function App() {
 
           <StyledOutlet>
 
-            <div id='div-styled-query' style={{ width: "100%" }}>
-              
+            <DisplayPreview id='div-styled-query' className={`${display}`}>
+
               {user ? <CreatePostShortcut /> : null}
 
               <Routes>
@@ -95,16 +110,16 @@ function App() {
                 <Route path='r/:subId' element={<Sub />} />
                 <Route path='u/:userId' element={<UserSpace />} />
                 <Route path='/submit/*' element={<CreatePost />} />
+                <Route path='r/:subId/submit/*' element={<CreatePost />} />
                 <Route path='r/:subId/subSettings' element={<SubSettings />} />
                 <Route path='r/:subId/p/:postId' element={<Post />} />
               </Routes>
-            </div>
+            </DisplayPreview>
 
             <SideContent />
 
           </StyledOutlet>
         </StyledDiv>
-
       </StyledApp >
     </BrowserRouter>
   );

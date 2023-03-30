@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import CommentsCount from '../multi-usage/CommentsCount';
 import { db } from '../../firebase/getAuthDb';
 import { onSnapshot, query, collection } from 'firebase/firestore';
@@ -10,7 +10,7 @@ const Div = styled.div`
     align-items: center;
     flex: 1 0 auto;
     font-size: 12px;
-    padding-bottom:2px;
+    margin-top: 8px;
 `
 
 const StyledTile = styled(Tile)`

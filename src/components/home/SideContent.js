@@ -6,6 +6,7 @@ import { ThemeContext } from '../providers/ThemeProvider'
 import SubSideContent from '../sideContent/SubSideContent'
 import HomeSideContent from '../sideContent/HomeSideContent'
 import SubmitSideContent from '../sideContent/SubmitSideContent'
+import UserSideContent from '../sideContent/UserSideContent'
 
 const StyledSideContent = styled.div`
   min-width: 312px;
@@ -36,11 +37,15 @@ export default function SideContent() {
     if (location === '/')
       setContent(<HomeSideContent darkMode={darkMode} />)
 
-    if (location.split('/')[1] === 'r')
-      setContent(<SubSideContent darkMode={darkMode} subId={location.split('/')[2]} />)
+    if (location.split('/')[1] === 'r' && location.split('/')[3] !== 'submit')
+      setContent(<SubSideContent subId={location.split('/')[2]} />)
 
-    if (location === '/submit')
+    if (location === '/submit' || location.split('/')[3] === 'submit')
       setContent(<SubmitSideContent />)
+
+    if (location.split('/')[1] === 'u')
+      setContent(<UserSideContent />)
+
   }, [location])
 
 

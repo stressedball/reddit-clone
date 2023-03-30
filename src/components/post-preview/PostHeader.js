@@ -2,22 +2,23 @@ import styled from 'styled-components'
 import { GlobalContext } from '../providers/GlobalProvider'
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { StyledLink, LightText, Hoverable, HorizontalFlex } from '../../sc-css/atomic'
+import { StyledLink, LightText, Hoverable } from '../../sc-css/atomic'
 import SubAvatar from '../multi-usage/SubAvatar'
+import { HorizontalFlex } from '../../sc-css/atomic'
 
 const Section = styled.section`
     display: flex;
     align-items:center;
     gap:3px;
     font-size:12px;
-    margin-top: 3px;
+    margin-top: 8px;
 `
 
 export default function PostHeader({ darkMode, post, sub }) {
 
     const location = useLocation().pathname
     const navigate = useNavigate()
-    const { users } = useContext(GlobalContext)
+    const { users, user } = useContext(GlobalContext)
     const [poster, setPoster] = useState()
 
     useEffect(() => {
@@ -37,13 +38,15 @@ export default function PostHeader({ darkMode, post, sub }) {
             {
                 location.split('/')[1] === 'r' ? null :
                     <>
-                        <SubAvatar sub={sub} />
-                        <StyledLink
-                            onClick={() => navigate(`/r/${sub.id}`)} className={`${darkMode}`}
-                        ><strong>r/{sub.data.name}</strong>
-                        </StyledLink>
+                        {user ? null :
+                            <HorizontalFlex style={{ justifyContent: "center", height: "20px", width: "20px" }}>
+                                <SubAvatar sub={sub} />
+                            </HorizontalFlex>}
+
+                        <StyledLink onClick={() => navigate(`/r/${sub.id}`)} className={`${darkMode}`}><strong>r/{sub.data.name}</strong></StyledLink>
+
                         <LightText>&middot;</LightText>
-            </>
+                    </>
             }
 
             <LightText>Posted by <Hoverable

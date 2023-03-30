@@ -15,6 +15,7 @@ export function GlobalProvider({ children }) {
     const [likedPosts, setLikedPosts] = useState([])
     const [likedComments, setLikedComments] = useState([])
 
+    // Auth
     useEffect(() => {
 
         onAuthStateChanged(auth, (user) => {
@@ -43,6 +44,7 @@ export function GlobalProvider({ children }) {
 
     }, [])
 
+    // subs
     useEffect(() => {
 
         const q = query(collection(db, 'subs'))
@@ -62,6 +64,7 @@ export function GlobalProvider({ children }) {
 
     }, [])
 
+    // posts
     useEffect(() => {
 
         const q = query(collection(db, 'posts'))
@@ -69,9 +72,20 @@ export function GlobalProvider({ children }) {
         const unSub = onSnapshot(q, (querySnapShot) => {
 
             let postsArr = []
+            
+            querySnapShot.forEach(async (doc) => {
+                let commentsArr = []
+                const post = { id: doc.id, data: doc.data() }
 
-            querySnapShot.forEach((doc) => {
-                postsArr.push({ id: doc.id, data: doc.data() })
+                const commentsQ = query(collection(doc.ref, 'comments'))
+                const commentSnapShot = await getDocs(commentsQ)
+                
+                commentSnapShot.forEach((doc) => {
+                    commentsArr.push({ id: doc.id, data: doc.data() })
+                })
+
+                post.comments = commentsArr
+                postsArr.push(post)
             })
 
             setPosts(postsArr)
@@ -81,6 +95,7 @@ export function GlobalProvider({ children }) {
 
     }, [])
 
+    // users
     useEffect(() => {
 
         const q = query(collection(db, 'users'))
@@ -99,6 +114,7 @@ export function GlobalProvider({ children }) {
 
     }, [])
 
+    // user liked posts
     useEffect(() => {
 
         if (!user) return
@@ -120,6 +136,7 @@ export function GlobalProvider({ children }) {
 
     }, [user])
 
+    // user liked comments
     useEffect(() => {
 
         if (!user) return
@@ -155,5 +172,4 @@ export function GlobalProvider({ children }) {
             {children}
         </GlobalContext.Provider>
     )
-
 }
