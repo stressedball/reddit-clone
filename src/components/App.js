@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import React, { useContext, useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
 import CreatePost from './create-post/CreatePost';
 import CreatePostShortcut from './create-post-shortcut/CreatePostShortcut';
 import Header from './header/Header';
@@ -13,12 +12,11 @@ import Sub from './sub/Sub';
 import SubSettings from './sub/sub-settings.js/SubSettings';
 import SideContent from './home/SideContent';
 import SubHeader from './sub/SubHeader';
-import UserSpace from './home/UserSpace';
+import UserSpace from './user-space/UserSpace';
 import { GlobalContext } from './providers/GlobalProvider';
 import { ThemeContext } from './providers/ThemeProvider';
 import { darkMain, lightMain } from '../sc-css/COLORS';
 import { StyledMenu } from '../sc-css/StyledMenu';
-import { doc } from 'firebase/firestore';
 
 const StyledApp = styled.div`
   background-color: ${lightMain};

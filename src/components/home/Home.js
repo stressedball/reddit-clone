@@ -20,8 +20,6 @@ export default function Home({ }) {
 
   useEffect(() => { }, [subs, posts, user])
 
-
-
   // make logic to select "random" posts
   if (!user) return (
     posts.map(post =>
@@ -33,9 +31,9 @@ export default function Home({ }) {
   return (
     <PostPreviewFlex >
       {
-        posts.map(post =>
-          <PostPreview key={post.id} post={post} darkMode={darkMode} />
-        )
+        posts
+          .sort((a, b) => Date.parse(b.data.timeStamp.toDate()) - Date.parse(a.data.timeStamp.toDate()))
+          .map(post => <PostPreview key={post.id} post={post} darkMode={darkMode} />)
       }
     </PostPreviewFlex>
   )
