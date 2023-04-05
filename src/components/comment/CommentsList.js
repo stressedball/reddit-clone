@@ -1,33 +1,49 @@
-// import '../../css/comment.css'
-import Comment from './Comment'
-import { GlobalContext } from '../providers/GlobalProvider'
-import React, { useContext, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
+import styled from 'styled-components'
+import Comment from './Comment'
+import { HorizontalFlex } from '../../sc-css/atomic'
+import { lightBackgroundColor, darkTwo } from '../../sc-css/COLORS'
 
-export default function CommentsList({ darkMode, comments }) {
+export default function CommentsList({ darkMode, post }) {
 
-    const { users } = useContext(GlobalContext)
-    const [display, setDisplay] = useState(false)
+    const [comments, setComments] = useState()
 
     useEffect(() => {
-        if (comments !== undefined && users !== undefined) {
-            setDisplay(true)
-        }
-    }, [comments, users])
+        if (post !== undefined) setComments(post.comments)
+    }, [post])
 
-    if (!display) return <div>Loading</div>
+    if (comments === undefined) return <p>Loading comments</p>
+
+    if (comments.length === 0) return (
+        <CommentContainer>Be the first to comment!</CommentContainer>
+    )
 
     return (
-        <div
-            id='comments-list'
-        >
+        <StyledDiv >
             {
                 comments.map(comment => {
                     return (
-                        <Comment key={comment.data.poster} darkMode={darkMode} comment={comment} />
+                        <Comment key={comment.data.timeStamp} post={post} darkMode={darkMode} comment={comment} />
                     )
                 })
             }
-        </div>
+        </StyledDiv>
     )
 }
+
+const StyledDiv = styled.div`
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+`
+
+const CommentContainer = styled(HorizontalFlex)`
+    font-size: 14px;
+    padding: 8px 40px;
+    background-color:${lightBackgroundColor};
+    border-radius:inherit;
+
+    &.dark {
+        background-color:${darkTwo};
+    }
+`

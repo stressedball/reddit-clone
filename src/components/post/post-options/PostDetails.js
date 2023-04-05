@@ -11,13 +11,13 @@ export default function PostDetails({ darkMode, sub, post }) {
     const [poster, setPoster] = useState()
 
     useEffect(() => {
-        if (users) {
+        if (users && post) {
             const user = users.filter(user => user.id === post.data.poster)[0]
             setPoster(user)
         }
     }, [users, sub, post])
 
-    if (poster === undefined) return <div>Loading</div>
+    if (poster === undefined) return <div>Loading poster</div>
 
     return (
         <HorizontalFlex style={{ gap: "3px", fontSize: '12px', fontWeight: "400" }}>

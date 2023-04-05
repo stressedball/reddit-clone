@@ -88,8 +88,6 @@ export default function UserComments({ users, user, subs, comment }) {
                 
                 <p>{comment.comment.data.text}</p>
             </div>
-
-
         </Div>
     )
 

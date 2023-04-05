@@ -6,18 +6,13 @@ import { db } from '../../../firebase/getAuthDb'
 import { GlobalContext } from '../../providers/GlobalProvider'
 import styled from 'styled-components'
 
-const StyledVotes = styled.div`
-    display:flex;
-    align-items:center;
-    gap:3px;
-`
-
-export default function CommentVotes({ darkMode, comment }) {
+export default function CommentVotes({ post, darkMode, comment }) {
 
     const { user, likedComments } = useContext(GlobalContext)
     const [upVote, setUpVote] = useState()
     const [downVote, setDownVote] = useState()
-    let votes = comment.data.votes
+    const [votes, setVotes] = useState()
+    // let votes = comment.data.votes
 
     function handleVote(e) {
 
@@ -25,41 +20,41 @@ export default function CommentVotes({ darkMode, comment }) {
 
         let voteValue = Number(e.target.dataset.value)
 
-        if ((upVote === true && voteValue === 1)
-            || (downVote === true && voteValue === -1)) {
-            setDownVote(false)
-            setUpVote(false)
+        if ((upVote === 'up-vote' && voteValue === 1)
+            || (downVote === 'down-vote' && voteValue === -1)) {
+            setDownVote()
+            setUpVote()
             updateUserVotes(0, user, comment.id)
-            updateCommentVotes(votes, -voteValue, comment.id)
+            updateCommentVotes(votes, -voteValue, comment.id, post.id)
             return
         }
 
-        if (upVote === true && voteValue === -1) {
-            setDownVote(true)
-            setUpVote(false)
-        } else if (downVote === true && voteValue === 1) {
-            setDownVote(false)
-            setUpVote(true)
+        if (upVote === 'up-vote' && voteValue === -1) {
+            setDownVote('down-vote')
+            setUpVote()
+        } else if (downVote === 'down-vote' && voteValue === 1) {
+            setDownVote()
+            setUpVote('up-vote')
         }
 
-        // updateUserVotes(voteValue, user, comment.id)
-        // updateCommentVotes(votes, voteValue, comment.id)
+        updateUserVotes(voteValue, user, comment.id)
+        updateCommentVotes(votes, voteValue, comment.id, post.id)
     }
 
     useEffect(() => {
-
         if (likedComments.length > 0) {
-
             if (likedComments.filter(p => p.id === comment.id)) {
-
                 const likedComment = likedComments.filter(p => p.id === comment.id)[0]
-
                 if (likedComment === undefined) return
-                if (likedComment.data.value === 1) setUpVote(true)
-                if (likedComment.data.value === -1) setDownVote(true)
+                if (likedComment.data.value === 1) setUpVote('up-vote')
+                if (likedComment.data.value === -1) setDownVote('down-vote')
             }
         }
     }, [likedComments])
+
+    useEffect(() => {
+        if (comment) setVotes(comment.data.votes)
+    }, [comment])
 
     return (
         <StyledVotes>
@@ -70,22 +65,29 @@ export default function CommentVotes({ darkMode, comment }) {
     )
 }
 
-const updateUserVotes = (voteValue, user, postId) => {
+const updateUserVotes = (voteValue, user, commentId) => {
 
     const likedComments = collection(db, 'users', user.id, 'likedComments')
-    const postRef = doc(likedComments, postId)
+    const postRef = doc(likedComments, commentId)
 
     setDoc(postRef, {
         value: voteValue
     })
 }
 
-const updateCommentVotes = (votes, voteValue, postId) => {
+const updateCommentVotes = (votes, voteValue, commentId, postId) => {
 
-    setDoc(doc(db, 'posts', postId),
-        // no decrement?
+    const comment = collection(db, 'posts', postId, 'comments')
+    const commentRef = doc(comment, commentId)
+
+    setDoc(commentRef,
         { votes: votes + voteValue },
         { merge: true }
     )
 }
 
+const StyledVotes = styled.div`
+    display:flex;
+    align-items:center;
+    gap:3px;
+`

@@ -27,7 +27,6 @@ export default function UserAvatar({ user }) {
         } else setNoHover('')
     }, [location])
     
-
     return (
         <>
             {

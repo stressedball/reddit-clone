@@ -1,16 +1,22 @@
 import { GlobalContext } from '../providers/GlobalProvider'
 import PostPreview from '../post-preview/PostPreview'
 import { useParams } from 'react-router-dom'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { ThemeContext } from '../providers/ThemeProvider'
 
 export default function Sub() {
 
-    const subId = useParams().subId
     const { posts } = useContext(GlobalContext)
-    const subPosts = posts.filter(post => post.data.parent === subId)
     const {darkMode} = useContext(ThemeContext)
-    
+    const subId = useParams().subId
+    const [subPosts, setSubPosts] = useState()
+
+    useEffect(() => {
+        if (posts) setSubPosts(posts.filter(post => post.data.parent === subId))
+    }, [posts, subId])
+
+    if (!subPosts) return <div>Loading</div>
+
     return (
         <>
             {

@@ -4,21 +4,15 @@ import PostPreview from '../post-preview/PostPreview';
 import { ThemeContext } from '../providers/ThemeProvider';
 import styled from 'styled-components';
 
-const PostPreviewFlex = styled.div`
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    width:100%;
-      
-
-`
-
 export default function Home({ }) {
 
   const { posts, user, subs } = useContext(GlobalContext)
   const { darkMode } = useContext(ThemeContext)
+  const [homePosts, setHomePosts] = useState()
 
-  useEffect(() => { }, [subs, posts, user])
+  useEffect(() => { if (posts !== undefined) setHomePosts(posts) }, [posts])
+
+  if (homePosts === undefined) return <div>Loading home page</div>
 
   // make logic to select "random" posts
   if (!user) return (
@@ -31,10 +25,17 @@ export default function Home({ }) {
   return (
     <PostPreviewFlex >
       {
-        posts
+        homePosts
           .sort((a, b) => Date.parse(b.data.timeStamp.toDate()) - Date.parse(a.data.timeStamp.toDate()))
           .map(post => <PostPreview key={post.id} post={post} darkMode={darkMode} />)
       }
     </PostPreviewFlex>
   )
 }
+
+const PostPreviewFlex = styled.div`
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    width:100%;
+`

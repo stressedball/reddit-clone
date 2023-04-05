@@ -15,7 +15,7 @@ const StyledDiv = styled.div`
 export default function UserSideContent() {
 
     const location = useLocation().pathname.split('/')
-    const { users, user } = useContext(GlobalContext)
+    const { users, user, subs } = useContext(GlobalContext)
     const [userData, setUserData] = useState()
 
     useEffect(() => {
@@ -29,7 +29,7 @@ export default function UserSideContent() {
         }
     }, [users, location])
 
-    if (userData === undefined || user === undefined) return null
+    if (userData === undefined || user === undefined || subs === undefined) return null
 
     return (
         <div>
@@ -43,12 +43,12 @@ export default function UserSideContent() {
             </div>
 
             <HorizontalFlex>
-                <div style={{width:"50%"}}>
+                <div style={{ width: "50%" }}>
                     <h5 style={{ fontSize: "14px", fontWeight: "700", margin: "0" }}>Cake day</h5>
                     <p style={{ marginTop: "2px", fontSize: "12px", fontWeight: "500", color: '#7c7c7c' }}>{userData.data.dateCreation.toDate().toDateString()}</p>
                 </div>
-                <div style={{width:"50%"}}>
-                    {user.data.status ? <p>Status: {user.data.status}</p> : null}
+                <div style={{ width: "50%" }}>
+                    {userData.data.status ? <p>Status: {userData.data.status}</p> : null}
                 </div>
             </HorizontalFlex>
 
@@ -57,6 +57,14 @@ export default function UserSideContent() {
                     <p>based</p>
                     :
                     <p>oups</p>
+            }
+
+            {
+                subs.map(sub => {
+                    return sub.data.creator === userData.id ?
+                        <p>Creator of {sub.data.name}</p>
+                        : null
+                })
             }
         </div>
     )

@@ -13,6 +13,92 @@ import ImageDisplay from '../multi-usage/ImageDisplay'
 import PostVotes from './PostVotes'
 import SideContent from '../home/SideContent'
 
+export default function Post() {
+
+  const { darkMode } = useContext(ThemeContext)
+  const { posts, subs, user } = useContext(GlobalContext)
+  const navigate = useNavigate()
+  const subId = useParams().subId
+  const postId = useParams().postId
+  const [post, setPost] = useState()
+  const [sub, setSubs] = useState()
+  const [comments, setComments] = useState()
+  const [postVotes, setPostVotes] = useState()
+
+  useEffect(() => {
+    if (posts) setPost(posts.filter(el => el.id === postId)[0])
+  }, [posts])
+
+  useEffect(() => {
+    if (post) {
+      setSubs(subs.filter(el => el.id === post.data.parent)[0])
+      setComments(post.comments)
+      setPostVotes(post.data.votes)
+    }
+  }, [post])
+
+  return (
+
+    <PostPage>
+      <PostContainer className={`${darkMode}`}>
+
+        <TileNoHover className={`${darkMode}`} >
+          <SVGStyled
+            style={{ width: "30px", height: "30px" }} onClick={() => navigate(`/r/${subId}`)}
+            viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <g id="icomoon-ignore"></g>
+            <path d="M10.722 9.969l-0.754 0.754 5.278 5.278-5.253 5.253 0.754 0.754 5.253-5.253 5.253 5.253 0.754-0.754-5.253-5.253 5.278-5.278-0.754-0.754-5.278 5.278z" fill="currentColor"></path>
+          </SVGStyled>
+        </TileNoHover>
+
+        <div style={{ display: "flex", justifyContent: "center" }}>
+
+          <PostColumn className={`${darkMode}`}>
+
+            <PostSection className={`${darkMode}`}>
+
+              <PostVotes darkMode={darkMode} user={user} post={post} />
+
+              <VerticalFlex style={{ gap: "0", paddingTop: "8px" }}>
+
+                <PostDetails sub={sub} post={post} darkMode={darkMode} />
+
+                <h1 style={{ fontSize: "20px", fontWeight: '500' }}>{
+                  post ? post.data.title : <p>Fetching post title</p>
+                }</h1>
+
+                {post ?
+                  post.data.text ? <p>{post.data.text}</p> : null
+                  : <p>Fetching post text</p>}
+
+                {post ?
+                  post.data.image ? <ImageDisplay post={post} /> : null
+                  : <p>Fetching post text</p>}
+
+                <PostOptions user={user} post={post} darkMode={darkMode} comments={comments} />
+
+              </VerticalFlex>
+            </PostSection>
+
+            {user ?
+              <AddComment post={post} darkMode={darkMode} postId={postId} />
+              :
+              <p>Log in to comment</p>
+            }
+
+            <CommentsList darkMode={darkMode} post={post} />
+
+          </PostColumn>
+
+          <SideContent />
+
+        </div>
+      </PostContainer>
+
+    </PostPage >
+  )
+}
+
 const PostPage = styled.div`
   position: fixed;
   left:0;
@@ -41,25 +127,25 @@ const PostContainer = styled.div`
 
 const PostSection = styled.section`
   display: flex;
+  background-color: ${lightBackgroundColor};
+  border-radius:4px;
+  margin-bottom:8px;
+
+  &.dark {
+    background-color:${darkSecondary}
+  }
 `
 
 const VerticalFlex = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 8px;
 `
 
 const PostColumn = styled(VerticalFlex)`
   border-radius:4px;
   width:100%;
   max-width:740px;
-  gap:4px;
-  background-color: ${lightBackgroundColor};
   margin-bottom:20px;
-
-  &.dark {
-    background-color:${darkSecondary}
-  }
   `
 
 const TileNoHover = styled(Tile)`
@@ -75,86 +161,3 @@ const TileNoHover = styled(Tile)`
     background-color:inherit;
   }
 `
-
-export default function Post({ }) {
-
-  const navigate = useNavigate()
-  const subId = useParams().subId
-  const postId = useParams().postId
-  const { posts, users, subs, user } = useContext(GlobalContext)
-  const [post, setPost] = useState()
-  const [sub, setSubs] = useState()
-  const [comments, setComments] = useState()
-  const { darkMode } = useContext(ThemeContext)
-
-  useEffect(() => {
-    if (posts) setPost(posts.filter(el => el.id === postId)[0])
-  }, [posts, users, subs, postId])
-
-  useEffect(() => {
-    if (post) {
-      setSubs(subs.filter(el => el.id === post.data.parent)[0])
-      setComments(post.comments)
-    }
-  }, [post])
-
-  if (post === undefined || sub === undefined || user === undefined) return <div>Loading</div>
-
-  return (
-
-    <PostPage>
-      <PostContainer className={`${darkMode}`}>
-
-        <TileNoHover className={`${darkMode}`} >
-          <SVGStyled
-            style={{ width: "30px", height: "30px" }} onClick={() => navigate(`/r/${subId}`)}
-            viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
-            <g id="icomoon-ignore"></g>
-            <path d="M10.722 9.969l-0.754 0.754 5.278 5.278-5.253 5.253 0.754 0.754 5.253-5.253 5.253 5.253 0.754-0.754-5.253-5.253 5.278-5.278-0.754-0.754-5.278 5.278z" fill="currentColor"></path>
-          </SVGStyled>
-        </TileNoHover>
-
-        <div style={{ display: "flex", justifyContent: "center" }}>
-
-          <PostColumn className={`${darkMode}`}>
-
-            <PostSection>
-
-              <PostVotes darkMode={darkMode} post={post} user={user} />
-
-              <VerticalFlex style={{ gap: "0", paddingTop:"8px" }}>
-
-                <PostDetails sub={sub} post={post} darkMode={darkMode} />
-
-                <h1 style={{fontSize:"20px", fontWeight:'500'}} className='no-margin'>{post.data.title}</h1>
-
-                {post.data.text ? <p className='no-margin'>{post.data.text}</p> : null}
-
-                {post.data.image ? <ImageDisplay post={post} /> : null}
-
-                <PostOptions user={user} post={post} darkMode={darkMode} comments={comments} />
-
-              </VerticalFlex>
-            </PostSection>
-
-            {user ?
-              <AddComment post={post} darkMode={darkMode} postId={postId} />
-              :
-              <p>Log in to comment</p>
-            }
-
-            <CommentsList darkMode={darkMode} postId={postId} comments={comments} />
-
-          </PostColumn>
-
-          <SideContent />
-
-        </div>
-      </PostContainer>
-
-    </PostPage >
-  )
-}
-
-
-

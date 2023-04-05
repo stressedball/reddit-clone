@@ -8,32 +8,14 @@ import { useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 import { darkMain, lightSecondary } from '../../sc-css/COLORS'
 
-const StyledDiv = styled.div`
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content: start;
-    width:40px;
-    background-color: ${lightSecondary};
-    padding-top : 8px;
-    
-    &.clear, &.dark.clear {
-        background-color: inherit;
-    }
-
-    &.dark {
-        background-color: ${darkMain}
-    }
-`
-
 export default function PostVotes({ darkMode, post }) {
 
     const location = useLocation().pathname.split('/')
     const { user, likedPosts } = useContext(GlobalContext)
     const [upVote, setUpVote] = useState()
     const [downVote, setDownVote] = useState()
-    let votes = post.data.votes
     const [votesBackground, setVotesBackground] = useState('')
+    const [votes, setVotes] = useState()
 
     function handleVote(e) {
 
@@ -41,21 +23,21 @@ export default function PostVotes({ darkMode, post }) {
 
         let voteValue = Number(e.target.dataset.value)
 
-        if ((upVote === true && voteValue === 1)
-            || (downVote === true && voteValue === -1)) {
-            setDownVote(false)
-            setUpVote(false)
+        if ((upVote === 'up-vote' && voteValue === 1)
+            || (downVote === 'down-vote' && voteValue === -1)) {
+            setDownVote()
+            setUpVote()
             updateUserVotes(0, user, post.id)
             updatePostVotes(votes, -voteValue, post.id)
             return
         }
 
-        if (upVote === true && voteValue === -1) {
-            setDownVote(true)
-            setUpVote(false)
-        } else if (downVote === true && voteValue === 1) {
-            setDownVote(false)
-            setUpVote(true)
+        if (upVote === 'up-vote' && voteValue === -1) {
+            setDownVote('down-vote')
+            setUpVote()
+        } else if (downVote === 'down-vote' && voteValue === 1) {
+            setDownVote()
+            setUpVote('up-vote')
         }
 
         updateUserVotes(voteValue, user, post.id)
@@ -67,19 +49,19 @@ export default function PostVotes({ darkMode, post }) {
     }, [location])
 
     useEffect(() => {
-
+        if (!post) return
+        setVotes(post.data.votes)
         if (likedPosts.length > 0) {
-
             if (likedPosts.filter(p => p.id === post.id)) {
-
                 const likedPost = likedPosts.filter(p => p.id === post.id)[0]
-
                 if (likedPost === undefined) return
-                if (likedPost.data.value === 1) setUpVote(true)
-                if (likedPost.data.value === -1) setDownVote(true)
+                if (likedPost.data.value === 1) setUpVote('up-vote')
+                if (likedPost.data.value === -1) setDownVote('down-vote')
             }
         }
-    }, [likedPosts])
+    }, [likedPosts, post])
+
+    if (post === undefined) return <div>Loading</div>
 
     return (
         <StyledDiv className={`${votesBackground} ${darkMode}`}>
@@ -108,3 +90,23 @@ const updatePostVotes = (votes, voteValue, postId) => {
         { merge: true }
     )
 }
+
+const StyledDiv = styled.div`
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content: start;
+    width:40px;
+    background-color: ${lightSecondary};
+    padding-top : 8px;
+    border-top-left-radius:4px;
+    border-bottom-left-radius:4px;
+    
+    &.clear, &.dark.clear {
+        background-color: inherit;
+    }
+
+    &.dark {
+        background-color: ${darkMain}
+    }
+`

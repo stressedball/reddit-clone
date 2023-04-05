@@ -1,10 +1,68 @@
 import React, { useState, useEffect, useContext } from 'react'
-// import '../../css/comment.css'
+import styled from 'styled-components'
 import { GlobalContext } from '../providers/GlobalProvider'
+import { HorizontalFlex } from '../../sc-css/atomic'
+import { darkTwo, lightBackgroundColor } from '../../sc-css/COLORS'
 import CommentOptions from './comment-options/CommentOptions'
 import UserAvatar from '../multi-usage/UserAvatar'
-import styled from 'styled-components'
-import { HorizontalFlex } from '../../sc-css/atomic'
+import { ReplyContainer } from './comment-options/ReplyToComment'
+
+export default function Comment({ post, darkMode, comment }) {
+
+    const [display, setDisplay] = useState(false)
+    const { users } = useContext(GlobalContext)
+    const user = users.filter(user => user.id === comment.data.poster)[0]
+    const [reply, setReply] = useState(false)
+
+    useEffect(() => {
+        if (comment !== undefined && user !== undefined) setDisplay(true)
+    }, [comment, user])
+
+    const handleReply = () => setReply(!reply)
+
+    if (!display) return <div>Fetching Comment</div>
+
+    return (
+
+        <CommentContainer className={`${darkMode}`} key={comment.data.timeStamp}>
+
+            <UserAvatarContainer>
+                <div style={{ width: "28px", height: "28px" }}><UserAvatar user={user} /></div>
+            </UserAvatarContainer>
+
+            <div style={{ width: "100%", boxSizing: "border-box" }}>
+                <CommentHeader>
+
+                    <UserName>{user ? user.data.userName : null}</UserName>
+
+                    <LightText>&middot;    {comment.data.timeStamp === null ? null :
+                        comment.data.timeStamp.toDate().toDateString()}
+                    </LightText>
+
+                </CommentHeader>
+
+                <div style={{ fontSize: "14px", marginBottom: "6px", marginTop: "6px" }}>
+                    <p style={{ margin: "0" }}>{comment.data.text}</p>
+                </div>
+
+                <CommentOptions handleReply={handleReply} darkMode={darkMode} comment={comment} user={user} post={post} />
+
+                {reply ? <ReplyContainer comment={comment} /> : null}
+
+            </div>
+        </CommentContainer>
+    )
+}
+
+const CommentContainer = styled(HorizontalFlex)`
+    padding: 8px 0;
+    background-color:${lightBackgroundColor};
+    border-radius:inherit;
+
+    &.dark {
+        background-color:${darkTwo};
+    }
+`
 
 const CommentHeader = styled.div`
     display:flex;
@@ -15,50 +73,26 @@ const CommentHeader = styled.div`
     padding-top:6px;
 `
 
-const CommentStyled = styled.article`
+const UserName = styled.p`
+    font-size:12px;
+    font-weight:700;
+    margin:0;
 
+    &:hover {
+        text-decoration:underline;
+        cursor:pointer;
+    }
 `
-export default function Comment({ darkMode, comment }) {
 
-    const [display, setDisplay] = useState(false)
-    const { users } = useContext(GlobalContext)
-    const user = users.filter(user => user.id === comment.data.poster)[0]
+const LightText = styled.p`
+    color: #7c7c7c;
+    font-size:12px;
+    font-weight:400;
+    margin:0;
+`
 
-    useEffect(() => {
-
-        if (comment !== undefined && user !== undefined) setDisplay(true)
-
-    }, [comment, user])
-
-    if (!display) return <div>Fetching Comment</div>
-
-    return (
-
-        <HorizontalFlex style={{ paddingTop: "8px", paddingBottom: "8px" }} key={comment.data.timeStamp}>
-
-            <div style={{ alignSelf: "start", width: '28px', display: "flex", justifyContent: "center", alignItems: "center" }}>
-                <UserAvatar user={user} />
-            </div>
-
-            <div>
-                <CommentHeader>
-
-                    <p style={{ margin: "0" }}>{user ? user.data.userName : null}</p>
-
-                    <em>
-                        {comment.data.timeStamp === null ? null :
-                            comment.data.timeStamp.toDate().toDateString()}
-                    </em>
-
-                </CommentHeader>
-
-                <div style={{ fontSize: "14px" }}>
-                    <p>{comment.data.text}</p>
-                </div>
-
-                <CommentOptions darkMode={darkMode} comment={comment} user={user} />
-
-            </div>
-        </HorizontalFlex>
-    )
-}
+const UserAvatarContainer = styled(HorizontalFlex)`
+    justify-content:center;
+    width:40px;
+    align-self:start;
+`

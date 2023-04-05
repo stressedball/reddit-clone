@@ -1,12 +1,41 @@
-import { useContext, useRef } from "react"
+import { useContext, useRef, useState } from "react"
 import AddCommentOptions from "./AddCommentOptions"
 import { GlobalContext } from "../../providers/GlobalProvider"
 import styled from "styled-components"
-import { lightBorder } from "../../../sc-css/COLORS"
+import { darkTwo, lightBackgroundColor, lightBorder } from "../../../sc-css/COLORS"
+
+export default function AddComment({ darkMode, post, postId }) {
+
+    const { user } = useContext(GlobalContext)
+    const [comment, setComment] = useState()
+
+    return (
+        <StyledSection className={`${darkMode}`}>
+
+            <p style={{ fontSize: "12px", margin: "0", marginBottom:"4px" }}
+            >Comment as <strong>{user.data.userName}</strong></p>
+
+            <StyledDiv>
+
+                <TextArea value={comment} onChange={(e) => setComment(e.target.value)}></TextArea>
+
+                <AddCommentOptions post={post} postId={postId} text={comment} user={user} darkMode={darkMode} />
+
+            </StyledDiv>
+        </StyledSection>
+    )
+}
 
 const StyledSection = styled.div`
-    padding-left:40px;
     background-color:inherit;
+    border-top-right-radius:4px;  
+    border-top-left-radius:4px;  
+    background-color: ${lightBackgroundColor};
+    padding:24px 0 24px 40px;
+
+    &.dark {
+        background-color: ${darkTwo};
+    }
 `
 
 const TextArea = styled.textarea`
@@ -18,25 +47,17 @@ const TextArea = styled.textarea`
     background-color:inherit;
     border-top-right-radius:4px;
     border-top-left-radius:4px;
-    border-bottom-border: none;
+    border-bottom: none;
+
+    &:focus {
+        outline: none;
+    }
 `
 
-export default function AddComment({ darkMode, post, postId }) {
-
-    const { user } = useContext(GlobalContext)
-    const comment = useRef('')
-
-    return (
-        <StyledSection id="add-comment" className={`${darkMode}`}>
-            <p style={{ fontSize: "12px", margin: "0" }}
-            >Comment as <strong>{user.data.userName}</strong></p>
-
-            <div style={{ display: "flex", flexDirection: "column", backgroundColor: "inherit" }}>
-                <TextArea ref={comment}></TextArea>
-
-                <AddCommentOptions post={post} postId={postId} text={comment} user={user} darkMode={darkMode} />
-
-            </div>
-        </StyledSection>
-    )
-}
+const StyledDiv = styled.div`
+    display:flex;
+    flex-direction:column;
+    background-color:inherit;
+    border-top-right-radius:4px;  
+    border-top-left-radius:4px;  
+`

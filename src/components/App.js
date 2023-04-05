@@ -18,56 +18,16 @@ import { ThemeContext } from './providers/ThemeProvider';
 import { darkMain, lightMain } from '../sc-css/COLORS';
 import { StyledMenu } from '../sc-css/StyledMenu';
 
-const StyledApp = styled.div`
-  background-color: ${lightMain};
-  height:100vh;
-  display: grid;
-  grid-template-columns: 270px calc(100vw - 270px);
-  grid-template-rows: 48px calc(100vh - 48px);
-  overflow: hidden;
-
-  &.dark {
-    background-color: ${darkMain};
-    color: #d7dadc;
-  }
-`
-
-const StyledDiv = styled.div`
-    overflow-y: auto;
-
-    &.whole {
-      grid-area: 2/1/2/3;
-    }
-    `
-
-const StyledOutlet = styled.div`
-    display:flex;
-    min-height: fit-content;
-    overflow-y:auto;
-    justify-content:center;
-    padding:20px 24px;
-`
-
-const DisplayPreview = styled.div`
-  width: 100%;
-  gap: 16px;
-    display:flex;
-    flex-direction:column;
-
-  &.private{
-    gap:0;
-  }
-`
 
 function App() {
 
   const { darkMode } = useContext(ThemeContext)
-  const { user } = useContext(GlobalContext)
+  const { user, posts } = useContext(GlobalContext)
   const [dropdownMenu, setDropdownMenu] = useState(false)
   const [gridArea, setGridArea] = useState('')
   const [display, setDisplay] = useState('')
 
-  useEffect(() => { }, [darkMode])
+  useEffect(() => { }, [darkMode, posts])
 
   useEffect(() => {
     if (dropdownMenu) setGridArea('whole')
@@ -122,5 +82,47 @@ function App() {
     </BrowserRouter>
   );
 }
+
+
+const StyledApp = styled.div`
+  background-color: ${lightMain};
+  height:100vh;
+  display: grid;
+  grid-template-columns: 270px calc(100vw - 270px);
+  grid-template-rows: 48px calc(100vh - 48px);
+  overflow: hidden;
+
+  &.dark {
+    background-color: ${darkMain};
+    color: #d7dadc;
+  }
+`
+
+const StyledDiv = styled.div`
+    overflow-y: auto;
+
+    &.whole {
+      grid-area: 2/1/2/3;
+    }
+    `
+
+const StyledOutlet = styled.div`
+    display:flex;
+    min-height: fit-content;
+    overflow-y:auto;
+    justify-content:center;
+    padding:20px 24px;
+`
+
+const DisplayPreview = styled.div`
+  width: 100%;
+  gap: 16px;
+    display:flex;
+    flex-direction:column;
+
+  &.private{
+    gap:0;
+  }
+`
 
 export default App;
