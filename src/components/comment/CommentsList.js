@@ -1,34 +1,38 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useState } from 'react'
 import styled from 'styled-components'
 import Comment from './Comment'
 import { HorizontalFlex } from '../../sc-css/atomic'
 import { lightBackgroundColor, darkTwo } from '../../sc-css/COLORS'
+import { GlobalContext } from '../providers/GlobalProvider'
 
 export default function CommentsList({ darkMode, post }) {
 
-    const [comments, setComments] = useState()
+    const { comments } = useContext(GlobalContext)
+    const [postComments, setPostComments] = useState()
 
     useEffect(() => {
-        if (post !== undefined) setComments(post.comments)
-    }, [post])
+        if (post && comments) setPostComments(comments.filter(comment => comment.data.parent === post.id))
+    }, [comments, post])
 
-    if (comments === undefined) return <p>Loading comments</p>
+    if (!postComments) return <p>Loading comments</p>
 
-    if (comments.length === 0) return (
-        <CommentContainer>Be the first to comment!</CommentContainer>
+    if (postComments.length === 0) return (
+        <CommentContainer className={darkMode}>Be the first to comment!</CommentContainer>
     )
+
+    postComments.sort((a, b) => Date.parse(b.data.timeStamp.toDate()) - Date.parse(a.data.timeStamp.toDate()))
 
     return (
         <StyledDiv >
             {
-                comments.map(comment => {
+                postComments.map(comment => {
                     return (
-                        <Comment key={comment.data.timeStamp} post={post} darkMode={darkMode} comment={comment} />
+                        <Comment comments={comments} comment={comment} key={comment.data.timeStamp} darkMode={darkMode} />
                     )
                 })
             }
-        </StyledDiv>
+        </StyledDiv >
     )
 }
 
@@ -47,3 +51,4 @@ const CommentContainer = styled(HorizontalFlex)`
         background-color:${darkTwo};
     }
 `
+

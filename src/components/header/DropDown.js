@@ -30,7 +30,6 @@ export default function DropDown({ darkMode, dropdownMenu, handleMenuDisplay }) 
     const keepMenu = (e) => {
       if (!e.target.classList.contains('drop-down-menu')) setDisplay(false)
     }
-
     window.addEventListener('click', keepMenu)
     return () => window.removeEventListener('click', keepMenu)
   }, [display])

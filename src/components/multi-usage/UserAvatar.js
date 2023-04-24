@@ -2,27 +2,14 @@ import { useEffect, useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 
-const Avatar = styled.img`
-    border-radius: 50%;
-        
-    &:hover{ 
-        cursor : pointer; 
-        transform : rotateX(360deg);
-    }
-
-    &.no-hover {
-        cursor : default; 
-    }
-`
-
-export default function UserAvatar({ user }) {
+export default function UserAvatar({ user, navigation }) {
 
     const location = useLocation().pathname.split('/')
     const navigate = useNavigate()
     const [noHover, setNoHover] = useState()
 
     useEffect(() => {
-        if (location[2] === 'u') {
+        if (location[2] === 'u' || !navigation) {
             setNoHover('no-hover')
         } else setNoHover('')
     }, [location])
@@ -31,10 +18,11 @@ export default function UserAvatar({ user }) {
         <>
             {
                 user ?
-                    <Avatar className={`${noHover} drop-down-menu`}
+                    <Avatar className={`${noHover}`}
                         onClick={() => {
+                            if (!navigation) return
                             if (noHover === 'no-hover') return
-                            navigate(`u/${user.id}`)
+                            navigate(`/u/${user.id}`)
                         }}
                         src={`https://api.dicebear.com/5.x/initials/svg?seed=${user.data.userName}`} />
                     : null
@@ -43,3 +31,17 @@ export default function UserAvatar({ user }) {
     )
 
 }
+
+const Avatar = styled.img`
+    border-radius: 50%;
+    max-width:100%;
+    max-height: 100%;
+        
+    &:hover{ 
+        cursor : pointer; 
+    }
+
+    &.no-hover {
+        cursor : default; 
+    }
+`

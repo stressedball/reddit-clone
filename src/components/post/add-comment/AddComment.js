@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from "react"
+import { useContext, useState } from "react"
 import AddCommentOptions from "./AddCommentOptions"
 import { GlobalContext } from "../../providers/GlobalProvider"
 import styled from "styled-components"
@@ -9,17 +9,19 @@ export default function AddComment({ darkMode, post, postId }) {
     const { user } = useContext(GlobalContext)
     const [comment, setComment] = useState()
 
+    const reinitializeComment = () => setComment('')
+
     return (
-        <StyledSection className={`${darkMode}`}>
+        <StyledSection className={darkMode}>
 
             <p style={{ fontSize: "12px", margin: "0", marginBottom:"4px" }}
             >Comment as <strong>{user.data.userName}</strong></p>
 
             <StyledDiv>
 
-                <TextArea value={comment} onChange={(e) => setComment(e.target.value)}></TextArea>
+                <TextArea className={darkMode} onChange={(e) => setComment(e.target.value)}></TextArea>
 
-                <AddCommentOptions post={post} postId={postId} text={comment} user={user} darkMode={darkMode} />
+                <AddCommentOptions reinitializeComment={reinitializeComment} post={post} postId={postId} comment={comment} user={user} darkMode={darkMode} />
 
             </StyledDiv>
         </StyledSection>
@@ -51,6 +53,10 @@ const TextArea = styled.textarea`
 
     &:focus {
         outline: none;
+    }
+
+    &.dark {
+        color: inherit;
     }
 `
 

@@ -58,13 +58,18 @@ export const SVGStyled = styled.svg`
     &:hover {
         cursor : pointer;
     }
+
+    &.no-hover {
+        cursor: default;
+    }
 `
 
 export const StyledLink = styled.p`
     font-size:12px;
     text-decoration:underline;
     margin: 0;
-    height: 20px;
+    min-height: 20px;
+    margin-left: 4px;
 
     &:hover{
         cursor:pointer;
@@ -75,7 +80,7 @@ export const LightText = styled.p`
     color:rgb(120, 124, 126);
     margin-top:0;
     margin: 0;
-    height: 20px;
+    min-height: 20px;
 `
 
 export const Hoverable = styled.span`
@@ -122,7 +127,8 @@ export const StyledOptionText = styled.p`
     font-size: 12px;
     font-weight: 700;
     color: rgb(135, 138, 140);
-
+    margin: 0;
+    
     &.dark{
         color: rgb(133, 135, 137);
     }

@@ -18,7 +18,6 @@ import { ThemeContext } from './providers/ThemeProvider';
 import { darkMain, lightMain } from '../sc-css/COLORS';
 import { StyledMenu } from '../sc-css/StyledMenu';
 
-
 function App() {
 
   const { darkMode } = useContext(ThemeContext)
@@ -26,7 +25,7 @@ function App() {
   const [dropdownMenu, setDropdownMenu] = useState(false)
   const [gridArea, setGridArea] = useState('')
   const [display, setDisplay] = useState('')
-
+  
   useEffect(() => { }, [darkMode, posts])
 
   useEffect(() => {

@@ -6,20 +6,21 @@ import SaveButton from '../../multi-usage/SaveButton'
 import { HorizontalFlex } from '../../../sc-css/atomic'
 import styled from 'styled-components'
 
-const StyledDiv = styled(HorizontalFlex)`
-  gap:4px;
-  font-size:12px;
-  font-weight:700;
-  color: rgb(135, 138, 140);
-`
+export default function PostOptions({ user, post, darkMode }) {
 
-export default function DefaultOptions({ user, post, darkMode, comments }) {
   return (
     <StyledDiv>
-      <CommentsCount comments={comments} darkMode={darkMode} />
+      <CommentsCount post={post} darkMode={darkMode} />
       <ShareButton darkMode={darkMode} />
       <SaveButton darkMode={darkMode} user={user} post={post} />
       <Etcetera darkMode={darkMode} post={post} user={user} />
     </StyledDiv>
   )
 }
+
+const StyledDiv = styled(HorizontalFlex)`
+  gap:4px;
+  font-size:12px;
+  font-weight:700;
+  color: rgb(135, 138, 140);
+`

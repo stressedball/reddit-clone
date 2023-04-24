@@ -6,7 +6,7 @@ import styled from 'styled-components';
 
 export default function Home({ }) {
 
-  const { posts, user, subs } = useContext(GlobalContext)
+  const { posts, user } = useContext(GlobalContext)
   const { darkMode } = useContext(ThemeContext)
   const [homePosts, setHomePosts] = useState()
 

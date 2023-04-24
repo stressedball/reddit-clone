@@ -4,14 +4,6 @@ import { useNavigate } from 'react-router-dom'
 import { HorizontalFlex, SVGStyled } from '../../sc-css/atomic'
 import styled from 'styled-components'
 
-const StyledHorFlex = styled(HorizontalFlex)`
-    justify-content:center;
-
-    &:hover {
-        cursor:pointer;
-    }
-`
-
 export default function PreviewPlaceholder({ post, darkMode, subId }) {
 
     const [placeholder, setPlaceholder] = useState()
@@ -25,7 +17,7 @@ export default function PreviewPlaceholder({ post, darkMode, subId }) {
 
     const handleClick = (e) => {
         if (e.target === undefined) return
-        subId === null ? navigate(`p/${post.id}`) : navigate(`r/${subId}/p/${post.id}`)
+        subId === null ? navigate(`/p/${post.id}`) : navigate(`/r/${subId}/p/${post.id}`)
     }
 
     return (
@@ -54,3 +46,11 @@ function Text({ darkMode }) {
 function Poll() {
 
 }
+
+const StyledHorFlex = styled(HorizontalFlex)`
+    justify-content:center;
+
+    &:hover {
+        cursor:pointer;
+    }
+`

@@ -1,15 +1,16 @@
-import PostHeader from './PostHeader'
 import React, { useContext, useEffect, useState } from 'react'
-import PostPreviewBody from './PostPreviewBody'
-import ImageDisplay from '../multi-usage/ImageDisplay'
-import PostVotes from '../post/PostVotes'
 import styled from 'styled-components'
+import { darkDefaultBorder, darkTwo, lightBackgroundColor, lightDefaultBorder } from '../../sc-css/COLORS'
 import { GlobalContext } from '../providers/GlobalProvider'
-import { darkDefaultBorder, darkTwo, lightBackgroundColor, lightBorder, lightDefaultBorder } from '../../sc-css/COLORS'
-import PreviewPlaceholder from './PreviewPlaceholder'
+import ImageDisplay from '../multi-usage/ImageDisplay'
+import PostHeader from './PostHeader'
+import PostPreviewBody from './PostPreviewBody'
 import PostPreviewOptions from './PostPreviewOptions'
 import PostExpand from './PostExpand'
+import PreviewPlaceholder from './PreviewPlaceholder'
+import { PostVotes } from '../post/PostVotes'
 
+// User is used to display post details wether if user is logged in or not!
 export default function PostPreview({ darkMode, post }) {
 
     const [displayText, setDisplayText] = useState(false)
@@ -45,6 +46,7 @@ export default function PostPreview({ darkMode, post }) {
                         {user ?
                             <>
                                 <PostPreviewBody darkMode={darkMode} post={post} sub={sub} />
+
                                 <PostHeader post={post} darkMode={darkMode} sub={sub} />
                             </>
                             :

@@ -6,45 +6,6 @@ import styled from 'styled-components'
 import { darkThree, lightBackgroundColor, lightSecondary } from '../../sc-css/COLORS'
 import { HorizontalFlex } from '../../sc-css/atomic'
 
-const PostButton = styled.button`
-    background-color: rgb(55, 60, 63);
-    color: ${lightBackgroundColor};
-    font-size:14px;
-    font-weight: 700;
-    padding: 4px 16px;
-    border-radius: 16px;
-    border:none;
-    align-self: end;
-    margin-right: 16px;
-    margin-bottom: 16px;
-    width:fit-content;  
-
-    &.dark {
-        background-color: ${lightBackgroundColor};
-        color: rgb(55, 60, 63);
-    }
-
-    &:hover {
-        cursor:not-allowed;
-        background-color: rgb(0, 0, 0, 0.6);
-    }
-
-    &.enabled:hover {
-        cursor:pointer;
-    }
-
-`
-
-const StyledDiv = styled(HorizontalFlex)`
-    background-color: ${lightSecondary};
-    border-bottom-right-radius:4px;
-    border-bottom-left-radius:4px;
-
-    &.dark {
-        background-color:${darkThree};
-    }
-`
-
 export default function CreatePostOptions({ notified, darkMode, setError, subId, title, text, image }) {
 
     const params = useParams()['*']
@@ -93,3 +54,68 @@ export default function CreatePostOptions({ notified, darkMode, setError, subId,
 }
 
 
+
+const PostButton = styled.button`
+    background-color: #5e6265;
+    color: rgb(255 255 255 / 50%);
+    font-size:14px;
+    font-weight: 700;
+    padding: 4px 16px;
+    border-radius: 16px;
+    border:none;
+    align-self: end;
+    margin-right: 16px;
+    margin-bottom: 16px;
+    width:fit-content;  
+    position:relative;
+    cursor: not-allowed;
+    filter: grayscale(1);
+
+    &::before {
+        content:"";
+        position:absolute; 
+        height:100%;
+        width:100%;
+        top:0;
+        left:0;
+        border-radius:inherit;
+        background-color: #FFFFFF;
+        opacity:0;
+    }
+
+    &.dark {
+        background-color: ${lightBackgroundColor};
+        color: rgb(55, 60, 63);
+    }
+
+    &:hover::before {
+        opacity: 0.08;
+    }
+
+    &.enabled:hover::before {
+        opacity: 0.08;
+    }
+
+    &.enabled::before {
+        opacity:0;
+    }
+
+    &.enabled {
+        background-color:#373c3f;
+        color: #FFFFFF;
+        cursor:pointer;
+        filter: none;
+    }
+
+
+`
+
+const StyledDiv = styled(HorizontalFlex)`
+    background-color: ${lightSecondary};
+    border-bottom-right-radius:4px;
+    border-bottom-left-radius:4px;
+
+    &.dark {
+        background-color:${darkThree};
+    }
+`

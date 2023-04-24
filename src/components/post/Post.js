@@ -10,7 +10,7 @@ import CommentsList from '../comment/CommentsList'
 import PostDetails from './post-options/PostDetails'
 import PostOptions from './post-options/PostOptions'
 import ImageDisplay from '../multi-usage/ImageDisplay'
-import PostVotes from './PostVotes'
+import { PostVotes } from './PostVotes'
 import SideContent from '../home/SideContent'
 
 export default function Post() {
@@ -22,20 +22,16 @@ export default function Post() {
   const postId = useParams().postId
   const [post, setPost] = useState()
   const [sub, setSubs] = useState()
-  const [comments, setComments] = useState()
-  const [postVotes, setPostVotes] = useState()
 
   useEffect(() => {
-    if (posts) setPost(posts.filter(el => el.id === postId)[0])
+    if (posts) setPost(posts.filter(post => post.id === postId)[0])
   }, [posts])
 
   useEffect(() => {
-    if (post) {
-      setSubs(subs.filter(el => el.id === post.data.parent)[0])
-      setComments(post.comments)
-      setPostVotes(post.data.votes)
-    }
+    if (post) setSubs(subs.filter(el => el.id === post.data.parent)[0])
   }, [post])
+
+  if (!post) return <div>Loading</div>
 
   return (
 
@@ -54,7 +50,6 @@ export default function Post() {
         <div style={{ display: "flex", justifyContent: "center" }}>
 
           <PostColumn className={`${darkMode}`}>
-
             <PostSection className={`${darkMode}`}>
 
               <PostVotes darkMode={darkMode} user={user} post={post} />
@@ -63,19 +58,13 @@ export default function Post() {
 
                 <PostDetails sub={sub} post={post} darkMode={darkMode} />
 
-                <h1 style={{ fontSize: "20px", fontWeight: '500' }}>{
-                  post ? post.data.title : <p>Fetching post title</p>
-                }</h1>
+                <h1 style={{ fontSize: "20px", fontWeight: '500' }}>{post.data.title}</h1>
 
-                {post ?
-                  post.data.text ? <p>{post.data.text}</p> : null
-                  : <p>Fetching post text</p>}
+                <p>{post.data.text}</p>
 
-                {post ?
-                  post.data.image ? <ImageDisplay post={post} /> : null
-                  : <p>Fetching post text</p>}
+                {post.data.image ? <ImageDisplay post={post} /> : null}
 
-                <PostOptions user={user} post={post} darkMode={darkMode} comments={comments} />
+                <PostOptions user={user} post={post} darkMode={darkMode} />
 
               </VerticalFlex>
             </PostSection>
@@ -94,7 +83,6 @@ export default function Post() {
 
         </div>
       </PostContainer>
-
     </PostPage >
   )
 }

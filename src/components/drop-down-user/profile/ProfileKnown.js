@@ -8,7 +8,7 @@ export default function ProfileKnown({ handleDisplay, user }) {
         <HorizontalFlex className='drop-down-user' style={{ gap: "3px", height: "100%" }} onClick={() => handleDisplay()}>
 
             <HorizontalFlex style={{ width: "24px" }}>
-                <UserAvatar user={user} />
+                <UserAvatar user={user} navigation={false} />
             </HorizontalFlex>
 
             <div>

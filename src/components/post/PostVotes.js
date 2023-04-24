@@ -8,7 +8,7 @@ import { useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 import { darkMain, lightSecondary } from '../../sc-css/COLORS'
 
-export default function PostVotes({ darkMode, post }) {
+export function PostVotes({ darkMode, post }) {
 
     const location = useLocation().pathname.split('/')
     const { user, likedPosts } = useContext(GlobalContext)
@@ -17,41 +17,15 @@ export default function PostVotes({ darkMode, post }) {
     const [votesBackground, setVotesBackground] = useState('')
     const [votes, setVotes] = useState()
 
-    function handleVote(e) {
-
-        if (e.target.dataset.key !== 'vote') return
-
-        let voteValue = Number(e.target.dataset.value)
-
-        if ((upVote === 'up-vote' && voteValue === 1)
-            || (downVote === 'down-vote' && voteValue === -1)) {
-            setDownVote()
-            setUpVote()
-            updateUserVotes(0, user, post.id)
-            updatePostVotes(votes, -voteValue, post.id)
-            return
-        }
-
-        if (upVote === 'up-vote' && voteValue === -1) {
-            setDownVote('down-vote')
-            setUpVote()
-        } else if (downVote === 'down-vote' && voteValue === 1) {
-            setDownVote()
-            setUpVote('up-vote')
-        }
-
-        updateUserVotes(voteValue, user, post.id)
-        updatePostVotes(votes, voteValue, post.id)
-    }
-
     useEffect(() => {
-        if (location[3] === 'p') setVotesBackground('clear')
+        if (location[3] === 'p' || location[1] === 'u') setVotesBackground('clear')
     }, [location])
 
     useEffect(() => {
-        if (!post) return
-        setVotes(post.data.votes)
-        if (likedPosts.length > 0) {
+        if (post) setVotes(post.data.votes)
+        else return
+
+        if (likedPosts && likedPosts.length > 0) {
             if (likedPosts.filter(p => p.id === post.id)) {
                 const likedPost = likedPosts.filter(p => p.id === post.id)[0]
                 if (likedPost === undefined) return
@@ -61,29 +35,51 @@ export default function PostVotes({ darkMode, post }) {
         }
     }, [likedPosts, post])
 
+    function handleVote(e) {
+        if (e.target.dataset.key !== 'vote') return
+
+        let voteValue = Number(e.target.dataset.value)
+        if ((upVote === 'up-vote' && voteValue === 1)
+            || (downVote === 'down-vote' && voteValue === -1)) {
+            setDownVote()
+            setUpVote()
+            updateUserVotes(0, user, post.id)
+            updatePostVotes(votes, -voteValue, post.id)
+        } else if (upVote === 'up-vote' && voteValue === -1) {
+            setDownVote('down-vote')
+            setUpVote()
+            updateUserVotes(voteValue, user, post.id)
+            updatePostVotes(votes, -2, post.id)
+        } else if (downVote === 'down-vote' && voteValue === 1) {
+            setDownVote()
+            setUpVote('up-vote')
+            updateUserVotes(voteValue, user, post.id)
+            updatePostVotes(votes, 2, post.id)
+        } else {
+            updateUserVotes(voteValue, user, post.id)
+            updatePostVotes(votes, voteValue, post.id)
+        }
+    }
+
     if (post === undefined) return <div>Loading</div>
 
     return (
         <StyledDiv className={`${votesBackground} ${darkMode}`}>
-            <Votes darkMode={darkMode} item={post}
-                handleVote={handleVote}
-                upVote={upVote} downVote={downVote} />
+            <Votes darkMode={darkMode} votes={post.data.votes}
+                handleVote={handleVote} upVote={upVote} downVote={downVote} />
         </StyledDiv>
     )
 }
 
-const updateUserVotes = (voteValue, user, postId) => {
-
+export const updateUserVotes = (voteValue, user, postId) => {
     const likedPosts = collection(db, 'users', user.id, 'likedPosts')
     const postRef = doc(likedPosts, postId)
-
     setDoc(postRef, {
         value: voteValue
     })
 }
 
-const updatePostVotes = (votes, voteValue, postId) => {
-
+export const updatePostVotes = (votes, voteValue, postId) => {
     setDoc(doc(db, 'posts', postId),
         // no decrement?
         { votes: votes + voteValue },

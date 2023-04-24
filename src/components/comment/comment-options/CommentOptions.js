@@ -9,8 +9,7 @@ import styled from 'styled-components'
 import { lightGrayHover, darkHoverLight } from '../../../sc-css/COLORS'
 import { ReplyToComment } from './ReplyToComment'
 
-
-export default function CommentOptions({ post, handleReply, darkMode, comment }) {
+export default function CommentOptions({ handleReply, darkMode, comment }) {
 
     const { user } = useContext(GlobalContext)
 
@@ -18,7 +17,7 @@ export default function CommentOptions({ post, handleReply, darkMode, comment })
 
     return (
         <HorizontalFlex>
-            <CommentVotes post={post} darkMode={darkMode} comment={comment} />
+            <CommentVotes darkMode={darkMode} comment={comment} />
             {
                 user ?
                     user.id === comment.data.poster ?
@@ -45,8 +44,6 @@ function EditComment({ darkMode }) {
         </HorizontalFlex>
     )
 }
-
-
 
 function PublicOptions() {
     return (

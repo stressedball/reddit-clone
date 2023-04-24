@@ -1,27 +1,32 @@
-import { SVGStyled, StyledOptionText } from "../../sc-css/atomic"
-import styled from "styled-components"
+import { useContext, useEffect, useState } from "react"
+import { HorizontalFlex, SVGStyled, StyledOptionText } from "../../sc-css/atomic"
+import { GlobalContext } from "../providers/GlobalProvider"
+import commentsPopulate from "../comment/commentPopulate"
 
-const NoHover = styled(SVGStyled)`
-    &:hover {
-        cursor: default;
-    }
-`
+export default function CommentsCount({ post, darkMode }) {
 
-export default function CommentsCount({ comments, darkMode }) {
+    const { comments } = useContext(GlobalContext)
+    const [postComments, setPostComments] = useState()
+
+    useEffect(() => {
+        if (comments && post) {
+            setPostComments(comments.filter(comment => comment.data.parent === post.id))
+        }
+    }, [comments, post])
+
+    if (!postComments) return <div>Loading</div>
+
+    const totalComments = commentsPopulate(postComments, comments)
 
     return (
-        <>
-            <NoHover
-                className={`${darkMode}`}
-                fill="currentColor"
-                viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-                <path
-                    d="M14.5 2h-13l-.5.5v9l.5.5H4v2.5l.854.354L7.707 12H14.5l.5-.5v-9l-.5-.5zm-.5 9H7.5l-.354.146L5 13.293V11.5l-.5-.5H2V3h12v8z" />
-            </NoHover>
-
-            {comments ? <StyledOptionText>{comments.length} Comments</StyledOptionText>
-                : null
-            }
-        </>
+        <HorizontalFlex style={{ gap: "3px" }}>
+            <SVGStyled
+                className={`${darkMode} no-hover`}
+                style={{ height: "25px", width: "25px", fill: "none" }}
+                viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7.5 16.5H9.5V20.5L13.5 16.5H17.5C18.6046 16.5 19.5 15.6046 19.5 14.5V8.5C19.5 7.39543 18.6046 6.5 17.5 6.5H7.5C6.39543 6.5 5.5 7.39543 5.5 8.5V14.5C5.5 15.6046 6.39543 16.5 7.5 16.5Z" stroke="currentColor" strokeWidth="1.2" />
+            </SVGStyled>
+            <StyledOptionText>{totalComments.length} Comments</StyledOptionText>
+        </HorizontalFlex>
     )
 }

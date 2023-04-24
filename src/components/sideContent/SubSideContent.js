@@ -6,50 +6,15 @@ import { HorizontalFlex, SVGStyled } from '../../sc-css/atomic'
 import { lightText } from '../../sc-css/COLORS'
 import { ThemeContext } from '../providers/ThemeProvider'
 
-const Button = styled.button`
-  font-size:14px;
-  font-weight:700;
-  background-color: #4a96c4;
-  min-height: 32px;
-  width: 100%;
-  padding:4px 0;
-  border:none;
-  border-radius: 1.5rem;
-  color:#ffffff;
-  margin-bottom:14px;
-  box-sizing:border-box;
-
-  &.dark {
-    color: #1a1a1b;
-    background-color: #d7dadc;
-  }
-`
-
-const HR = styled.hr`
-  margin: 16px 0;
-  min-width: 100%; 
-  border: none;
-  background-color: rgb(26 26 27 / 7%); 
-  height: 1px;
-`
-
-const StyledText = styled.p`
-  margin: 0; 
-  font-size: 12px; 
-  color: rgb(124, 124, 124); 
-  fontWeight: 400;
-`
-
 export default function SubSideContent({ subId }) {
 
   const { darkMode } = useContext(ThemeContext)
   const { subs } = useContext(GlobalContext)
   const [sub, setSub] = useState()
+  const location = useLocation().pathname
 
   useEffect(() => {
-    if (subs !== undefined) {
-      setSub(subs.filter(sub => sub.id === subId)[0])
-    }
+    if (subs !== undefined) { setSub(subs.filter(sub => sub.id === subId)[0]) }
   }, [subs, subId])
 
   if (sub === undefined) return <div>Loading</div>
@@ -110,8 +75,65 @@ export default function SubSideContent({ subId }) {
 
       <HR />
 
-      <Button className={`${darkMode}`}>Create Post</Button>
-
+      <a href={`${location.split('/')[3] === 'p' ? `/r/${location.split('/')[2]}` : location}/submit`}>
+        <Button className={`${darkMode}`}>Create Post</Button>
+      </a>
     </div>
   )
 }
+
+const Button = styled.button`
+  font-size:14px;
+  font-weight:700;
+  background-color: #4a96c4;
+  min-height: 32px;
+  min-width: 100%;
+  padding:4px 0;
+  border:none;
+  border-radius: 1.5rem;
+  color:#ffffff;
+  margin-bottom:14px;
+  box-sizing:border-box;
+  position:relative;
+  text-decoration: none;
+
+  &::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: inherit;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+    content:"";
+    opacity: 0;
+  }
+
+  &.dark {
+    color: #1a1a1b;
+    background-color: #d7dadc;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:hover::before {
+    opacity: 0.08;
+  }
+`
+
+const HR = styled.hr`
+  margin: 16px 0;
+  min-width: 100%; 
+  border: none;
+  background-color: rgb(26 26 27 / 7%); 
+  height: 1px;
+`
+
+const StyledText = styled.p`
+  margin: 0; 
+  font-size: 12px; 
+  color: rgb(124, 124, 124); 
+  fontWeight: 400;
+`

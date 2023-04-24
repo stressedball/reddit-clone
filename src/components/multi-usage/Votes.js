@@ -2,12 +2,11 @@ import { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
 import { GlobalContext } from "../providers/GlobalProvider"
 
-export default function Votes({ darkMode, item, handleVote, upVote, downVote }) {
+export default function Votes({ darkMode, votes, handleVote, upVote, downVote }) {
 
     const { user } = useContext(GlobalContext)
     const [localUpVote, setLocalUpVote] = useState()
     const [localDownVote, setLocalDownVote] = useState()
-    const [votes, setVotes] = useState()
 
     const handleUserVote = (e) => {
         if (user === null) return
@@ -19,10 +18,6 @@ export default function Votes({ darkMode, item, handleVote, upVote, downVote }) 
         setLocalUpVote(upVote)
     }, [upVote, downVote])
 
-    useEffect(() => { if (item) setVotes(item.data.votes)}, [item])
-
-    if (item === undefined) return <div>Loading</div>
-
     return (
         <>
             <StyledVote
@@ -30,24 +25,41 @@ export default function Votes({ darkMode, item, handleVote, upVote, downVote }) 
                 className={`${localUpVote} ${darkMode}`}
                 data-key="vote"
                 data-value="1"
-                fill="currentColor"
-                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.781 2.375c-.381-.475-1.181-.475-1.562 0l-8 10A1.001 1.001 0 0 0 4 14h4v7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7h4a1.001 1.001 0 0 0 .781-1.625l-8-10zM15 12h-1v8h-4v-8H6.081L12 4.601 17.919 12H15z" /></StyledVote>
-            <p style={{ margin: "0", fontSize: "12px", fontWeight: "700" }}>{votes}</p>
+                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 14h4v7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7h4a1.001 1.001 0 0 0 .781-1.625l-8-10c-.381-.475-1.181-.475-1.562 0l-8 10A1.001 1.001 0 0 0 4 14z" /></StyledVote>
+
+            <Count className={`${localDownVote} ${localUpVote}`}>{votes}</Count>
+
             <StyledVote
                 onClick={handleUserVote}
                 className={`${localDownVote} ${darkMode}`}
                 data-key="vote"
                 data-value="-1"
-                fill="currentColor"
-                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.901 10.566A1.001 1.001 0 0 0 20 10h-4V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v7H4a1.001 1.001 0 0 0-.781 1.625l8 10a1 1 0 0 0 1.562 0l8-10c.24-.301.286-.712.12-1.059zM12 19.399 6.081 12H10V4h4v8h3.919L12 19.399z" /></StyledVote>
+                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.901 10.566A1.001 1.001 0 0 0 20 10h-4V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v7H4a1.001 1.001 0 0 0-.781 1.625l8 10a1 1 0 0 0 1.562 0l8-10c.24-.301.286-.712.12-1.059z" /></StyledVote>
         </>
     )
 }
+
+const Count = styled.p`
+    margin: 0;
+    font-size: 12px;
+    font-weight: 700;
+
+    &.up-vote {
+        color: red;
+    }
+
+    &.down-vote {
+        color: rgb(0 121 211); 
+    }
+`
 
 const StyledVote = styled.svg`
     color: rgb(135, 138, 140);
     height:22px;
     width:22px;
+    fill: none;
+    stroke : currentColor;
+    stroke-width: 2px;
 
     &:hover {
         cursor:pointer;
@@ -59,18 +71,24 @@ const StyledVote = styled.svg`
     }
 
     &[data-value="1"]:hover {
-        color:red;
+        stroke : red;
     }
 
     &[data-value="-1"]:hover {
-        color: rgb(0 121 211);
+        stroke: rgb(0 121 211);
+    }
+
+    &.up-vote, &.down-vote {
+        stroke-width: 1px;
     }
 
     &.up-vote {
-        color: red;
+        fill: red;
+        stroke: red;
     }
 
     &.down-vote {
-        color: rgb(0 121 211);
+        fill: rgb(0 121 211);
+        stroke: rgb(0 121 211);
     }
 `

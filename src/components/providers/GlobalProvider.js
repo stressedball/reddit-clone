@@ -1,5 +1,5 @@
 import { doc, getDoc, getDocs, query, collection, setDoc } from 'firebase/firestore'
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useCallback } from "react";
 import { auth, db } from '../../firebase/getAuthDb';
 import { onAuthStateChanged } from 'firebase/auth';
 import { onSnapshot } from 'firebase/firestore';
@@ -11,15 +11,14 @@ export function GlobalProvider({ children }) {
     const [user, setUser] = useState()
     const [posts, setPosts] = useState([])
     const [subs, setSubs] = useState()
-    const [users, setUsers] = useState([])
-    const [likedPosts, setLikedPosts] = useState([])
-    const [likedComments, setLikedComments] = useState([])
+    const [users, setUsers] = useState()
+    const [likedPosts, setLikedPosts] = useState()
+    const [likedComments, setLikedComments] = useState()
+    const [comments, setComments] = useState([])
 
     // Auth
     useEffect(() => {
-
         onAuthStateChanged(auth, (user) => {
-
             if (user) {
                 setDoc(doc(db, "users", user.uid), {
                     status: "online"
@@ -41,7 +40,6 @@ export function GlobalProvider({ children }) {
                 setUser(null)
             }
         })
-
     }, [])
 
     // subs
@@ -66,33 +64,39 @@ export function GlobalProvider({ children }) {
 
     // posts
     useEffect(() => {
-
         const q = query(collection(db, 'posts'))
-
         const unSub = onSnapshot(q, (querySnapShot) => {
-
-            let postsArr = []
-            
-            querySnapShot.forEach(async (doc) => {
-                let commentsArr = []
-                const post = { id: doc.id, data: doc.data() }
-
-                const commentsQ = query(collection(doc.ref, 'comments'))
-                const commentSnapShot = await getDocs(commentsQ)
-                
-                commentSnapShot.forEach((doc) => {
-                    commentsArr.push({ id: doc.id, data: doc.data() })
-                })
-
-                post.comments = commentsArr
-                postsArr.push(post)
+            querySnapShot.docChanges().forEach((change) => {
+                const post = { id: change.doc.id, data: change.doc.data() }
+                if (change.type === 'added') {
+                    // handle added post
+                    setPosts((prevState) => [...prevState, post])
+                } else if (change.type === 'modified') {
+                    // handle modified post
+                    setPosts((prevState) => prevState.map((p) => (p.id === post.id ? post : p)))
+                } else if (change.type === 'removed') {
+                    // handle removed post
+                    setPosts((prevState) => prevState.filter((p) => p.id !== change.doc.id))
+                }
             })
-
-            setPosts(postsArr)
         })
-
         return () => unSub()
+    }, [])
 
+    // comments
+    useEffect(() => {
+        const commentsQ = query(collection(db, 'comments'))
+        const unSub = onSnapshot(commentsQ, (QCommentSnapShot) => {
+            QCommentSnapShot.docChanges().forEach((change) => {
+                const comment = { id: change.doc.id, data: change.doc.data() }
+                if (change.type === 'added') {
+                    setComments((prev) => [...prev, comment])
+                } else if (change.type === 'modified') {
+                    setComments((prev) => prev.map(c => c.id === comment.id ? comment : c))
+                }
+            })
+        })
+        return () => unSub()
     }, [])
 
     // users
@@ -164,7 +168,8 @@ export function GlobalProvider({ children }) {
         posts,
         users,
         likedPosts,
-        likedComments
+        likedComments,
+        comments
     }
 
     return (

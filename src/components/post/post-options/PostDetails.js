@@ -46,6 +46,5 @@ export default function PostDetails({ darkMode, sub, post }) {
             }</LightText>
 
         </HorizontalFlex>
-
     )
 }

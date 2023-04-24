@@ -1,16 +1,58 @@
-import React, { useContext, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from "styled-components"
 import { darkDefaultBorder, darkThree, lightBorder, lightSecondary, lightText } from "../../sc-css/COLORS"
-import { GlobalContext } from '../providers/GlobalProvider'
-import Subs from '../menu/Subs'
-import Users from '../menu/Users'
+import FilterFunction from '../multi-usage/FilterFunction'
+
+export default function SearchBar({ darkMode }) {
+
+    const [display, setDisplay] = useState(false)
+    const [inputValue, setInputValue] = useState('')
+    const [activeSearch, setActiveSearch] = useState()
+
+    useEffect(() => {
+        if (display) setActiveSearch('drop-down')
+        else setActiveSearch()
+    }, [display])
+
+    return (
+        <Container>
+            <StyledInput className={`${darkMode} ${activeSearch}`}
+                onClick={() => { setDisplay(!display) }} onChange={e => setInputValue(e.target.value)}
+                placeholder='Search RedditClone' value={inputValue} />
+
+            {display ?
+                <DropDown className={darkMode}>
+                    <FilterFunction searchString={inputValue} darkMode={darkMode} />
+                </DropDown>
+                : null}
+        </Container>
+    )
+}
 
 const DropDown = styled.div`
+    position: absolute;
+    top: 41px;
+    left: 0;
+    background-color: inherit;
+    width: calc(100% - 2px);
+    border: 1px solid #EDEFF1;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px 0 rgb(28 28 28 / 20%);
+    z-index: 50;
+
+    &.dark {
+        border: 1px solid #343536;
+        box-shadow: 0 2px 4px 0 rgb(215 218 220 / 20%);
+    }
+`
+
+const Container = styled.div`
     height: 40px;
     padding: 2px 0;
     position: relative;
-    grid-column: 2;
     align-self:center;
+    background-color: inherit;
+    width: 690px; 
 `
 
 const StyledInput = styled.input`
@@ -40,25 +82,10 @@ const StyledInput = styled.input`
     &.dark:hover, &.dark:focus {
         border : 1px solid ${lightBorder};
     }
+
+    &.drop-down {
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+
+    }
 `
-export default function SearchBar({ darkMode }) {
-
-    const [display, setDisplay] = useState(false)
-    const [inputValue, setInputValue] = useState()
-
-    return (
-        <DropDown>
-            <StyledInput onClick={() => { setDisplay(!display) }} value={inputValue} onChange={e => setInputValue(e.target.value)} className={`${darkMode}`} placeholder='Search RedditClone' />
-
-            {display ? <ShowContent string={inputValue} /> : null}
-
-        </DropDown>
-    )
-}
-
-
-function ShowContent({ string }) {
-    const { users, subs } = useContext(GlobalContext)
-
-
-}

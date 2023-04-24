@@ -1,55 +1,19 @@
 import { useNavigate } from "react-router-dom"
-import { useState, useContext, useRef, useEffect } from "react"
+import { useState, useContext } from "react"
 import styled from "styled-components"
-import Users from "./Users"
-import Subs from "./Subs"
 import { CreatePostTile, HomeMenuTile } from "../multi-usage/SpecialMenuOptions"
-import { GlobalContext } from "../providers/GlobalProvider"
 import { ThemeContext } from "../providers/ThemeProvider"
 import { Tile, SVGStyled } from "../../sc-css/atomic"
 import { darkThree, lightBorder, lightText } from "../../sc-css/COLORS"
-
-const StyledInput = styled.input`
-    height:30px;
-    outline:none;
-    margin-left: 24px;
-    border: 1px solid transparent;
-    background-color: #f6f7f8;
-    margin-top:4px;
-    
-    &:hover {
-        border : 1px solid #0079d3;
-    }
-
-    &:focus {
-        border : 1px solid #0079d3;
-        background-color: inherit;
-    }
-
-    &.dark{
-        background-color: ${darkThree};
-        color:${lightText};
-    }
-
-    &.dark:focus, &.dark:hover {
-        border : 1px solid ${lightBorder};
-    }
-`
+import FilterFunction from "../multi-usage/FilterFunction"
 
 export default function Menu({ dropdownMenu, handleMenuDisplay }) {
 
     const navigate = useNavigate()
-    const { subs, users } = useContext(GlobalContext)
     const { darkMode } = useContext(ThemeContext)
     const [inputValue, setInputValue] = useState('')
-    const [filteredSubs, setFilteredSubs] = useState()
-    const [filteredUsers, setFilteredUsers] = useState()
 
-    const handleFilterSearch = (e) => {
-        setInputValue(e.target.value)
-        setFilteredSubs(subsFilterFunction(e.target.value, subs))
-        setFilteredUsers(usersFilterFunction(e.target.value, users))
-    }
+    const handleFilterSearch = (e) => { setInputValue(e.target.value) }
 
     return (
         <div>
@@ -81,18 +45,7 @@ export default function Menu({ dropdownMenu, handleMenuDisplay }) {
 
             <StyledInput onChange={(e) => handleFilterSearch(e)} type='text' id="input" value={inputValue} className={`${darkMode}  drop-down-menu`} placeholder={'Filter'} onClick={(e) => e.stopPropagation()} />
 
-            {
-                inputValue === '' ?
-                    <>
-                        <Subs darkMode={darkMode} subs={subs} />
-                        <Users darkMode={darkMode} users={users} />
-                    </>
-                    :
-                    <>
-                        {filteredSubs.length > 0 ? <Subs darkMode={darkMode} subs={filteredSubs} /> : null}
-                        {filteredUsers.length > 0 ? <Users darkMode={darkMode} users={filteredUsers} /> : null}
-                    </>
-            }
+            <FilterFunction darkMode={darkMode} searchString={inputValue} />
 
             {/* Home */}
             <Tile className={`${darkMode}`} onClick={() => { navigate('/') }}>
@@ -103,13 +56,29 @@ export default function Menu({ dropdownMenu, handleMenuDisplay }) {
     )
 }
 
+const StyledInput = styled.input`
+    height:30px;
+    outline:none;
+    margin-left: 24px;
+    border: 1px solid transparent;
+    background-color: #f6f7f8;
+    margin-top:4px;
+    
+    &:hover {
+        border : 1px solid #0079d3;
+    }
 
-function subsFilterFunction(string, subs) {
-    if (subs === undefined) return
-    return subs.filter(sub => sub.data.name.toLowerCase().includes(string.toLowerCase()))
-}
+    &:focus {
+        border : 1px solid #0079d3;
+        background-color: inherit;
+    }
 
-function usersFilterFunction(string, users) {
-    if (users === undefined) return
-    return users.filter(user => user.data.userName.toLowerCase().includes(string.toLowerCase()))
-}
+    &.dark{
+        background-color: ${darkThree};
+        color:${lightText};
+    }
+
+    &.dark:focus, &.dark:hover {
+        border : 1px solid ${lightBorder};
+    }
+`
