@@ -15,6 +15,7 @@ export function GlobalProvider({ children }) {
     const [likedPosts, setLikedPosts] = useState()
     const [likedComments, setLikedComments] = useState()
     const [comments, setComments] = useState([])
+    const [subscribedSubs, setSubscribedSubs] = useState()
 
     // Auth
     useEffect(() => {
@@ -157,6 +158,35 @@ export function GlobalProvider({ children }) {
 
             setLikedComments(likedCommentsArr)
         })
+
+        return () => unSub()
+
+    }, [user])
+
+    // user subscribed subs
+    useEffect(() => {
+
+        if (!user) return
+
+        async function unSub() {
+            console.log('ok')
+            try {
+                const ref = await getDoc(doc(db, 'users', user.id))
+                console.log(ref.data())
+                
+            } catch (error) {
+                console.log(error)
+            }
+            
+        }
+        // const q = query(ref)
+
+        // const unSub = onSnapshot(q, (querySnapShot) => {
+
+        //     console.log(querySnapShot.doc.data())
+
+        //     // setSubscribedSubs(subscribedSubs)
+        // })
 
         return () => unSub()
 

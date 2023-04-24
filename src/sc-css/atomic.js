@@ -114,7 +114,7 @@ export const MenuSmallTitles = styled.p`
     font-size:10px;
     font-weight:500;
     text-transform:uppercase;
-    color:#878a8c;
+    color:#878A8C;
     padding-left:20px;
     margin-bottom: 1px;
 

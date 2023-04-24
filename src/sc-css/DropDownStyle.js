@@ -15,6 +15,10 @@ export const DropDownContainerStyled = styled.div`
         cursor:pointer;
     }
 
+    &.dark.false:hover {
+        border: 1px solid #343536;
+    }
+
     &.drop-down-menu.not-drop:hover {
         border: 1px solid transparent;
         cursor : default;
@@ -23,7 +27,12 @@ export const DropDownContainerStyled = styled.div`
     &.true {
         border-bottom-right-radius: 0;
         border-bottom-left-radius: 0;
+        border: 1px solid #EDEFF1;
         border-bottom: 1px solid transparent;
+    }
+
+    &.dark.true {
+        border: 1px solid #343536;
     }
 
     &.false {
@@ -34,7 +43,7 @@ export const DropDownContainerStyled = styled.div`
 
 export const DropDownHeaderStyled = styled.div`
     z-index: 2;
-    width: inherit;
+    width: 100%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -46,17 +55,24 @@ export const DropDownHeaderStyled = styled.div`
 
 export const DropDownDisplayed = styled.div`
     position:absolute;
-    top: 40px;
-    left:0;
+    top: 34px;
+    left: -1px;
     background-color : ${lightBackgroundColor};
     display: flex;
     flex-direction:column;
     font-weight:bold;
     font-size: 14px;
-    width:inherit;
-    
-    &.dark{
+    min-width: 100%;
+    border: 1px solid #EDEFF1;
+    border-radius: 4px;
+    border-top: none;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+
+    &.dark {
         background-color : ${darkTwo};
+        border: 1px solid #343536;
+        border-top: none;
     }
 `
 

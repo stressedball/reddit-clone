@@ -11,15 +11,11 @@ export default function ProfileKnown({ handleDisplay, user }) {
                 <UserAvatar user={user} navigation={false} />
             </HorizontalFlex>
 
-            <div>
-                <p style={{ padding: '0', margin: "0" }} className='drop-down-user'>Welcome</p>
-                <p style={{ padding: '0', margin: "0" }} className='drop-down-user'>{user.data.userName}</p>
-            </div>
+            <p style={{ padding: '0', margin: "0" }} className='drop-down-user'>{user.data.userName}</p>
 
             {/* small arrow in dropdown header */}
             <SVGStyled onClick={() => handleDisplay()} className='drop-down-user' viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M759.2 419.8L697.4 358 512 543.4 326.6 358l-61.8 61.8L512 667z" />
             </SVGStyled>
-
         </HorizontalFlex>
     )
 }

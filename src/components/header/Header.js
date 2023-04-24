@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import styled from 'styled-components'
+import { darkDefaultBorder, darkSecondary, lightBackgroundColor, lightDefaultBorder } from '../../sc-css/COLORS'
+import { BlueButton, HorizontalFlex } from '../../sc-css/atomic'
+import { ThemeContext } from '../providers/ThemeProvider'
+import { GlobalContext } from '../providers/GlobalProvider'
+import AuthenticateUser from '../log-in_sign-up/AuthenticateUser'
 import DropDown from './DropDown'
 import DropDownUser from '../drop-down-user/DropDownUser'
 import SearchBar from './SearchBar'
-import { useNavigate } from 'react-router-dom'
-import { ThemeContext } from '../providers/ThemeProvider'
-import styled from 'styled-components'
-import { BlueButton, HorizontalFlex } from '../../sc-css/atomic'
-import { darkDefaultBorder, darkSecondary, lightBackgroundColor, lightDefaultBorder } from '../../sc-css/COLORS'
-import { GlobalContext } from '../providers/GlobalProvider'
-import AuthenticateUser from '../log-in_sign-up/AuthenticateUser'
 
 export default function Header({ dropdownMenu, handleMenuDisplay }) {
 
@@ -17,9 +17,7 @@ export default function Header({ dropdownMenu, handleMenuDisplay }) {
     const { user } = useContext(GlobalContext)
     const [userAuthenticate, setUserAuthenticate] = useState(false)
 
-    useEffect(() => {
-        if (user) { setUserAuthenticate(false) }
-    }, [user])
+    useEffect(() => { if (user) { setUserAuthenticate(false) } }, [user])
 
     const handleLoginScreen = () => { setUserAuthenticate(!userAuthenticate) }
 

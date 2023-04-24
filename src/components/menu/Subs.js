@@ -11,7 +11,7 @@ export default function Subs({ darkMode, subs }) {
 
     return (
         <>
-            <MenuSmallTitles className={`${darkMode} drop-down-menu`} value='Subs'>Communities</MenuSmallTitles>
+            <MenuSmallTitles className={`${darkMode} drop-down-menu`} value='Subs'>Your Communities</MenuSmallTitles>
 
             <Tile className={`${darkMode}`} style={{ gap: '3px' }}>
                 <svg
@@ -28,8 +28,7 @@ export default function Subs({ darkMode, subs }) {
                     </g>
                 </svg>
 
-                <p onClick={() => { setMakeSub(!makeSub) }} style={{ margin: '0', padding: '0' }}
-                
+                <p onClick={() => { setMakeSub(!makeSub) }} style={{ margin: '0', padding: '0', paddingLeft: "8px" }}
                 >Create community</p>
             </Tile>
 
