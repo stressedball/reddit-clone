@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import { useState, useContext } from "react"
+import { useState, useContext, useEffect } from "react"
 import styled from "styled-components"
 import { CreatePostTile, HomeMenuTile } from "../multi-usage/SpecialMenuOptions"
 import { ThemeContext } from "../providers/ThemeProvider"
@@ -12,6 +12,7 @@ export default function Menu({ dropdownMenu, handleMenuDisplay }) {
     const navigate = useNavigate()
     const { darkMode } = useContext(ThemeContext)
     const [inputValue, setInputValue] = useState('')
+    const [closeHover, setCloseHover] = useState('')
 
     const handleFilterSearch = (e) => { setInputValue(e.target.value) }
 
@@ -19,14 +20,19 @@ export default function Menu({ dropdownMenu, handleMenuDisplay }) {
         <div>
             {/* Either close menu or pin menu svg */}
             <div style={{ display: "flex", justifyContent: "end", alignItems: "center" }}  >
-                {dropdownMenu ? null :
-                    // close button
-                    <SVGStyled style={{ width: "32px", height: "32px" }}
-                        onClick={() => handleMenuDisplay()}
-                        viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                        <g id="icomoon-ignore"></g>
-                        <path d="M10.722 9.969l-0.754 0.754 5.278 5.278-5.253 5.253 0.754 0.754 5.253-5.253 5.253 5.253 0.754-0.754-5.253-5.253 5.278-5.278-0.754-0.754-5.278 5.278z" fill="currentColor"></path>
-                    </SVGStyled>}
+                {
+                    dropdownMenu ? null :
+                        // close button
+                        <SVGStyled className={`${darkMode} ${closeHover}`} style={{ marginTop: "16px", marginRight: "8px", padding: "2px", width: "20px", height: "20px" }}
+                            onClick={() => handleMenuDisplay()}
+                            onMouseEnter={() => setCloseHover('hover')}
+                            onMouseLeave={() => setCloseHover('')}
+                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <g id="Menu / Close_LG">
+                                <path id="Vector" d="M21 21L12 12M12 12L3 3M12 12L21.0001 3M12 12L3 21.0001" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                            </g>
+                        </SVGStyled>
+                }
             </div>
 
             <StyledInput onChange={(e) => handleFilterSearch(e)} type='text' id="input" value={inputValue} className={`${darkMode}  drop-down-menu`} placeholder={'Filter'} onClick={(e) => e.stopPropagation()} />
@@ -44,6 +50,7 @@ export default function Menu({ dropdownMenu, handleMenuDisplay }) {
                 <HomeMenuTile />
                 <p style={{ margin: "0", marginLeft: "8px" }}>Home</p>
             </Tile>
+
         </div>
     )
 }
@@ -55,7 +62,9 @@ const StyledInput = styled.input`
     border: 1px solid transparent;
     background-color: #f6f7f8;
     margin-top:4px;
-    
+    margin-right: 24px;
+    width: calc(100% - 48px);
+    box-sizing:border-box;        
     &:hover {
         border : 1px solid #0079d3;
     }

@@ -1,7 +1,7 @@
-import { useNavigate } from "react-router-dom";
-import CreateSub from "./CreateSub";
 import React, { useState } from 'react'
-import { HorizontalFlex, MenuSmallTitles, Tile } from "../../sc-css/atomic";
+import { useNavigate } from "react-router-dom";
+import { HorizontalFlex, MenuSmallTitles, SVGStyled, Tile } from "../../sc-css/atomic";
+import CreateSub from "./CreateSub";
 import SubAvatar from "../multi-usage/SubAvatar";
 
 export default function Subs({ darkMode, subs }) {
@@ -13,10 +13,10 @@ export default function Subs({ darkMode, subs }) {
         <>
             <MenuSmallTitles className={`${darkMode} drop-down-menu`} value='Subs'>Your Communities</MenuSmallTitles>
 
-            <Tile className={`${darkMode}`} style={{ gap: '3px' }}>
-                <svg
-                    fill="currentColor" className={`${darkMode}`}
-                    width="15px" height="15px"
+
+            <Tile onClick={() => { setMakeSub(!makeSub) }}
+                className={`${darkMode}`} style={{ gap: '3px' }}>
+                <SVGStyled className={`${darkMode}`}
                     viewBox="0 0 128 128" id="Layer_1" version="1.1" xmlSpace="preserve" xmlns="http://www.w3.org/2000/svg">
                     <g>
                         <path d="M64,42c-13.2,0-24,10.8-24,24s10.8,24,24,24s24-10.8,24-24S77.2,42,64,42z M64,82c-8.8,0-16-7.2-16-16s7.2-16,16-16   s16,7.2,16,16S72.8,82,64,82z" />
@@ -26,11 +26,13 @@ export default function Subs({ darkMode, subs }) {
                         <path d="M31,47.9c-11.5,0-22.6,4.8-30.4,13.2l5.8,5.5c6.4-6.9,15.2-10.7,24.6-10.7V47.9z" />
                         <path d="M50.1,20C50.1,9.5,41.5,0.9,31,0.9S11.9,9.5,11.9,20S20.5,39.1,31,39.1S50.1,30.5,50.1,20z M31,31.1   c-6.1,0-11.1-5-11.1-11.1S24.9,8.9,31,8.9s11.1,5,11.1,11.1S37.1,31.1,31,31.1z" />
                     </g>
-                </svg>
+                </SVGStyled>
 
-                <p onClick={() => { setMakeSub(!makeSub) }} style={{ margin: '0', padding: '0', paddingLeft: "8px" }}
+                <p style={{ margin: '0', padding: '0', paddingLeft: "8px" }}
                 >Create community</p>
             </Tile>
+
+            {makeSub ? <CreateSub darkMode={darkMode} setMakeSub={setMakeSub} /> : null}
 
             {subs.map(sub => {
                 return (
@@ -47,8 +49,6 @@ export default function Subs({ darkMode, subs }) {
                     </Tile>
                 )
             })}
-
-            {makeSub ? <CreateSub darkMode={darkMode} setMakeSub={setMakeSub} /> : null}
         </>
     )
 }

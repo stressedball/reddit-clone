@@ -1,26 +1,23 @@
 import Users from "../menu/Users"
 import Subs from "../menu/Subs"
-import { useContext, useEffect, useState, useRef } from "react"
+import { useContext, useEffect, useState } from "react"
 import { GlobalContext } from "../providers/GlobalProvider"
 
-export default function FilterFunction({ darkMode, searchString }) {
+export default function FilterFunction({darkMode, searchString }) {
 
-    const { subs, users, user } = useContext(GlobalContext)
+    const { subscribedSubs, subs, user, users } = useContext(GlobalContext)
     const [filteredSubs, setFilteredSubs] = useState()
     const [filteredUsers, setFilteredUsers] = useState()
     const [userSubs, setUserSubs] = useState([])
-    const ref = useRef()
+    
+    useEffect(() => {
+        if (subscribedSubs && subs && user) setUserSubs(subs.filter(sub => subscribedSubs.includes(sub.id)))
+    }, [subscribedSubs, subs, user])
 
     useEffect(() => {
         setFilteredSubs(subsFilterFunction(searchString, subs))
         setFilteredUsers(usersFilterFunction(searchString, users))
     }, [searchString])
-
-    useEffect(() => {
-        if (user && subs) {
-            setUserSubs(subs.filter(sub => user.data.subscribedSubs.includes(sub.id)))
-        }
-    }, [user.data.subscribedSubs, subs])
 
     return (
         <>

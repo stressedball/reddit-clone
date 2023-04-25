@@ -167,29 +167,10 @@ export function GlobalProvider({ children }) {
     useEffect(() => {
 
         if (!user) return
-
-        async function unSub() {
-            console.log('ok')
-            try {
-                const ref = await getDoc(doc(db, 'users', user.id))
-                console.log(ref.data())
-                
-            } catch (error) {
-                console.log(error)
-            }
-            
-        }
-        // const q = query(ref)
-
-        // const unSub = onSnapshot(q, (querySnapShot) => {
-
-        //     console.log(querySnapShot.doc.data())
-
-        //     // setSubscribedSubs(subscribedSubs)
-        // })
-
+        const unSub = onSnapshot(doc(db, 'users', user.id), (doc) => {
+            setSubscribedSubs(doc.data().subscribedSubs)
+        })
         return () => unSub()
-
     }, [user])
 
     const value = {
@@ -199,6 +180,7 @@ export function GlobalProvider({ children }) {
         users,
         likedPosts,
         likedComments,
+        subscribedSubs,
         comments
     }
 

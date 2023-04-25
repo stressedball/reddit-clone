@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useLocation } from 'react-router-dom'
 import { GlobalContext } from '../providers/GlobalProvider'
-import { HorizontalFlex, SVGStyled } from '../../sc-css/atomic'
+import { HorizontalFlex, SVGStyled, HR } from '../../sc-css/atomic'
 import { lightText } from '../../sc-css/COLORS'
 import { ThemeContext } from '../providers/ThemeProvider'
 
@@ -121,14 +121,6 @@ const Button = styled.button`
   &:hover::before {
     opacity: 0.08;
   }
-`
-
-const HR = styled.hr`
-  margin: 16px 0;
-  min-width: 100%; 
-  border: none;
-  background-color: rgb(26 26 27 / 7%); 
-  height: 1px;
 `
 
 const StyledText = styled.p`

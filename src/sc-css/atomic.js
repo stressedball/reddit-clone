@@ -43,7 +43,7 @@ export const SVGStyled = styled.svg`
     height : 20px;
     fill: rgb(135, 138, 140);
 
-    & > path {
+    & path, & * path {
         stroke: rgb(135, 138, 140);
     }
     
@@ -61,6 +61,10 @@ export const SVGStyled = styled.svg`
 
     &.no-hover {
         cursor: default;
+    }
+
+    &.hover {
+        background-color: #EDEFF1;
     }
 `
 
@@ -133,4 +137,12 @@ export const StyledOptionText = styled.p`
         color: rgb(133, 135, 137);
     }
 
+`
+
+export const HR = styled.hr`
+    margin: 16px 0;
+    min-width: 100%; 
+    border: none;
+    background-color: rgb(26 26 27 / 7%); 
+    height: 1px;
 `

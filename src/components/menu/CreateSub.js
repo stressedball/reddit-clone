@@ -1,8 +1,11 @@
 import React, { useRef, useState, useContext } from 'react'
-import { GlobalContext } from '../providers/GlobalProvider'
 import { useNavigate } from 'react-router-dom'
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import { db } from '../../firebase/getAuthDb'
+import styled from 'styled-components'
+import { GlobalContext } from '../providers/GlobalProvider'
+import { lightBackgroundColor } from '../../sc-css/COLORS'
+import { HR, HorizontalFlex, MenuSmallTitles } from '../../sc-css/atomic'
 
 export default function CreateSub({ darkMode, setMakeSub, handleDisplay }) {
 
@@ -26,24 +29,24 @@ export default function CreateSub({ darkMode, setMakeSub, handleDisplay }) {
 
     return (
 
-        <div id='create-sub' className={`${darkMode} drop-down-menu`}>
+        <Container className={`${darkMode} drop-down-menu`}>
 
-            <div id='create-sub-form' className={`${darkMode} drop-down-menu`}>
+            <Form className={`${darkMode} drop-down-menu`}>
 
-                <header className='drop-down-menu'>Create a community</header>
+                <Header className='drop-down-menu'>Create a community</Header>
 
-                <p className='drop-down-menu'>Name</p>
+                <HR></HR>
 
-                <p style={{ fontSize: '0.8rem' }} className='drop-down-menu'
-                >Beware, you can not change the name. <span style={{ fontSize: '0.7rem' }}><strong>Five</strong> characters minimum</span></p>
+                <p style={{ fontSize: "16px", margin: "4px 0", fontWeight: "500" }} className='drop-down-menu'>Name</p>
 
-                <input
+                <MenuSmallTitles style={{ paddingLeft: "0" }} className='drop-down-menu'
+                >Beware, you can not change the name. <strong>Five</strong> characters minimum</MenuSmallTitles>
+
+                <Input
                     className={`${darkMode} drop-down-menu`}
-                    id='create-sub-input'
                     placeholder='r/'
                     ref={subName}
-                    type='text'
-                ></input>
+                    type='text' />
 
                 {
                     error ?
@@ -51,7 +54,7 @@ export default function CreateSub({ darkMode, setMakeSub, handleDisplay }) {
                         : null
                 }
 
-                <div id='buttons-container' className='drop-down-menu'>
+                <LowerBanner className='drop-down-menu'>
 
                     <button className={`${darkMode} buttonStyle drop-down-menu`}
                         onClick={() => setMakeSub(false)}
@@ -63,9 +66,9 @@ export default function CreateSub({ darkMode, setMakeSub, handleDisplay }) {
                         }}
                     >Create community</button>
 
-                </div>
-            </div>
-        </div>
+                </LowerBanner>
+            </Form>
+        </Container>
     )
 }
 
@@ -73,10 +76,55 @@ async function createSub(name, userId) {
 
     const subDoc = await addDoc(collection(db, 'subs'), {
         name: name,
-        dateOfCreation : serverTimestamp(),
+        dateOfCreation: serverTimestamp(),
         creator: userId,
-        description: '',    
+        description: '',
         users: []
     })
     return subDoc.id
 }
+
+const Container = styled.div`
+    position: absolute;
+    height: calc(100vh - 40px);
+    width: 100vw;
+    top: 47px;
+    left: 0;
+    background-color: rgb(28 28 28 / 90%);
+    display: flex;
+    align-items:center;
+    justify-content:center;
+    z-index: 100;   
+`
+
+const Form = styled.div`
+    display: flex;
+    flex-direction:column;
+    justify-content:center;
+    background-color: ${lightBackgroundColor};
+    padding: 16px;
+    border-radius:4px;
+`
+
+const Header = styled.h1`
+    font-weight: 500;
+    font-size: 16px;
+    padding: 8px 0;
+    margin:0 ;
+`
+
+const Input = styled.input`
+    margin-top: 8px;
+    margin-bottom: 8px;
+    border-radius:4px;
+    outline: none;
+    border: 1px solid #EDEFF1;
+    font-size:14px;
+    padding: 10px 18px;
+`
+
+const LowerBanner = styled(HorizontalFlex)`
+    justify-content:flex-end;
+    background-color: #EDEFF1;
+    padding: 16px;
+`
