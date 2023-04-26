@@ -1,21 +1,18 @@
-import React, { useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import { HorizontalFlex, MenuSmallTitles, SVGStyled, Tile } from "../../sc-css/atomic";
-import CreateSub from "./CreateSub";
 import SubAvatar from "../multi-usage/SubAvatar";
 
-export default function Subs({ darkMode, subs }) {
+export default function Subs({ handleCreateSub, darkMode, subs }) {
 
     const navigate = useNavigate()
-    const [makeSub, setMakeSub] = useState(false)
 
     return (
-        <>
+        <div className='drop-down-menu'>
+
             <MenuSmallTitles className={`${darkMode} drop-down-menu`} value='Subs'>Your Communities</MenuSmallTitles>
 
+            <Tile onClick={() => { handleCreateSub() }} className={`${darkMode} drop-down-menu`} style={{ gap: '3px' }}>
 
-            <Tile onClick={() => { setMakeSub(!makeSub) }}
-                className={`${darkMode}`} style={{ gap: '3px' }}>
                 <SVGStyled className={`${darkMode}`}
                     viewBox="0 0 128 128" id="Layer_1" version="1.1" xmlSpace="preserve" xmlns="http://www.w3.org/2000/svg">
                     <g>
@@ -28,11 +25,9 @@ export default function Subs({ darkMode, subs }) {
                     </g>
                 </SVGStyled>
 
-                <p style={{ margin: '0', padding: '0', paddingLeft: "8px" }}
-                >Create community</p>
+                <p className='drop-down-menu' style={{boxSizing:"border-box", margin: '0', padding: '0', paddingLeft: "8px" }}>Create community</p>
             </Tile>
 
-            {makeSub ? <CreateSub darkMode={darkMode} setMakeSub={setMakeSub} /> : null}
 
             {subs.map(sub => {
                 return (
@@ -49,6 +44,6 @@ export default function Subs({ darkMode, subs }) {
                     </Tile>
                 )
             })}
-        </>
+        </div>
     )
 }

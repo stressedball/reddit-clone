@@ -1,12 +1,12 @@
-import { PostVotes } from '../post/PostVotes'
-import PostDetails from '../post/post-options/PostDetails'
-import PostPreviewBody from '../post-preview/PostPreviewBody'
-import { ThemeContext } from '../providers/ThemeProvider'
+import { useContext } from 'react'
 import styled from 'styled-components'
 import { darkTwo, lightBackgroundColor } from '../../sc-css/COLORS'
-import { useContext } from 'react'
-import PostOptions from '../post/post-options/PostOptions'
+import { ThemeContext } from '../providers/ThemeProvider'
 import ImageDisplay from '../multi-usage/ImageDisplay'
+import PostHeader from '../post-preview/PostHeader'
+import PostOptions from '../post/post-options/PostOptions'
+import PostPreviewBody from '../post-preview/PostPreviewBody'
+import { PostVotes } from '../post/PostVotes'
 
 export default function UserPosts({ subs, post }) {
 
@@ -23,8 +23,7 @@ export default function UserPosts({ subs, post }) {
 
             <div>
                 <div style={{ paddingTop: "8px", marginLeft: "8px" }}>
-                    <PostDetails sub={sub} post={post} />
-
+                    <PostHeader sub={sub} post={post} />
                 </div>
 
                 <div style={{ paddingTop: "8px", marginLeft: "8px" }}>

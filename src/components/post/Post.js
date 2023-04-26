@@ -7,11 +7,11 @@ import { SVGStyled, Tile } from '../../sc-css/atomic'
 import { darkMain, darkSecondary, lightBackgroundColor } from '../../sc-css/COLORS'
 import AddComment from './add-comment/AddComment'
 import CommentsList from '../comment/CommentsList'
-import PostDetails from './post-options/PostDetails'
 import PostOptions from './post-options/PostOptions'
 import ImageDisplay from '../multi-usage/ImageDisplay'
 import { PostVotes } from './PostVotes'
 import SideContent from '../home/SideContent'
+import PostHeader from '../post-preview/PostHeader'
 
 export default function Post() {
 
@@ -56,11 +56,11 @@ export default function Post() {
 
               <VerticalFlex style={{ gap: "0", paddingTop: "8px" }}>
 
-                <PostDetails sub={sub} post={post} darkMode={darkMode} />
+                <PostHeader sub={sub} post={post} darkMode={darkMode} />
 
-                <h1 style={{ fontSize: "20px", fontWeight: '500' }}>{post.data.title}</h1>
+                <h1 style={{ fontSize: "20px", fontWeight: '500', margin:"6px 0 12px 0" }}>{post.data.title}</h1>
 
-                <p>{post.data.text}</p>
+                <p style={{ margin: "0", padding: "6px 6px 6px 0" }}>{post.data.text}</p>
 
                 {post.data.image ? <ImageDisplay post={post} /> : null}
 

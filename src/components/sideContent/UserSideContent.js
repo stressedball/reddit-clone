@@ -43,11 +43,10 @@ export default function UserSideContent() {
                 </div>
             </HorizontalFlex>
 
-            {
-                user.id === location[2] ?
-                    <p>based</p>
-                    :
-                    <p>oups</p>
+            { 
+                user? user.id === location[2] ?
+                    <p>based</p> : <p>oups</p>
+                    : null
             }
 
             {

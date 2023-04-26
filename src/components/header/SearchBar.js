@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { darkDefaultBorder, darkThree, lightBorder, lightSecondary, lightText } from "../../sc-css/COLORS"
 import FilterFunction from '../multi-usage/FilterFunction'
 
-export default function SearchBar({ darkMode }) {
+export default function SearchBar({handleCreateSub, darkMode }) {
 
     const [display, setDisplay] = useState(false)
     const [inputValue, setInputValue] = useState('')
@@ -16,13 +16,14 @@ export default function SearchBar({ darkMode }) {
 
     return (
         <Container>
+
             <StyledInput className={`${darkMode} ${activeSearch}`}
                 onClick={() => { setDisplay(!display) }} onChange={e => setInputValue(e.target.value)}
                 placeholder='Search RedditClone' value={inputValue} />
 
             {display ?
                 <DropDown className={darkMode}>
-                    <FilterFunction searchString={inputValue} darkMode={darkMode} />
+                    <FilterFunction handleCreateSub={handleCreateSub} searchString={inputValue} darkMode={darkMode} />
                 </DropDown>
                 : null}
         </Container>
@@ -31,14 +32,15 @@ export default function SearchBar({ darkMode }) {
 
 const DropDown = styled.div`
     position: absolute;
-    top: 41px;
-    left: 0;
+    top: 38px;
+    left: 1px;
     background-color: inherit;
-    width: calc(100% - 2px);
-    border: 1px solid #EDEFF1;
-    border-radius: 4px;
+    border: 1px solid ${lightBorder};
     box-shadow: 0 2px 4px 0 rgb(28 28 28 / 20%);
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
     z-index: 50;
+    width: calc(50vw - 4px);
 
     &.dark {
         border: 1px solid #343536;
@@ -52,7 +54,9 @@ const Container = styled.div`
     position: relative;
     align-self:center;
     background-color: inherit;
-    width: 690px; 
+    max-width: 690px; 
+    box-sizing: border-box;
+    flex: 1;
 `
 
 const StyledInput = styled.input`
@@ -65,7 +69,7 @@ const StyledInput = styled.input`
     font-size:14px;
     padding:0 8px;
     height:100%;
-    width: 690px; 
+    width: 50vw; 
     box-sizing:border-box;
 
     &:hover, &:focus {
@@ -86,6 +90,5 @@ const StyledInput = styled.input`
     &.drop-down {
         border-bottom-right-radius: 0;
         border-bottom-left-radius: 0;
-
     }
 `

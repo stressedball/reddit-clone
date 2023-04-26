@@ -20,7 +20,8 @@ export default function Users({ darkMode, users }) {
                             <div style={{ width: "20px", display: "flex" }}>
                                 <UserAvatar user={user} />
                             </div>
-                            <p style={{ margin: "0" }}>u/{user.data.userName}</p>
+                            
+                            <p style={{ margin: "0", boxSizing: "border-box" }}>u/{user.data.userName}</p>
                         </Tile>
                     )
                 })

@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import CreatePost from './create-post/CreatePost';
 import CreatePostShortcut from './create-post-shortcut/CreatePostShortcut';
+import CreateSub from './menu/CreateSub';
 import Header from './header/Header';
 import Home from '../components/home/Home'
 import Menu from './menu/Menu';
@@ -25,7 +26,8 @@ function App() {
   const [dropdownMenu, setDropdownMenu] = useState(false)
   const [gridArea, setGridArea] = useState('')
   const [display, setDisplay] = useState('')
-  
+  const [makeSub, setMakeSub] = useState(false)
+
   useEffect(() => { }, [darkMode, posts])
 
   useEffect(() => {
@@ -38,17 +40,18 @@ function App() {
   }, [user])
 
   const handleMenuDisplay = () => setDropdownMenu(!dropdownMenu)
+  const handleCreateSub = () => { setMakeSub(!makeSub) }
 
   return (
     <BrowserRouter>
       <StyledApp id='App' className={`${darkMode}`} >
 
-        <Header dropdownMenu={dropdownMenu} handleMenuDisplay={handleMenuDisplay} />
+        <Header handleCreateSub={handleCreateSub} dropdownMenu={dropdownMenu} handleMenuDisplay={handleMenuDisplay} />
 
         <StyledMenu className={`${darkMode} ${gridArea}`}>
           {!user ? <PublicMenu /> :
             dropdownMenu ?
-              null : <Menu dropdownMenu={dropdownMenu} handleMenuDisplay={handleMenuDisplay} />
+              null : <Menu handleCreateSub={handleCreateSub} dropdownMenu={dropdownMenu} handleMenuDisplay={handleMenuDisplay} />
           }
         </StyledMenu>
 
@@ -78,6 +81,9 @@ function App() {
           </StyledOutlet>
         </StyledDiv>
       </StyledApp >
+
+      {makeSub ? <CreateSub darkMode={darkMode} setMakeSub={setMakeSub} /> : null}
+
     </BrowserRouter>
   );
 }
@@ -116,8 +122,8 @@ const StyledOutlet = styled.div`
 const DisplayPreview = styled.div`
   width: 100%;
   gap: 16px;
-    display:flex;
-    flex-direction:column;
+  display:flex;
+  flex-direction:column;
 
   &.private{
     gap:0;

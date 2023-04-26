@@ -10,7 +10,7 @@ import DropDown from './DropDown'
 import DropDownUser from '../drop-down-user/DropDownUser'
 import SearchBar from './SearchBar'
 
-export default function Header({ dropdownMenu, handleMenuDisplay }) {
+export default function Header({ handleCreateSub, dropdownMenu, handleMenuDisplay }) {
 
     const { darkMode } = useContext(ThemeContext)
     const navigate = useNavigate()
@@ -24,13 +24,13 @@ export default function Header({ dropdownMenu, handleMenuDisplay }) {
     return (
         <HeaderStyled className={`${darkMode}`}>
 
-            <HorizontalFlex style={{ gridColumn: "1" }}>
+            <HorizontalFlex>
                 <H3 onClick={() => navigate('/')}>RedditClone</H3>
 
-                {user ? <DropDown darkMode={darkMode} dropdownMenu={dropdownMenu} handleMenuDisplay={handleMenuDisplay} /> : null}
+                {user ? <DropDown darkMode={darkMode} dropdownMenu={dropdownMenu} handleMenuDisplay={handleMenuDisplay} handleCreateSub={handleCreateSub} /> : null}
             </HorizontalFlex>
 
-            <SearchBar darkMode={darkMode} />
+            <SearchBar darkMode={darkMode} handleCreateSub={handleCreateSub} />
 
             <StyledDiv>
                 {user ? null : <BlueButton onClick={() => setUserAuthenticate(true)}>Log In</BlueButton>}
@@ -46,13 +46,13 @@ export default function Header({ dropdownMenu, handleMenuDisplay }) {
 
 const HeaderStyled = styled.header`
     grid-area: 1/1/1/3;
-    display: flex;
+    display: grid;
+    grid-template-columns: auto auto auto;
     align-content: center;
     border-bottom: 1px solid ${lightDefaultBorder};
     background-color: ${lightBackgroundColor};
     padding:0 20px;
-    gap: 12px;
-    width:100%; 
+    max-width:100%; 
 
     &.dark {
         background-color: ${darkSecondary};
@@ -63,6 +63,7 @@ const StyledDiv = styled.div`
     display: flex;
     align-items: center;
     gap:4px;
+    justify-self: flex-end;
 `
 
 const H3 = styled.h3`

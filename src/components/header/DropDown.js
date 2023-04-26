@@ -7,7 +7,7 @@ import { StyledMenu } from '../../sc-css/StyledMenu'
 import { SVGStyled } from '../../sc-css/atomic'
 import { GlobalContext } from '../providers/GlobalProvider'
 
-export default function DropDown({ darkMode, dropdownMenu, handleMenuDisplay }) {
+export default function DropDown({ darkMode, dropdownMenu, handleMenuDisplay, handleCreateSub }) {
 
   const [display, setDisplay] = useState(false)
   const location = useLocation().pathname
@@ -68,9 +68,9 @@ export default function DropDown({ darkMode, dropdownMenu, handleMenuDisplay }) 
       {
         dropdownMenu ?
           display ?
-            <DropDownDisplayed className={darkMode}>
-              <StyledMenu className={`${darkMode}`}>
-                <Menu dropdownMenu={dropdownMenu} handleMenuDisplay={handleMenuDisplay} />
+            <DropDownDisplayed className={`${darkMode} drop-down-menu`}>
+              <StyledMenu className={`${darkMode} drop-down-menu`}>
+                <Menu dropdownMenu={dropdownMenu} handleMenuDisplay={handleMenuDisplay} handleCreateSub={handleCreateSub} />
               </StyledMenu>
             </DropDownDisplayed>
             : null : null

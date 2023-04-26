@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import { useState, useContext, useEffect } from "react"
+import { useState, useContext } from "react"
 import styled from "styled-components"
 import { CreatePostTile, HomeMenuTile } from "../multi-usage/SpecialMenuOptions"
 import { ThemeContext } from "../providers/ThemeProvider"
@@ -7,7 +7,7 @@ import { Tile, SVGStyled } from "../../sc-css/atomic"
 import { darkThree, lightBorder, lightText } from "../../sc-css/COLORS"
 import FilterFunction from "../multi-usage/FilterFunction"
 
-export default function Menu({ dropdownMenu, handleMenuDisplay }) {
+export default function Menu({handleCreateSub, dropdownMenu, handleMenuDisplay }) {
 
     const navigate = useNavigate()
     const { darkMode } = useContext(ThemeContext)
@@ -43,14 +43,13 @@ export default function Menu({ dropdownMenu, handleMenuDisplay }) {
                 <p style={{ margin: '0', marginLeft: "8px" }}>Create Post</p>
             </Tile>
 
-            <FilterFunction darkMode={darkMode} searchString={inputValue} />
+            <FilterFunction handleCreateSub={handleCreateSub} darkMode={darkMode} searchString={inputValue} />
 
             {/* Home */}
             <Tile className={`${darkMode}`} onClick={() => { navigate('/') }}>
                 <HomeMenuTile />
                 <p style={{ margin: "0", marginLeft: "8px" }}>Home</p>
             </Tile>
-
         </div>
     )
 }

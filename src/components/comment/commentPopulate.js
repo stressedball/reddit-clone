@@ -27,12 +27,13 @@ function Queue(arr, comments) {
     const childs = comments.filter(comment => comment.data.thread === arr[0].id)
     
     if (childs.length > 0) {
-        arr[0].hasChilds = true
+        // arr[0].hasChilds = true
         for (let i = 0; i < childs.length; i++) {
-            childs[i].depth = arr[0].depth + 1
+            // childs[i].depth = arr[0].depth + 1
             queue.push(childs[i])
         }
-    } else arr[0].hasChilds = false
+    }
+    // else arr[0].hasChilds = false
     
     commentsArr.push(arr[0])
 

@@ -4,7 +4,7 @@ import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import { db } from '../../firebase/getAuthDb'
 import styled from 'styled-components'
 import { GlobalContext } from '../providers/GlobalProvider'
-import { lightBackgroundColor } from '../../sc-css/COLORS'
+import { darkMain, darkTwo, lightBackgroundColor } from '../../sc-css/COLORS'
 import { HR, HorizontalFlex, MenuSmallTitles } from '../../sc-css/atomic'
 
 export default function CreateSub({ darkMode, setMakeSub, handleDisplay }) {
@@ -29,42 +29,44 @@ export default function CreateSub({ darkMode, setMakeSub, handleDisplay }) {
 
     return (
 
-        <Container className={`${darkMode} drop-down-menu`}>
+        <Container className={`${darkMode}`}>
 
-            <Form className={`${darkMode} drop-down-menu`}>
+            <Form className={`${darkMode}`}>
 
-                <Header className='drop-down-menu'>Create a community</Header>
+                <div style={{ padding: "16px" }}>
+                    
+                    <Header className=''>Create a community</Header>
 
-                <HR></HR>
+                    <HR className={darkMode}></HR>
+                    
+                    <p style={{ fontSize: "16px", margin: "4px 0", fontWeight: "500" }} className=''>Name</p>
 
-                <p style={{ fontSize: "16px", margin: "4px 0", fontWeight: "500" }} className='drop-down-menu'>Name</p>
+                    <MenuSmallTitles style={{ paddingLeft: "0" }} className=''
+                    >Beware, you can not change the name. <strong>Five</strong> characters minimum</MenuSmallTitles>
 
-                <MenuSmallTitles style={{ paddingLeft: "0" }} className='drop-down-menu'
-                >Beware, you can not change the name. <strong>Five</strong> characters minimum</MenuSmallTitles>
+                    <Input
+                        className={`${darkMode} `}
+                        placeholder='r/'
+                        ref={subName}
+                        type='text' />
 
-                <Input
-                    className={`${darkMode} drop-down-menu`}
-                    placeholder='r/'
-                    ref={subName}
-                    type='text' />
+                    {
+                        error ?
+                            <p className='' style={{ fontSize: '0.8rem' }}>Please enter a name of 5 or more characters.</p>
+                            : null
+                    }
 
-                {
-                    error ?
-                        <p className='drop-down-menu' style={{ fontSize: '0.8rem' }}>Please enter a name of 5 or more characters.</p>
-                        : null
-                }
+                </div>
 
-                <LowerBanner className='drop-down-menu'>
+                <LowerBanner className={`${darkMode} `}>
 
-                    <button className={`${darkMode} buttonStyle drop-down-menu`}
+                    <CancelButton className={`${darkMode} `}
                         onClick={() => setMakeSub(false)}
-                    >Cancel</button>
+                    >Cancel</CancelButton>
 
-                    <button className={`${darkMode} buttonStyle drop-down-menu`}
-                        onClick={() => {
-                            handleCreateSub()
-                        }}
-                    >Create community</button>
+                    <ConfirmButton className={`${darkMode} `}
+                        onClick={() => { handleCreateSub() }}
+                    >Create community</ConfirmButton>
 
                 </LowerBanner>
             </Form>
@@ -102,8 +104,13 @@ const Form = styled.div`
     flex-direction:column;
     justify-content:center;
     background-color: ${lightBackgroundColor};
-    padding: 16px;
     border-radius:4px;
+
+    &.dark {
+        background-color: ${darkTwo};
+        border: 1px solid #343536;
+        box-shadow: 0 2px 20px 0 rgba(0,0,0,0.3);
+    }
 `
 
 const Header = styled.h1`
@@ -121,10 +128,100 @@ const Input = styled.input`
     border: 1px solid #EDEFF1;
     font-size:14px;
     padding: 10px 18px;
+    width: 100%;
+    box-sizing: border-box;
 `
 
 const LowerBanner = styled(HorizontalFlex)`
     justify-content:flex-end;
     background-color: #EDEFF1;
-    padding: 16px;
+    padding: 16px;  
+    min-width:100%;
+    box-sizing:border-box;
+    border-radius: 0 0 4px 4px;
+    gap: 6px;
+
+    &.dark {
+        background-color: #343536;
+    }
+`
+
+const Button = styled.button`
+    border-radius: 50px;
+    padding: 4px 16px;
+    min-height:32px;
+    font-weight:bold;
+    border:none;
+    font-size: 14px;
+`
+
+const CancelButton = styled(Button)`
+    border: 1px solid #0079D3;
+    color : #0079D3;
+    position: relative;
+    background-color: inherit;
+
+    &::before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        border-radius:inherit;
+        width: 100%;
+        height: 100%;
+        content:'';
+        background-color: #0079D3;
+        opacity: 0;
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    &:hover::before {
+        opacity: 0.06;
+    }
+
+    &.dark {
+        border: 1px solid #D7DADC;
+        color: #D7DADC;
+    }
+
+    &.dark::before {
+        background-color: #D7DADC;
+    }
+`
+
+const ConfirmButton = styled(Button)`
+    background-color: #0079D3;
+    color : ${lightBackgroundColor};
+    position: relative;
+
+    &::before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        border-radius:inherit;
+        width: 100%;
+        height: 100%;
+        content:'';
+        background-color: ${lightBackgroundColor};
+        opacity: 0;
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    &:hover::before {
+        opacity: 0.06;
+    }
+
+    &.dark {
+        color: ${darkMain};
+        background-color: #D7DADC;
+    }
+
+    &.dark::before {
+        background-color: ${darkMain};
+    }
 `

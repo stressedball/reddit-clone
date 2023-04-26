@@ -17,6 +17,12 @@ export default function DropDownUser() {
     const [logInScreen, setLogInScreen] = useState(false)
     const { darkMode } = useContext(ThemeContext)
 
+    const handleDisplay = () => {
+        setDisplay(!display)
+    }
+    
+    const handleLoginScreen = () => { setLogInScreen(!logInScreen) }
+
     useEffect(() => {
         function toggleDisplay(e) {
             if (display) {
@@ -29,17 +35,12 @@ export default function DropDownUser() {
 
     useEffect(() => { }, [user, logInScreen])
 
-    const handleDisplay = () => {
-        setDisplay(!display)
-    }
-    const handleLoginScreen = () => { setLogInScreen(!logInScreen) }
-
     return (
 
         <DropDownContainerStyled className={`${display} drop-down-user ${darkMode}`}
             style={{ width: "fit-content", padding: "0 8px" }}>
 
-            <DropDownHeaderStyled style={{ width: "175px" }} className={`drop-down-user ${darkMode}`}>
+            <DropDownHeaderStyled className={`drop-down-user ${darkMode}`}>
                 {
                     user ?
                         <ProfileKnown handleDisplay={handleDisplay} user={user} />
@@ -56,7 +57,7 @@ export default function DropDownUser() {
                             user ?
                                 <LogOut darkMode={darkMode} user={user} />
                                 :
-                                <Tile className={`${darkMode} drop-down-user`} onClick={() => { setLogInScreen(true) }}><p>Log In</p></Tile>
+                                <Tile className={`${darkMode} drop-down-user`} onClick={() => { setLogInScreen(true) }}>Log In</Tile>
                         }
                     </DropDownDisplayed>
                     : null

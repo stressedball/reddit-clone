@@ -1,18 +1,9 @@
-import styled from 'styled-components'
-import { GlobalContext } from '../providers/GlobalProvider'
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { StyledLink, LightText, Hoverable } from '../../sc-css/atomic'
+import styled from 'styled-components'
+import { HorizontalFlex, StyledLink, LightText, Hoverable } from '../../sc-css/atomic'
+import { GlobalContext } from '../providers/GlobalProvider'
 import SubAvatar from '../multi-usage/SubAvatar'
-import { HorizontalFlex } from '../../sc-css/atomic'
-
-const Section = styled.section`
-    display: flex;
-    align-items:center;
-    gap:3px;
-    font-size:12px;
-    margin-top: 8px;
-`
 
 export default function PostHeader({ darkMode, post, sub }) {
 
@@ -22,12 +13,7 @@ export default function PostHeader({ darkMode, post, sub }) {
     const [poster, setPoster] = useState()
 
     useEffect(() => {
-
-        if (users) {
-            const user = users.filter(user => user.id === post.data.poster)[0]
-            setPoster(user)
-        }
-
+        if (users) { setPoster(users.filter(user => user.id === post.data.poster)[0]) }
     }, [users])
 
     if (poster === undefined) return <div>Loading</div>
@@ -36,14 +22,15 @@ export default function PostHeader({ darkMode, post, sub }) {
 
         <Section>
             {
-                location.split('/')[1] === 'r' ? null :
+                location.split('/')[1] === 'r' && location.split('/')[3] !== 'p' ? null :
                     <>
-                        {user ? null :
-                            <HorizontalFlex style={{ justifyContent: "center", height: "20px", width: "20px" }}>
+                        {
+                            <HorizontalFlex style={{marginRight:"2px", justifyContent: "center", height: "20px", width: "20px" }}>
                                 <SubAvatar sub={sub} />
-                            </HorizontalFlex>}
+                            </HorizontalFlex>
+                        }
 
-                        <StyledLink onClick={() => navigate(`/r/${sub.id}`)} className={`${darkMode}`}><strong>r/{sub.data.name}</strong></StyledLink>
+                        <StyledLink style={{ marginLeft: "0" }} onClick={() => navigate(`/r/${sub.id}`)} className={`${darkMode}`}><strong>r/{sub.data.name}</strong></StyledLink>
 
                         <LightText>&middot;</LightText>
                     </>
@@ -65,3 +52,10 @@ export default function PostHeader({ darkMode, post, sub }) {
         </Section>
     )
 }
+
+const Section = styled.section`
+    display: flex;
+    align-items:center;
+    gap:3px;
+    font-size:12px;
+`

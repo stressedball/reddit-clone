@@ -38,14 +38,15 @@ const StyledDiv = styled.div`
 `
 
 const Title = styled.h3`
-    margin:0; 
     font-weight: 500;
 
     &.post {
+        margin: 8px 0; 
         font-size:20px;
     }
 
     &.preview {
+        margin: 4px 0 5px 0;
         font-size: 16px;
     }
 

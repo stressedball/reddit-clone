@@ -3,13 +3,13 @@ import Subs from "../menu/Subs"
 import { useContext, useEffect, useState } from "react"
 import { GlobalContext } from "../providers/GlobalProvider"
 
-export default function FilterFunction({darkMode, searchString }) {
+export default function FilterFunction({ darkMode, searchString, handleCreateSub }) {
 
     const { subscribedSubs, subs, user, users } = useContext(GlobalContext)
     const [filteredSubs, setFilteredSubs] = useState()
     const [filteredUsers, setFilteredUsers] = useState()
     const [userSubs, setUserSubs] = useState([])
-    
+
     useEffect(() => {
         if (subscribedSubs && subs && user) setUserSubs(subs.filter(sub => subscribedSubs.includes(sub.id)))
     }, [subscribedSubs, subs, user])
@@ -24,7 +24,7 @@ export default function FilterFunction({darkMode, searchString }) {
             {
                 searchString === '' ?
                     <>
-                        <Subs darkMode={darkMode} subs={userSubs} />
+                        <Subs handleCreateSub={handleCreateSub} darkMode={darkMode} subs={userSubs} />
                         <Users darkMode={darkMode} users={users} />
                     </>
                     :

@@ -42,7 +42,7 @@ export default function PostPreview({ darkMode, post }) {
 
                     {user ? <PreviewPlaceholder darkMode={darkMode} post={post} subId={sub.id} /> : null}
 
-                    <SubContainer>
+                    <SubContainer className={display}>
                         {user ?
                             <>
                                 <PostPreviewBody darkMode={darkMode} post={post} sub={sub} />
@@ -52,6 +52,8 @@ export default function PostPreview({ darkMode, post }) {
                             :
                             <>
                                 <PostHeader post={post} darkMode={darkMode} sub={sub} />
+
+                                <PostPreviewBody darkMode={darkMode} post={post} sub={sub} />
 
                                 <div>
                                     {
@@ -106,16 +108,14 @@ const PostWrapper = styled.div`
     display: flex;
     gap:3px;
     border-radius:inherit;
-
-    & > * {
-        padding-top:8px;
-    }
-
 `
 
 const SubContainer = styled.div`
     display: flex;
     flex-direction: column;
-    flex: 1 0 auto;
     margin-left:8px;
+
+    &.private{
+        flex: 1 0 auto;
+    }
 `

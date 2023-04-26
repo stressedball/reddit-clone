@@ -17,7 +17,7 @@ export default function CommentsCount({ post, darkMode }) {
     if (!postComments) return <div>Loading</div>
 
     const totalComments = commentsPopulate(postComments, comments)
-
+    
     return (
         <HorizontalFlex style={{ gap: "3px" }}>
             <SVGStyled
@@ -29,4 +29,8 @@ export default function CommentsCount({ post, darkMode }) {
             <StyledOptionText>{totalComments.length} Comments</StyledOptionText>
         </HorizontalFlex>
     )
+}
+
+function getCount() {
+
 }

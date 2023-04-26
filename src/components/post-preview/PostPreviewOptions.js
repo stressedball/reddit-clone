@@ -1,16 +1,23 @@
 import styled from 'styled-components';
 import { SVGStyled, Tile } from '../../sc-css/atomic';
 import CommentsCount from '../multi-usage/CommentsCount';
+import { useContext } from 'react';
+import { GlobalContext } from '../providers/GlobalProvider';
 
 export default function PostPreviewOptions({ darkMode, showContent, post }) {
 
+    const { user } = useContext(GlobalContext)
     const handleDisplayText = () => { showContent() }
 
     return (
         <Div>
-            <StyledTile style={{ width: "36px" }} onClick={handleDisplayText}>
-                <ExpandText darkMode={darkMode} />
-            </StyledTile>
+            {
+                user ?
+                <StyledTile style={{ width: "36px" }} onClick={handleDisplayText}>
+                    <ExpandText darkMode={darkMode} />
+                </StyledTile>
+                : null
+            }
 
             <StyledTile>
                 <CommentsCount darkMode={darkMode} post={post} />

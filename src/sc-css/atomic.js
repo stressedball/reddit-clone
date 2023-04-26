@@ -13,11 +13,11 @@ export const BlueButton = styled.button`
     background-color: #0079D3;
     border-radius:12px;
     border:none;
-    padding: 4px 16px ;
+    padding: 4px 16px;
     width: 120px;
     font-size:14px;
     min-height:32px;
-    min-width:32px;
+    min-width: fit-content;
     position:relative;
 
     &::before {
@@ -103,6 +103,8 @@ export const Tile = styled.div`
     display: flex;
     align-items:center;
     padding : 8px 24px;
+    box-sizing:border-box;
+    max-width:100%;
 
     &:hover {
         cursor:pointer;
@@ -132,6 +134,7 @@ export const StyledOptionText = styled.p`
     font-weight: 700;
     color: rgb(135, 138, 140);
     margin: 0;
+    min-width: fit-content;
     
     &.dark{
         color: rgb(133, 135, 137);
@@ -145,4 +148,8 @@ export const HR = styled.hr`
     border: none;
     background-color: rgb(26 26 27 / 7%); 
     height: 1px;
+
+    &.dark {
+        background-color: #343536;
+    }
 `

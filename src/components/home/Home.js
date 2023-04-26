@@ -10,7 +10,7 @@ export default function Home({ }) {
   const { darkMode } = useContext(ThemeContext)
   const [homePosts, setHomePosts] = useState()
 
-  useEffect(() => { if (posts !== undefined) setHomePosts(posts) }, [posts])
+  useEffect(() => { if (posts) setHomePosts(posts) }, [posts])
 
   if (homePosts === undefined) return <div>Loading home page</div>
 

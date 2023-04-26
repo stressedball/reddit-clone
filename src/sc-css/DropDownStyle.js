@@ -3,12 +3,12 @@ import { lightBorder, lightBackgroundColor, darkTwo } from "./COLORS";
 
 export const DropDownContainerStyled = styled.div`  
     position: relative;
-    z-index: 100;
+    z-index: 200;
     border-radius: 4px;
     border: 1px solid transparent;
     font-size:14px;
     font-weight:500;
-    width:270px;
+    min-width: max-content;
 
     &:hover {
         border : 1px solid ${lightBorder};
@@ -43,7 +43,7 @@ export const DropDownContainerStyled = styled.div`
 
 export const DropDownHeaderStyled = styled.div`
     z-index: 2;
-    width: 100%;
+    width: fit-content;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -56,18 +56,25 @@ export const DropDownHeaderStyled = styled.div`
 export const DropDownDisplayed = styled.div`
     position:absolute;
     top: 34px;
-    left: -1px;
     background-color : ${lightBackgroundColor};
     display: flex;
     flex-direction:column;
     font-weight:bold;
     font-size: 14px;
-    min-width: 100%;
+    min-width: max-content;
     border: 1px solid #EDEFF1;
     border-radius: 4px;
     border-top: none;
     border-top-right-radius: 0;
     border-top-left-radius: 0;
+
+    &.drop-down-menu {
+        left: -1px;
+    }
+    
+    &.drop-down-user {
+        right: -1px;
+    }
 
     &.dark {
         background-color : ${darkTwo};
