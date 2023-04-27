@@ -3,6 +3,8 @@ import { useLocation } from 'react-router-dom'
 import { GlobalContext } from '../providers/GlobalProvider'
 import UserPosts from './UserPosts'
 import UserComments from './UserComments'
+import { MainOutlet } from '../../sc-css/atomic'
+import SideContent from '../home/SideContent'
 
 export default function UserSpace() {
 
@@ -65,14 +67,24 @@ export default function UserSpace() {
   if (!userFeed) return <div>Fetching data...</div>
 
   return (
-    userFeed.map(el => {
-      return (
-        el.comment ?
-          <UserComments key={el.comment.id} users={users} user={user} subs={subs} comment={el} />
-          :
-          <UserPosts key={el.id} subs={subs} post={el} />
-      )
-    })
+    <MainOutlet style={{justifyContent:"center"}}>
+      
+      <div>
+        {
+          userFeed.map(el => {
+            return (
+              el.comment ?
+                <UserComments key={el.comment.id} users={users} user={user} subs={subs} comment={el} />
+                :
+                <UserPosts key={el.id} subs={subs} post={el} />
+            )
+          })
+        }
+      </div>
+      
+      <SideContent />
+
+    </MainOutlet>
   )
 }
 

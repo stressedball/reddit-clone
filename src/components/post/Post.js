@@ -12,6 +12,7 @@ import ImageDisplay from '../multi-usage/ImageDisplay'
 import { PostVotes } from './PostVotes'
 import SideContent from '../home/SideContent'
 import PostHeader from '../post-preview/PostHeader'
+import AddCommentFake from './add-comment/AddCommentFake'
 
 export default function Post() {
 
@@ -34,77 +35,50 @@ export default function Post() {
   if (!post) return <div>Loading</div>
 
   return (
+    <PostContainer className={`${darkMode}`}>
 
-    <PostPage>
-      <PostContainer className={`${darkMode}`}>
+      <div style={{ display: "flex", justifyContent: "center", padding:"20px 24px" }}>
 
-        <TileNoHover className={`${darkMode}`} >
-          <SVGStyled
-            style={{ width: "30px", height: "30px" }} onClick={() => navigate(`/r/${subId}`)}
-            viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
-            <g id="icomoon-ignore"></g>
-            <path d="M10.722 9.969l-0.754 0.754 5.278 5.278-5.253 5.253 0.754 0.754 5.253-5.253 5.253 5.253 0.754-0.754-5.253-5.253 5.278-5.278-0.754-0.754-5.278 5.278z" fill="currentColor"></path>
-          </SVGStyled>
-        </TileNoHover>
+        <PostColumn className={`${darkMode}`}>
+          <PostSection className={`${darkMode}`}>
 
-        <div style={{ display: "flex", justifyContent: "center" }}>
+            <PostVotes darkMode={darkMode} user={user} post={post} />
 
-          <PostColumn className={`${darkMode}`}>
-            <PostSection className={`${darkMode}`}>
+            <VerticalFlex style={{ gap: "0", paddingTop: "8px" }}>
 
-              <PostVotes darkMode={darkMode} user={user} post={post} />
+              <PostHeader sub={sub} post={post} darkMode={darkMode} />
 
-              <VerticalFlex style={{ gap: "0", paddingTop: "8px" }}>
+              <h1 style={{ fontSize: "20px", fontWeight: '500', margin: "6px 0 12px 0" }}>{post.data.title}</h1>
 
-                <PostHeader sub={sub} post={post} darkMode={darkMode} />
+              <p style={{ margin: "0", padding: "6px 6px 6px 0" }}>{post.data.text}</p>
 
-                <h1 style={{ fontSize: "20px", fontWeight: '500', margin:"6px 0 12px 0" }}>{post.data.title}</h1>
+              {post.data.image ? <ImageDisplay post={post} /> : null}
 
-                <p style={{ margin: "0", padding: "6px 6px 6px 0" }}>{post.data.text}</p>
+              <PostOptions user={user} post={post} darkMode={darkMode} />
 
-                {post.data.image ? <ImageDisplay post={post} /> : null}
+            </VerticalFlex>
+          </PostSection>
 
-                <PostOptions user={user} post={post} darkMode={darkMode} />
+          {user ?
+            <AddComment post={post} darkMode={darkMode} postId={postId} />
+            :
+            <AddCommentFake darkMode={darkMode} />
+          }
 
-              </VerticalFlex>
-            </PostSection>
+          <CommentsList darkMode={darkMode} post={post} />
 
-            {user ?
-              <AddComment post={post} darkMode={darkMode} postId={postId} />
-              :
-              <p>Log in to comment</p>
-            }
+        </PostColumn>
 
-            <CommentsList darkMode={darkMode} post={post} />
-
-          </PostColumn>
-
-          <SideContent />
-
-        </div>
-      </PostContainer>
-    </PostPage >
+        <SideContent />
+      </div>
+    </PostContainer>
   )
 }
 
-const PostPage = styled.div`
-  position: fixed;
-  left:0;
-  top:48px;
-  width:100vw;
-  z-index:10;
-  background-color:rgb(28 28 28 / 90%);
-  height:100vh;
-  overflow-y: auto;
-  `
-
 const PostContainer = styled.div`
-  margin:auto;
   display: flex;
   flex-direction:column;
   justify-content:center;
-  max-width: 1280px;
-  width: calc(100% - 160px);
   background-color: rgb(218 224 230);
   padding-bottom:48px;
 
@@ -132,7 +106,6 @@ const VerticalFlex = styled.div`
 const PostColumn = styled(VerticalFlex)`
   border-radius:4px;
   width:100%;
-  max-width:740px;
   margin-bottom:20px;
   `
 

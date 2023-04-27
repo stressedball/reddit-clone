@@ -11,21 +11,24 @@ export default function PostHeader({ darkMode, post, sub }) {
     const navigate = useNavigate()
     const { users, user } = useContext(GlobalContext)
     const [poster, setPoster] = useState()
+    const [divMarginTop, setDivMarginTop] = useState(0)
 
     useEffect(() => {
         if (users) { setPoster(users.filter(user => user.id === post.data.poster)[0]) }
     }, [users])
 
+    useEffect(() => { if (!user && location.split('/')[3] !== 'p') setDivMarginTop(8) })
+    
     if (poster === undefined) return <div>Loading</div>
 
     return (
 
-        <Section>
+        <Section style={{ marginTop: `${divMarginTop}px` }}>
             {
                 location.split('/')[1] === 'r' && location.split('/')[3] !== 'p' ? null :
                     <>
                         {
-                            <HorizontalFlex style={{marginRight:"2px", justifyContent: "center", height: "20px", width: "20px" }}>
+                            <HorizontalFlex style={{ marginRight: "2px", justifyContent: "center", height: "20px", width: "20px" }}>
                                 <SubAvatar sub={sub} />
                             </HorizontalFlex>
                         }

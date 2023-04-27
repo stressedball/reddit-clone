@@ -1,17 +1,17 @@
 import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { GlobalContext } from '../providers/GlobalProvider'
 import { HorizontalFlex, SVGStyled, HR } from '../../sc-css/atomic'
-import { lightText } from '../../sc-css/COLORS'
 import { ThemeContext } from '../providers/ThemeProvider'
 
 export default function SubSideContent({ subId }) {
 
   const { darkMode } = useContext(ThemeContext)
-  const { subs } = useContext(GlobalContext)
+  const { subs, user } = useContext(GlobalContext)
   const [sub, setSub] = useState()
   const location = useLocation().pathname
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (subs !== undefined) { setSub(subs.filter(sub => sub.id === subId)[0]) }
@@ -20,8 +20,7 @@ export default function SubSideContent({ subId }) {
   if (sub === undefined) return <div>Loading</div>
 
   return (
-    <div>
-
+    <>
       <p style={{ fontSize: "14px", fontWeight: "700" }}>About Community</p>
 
       <p >{sub.data.description}</p>
@@ -73,12 +72,14 @@ export default function SubSideContent({ subId }) {
         }
       </HorizontalFlex>
 
-      <HR />
-
-      <a href={`${location.split('/')[3] === 'p' ? `/r/${location.split('/')[2]}` : location}/submit`}>
-        <Button className={`${darkMode}`}>Create Post</Button>
-      </a>
-    </div>
+      {
+        user ?
+          <>
+            <HR />
+              <Button onClick={()=> location.split('/')[3] === 'p' ? navigate(`/r/${location.split('/')[2]}/submit`) : navigate(`${location}/submit`)} className={`${darkMode}`}>Create Post</Button>
+          </> : <EmptyDiv />
+      }
+    </>
   )
 }
 
@@ -128,4 +129,10 @@ const StyledText = styled.p`
   font-size: 12px; 
   color: rgb(124, 124, 124); 
   fontWeight: 400;
+`
+
+const EmptyDiv = styled.div`
+  height: 16px;
+  width:100%;
+  content:"";
 `

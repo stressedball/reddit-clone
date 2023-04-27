@@ -3,7 +3,6 @@ import { useLocation } from "react-router-dom";
 import { HorizontalFlex } from "../../sc-css/atomic";
 import UserAvatar from "../multi-usage/UserAvatar";
 import { GlobalContext } from "../providers/GlobalProvider";
-import styled from "styled-components";
 
 export default function UserSideContent() {
 
@@ -12,18 +11,13 @@ export default function UserSideContent() {
     const [userData, setUserData] = useState()
 
     useEffect(() => {
-        document.querySelector('#div-styled-query').style.width = '690px';
-        return () => document.querySelector('#div-styled-query').style.width = '100%';
-    }, [])
-
-    useEffect(() => {
         if (users) { setUserData(users.filter(user => user.id === location[2])[0]) }
     }, [users, location])
 
     if (userData === undefined || user === undefined || subs === undefined) return null
 
     return (
-        <div>
+        <>
             <HorizontalFlex style={{ margin: "auto", height: "auto", width: "calc(100% - 100px)" }}>
                 <UserAvatar user={userData} />
             </HorizontalFlex>
@@ -56,13 +50,7 @@ export default function UserSideContent() {
                         : null
                 })
             }
-        </div>
+        </>
     )
 }
 
-const StyledDiv = styled.div`
-    display:flex;
-    flex-direction: column;
-    align-items:center;
-    justify-content:center;
-`

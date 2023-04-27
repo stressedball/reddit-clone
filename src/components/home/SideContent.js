@@ -40,8 +40,8 @@ export default function SideContent() {
 
 
 const StyledSideContent = styled.div`
-  min-width: 312px;
-  width:312px;
+  max-width:312px;
+  width:100%;
   border: 1px solid ${lightBorder};
   background-color: ${lightBackgroundColor};
   font-size:14px;

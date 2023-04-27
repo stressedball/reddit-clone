@@ -15,8 +15,6 @@ export default function CreatePostShortcut() {
     const navigate = useNavigate()
     const location = useLocation().pathname.split('/')
 
-    if (location[1] === 'u' || location[1] === 'submit' || location[3] === 'submit') return null
-
     return (
         <CreatePostBar className={`${darkMode}`}>
 
@@ -26,8 +24,8 @@ export default function CreatePostShortcut() {
 
             <StyledInput className={`${darkMode}`} placeholder="Create a post"
                 onClick={() => {
-                    if (location[1] === 'r') navigate(`r/${location[2]}/submit`)
-                    else navigate('submit')
+                    if (location[1] === 'r') navigate(`/r/${location[2]}/submit`)
+                    else navigate('/submit')
                 }}
             ></StyledInput>
 

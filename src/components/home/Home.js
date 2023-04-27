@@ -3,6 +3,9 @@ import React, { useContext, useEffect, useState } from 'react'
 import PostPreview from '../post-preview/PostPreview';
 import { ThemeContext } from '../providers/ThemeProvider';
 import styled from 'styled-components';
+import CreatePostShortcut from '../create-post-shortcut/CreatePostShortcut';
+import { HorizontalFlex, MainOutlet } from '../../sc-css/atomic';
+import SideContent from './SideContent';
 
 export default function Home({ }) {
 
@@ -12,7 +15,7 @@ export default function Home({ }) {
 
   useEffect(() => { if (posts) setHomePosts(posts) }, [posts])
 
-  if (homePosts === undefined) return <div>Loading home page</div>
+  if (!homePosts) return <div>Loading home page</div>
 
   // make logic to select "random" posts
   if (!user) return (
@@ -23,19 +26,21 @@ export default function Home({ }) {
 
   // make logic to get user's subscribed subs and display content
   return (
-    <PostPreviewFlex >
-      {
-        homePosts
-          .sort((a, b) => Date.parse(b.data.timeStamp.toDate()) - Date.parse(a.data.timeStamp.toDate()))
-          .map(post => <PostPreview key={post.id} post={post} darkMode={darkMode} />)
-      }
-    </PostPreviewFlex>
+    <MainOutlet>
+
+      <div style={{ flex: "1" }}>
+
+        <CreatePostShortcut />
+
+        {
+          homePosts
+            .sort((a, b) => Date.parse(b.data.timeStamp.toDate()) - Date.parse(a.data.timeStamp.toDate()))
+            .map(post => <PostPreview key={post.id} post={post} darkMode={darkMode} />)
+        }
+      </div>
+
+      <SideContent />
+
+    </MainOutlet>
   )
 }
-
-const PostPreviewFlex = styled.div`
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    width:100%;
-`

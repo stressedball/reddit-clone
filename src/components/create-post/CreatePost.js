@@ -1,14 +1,14 @@
 import { GlobalContext } from '../providers/GlobalProvider'
 import DropDownSub from './DropDownSub'
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import NavBar from './NavBar'
 import CreatePostOptions from './CreatePostOptions'
 import styled from 'styled-components'
 import { darkTwo, lightBackgroundColor, lightBorder } from '../../sc-css/COLORS'
 import { ThemeContext } from '../providers/ThemeProvider'
-
-
+import { MainOutlet } from '../../sc-css/atomic'
+import SideContent from '../home/SideContent'
 
 export default function CreatePost() {
 
@@ -25,46 +25,43 @@ export default function CreatePost() {
 
     const changeSub = (subId) => { setSubId(subId) }
 
-    useEffect(() => {
-        document.querySelector('#div-styled-query').style.width = '690px';
-        return () => document.querySelector('#div-styled-query').style.width = '100%';
-    }, [])
-
     return (
+        <MainOutlet style={{ justifyContent: "center" }}>
+            <Container >
 
-        <Container >
+                <CreatePostStyled className={`${darkMode}`}>
+                    <p>Create Post</p>
+                </CreatePostStyled>
 
-            <CreatePostStyled className={`${darkMode}`}>
-                <p>Create Post</p>
-            </CreatePostStyled>
+                <DropDownSub error={error} setError={setError} changeSub={changeSub} subs={subs}
+                    darkMode={darkMode} />
 
-            <DropDownSub error={error} setError={setError} changeSub={changeSub} subs={subs}
-                darkMode={darkMode} />
+                <Form className={`${darkMode}`}>
 
-            <Form className={`${darkMode}`}>
+                    <NavBar darkMode={darkMode} />
 
-                <NavBar darkMode={darkMode} />
+                    <div style={{ margin: "16px" }}>
 
-                <div style={{ margin: "16px" }}>
+                        <Input className={`${darkMode}`} value={title} onChange={(e) => setTitle(e.target.value)} required={true} placeholder='Title' type='text' />
 
-                    <Input className={`${darkMode}`} value={title} onChange={(e) => setTitle(e.target.value)} required={true} placeholder='Title' type='text' />
+                        {
+                            <div>
+                                {params === '' ? <TextContainer text={text} darkMode={darkMode} setText={setText} /> : null}
+                                {params === 'img' ? <ImageContainer darkMode={darkMode} setImage={setImage} /> : null}
+                                {params === 'poll' ? <PollContainer darkMode={darkMode} /> : null}
+                            </div>
+                        }
+                    </div>
 
-                    {
-                        <div>
-                            {params === '' ? <TextContainer text={text} darkMode={darkMode} setText={setText} /> : null}
-                            {params === 'img' ? <ImageContainer darkMode={darkMode} setImage={setImage} /> : null}
-                            {params === 'poll' ? <PollContainer darkMode={darkMode} /> : null}
-                        </div>
-                    }
-                </div>
+                    <CreatePostOptions notified={notified} darkMode={darkMode}
+                        subId={subId} title={title} text={text} setError={setError}
+                        image={image}
+                    />
 
-                <CreatePostOptions notified={notified} darkMode={darkMode}
-                    subId={subId} title={title} text={text} setError={setError}
-                    image={image}
-                />
-
-            </Form >
-        </Container >
+                </Form >
+            </Container >
+            <SideContent />
+        </MainOutlet>
     )
 }
 

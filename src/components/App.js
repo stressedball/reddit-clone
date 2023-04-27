@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import React, { useContext, useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import CreatePost from './create-post/CreatePost';
-import CreatePostShortcut from './create-post-shortcut/CreatePostShortcut';
 import CreateSub from './menu/CreateSub';
 import Header from './header/Header';
 import Home from '../components/home/Home'
@@ -11,8 +10,6 @@ import Post from './post/Post';
 import PublicMenu from './menu/PublicMenu';
 import Sub from './sub/Sub';
 import SubSettings from './sub/sub-settings.js/SubSettings';
-import SideContent from './home/SideContent';
-import SubHeader from './sub/SubHeader';
 import UserSpace from './user-space/UserSpace';
 import { GlobalContext } from './providers/GlobalProvider';
 import { ThemeContext } from './providers/ThemeProvider';
@@ -37,6 +34,7 @@ function App() {
 
   useEffect(() => {
     if (user) setDisplay('private')
+    else setDisplay('')
   }, [user])
 
   const handleMenuDisplay = () => setDropdownMenu(!dropdownMenu)
@@ -57,28 +55,19 @@ function App() {
 
         <StyledDiv className={`${gridArea}`}>
 
-          <SubHeader darkMode={darkMode} />
+          <DisplayPreview id='div-styled-query' className={`${display}`}>
 
-          <StyledOutlet>
+            <Routes>
+              <Route exact path="/" element={<Home />} />
+              <Route path='r/:subId' element={<Sub />} />
+              <Route path='r/:subId/submit/*' element={<CreatePost />} />
+              <Route path='r/:subId/subSettings' element={<SubSettings />} />
+              <Route path='r/:subId/p/:postId' element={<Post />} />
+              <Route path='u/:userId' element={<UserSpace />} />
+              <Route path='/submit/*' element={<CreatePost />} />
+            </Routes>
+          </DisplayPreview>
 
-            <DisplayPreview id='div-styled-query' className={`${display}`}>
-
-              {user ? <CreatePostShortcut /> : null}
-
-              <Routes>
-                <Route exact path="/" element={<Home />} />
-                <Route path='r/:subId' element={<Sub />} />
-                <Route path='u/:userId' element={<UserSpace />} />
-                <Route path='/submit/*' element={<CreatePost />} />
-                <Route path='r/:subId/submit/*' element={<CreatePost />} />
-                <Route path='r/:subId/subSettings' element={<SubSettings />} />
-                <Route path='r/:subId/p/:postId' element={<Post />} />
-              </Routes>
-            </DisplayPreview>
-
-            <SideContent />
-
-          </StyledOutlet>
         </StyledDiv>
       </StyledApp >
 
@@ -105,27 +94,20 @@ const StyledApp = styled.div`
 
 const StyledDiv = styled.div`
     overflow-y: auto;
+    display:flex;
 
     &.whole {
       grid-area: 2/1/2/3;
     }
-    `
-
-const StyledOutlet = styled.div`
-    display:flex;
-    min-height: fit-content;
-    overflow-y:auto;
-    justify-content:center;
-    padding:20px 24px;
 `
 
 const DisplayPreview = styled.div`
-  width: 100%;
   gap: 16px;
   display:flex;
   flex-direction:column;
 
   &.private{
+    width:100%;
     gap:0;
   }
 `

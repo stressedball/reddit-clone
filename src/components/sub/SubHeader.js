@@ -10,15 +10,6 @@ import { HorizontalFlex } from '../../sc-css/atomic'
 import { darkTwo, lightBackgroundColor } from '../../sc-css/COLORS'
 import { ThemeContext } from '../providers/ThemeProvider'
 
-const StyledDiv = styled.div`
-  background-color:${lightBackgroundColor};
-
-  &.dark {
-    background-color: ${darkTwo};
-    color: inherit;
-  }
-`
-
 export default function SubHeader() {
 
   const [subId, setSubId] = useState()
@@ -57,39 +48,49 @@ export default function SubHeader() {
   }, [subId, subs])
 
   if (sub === undefined || user === undefined) return null
-  if (location.split('/')[1] !== 'r' || location.split('/')[3] === 'submit') return null
+  if (location.split('/')[1] !== 'r' || location.split('/')[3] === 'submit' || location.split('/')[3] === 'p') return null
 
   return (
+    <>
+      <StyledDiv className={`${darkMode}`} >
 
-    <StyledDiv className={`${darkMode}`} >
+        <img src={`${bannerPath}`} style={{ height: "150px", width: "100%" }}></img>
 
-      <img src={`${bannerPath}`} style={{ height: "245px", width: "100%" }}></img>
+        <HorizontalFlex style={{ justifyContent: "space-between", padding: "0 24px" }}>
 
-      <HorizontalFlex style={{ justifyContent: "space-between", padding: "0 24px" }}>
+          <HorizontalFlex style={{ gap: "1rem", marginTop: "-14px" }}>
 
-        <HorizontalFlex style={{ gap: "1rem", marginTop: "-14px" }}>
+            <img src={`${avatarPath}`}
+              style={{
+                height: "80px",
+                width: "80px",
+                borderRadius: '50%',
+                border: "1px solid"
+              }}></img>
 
-          <img src={`${avatarPath}`}
-            style={{
-              height: "80px",
-              width: "80px",
-              borderRadius: '50%',
-              border: "1px solid"
-            }}></img>
+            <h1 style={{ fontSize: "28px", fontWeight: "700" }}>{sub.data.name}</h1>
 
-          <h1 style={{ fontSize: "28px", fontWeight: "700" }}>{sub.data.name}</h1>
+            <SubSubscribe darkMode={darkMode} subs={subs} sub={sub} user={user} />
 
-          <SubSubscribe darkMode={darkMode} subs={subs} sub={sub} user={user} />
+          </HorizontalFlex>
 
+          {
+            user ?
+              sub.data.creator === user.id ?
+                <SubSettingsShortcut darkMode={darkMode} sub={sub} /> : null
+              : null
+          }
         </HorizontalFlex>
-
-        {
-          user ?
-            sub.data.creator === user.id ?
-              <SubSettingsShortcut darkMode={darkMode} sub={sub} /> : null
-            : null
-        }
-      </HorizontalFlex>
-    </StyledDiv>
+      </StyledDiv>
+    </>
   )
 }
+
+const StyledDiv = styled.div`
+  background-color:${lightBackgroundColor};
+  
+  &.dark {
+    background-color: ${darkTwo};
+    color: inherit;
+  }
+`

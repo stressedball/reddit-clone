@@ -3,11 +3,16 @@ import PostPreview from '../post-preview/PostPreview'
 import { useParams } from 'react-router-dom'
 import React, { useContext, useEffect, useState } from 'react'
 import { ThemeContext } from '../providers/ThemeProvider'
+import CreatePostShortcut from '../create-post-shortcut/CreatePostShortcut'
+import SubHeader from './SubHeader'
+import { HorizontalFlex, MainOutlet } from '../../sc-css/atomic'
+import SubSideContent from '../sideContent/SubSideContent'
+import SideContent from '../home/SideContent'
 
 export default function Sub() {
 
-    const { posts } = useContext(GlobalContext)
-    const {darkMode} = useContext(ThemeContext)
+    const { user, posts } = useContext(GlobalContext)
+    const { darkMode } = useContext(ThemeContext)
     const subId = useParams().subId
     const [subPosts, setSubPosts] = useState()
 
@@ -19,14 +24,29 @@ export default function Sub() {
 
     return (
         <>
-            {
-                subPosts.length === 0 ?
-                    <EmptySub />
-                    :
-                    subPosts.map(post => {
-                        return <PostPreview key={post.id} subId={null} post={post} darkMode={darkMode} />
-                    })
-            }
+            <SubHeader />
+
+            <MainOutlet>
+
+                <div style={{ flex: "1" }}>
+
+                    {
+                        user ?
+                            <CreatePostShortcut /> : null
+                    }
+                    {
+                        subPosts.length === 0 ?
+                            <EmptySub />
+                            :
+                            subPosts.map(post => {
+                                return <PostPreview key={post.id} subId={null} post={post} darkMode={darkMode} />
+                            })
+                    }
+                </div>
+
+                <SideContent />
+
+            </MainOutlet>
         </>
     )
 }

@@ -153,3 +153,8 @@ export const HR = styled.hr`
         background-color: #343536;
     }
 `
+
+export const MainOutlet = styled.div`
+    display: flex;
+    padding: 20px 24px;
+`
