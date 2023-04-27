@@ -16,7 +16,7 @@ export default function SideContent() {
 
   useEffect(() => {
 
-    if (location === '/')
+    if (location === '/reddit-clone/')
       setContent(<HomeSideContent darkMode={darkMode} />)
 
     if (location.split('/')[1] === 'r' && location.split('/')[3] !== 'submit')

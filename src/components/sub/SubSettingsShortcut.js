@@ -1,4 +1,3 @@
-import React, {useState} from 'react'
 import { useNavigate } from 'react-router-dom'
 import { HorizontalFlex } from '../../sc-css/atomic'
 
@@ -10,7 +9,7 @@ export default function SubSettingsShortcut({darkMode, sub}) {
         <HorizontalFlex style={{ gap: '1rem' }}>
             <p style={{ fontSize: '0.7rem' }}>Community settings (access to creator only).</p>
             <svg
-                onClick={() => navigate(`r/${sub.id}/subSettings`)}
+                onClick={() => navigate(`/r/${sub.id}/subSettings`)}
                 className={`${darkMode} mouse-pointer`} fill="currentColor" width="30px" height="30px"
                 // 
                 viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">

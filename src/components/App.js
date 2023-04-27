@@ -58,7 +58,7 @@ function App() {
           <DisplayPreview id='div-styled-query' className={`${display}`}>
 
             <Routes>
-              <Route exact path="/" element={<Home />} />
+              <Route exact path="reddit-clone/*" element={<Home />} />
               <Route path='r/:subId' element={<Sub />} />
               <Route path='r/:subId/submit/*' element={<CreatePost />} />
               <Route path='r/:subId/subSettings' element={<SubSettings />} />
@@ -105,9 +105,9 @@ const DisplayPreview = styled.div`
   gap: 16px;
   display:flex;
   flex-direction:column;
+  width:100%;
 
   &.private{
-    width:100%;
     gap:0;
   }
 `

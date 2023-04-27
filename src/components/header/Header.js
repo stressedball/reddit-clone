@@ -25,7 +25,7 @@ export default function Header({ handleCreateSub, dropdownMenu, handleMenuDispla
         <HeaderStyled className={`${darkMode}`}>
 
             <HorizontalFlex>
-                <H3 onClick={() => navigate('/')}>RedditClone</H3>
+                <H3 onClick={() => navigate('reddit-clone/')}>RedditClone</H3>
 
                 {user ? <DropDown darkMode={darkMode} dropdownMenu={dropdownMenu} handleMenuDisplay={handleMenuDisplay} handleCreateSub={handleCreateSub} /> : null}
             </HorizontalFlex>

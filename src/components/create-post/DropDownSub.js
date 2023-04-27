@@ -12,22 +12,27 @@ export default function DropDownSub({ changeSub, darkMode, subs }) {
     const [selectedSub, setSelectedSub] = useState()
     const [inputValue, setInputValue] = useState('')
     const [filteredSubs, setFilteredSubs] = useState([])
+    const [flag, setFlag] = useState(false)
 
     useEffect(() => {
+        if (flag) return
         if (location[1] === 'r') {
-            if (subs && !selectedSub) setSelectedSub(subs.filter(sub => sub.id === location[2])[0])
+            if (subs && !selectedSub && inputValue !== '') {
+                setSelectedSub(subs.filter(sub => sub.id === location[2])[0])
+                setFlag(true)
+            }
         }
     }, [subs, location])
 
     useEffect(() => {
+        if (inputValue === '') setSelectedSub(null)
         setFilteredSubs(subsFilterFunction(inputValue, subs))
-        if (inputValue === '') setSelectedSub()
     }, [inputValue])
 
     useEffect(() => {
         if (selectedSub) {
             setInputValue(selectedSub.data.name)
-        }
+        } else setInputValue('')
     }, [selectedSub])
 
     useEffect(() => {
@@ -97,17 +102,15 @@ function SearchResults({ filteredSubs, handleSubChange }) {
     const [subs, setSubs] = useState([])
 
     useEffect(() => {
-        if (filteredSubs) {
-            setSubs(filteredSubs)
-        }
+        if (filteredSubs) { setSubs(filteredSubs) }
     }, [filteredSubs])
 
     return (
         subs.map(sub => {
             return (
-                <HorizontalFlex onClick={() => handleSubChange(sub)} style={{padding:"8px 0"}}>
+                <HorizontalFlex key={sub.id} onClick={() => handleSubChange(sub)} style={{ padding: "8px 0" }}>
 
-                    <HorizontalFlex style={{ justifyContent: "center", height: "30px", width: "30px", paddingLeft:"8px" }}>
+                    <HorizontalFlex style={{ justifyContent: "center", height: "30px", width: "30px", paddingLeft: "8px" }}>
                         <SubAvatar sub={sub} />
                     </HorizontalFlex>
 

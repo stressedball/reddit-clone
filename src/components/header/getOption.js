@@ -51,7 +51,7 @@ export default function getOption(locationArrStrings, users, subs, darkMode) {
     )
   }
 
-  if (locationArrStrings[1] === '') return (
+  if (locationArrStrings[1] === 'reddit-clone') return (
     <HorizontalFlex>
       <SVGDiv className='drop-down-menu'>
         <HomeMenuTile darkMode={darkMode} />

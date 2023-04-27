@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useState } from 'react'
 import BannerPage from './BannerPage'
 
 export default function BannerSettings({ sub, darkMode }) {

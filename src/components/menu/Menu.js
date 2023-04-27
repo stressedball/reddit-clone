@@ -46,7 +46,7 @@ export default function Menu({handleCreateSub, dropdownMenu, handleMenuDisplay }
             <FilterFunction handleCreateSub={handleCreateSub} darkMode={darkMode} searchString={inputValue} />
 
             {/* Home */}
-            <Tile className={`${darkMode}`} onClick={() => { navigate('/') }}>
+            <Tile className={`${darkMode}`} onClick={() => { navigate('reddit-clone/') }}>
                 <HomeMenuTile />
                 <p style={{ margin: "0", marginLeft: "8px" }}>Home</p>
             </Tile>

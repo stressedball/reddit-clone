@@ -9,20 +9,19 @@ import SideContent from './SideContent';
 
 export default function Home({ }) {
 
-  const { posts, user } = useContext(GlobalContext)
+  const { subs, posts, subscribedSubs, user } = useContext(GlobalContext)
   const { darkMode } = useContext(ThemeContext)
   const [homePosts, setHomePosts] = useState()
 
-  useEffect(() => { if (posts) setHomePosts(posts) }, [posts])
+  useEffect(() => {
+    if (posts && subscribedSubs && subs) {
+      setHomePosts(posts.filter(post => subscribedSubs.includes(post.data.parent)))
+    }
+  }, [posts, subscribedSubs, subs])
 
-  if (!homePosts) return <div>Loading home page</div>
+  if (!homePosts && !posts) return <div>Loading home page</div>
 
   // make logic to select "random" posts
-  if (!user) return (
-    posts.map(post =>
-      <PostPreview key={post.id} post={post} darkMode={darkMode} />
-    )
-  )
 
   // make logic to get user's subscribed subs and display content
   return (
@@ -30,12 +29,22 @@ export default function Home({ }) {
 
       <div style={{ flex: "1" }}>
 
-        <CreatePostShortcut />
-
         {
-          homePosts
-            .sort((a, b) => Date.parse(b.data.timeStamp.toDate()) - Date.parse(a.data.timeStamp.toDate()))
-            .map(post => <PostPreview key={post.id} post={post} darkMode={darkMode} />)
+          user ?
+            <>
+              <CreatePostShortcut />
+              { homePosts ?
+                homePosts
+                  .sort((a, b) => Date.parse(b.data.timeStamp.toDate()) - Date.parse(a.data.timeStamp.toDate()))
+                  .map(post => <PostPreview key={post.id} post={post} darkMode={darkMode} />)
+                  : <p>Loading content</p>
+              }
+            </>
+            :
+            posts ?
+            posts.map(post =>
+              <PostPreview key={post.id} post={post} darkMode={darkMode} />
+            ) : <p>Loading posts</p>
         }
       </div>
 

@@ -32,9 +32,8 @@ export default function SubSettings({ darkMode }) {
     }
 
     useEffect(() => {
-        if (subs !== undefined) {
+        if (subs) {
             if (subs.filter(el => el.id === params.subId)) setSub(() => subs.filter(sub => sub.id === params.subId)[0])
-
         }
     }, [subs])
 
