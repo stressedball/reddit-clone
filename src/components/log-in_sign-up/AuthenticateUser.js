@@ -4,6 +4,38 @@ import SignUp from './SignUp'
 import styled from "styled-components";
 import { SVGStyled } from '../../sc-css/atomic';
 
+export default function AuthenticateUser({ handleLoginScreen }) {
+
+    const [isSignUp, setIsSignUp] = useState(false)
+
+    const handleSignUp = () => setIsSignUp(!isSignUp)
+
+    return (
+        <StyledContainer>
+            <CenteredForm>
+
+                <SVGStyled
+                    onClick={() => { handleLoginScreen() }}
+                    style={{ position: "absolute", height: "30px", width: "30px", top: "5px", right: "5px" }}
+                    viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" >
+                    <g id="icomoon-ignore">
+                    </g>
+                    <path d="M10.722 9.969l-0.754 0.754 5.278 5.278-5.253 5.253 0.754 0.754 5.253-5.253 5.253 5.253 0.754-0.754-5.253-5.253 5.278-5.278-0.754-0.754-5.278 5.278z" fill="currentColor"></path>
+                </SVGStyled>
+
+                <StyledDiv>
+                    {
+                        isSignUp ?
+                            <SignUp handleSignUp={handleSignUp} />
+                            :
+                            <LogIn handleLoginScreen={handleLoginScreen} handleSignUp={handleSignUp} />
+                    }
+                </StyledDiv>
+            </CenteredForm>
+        </StyledContainer>
+    )
+}
+
 const CenteredForm = styled.div`
     border: 1px solid;
     width: fit-content;
@@ -43,35 +75,3 @@ const StyledDiv = styled.div`
     height: fit-content;
     gap:6px;
 `
-
-export default function AuthenticateUser({ handleLoginScreen }) {
-
-    const [isSignUp, setIsSignUp] = useState(false)
-
-    const handleSignUp = () => setIsSignUp(!isSignUp)
-
-    return (
-        <StyledContainer>
-            <CenteredForm>
-
-                <SVGStyled
-                    onClick={() => { handleLoginScreen() }}
-                    style={{ position: "absolute", height: "30px", width: "30px", top: "5px", right: "5px" }}
-                    viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" >
-                    <g id="icomoon-ignore">
-                    </g>
-                    <path d="M10.722 9.969l-0.754 0.754 5.278 5.278-5.253 5.253 0.754 0.754 5.253-5.253 5.253 5.253 0.754-0.754-5.253-5.253 5.278-5.278-0.754-0.754-5.278 5.278z" fill="currentColor"></path>
-                </SVGStyled>
-
-                <StyledDiv>
-                    {
-                        isSignUp ?
-                            <SignUp handleSignUp={handleSignUp} />
-                            :
-                            <LogIn handleLoginScreen={handleLoginScreen} handleSignUp={handleSignUp} />
-                    }
-                </StyledDiv>
-            </CenteredForm>
-        </StyledContainer>
-    )
-}

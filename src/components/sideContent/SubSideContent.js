@@ -61,7 +61,7 @@ export default function SubSideContent({ subId }) {
         <p style={{ margin: "0", fontSize: "14px", color: "rgb(124, 124, 124)", fontWeight: "400" }}>Created {sub.data.dateOfCreation.toDate().toDateString()}</p>
       </HorizontalFlex>
 
-      <HR />
+      <HR className={darkMode} />
 
       <HorizontalFlex style={{ gap: "4px" }}>
         <p style={{ margin: "0", fontSize: "16px", fontWeight: "500" }}>{sub.data.users.length}</p>

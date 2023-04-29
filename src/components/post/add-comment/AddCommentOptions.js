@@ -3,19 +3,20 @@ import { addDoc, collection, serverTimestamp, } from 'firebase/firestore'
 import { lightBorder } from '../../../sc-css/COLORS'
 import styled from 'styled-components'
 import { useEffect, useState } from 'react'
+import { BottomButtonsDiv } from '../../../sc-css/atomic'
 
 export default function AddCommentOptions({ reinitializeComment, darkMode, postId, comment, user }) {
 
     const [buttonEnable, setButtonEnable] = useState()
 
     async function handleComment() {
-        if (comment === undefined || comment === "") return
+        if (!comment || comment === "") return
 
         try {
             addDoc(collection(db, 'comments'),
                 {
                     poster: `${user.id}`,
-                    comment: `${comment}`,
+                    text: `${comment}`,
                     timeStamp: serverTimestamp(),
                     votes: 0,
                     parent: postId
@@ -28,36 +29,19 @@ export default function AddCommentOptions({ reinitializeComment, darkMode, postI
     }
 
     useEffect(() => {
-        if (comment !== undefined && comment !== '') setButtonEnable('enabled')
+        if (comment && comment !== '') setButtonEnable('enabled')
         else setButtonEnable('')
     }, [comment])
 
     return (
-        <StyledDiv className={darkMode}>
+        <BottomButtonsDiv className={darkMode}>
 
             <CommentButton className={`${darkMode} ${buttonEnable}`} onClick={() => handleComment()}
             >Comment</CommentButton>
         
-        </StyledDiv>
+        </BottomButtonsDiv>
     )
 }
-
-const StyledDiv = styled.div`
-    box-sizing: border-box;
-    display:flex;
-    justify-content: end;
-    background-color: #F6F7F8;
-    width: calc(100% - 38px);
-    padding:4px 8px 4px 8px;
-    border-bottom-right-radius: 4px;
-    border-bottom-left-radius: 4px;
-    margin-bottom:12px;
-    border: 1px solid ${lightBorder};
-
-    &.dark {
-        background-color: #272729;
-    }
-`
 
 const CommentButton = styled.button`
     font-size: 12px;

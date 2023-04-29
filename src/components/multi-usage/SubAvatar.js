@@ -23,7 +23,7 @@ export default function SubAvatar({ sub }) {
         <HorizontalFlex className={`${submit}`} style={{ width: 'inherit', height: "inherit" }}>
             {
                 sub.data.avatar ?
-                    <img className={`drop-down-menu ${submit}`} src={`${avatarPath}`} style={{ margin: "auto", maxHeight: "100%", maxWidth: "100%", borderRadius: "50%", border: "1px solid" }} />
+                    <img className={`drop-down-menu ${submit}`} src={`${avatarPath}`} style={{ margin: "auto", height: "100%", width: "100%", borderRadius: "50%", border: "1px solid" }} />
                     :
                     <img className={`drop-down-menu ${submit}`} src="#" style={{ maxHeight: "100%", maxWidth: "100%", borderRadius: "50%" }} />
             }

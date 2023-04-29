@@ -1,12 +1,11 @@
-import React from 'react'
-import Votes from '../multi-usage/Votes'
+import { useContext, useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { collection, doc, setDoc } from 'firebase/firestore'
 import { db } from '../../firebase/getAuthDb'
-import { useContext, useEffect, useState } from 'react'
 import { GlobalContext } from '../providers/GlobalProvider'
-import { useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 import { darkMain, lightSecondary } from '../../sc-css/COLORS'
+import Votes from '../multi-usage/Votes'
 
 export function PostVotes({ darkMode, post }) {
 
@@ -94,7 +93,7 @@ const StyledDiv = styled.div`
     justify-content: start;
     width:40px;
     background-color: ${lightSecondary};
-    padding-top : 8px;
+    padding-top : 4px;
     border-top-left-radius:4px;
     border-bottom-left-radius:4px;
     

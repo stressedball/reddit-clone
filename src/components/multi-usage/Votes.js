@@ -1,17 +1,24 @@
 import { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
 import { GlobalContext } from "../providers/GlobalProvider"
+import AuthenticateUser from "../log-in_sign-up/AuthenticateUser"
 
 export default function Votes({ darkMode, votes, handleVote, upVote, downVote }) {
 
     const { user } = useContext(GlobalContext)
     const [localUpVote, setLocalUpVote] = useState()
     const [localDownVote, setLocalDownVote] = useState()
+    const [flag, setFlag] = useState(false)
 
     const handleUserVote = (e) => {
-        if (user === null) return
+        if (!user) {
+            setFlag(true)
+            return
+        }
         handleVote(e)
     }
+
+    const handleLoginScreen = () => setFlag(false)
 
     useEffect(() => {
         setLocalDownVote(downVote)
@@ -35,6 +42,8 @@ export default function Votes({ darkMode, votes, handleVote, upVote, downVote })
                 data-key="vote"
                 data-value="-1"
                 viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.901 10.566A1.001 1.001 0 0 0 20 10h-4V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v7H4a1.001 1.001 0 0 0-.781 1.625l8 10a1 1 0 0 0 1.562 0l8-10c.24-.301.286-.712.12-1.059z" /></StyledVote>
+
+            {flag ? <AuthenticateUser handleLoginScreen={handleLoginScreen} /> : null}
         </>
     )
 }
@@ -55,11 +64,13 @@ const Count = styled.p`
 
 const StyledVote = styled.svg`
     color: rgb(135, 138, 140);
-    height:22px;
-    width:22px;
+    height:100%;
     fill: none;
     stroke : currentColor;
     stroke-width: 2px;
+    max-height: 22px;
+    padding:4px;
+    border-radius:4px;
 
     &:hover {
         cursor:pointer;

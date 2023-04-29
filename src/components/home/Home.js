@@ -2,9 +2,8 @@ import { GlobalContext } from '../providers/GlobalProvider';
 import React, { useContext, useEffect, useState } from 'react'
 import PostPreview from '../post-preview/PostPreview';
 import { ThemeContext } from '../providers/ThemeProvider';
-import styled from 'styled-components';
 import CreatePostShortcut from '../create-post-shortcut/CreatePostShortcut';
-import { HorizontalFlex, MainOutlet } from '../../sc-css/atomic';
+import { ListDiv, MainOutlet } from '../../sc-css/atomic';
 import SideContent from './SideContent';
 
 export default function Home({ }) {
@@ -12,12 +11,15 @@ export default function Home({ }) {
   const { subs, posts, subscribedSubs, user } = useContext(GlobalContext)
   const { darkMode } = useContext(ThemeContext)
   const [homePosts, setHomePosts] = useState()
+  const [display, setDisplay] = useState('')
 
   useEffect(() => {
     if (posts && subscribedSubs && subs) {
       setHomePosts(posts.filter(post => subscribedSubs.includes(post.data.parent)))
     }
   }, [posts, subscribedSubs, subs])
+
+  useEffect(()=>{if (user) setDisplay('private')}, [user])
 
   if (!homePosts && !posts) return <div>Loading home page</div>
 
@@ -27,26 +29,25 @@ export default function Home({ }) {
   return (
     <MainOutlet>
 
-      <div style={{ flex: "1" }}>
-
+      <ListDiv className={display}>
         {
           user ?
             <>
               <CreatePostShortcut />
-              { homePosts ?
-                homePosts
-                  .sort((a, b) => Date.parse(b.data.timeStamp.toDate()) - Date.parse(a.data.timeStamp.toDate()))
-                  .map(post => <PostPreview key={post.id} post={post} darkMode={darkMode} />)
+              {
+                homePosts ?
+                  homePosts.sort((a, b) => Date.parse(b.data.timeStamp.toDate()) - Date.parse(a.data.timeStamp.toDate()))
+                    .map(post => <PostPreview key={post.id} post={post} darkMode={darkMode} />)
                   : <p>Loading content</p>
               }
             </>
             :
             posts ?
-            posts.map(post =>
-              <PostPreview key={post.id} post={post} darkMode={darkMode} />
-            ) : <p>Loading posts</p>
+                posts.map(post => <PostPreview key={post.id} post={post} darkMode={darkMode} />
+                )
+              : <p>Loading posts</p>
         }
-      </div>
+      </ListDiv>
 
       <SideContent />
 

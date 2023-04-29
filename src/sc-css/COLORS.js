@@ -13,3 +13,4 @@ export const darkThree = 'rgb(39, 39, 41)'
 export const borderColorDark = 'white'
 export const darkHoverLight = 'rgba(255, 255, 255, 0.04)'
 export const darkDefaultBorder = '#343536'
+export const darkBorder = "rgb(52, 53, 54)"

@@ -5,8 +5,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { ThemeContext } from '../providers/ThemeProvider'
 import CreatePostShortcut from '../create-post-shortcut/CreatePostShortcut'
 import SubHeader from './SubHeader'
-import { HorizontalFlex, MainOutlet } from '../../sc-css/atomic'
-import SubSideContent from '../sideContent/SubSideContent'
+import { ListDiv, MainOutlet } from '../../sc-css/atomic'
 import SideContent from '../home/SideContent'
 
 export default function Sub() {
@@ -15,10 +14,16 @@ export default function Sub() {
     const { darkMode } = useContext(ThemeContext)
     const subId = useParams().subId
     const [subPosts, setSubPosts] = useState()
+    const [display, setDisplay] = useState('')
 
     useEffect(() => {
         if (posts) setSubPosts(posts.filter(post => post.data.parent === subId))
     }, [posts, subId])
+
+    useEffect(() => {
+        if (user) setDisplay('private')
+        else setDisplay('')
+    }, [user])
 
     if (!subPosts) return <div>Loading</div>
 
@@ -28,8 +33,7 @@ export default function Sub() {
 
             <MainOutlet>
 
-                <div style={{ flex: "1" }}>
-
+                <ListDiv className={display}>
                     {
                         user ?
                             <CreatePostShortcut /> : null
@@ -42,7 +46,7 @@ export default function Sub() {
                                 return <PostPreview key={post.id} subId={null} post={post} darkMode={darkMode} />
                             })
                     }
-                </div>
+                </ListDiv>
 
                 <SideContent />
 

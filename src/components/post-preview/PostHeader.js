@@ -5,11 +5,11 @@ import { HorizontalFlex, StyledLink, LightText, Hoverable } from '../../sc-css/a
 import { GlobalContext } from '../providers/GlobalProvider'
 import SubAvatar from '../multi-usage/SubAvatar'
 
-export default function PostHeader({ darkMode, post, sub }) {
+export default function PostHeader({ user, darkMode, post, sub }) {
 
     const location = useLocation().pathname
     const navigate = useNavigate()
-    const { users, user } = useContext(GlobalContext)
+    const { users } = useContext(GlobalContext)
     const [poster, setPoster] = useState()
     const [divMarginTop, setDivMarginTop] = useState(0)
 
@@ -17,15 +17,15 @@ export default function PostHeader({ darkMode, post, sub }) {
         if (users) { setPoster(users.filter(user => user.id === post.data.poster)[0]) }
     }, [users])
 
-    useEffect(() => { if (!user && location.split('/')[3] !== 'p') setDivMarginTop(8) })
-    
-    if (poster === undefined) return <div>Loading</div>
+    useEffect(() => { if (!user && location.split('/')[3] !== 'p' && location.split('/')[1] !== 'u') setDivMarginTop(8) })
+
+    if (!poster) return <div>Loading</div>
 
     return (
 
         <Section style={{ marginTop: `${divMarginTop}px` }}>
             {
-                location.split('/')[1] === 'r' && location.split('/')[3] !== 'p' ? null :
+                location.split('/')[1] === 'r' || location.split('/')[3] === 'p' ? null :
                     <>
                         {
                             <HorizontalFlex style={{ marginRight: "2px", justifyContent: "center", height: "20px", width: "20px" }}>
@@ -43,6 +43,8 @@ export default function PostHeader({ darkMode, post, sub }) {
                 onClick={() => navigate(`/u/${poster.id}`)}
                 className={`${darkMode}`}
             >u/{poster.data.userName}</Hoverable></LightText>
+
+            <LightText>&middot;</LightText>
 
             <LightText>{
                 post ?

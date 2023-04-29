@@ -5,20 +5,6 @@ import SubAvatar from '../multi-usage/SubAvatar'
 import { CreatePostTile, HomeMenuTile } from '../multi-usage/SpecialMenuOptions'
 import { HorizontalFlex } from '../../sc-css/atomic'
 
-const SVGDiv = styled.div`
-  width:40px;
-  min-height:100%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-`
-
-const StyledP = styled.h1`
-  margin:0;
-  font-size: 14px;
-  font-weight:500;
-`
-
 export default function getOption(locationArrStrings, users, subs, darkMode) {
 
   if (locationArrStrings[1] === 'r') {
@@ -27,7 +13,7 @@ export default function getOption(locationArrStrings, users, subs, darkMode) {
     return (
       <HorizontalFlex>
         <SVGDiv className='drop-down-menu'>
-          <HorizontalFlex style={{ width: "20px" }}>
+          <HorizontalFlex style={{ width: "20px", height: "20px" }}>
             <SubAvatar sub={sub} />
           </HorizontalFlex>
         </SVGDiv>
@@ -70,3 +56,16 @@ export default function getOption(locationArrStrings, users, subs, darkMode) {
   )
 
 }
+
+const SVGDiv = styled.div`
+  width:40px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+`
+
+const StyledP = styled.h1`
+  margin:0;
+  font-size: 14px;
+  font-weight:500;
+`

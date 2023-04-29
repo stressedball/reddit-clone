@@ -19,23 +19,15 @@ import { StyledMenu } from '../sc-css/StyledMenu';
 function App() {
 
   const { darkMode } = useContext(ThemeContext)
-  const { user, posts } = useContext(GlobalContext)
+  const { user } = useContext(GlobalContext)
   const [dropdownMenu, setDropdownMenu] = useState(false)
   const [gridArea, setGridArea] = useState('')
-  const [display, setDisplay] = useState('')
   const [makeSub, setMakeSub] = useState(false)
 
-  useEffect(() => { }, [darkMode, posts])
-
-  useEffect(() => {
+    useEffect(() => {
     if (dropdownMenu) setGridArea('whole')
     else if (!dropdownMenu || !user) setGridArea('')
   }, [dropdownMenu])
-
-  useEffect(() => {
-    if (user) setDisplay('private')
-    else setDisplay('')
-  }, [user])
 
   const handleMenuDisplay = () => setDropdownMenu(!dropdownMenu)
   const handleCreateSub = () => { setMakeSub(!makeSub) }
@@ -55,10 +47,8 @@ function App() {
 
         <StyledDiv className={`${gridArea}`}>
 
-          <DisplayPreview id='div-styled-query' className={`${display}`}>
-
             <Routes>
-              <Route exact path="reddit-clone/*" element={<Home />} />
+              <Route path="reddit-clone/*" element={<Home />} />
               <Route path='r/:subId' element={<Sub />} />
               <Route path='r/:subId/submit/*' element={<CreatePost />} />
               <Route path='r/:subId/subSettings' element={<SubSettings />} />
@@ -66,7 +56,6 @@ function App() {
               <Route path='u/:userId' element={<UserSpace />} />
               <Route path='/submit/*' element={<CreatePost />} />
             </Routes>
-          </DisplayPreview>
 
         </StyledDiv>
       </StyledApp >
@@ -95,21 +84,11 @@ const StyledApp = styled.div`
 const StyledDiv = styled.div`
     overflow-y: auto;
     display:flex;
+    flex-direction: column;
 
     &.whole {
       grid-area: 2/1/2/3;
     }
-`
-
-const DisplayPreview = styled.div`
-  gap: 16px;
-  display:flex;
-  flex-direction:column;
-  width:100%;
-
-  &.private{
-    gap:0;
-  }
 `
 
 export default App;

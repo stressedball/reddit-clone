@@ -1,10 +1,10 @@
 import styled from "styled-components"
-import { darkHoverLight, lightGrayHover } from "./COLORS";
+import { darkBorder, darkHoverLight, lightGrayHover, lightBorder } from "./COLORS";
 
-export const mousePointer = styled.p`
-    &:hover{
-        cursor:pointer;
-    }
+export const MainOutlet = styled.div`
+    display: flex;
+    padding: 20px 24px;
+    justify-content: center;    
 `
 
 export const BlueButton = styled.button`
@@ -43,6 +43,11 @@ export const SVGStyled = styled.svg`
     height : 20px;
     fill: rgb(135, 138, 140);
 
+    &.small {
+        width : 18px;
+        height : 18px;
+    }
+
     & path, & * path {
         stroke: rgb(135, 138, 140);
     }
@@ -56,11 +61,7 @@ export const SVGStyled = styled.svg`
     }
 
     &:hover {
-        cursor : pointer;
-    }
-
-    &.no-hover {
-        cursor: default;
+        cursor : inherit;
     }
 
     &.hover {
@@ -144,17 +145,138 @@ export const StyledOptionText = styled.p`
 
 export const HR = styled.hr`
     margin: 16px 0;
-    min-width: 100%; 
+    max-width: 100%; 
     border: none;
     background-color: rgb(26 26 27 / 7%); 
     height: 1px;
 
     &.dark {
-        background-color: #343536;
+        background-color: ${darkBorder};
     }
 `
 
-export const MainOutlet = styled.div`
-    display: flex;
-    padding: 20px 24px;
+export const ListDiv = styled.div`
+    gap : 16px;
+    display : flex;
+    flex-direction:column;
+
+    &.private{
+        flex : 1;
+        gap: 0;
+    }
 `
+
+// COMMENTS MOSTLY
+export const CommentActiveContainer = styled.div`
+    box-sizing:border-box;
+    margin-top: 12px;
+    margin-right:40px;
+    display:flex;
+    flex-direction:column;
+`
+
+export const TextArea = styled.textarea`
+    width: 100%;
+    padding:0;
+    resize:vertical;
+    min-height:122px;
+    border:1px solid ${lightBorder};
+    background-color:inherit;
+    border-top-right-radius:4px;
+    border-top-left-radius:4px;
+    border-bottom: none;
+    box-sizing:border-box;
+    content:"";
+    
+    &:focus {
+        outline: none;
+    }
+
+    &.dark {
+        border:1px solid ${darkBorder};
+        color: inherit;
+    }
+`
+
+export const CancelButton = styled.button`
+    color: #0079D3;
+    background-color: inherit;
+    position: relative;
+
+    &::before {
+        content:'';
+        position: absolute;
+        background-color: #0079D3;
+        height:100%;
+        width:100%;
+        top: 0;
+        left: 0;
+        border-radius: inherit;
+        opacity: 0;
+    }
+
+    &.dark::before {
+        background-color: #D7DADC;
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    &:hover::before {
+        opacity: 0.04;
+    }
+
+    &.dark {
+        color: inherit;
+    }
+`
+
+export const ConfirmButton = styled.button`
+    background-color:#364266;
+    filter:grayscale(1);
+    color:rgba(255, 255, 255, 0.5);
+
+    &.enabled {
+        background-color:rgb(74 150 196);
+        filter : none;
+        color: rgb(255 255 255);
+    }
+
+    &.enabled:hover {
+        cursor : pointer;
+    }
+
+    &:hover {
+        cursor: not-allowed;
+    }
+`
+
+export const BottomButtonsDiv = styled.div`
+    box-sizing: border-box;
+    display:flex;
+    justify-content: end;
+    background-color: #F6F7F8;
+    padding:4px 8px 4px 8px;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+    margin-bottom:12px;
+    border: 1px solid ${lightBorder};
+    width:inherit;
+
+    &.dark {
+        background-color: #272729;
+        border: 1px solid ${darkBorder};
+    }
+
+    & > button {
+        font-size: 12px;
+        font-weight:700;
+        margin: 0;
+        border-radius: 14px;
+        padding: 0 20px;
+        margin: auto 8px;
+        height: 24px;
+        border: none;
+    }
+    `

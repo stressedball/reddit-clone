@@ -25,7 +25,7 @@ export default function Subs({ handleCreateSub, darkMode, subs }) {
                     </g>
                 </SVGStyled>
 
-                <p className='drop-down-menu' style={{boxSizing:"border-box", margin: '0', padding: '0', paddingLeft: "8px" }}>Create community</p>
+                <p className='drop-down-menu' style={{ boxSizing: "border-box", margin: '0', padding: '0', paddingLeft: "8px" }}>Create community</p>
             </Tile>
 
 

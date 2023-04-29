@@ -82,4 +82,5 @@ const StyledVotes = styled.div`
     display:flex;
     align-items:center;
     gap:3px;
+    height: 18px;
 `

@@ -19,6 +19,8 @@ export default function FilterFunction({ darkMode, searchString, handleCreateSub
         setFilteredUsers(usersFilterFunction(searchString, users))
     }, [searchString])
 
+    if (!filteredSubs || !filteredUsers) return
+    
     return (
         <>
             {

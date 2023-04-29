@@ -2,20 +2,31 @@ import React, { useState, useContext } from 'react'
 import styled from 'styled-components'
 import { GlobalContext } from '../providers/GlobalProvider'
 import { HorizontalFlex } from '../../sc-css/atomic'
-import { darkTwo, lightBackgroundColor } from '../../sc-css/COLORS'
+import { darkTwo, lightBackgroundColor, lightGrayHover, darkHoverLight } from '../../sc-css/COLORS'
 import CommentOptions from './comment-options/CommentOptions'
 import UserAvatar from '../multi-usage/UserAvatar'
 import { ReplyContainer } from './comment-options/ReplyToComment'
-import { SVGStyled } from '../../sc-css/atomic'
+import AuthenticateUser from '../log-in_sign-up/AuthenticateUser'
+import ExpandComment from './ExpandComment'
+import CommentDateStamp from './CommentDateStamp'
+import EditComment from './EditComment'
 
-export default function Comment({ comments, darkMode, comment }) {
+export function Comment({ comments, darkMode, comment }) {
 
-    const { users } = useContext(GlobalContext)
+    const { users, user } = useContext(GlobalContext)
     const poster = users.filter(user => user.id === comment.data.poster)[0]
     const [reply, setReply] = useState(false)
     const [commentIsExpanded, setCommentIsExpanded] = useState(true)
+    const [flag, setFlag] = useState(false)
+    const [editComment, setEditComment] = useState(false)
 
-    const handleReply = () => setReply(!reply)
+    const handleReply = () => {
+        if (!user) setFlag(true)
+        else setReply(!reply)
+    }
+
+    const handleEdit = () => setEditComment(!editComment)
+    const handleLoginScreen = () => setFlag(!flag)
     const handleCommentExpand = () => setCommentIsExpanded(!commentIsExpanded)
 
     if (!poster || !comment) return <div>Fetching Comment</div>
@@ -28,7 +39,7 @@ export default function Comment({ comments, darkMode, comment }) {
                 commentIsExpanded ?
                     <CommentContainer className={darkMode}>
 
-                        <div style={{ display: "flex", flexDirection: "column", width: "40px", minHeight: "100%" }}>
+                        <div style={{ display: "flex", flexDirection: "column", minWidth: "40px", minHeight: "100%" }}>
 
                             <UserAvatarContainer><UserAvatar navigation={true} user={poster} /></UserAvatarContainer>
 
@@ -43,19 +54,23 @@ export default function Comment({ comments, darkMode, comment }) {
 
                                 <UserName>{poster ? poster.data.userName : null}</UserName>
 
-                                <LightText>&middot; {comment.data.timeStamp === null ? null :
-                                    comment.data.timeStamp.toDate().toDateString()}
-                                </LightText>
+                                <CommentDateStamp comment={comment} />
 
                             </CommentHeader>
 
-                            <div style={{ fontSize: "14px", marginBottom: "6px", marginTop: "6px" }}>
-                                <p style={{ margin: "0" }}>{comment.data.text}</p>
-                            </div>
+                            {
+                                editComment ?
+                                    <EditComment comment={comment} handleEdit={handleEdit} />
+                                    :
+                                    <div style={{ fontSize: "14px", marginBottom: "6px", marginTop: "6px" }}><p style={{ margin: "0" }}>{comment.data.text}</p></div>
 
-                            <CommentOptions handleReply={handleReply} darkMode={darkMode} comment={comment} />
+                            }
 
-                            {reply ? <ReplyContainer handleReply={handleReply} comment={comment} /> : null}
+                            <CommentOptions handleEdit={handleEdit} handleReply={handleReply} darkMode={darkMode} comment={comment} />
+
+                            {
+                                reply ? <ReplyContainer handleReply={handleReply} comment={comment} /> : null
+                            }
 
                             {
                                 comments.filter(c => c.data.thread === comment.id).length > 0 ?
@@ -68,29 +83,16 @@ export default function Comment({ comments, darkMode, comment }) {
                         </div>
                     </CommentContainer>
                     :
-                    <CommentContainer className={darkMode} style={{ alignItems: "center", gap: "3px", paddingLeft: "3px" }}>
-
-                        <SVGStyled onClick={handleCommentExpand}
-                            className={`${darkMode}`} style={{ height: "15px" }}
-                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M22 21.998L16 22v-.998L20.34 21l-5.75-5.751.659-.66L21 20.34l.002-4.34H22zM8 2v.998L3.66 3l5.75 5.751-.659.66L3 3.66 2.998 8H2l.002-6z" />
-                            <path style={{ stroke: "none", fill: "none" }} d="M0 0h24v24H0z" />
-                        </SVGStyled>
-
-                        <UserAvatarContainer style={{ margin: "0" }}><UserAvatar navigation={true} user={poster} /></UserAvatarContainer>
-
-                        <UserName >{poster ? poster.data.userName : null}</UserName>
-
-                        <LightText >&middot; {comment.data.timeStamp ? comment.data.timeStamp.toDate().toDateString() : null}
-                        </LightText>
-
-                    </CommentContainer>
+                    <ExpandComment handleCommentExpand={handleCommentExpand} poster={poster} darkMode={darkMode} comment={comment} />
+            }
+            {
+                flag ? <AuthenticateUser handleLoginScreen={handleLoginScreen} /> : null
             }
         </>
     )
 }
 
-const CommentContainer = styled(HorizontalFlex)`
+export const CommentContainer = styled(HorizontalFlex)`
     padding: 8px 0;
     background-color:${lightBackgroundColor};
     border-radius:inherit;
@@ -111,7 +113,7 @@ const CommentHeader = styled.div`
     padding-top:6px;
 `
 
-const UserName = styled.p`
+export const UserName = styled.p`
     font-size:12px;
     font-weight:700;
     margin:0;
@@ -122,14 +124,7 @@ const UserName = styled.p`
     }
 `
 
-const LightText = styled.p`
-    color: #7c7c7c;
-    font-size:12px;
-    font-weight:400;
-    margin:0;
-`
-
-const UserAvatarContainer = styled(HorizontalFlex)`
+export const UserAvatarContainer = styled(HorizontalFlex)`
     width: 28px;
     height: 28px;
     margin: auto;
@@ -154,3 +149,4 @@ const Thread = styled.div`
         background-color: ${lightBackgroundColor};
     }
 `
+

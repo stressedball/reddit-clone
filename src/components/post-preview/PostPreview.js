@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { darkDefaultBorder, darkTwo, lightBackgroundColor, lightDefaultBorder } from '../../sc-css/COLORS'
+import { darkBorder, darkDefaultBorder, darkTwo, lightBackgroundColor, lightBorder, lightDefaultBorder } from '../../sc-css/COLORS'
 import { GlobalContext } from '../providers/GlobalProvider'
 import ImageDisplay from '../multi-usage/ImageDisplay'
 import PostHeader from './PostHeader'
@@ -81,10 +81,11 @@ export default function PostPreview({ darkMode, post }) {
 
 const Container = styled.div`
     display: flex;
-    border: 1px solid ${lightDefaultBorder};
+    border: 1px solid ${lightBorder};
     border-radius:4px;
     background-color: ${lightBackgroundColor};
-
+    min-width : 690px;
+    
     &:hover {
         border:1px solid #898989;   
     }
@@ -95,7 +96,7 @@ const Container = styled.div`
 
     &.dark {
         background-color: ${darkTwo};
-        border: 1px solid ${darkDefaultBorder};
+        border: 1px solid ${darkBorder};
     }
 
     &.dark:hover {

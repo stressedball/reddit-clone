@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import { useState } from 'react'
 import styled from 'styled-components'
-import Comment from './Comment'
+import {Comment} from './Comment'
 import { HorizontalFlex } from '../../sc-css/atomic'
 import { lightBackgroundColor, darkTwo } from '../../sc-css/COLORS'
 import { GlobalContext } from '../providers/GlobalProvider'
@@ -37,8 +37,8 @@ export default function CommentsList({ darkMode, post }) {
 }
 
 const StyledDiv = styled.div`
-    border-bottom-right-radius: 4px;
-    border-bottom-left-radius: 4px;
+    // border-bottom-right-radius: 4px;
+    // border-bottom-left-radius: 4px;
 `
 
 const CommentContainer = styled(HorizontalFlex)`

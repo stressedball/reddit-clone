@@ -21,12 +21,11 @@ export default function SubHeader() {
   const { darkMode } = useContext(ThemeContext)
 
   useEffect(() => {
-    if (location.split('/')[2]) setSubId(location.split('/')[2])
-    else (setSubId(location.split('/')[4]))
+    if (location.split('/')[1] === 'r') setSubId(location.split('/')[2])
   }, [location])
 
   useEffect(() => {
-    if (subs === undefined || subId === undefined) return
+    if (!subs || !subId) return
 
     const tempSub = subs.filter(sub => sub.id === subId)[0]
     setSub(tempSub)
@@ -47,8 +46,7 @@ export default function SubHeader() {
 
   }, [subId, subs])
 
-  if (sub === undefined || user === undefined) return null
-  if (location.split('/')[1] !== 'r' || location.split('/')[3] === 'submit' || location.split('/')[3] === 'p') return null
+  if(!sub) return<div>Loading</div>
 
   return (
     <>
@@ -68,7 +66,11 @@ export default function SubHeader() {
                 border: "1px solid"
               }}></img>
 
-            <h1 style={{ fontSize: "28px", fontWeight: "700" }}>{sub.data.name}</h1>
+            {
+              sub ?
+              <h1 style={{ fontSize: "28px", fontWeight: "700" }}>{sub.data.name}</h1>
+              : null
+            }
 
             <SubSubscribe darkMode={darkMode} subs={subs} sub={sub} user={user} />
 
