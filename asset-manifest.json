@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/reddit-clone/static/css/main.3176e992.css",
-    "main.js": "/reddit-clone/static/js/main.8e1fb7a1.js",
+    "main.js": "/reddit-clone/static/js/main.e544f24f.js",
     "static/media/OpenSans-Regular.ttf": "/reddit-clone/static/media/OpenSans-Regular.77c09223204154ae8d43.ttf",
     "index.html": "/reddit-clone/index.html",
     "main.3176e992.css.map": "/reddit-clone/static/css/main.3176e992.css.map",
-    "main.8e1fb7a1.js.map": "/reddit-clone/static/js/main.8e1fb7a1.js.map"
+    "main.e544f24f.js.map": "/reddit-clone/static/js/main.e544f24f.js.map"
   },
   "entrypoints": [
     "static/css/main.3176e992.css",
-    "static/js/main.8e1fb7a1.js"
+    "static/js/main.e544f24f.js"
   ]
 }
