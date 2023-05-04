@@ -7,7 +7,7 @@ export default function Users({ darkMode, users }) {
     const navigate = useNavigate()
 
     return (
-        <>
+        <div className="drop-down-menu">
             <MenuSmallTitles className={`${darkMode} drop-down-menu`} value='Users'>Users</MenuSmallTitles>
 
             {
@@ -26,6 +26,6 @@ export default function Users({ darkMode, users }) {
                     )
                 })
             }
-        </>
+        </div>
     )
 }

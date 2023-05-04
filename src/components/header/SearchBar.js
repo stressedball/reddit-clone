@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled from "styled-components"
-import { darkDefaultBorder, darkThree, lightBorder, lightSecondary, lightText } from "../../sc-css/COLORS"
+import { darkDefaultBorder, darkThree, lightBorder, bottomBoxColor, lightText } from "../../sc-css/COLORS"
 import FilterFunction from '../multi-usage/FilterFunction'
 import { SVGStyled } from '../../sc-css/atomic'
 
@@ -64,7 +64,7 @@ const Container = styled.div`
     display: flex;
     border-radius : 1.25rem;
     border: 1px solid ${lightBorder};
-    background-color: ${lightSecondary};
+    background-color: ${bottomBoxColor};
 
     &:hover, &:focus {
         border : 1px solid #0079d3;

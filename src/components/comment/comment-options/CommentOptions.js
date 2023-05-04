@@ -1,8 +1,5 @@
-import React from 'react'
 import { useContext } from 'react'
-import styled from 'styled-components'
-import { HorizontalFlex, Tile } from '../../../sc-css/atomic'
-import { lightGrayHover, darkHoverLight } from '../../../sc-css/COLORS'
+import { HorizontalFlex } from '../../../sc-css/atomic'
 import { GlobalContext } from '../../providers/GlobalProvider'
 import DeleteButton from '../../multi-usage/DeleteButton'
 import EditButton from '../../multi-usage/EditButton'
@@ -34,26 +31,3 @@ export default function CommentOptions({ handleEdit, handleReply, darkMode, comm
         </HorizontalFlex>
     )
 }
-
-export const StyledTile = styled(Tile)`
-    font-size:12px;
-    font-weight:700;
-    padding: 16px 4px;
-    max-height:22px;
-    border-radius:4px;
-    color: rgb(135, 138, 140);
-    display:flex;
-    gap:3px;
-
-    &:hover {
-        background-color:${lightGrayHover};
-    }
-
-    &.dark:hover {
-        background-color:${darkHoverLight};
-    }
-
-    & > p {
-        margin:0;
-    }
-`

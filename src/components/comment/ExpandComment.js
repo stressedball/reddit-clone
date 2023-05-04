@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { SVGStyled } from "../../sc-css/atomic";
 import { lightGrayHover, darkHoverLight } from "../../sc-css/COLORS";
-import { CommentContainer, UserName, UserAvatarContainer } from "./Comment";
+import { UserName, UserAvatarContainer, CommentContainer } from "../../sc-css/CommentStyle";
 import CommentDateStamp from "./CommentDateStamp";
 import UserAvatar from "../multi-usage/UserAvatar";
 

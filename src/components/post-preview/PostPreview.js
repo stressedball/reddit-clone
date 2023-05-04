@@ -40,31 +40,35 @@ export default function PostPreview({ darkMode, post }) {
 
                 <PostWrapper className={`${darkMode}`}>
 
-                    {user ? <PreviewPlaceholder darkMode={darkMode} post={post} subId={sub.id} /> : null}
+                    {
+                        user ? <PreviewPlaceholder darkMode={darkMode} post={post} subId={sub.id} /> : null
+                    }
 
                     <SubContainer className={display}>
-                        {user ?
-                            <>
-                                <PostPreviewBody darkMode={darkMode} post={post} sub={sub} />
 
-                                <PostHeader post={post} darkMode={darkMode} sub={sub} />
-                            </>
-                            :
-                            <>
-                                <PostHeader post={post} darkMode={darkMode} sub={sub} />
+                        {
+                            user ?
+                                <>
+                                    <PostPreviewBody darkMode={darkMode} post={post} sub={sub} />
 
-                                <PostPreviewBody darkMode={darkMode} post={post} sub={sub} />
+                                    <PostHeader post={post} darkMode={darkMode} sub={sub} />
+                                </>
+                                :
+                                <>
+                                    <PostHeader post={post} darkMode={darkMode} sub={sub} />
 
-                                <div>
-                                    {
-                                        post.data.text ? <p>{post.data.text}</p>
-                                            :
-                                            post.data.image ? <ImageDisplay post={post} />
+                                    <PostPreviewBody darkMode={darkMode} post={post} sub={sub} />
+
+                                    <div>
+                                        {
+                                            post.data.text ? <p>{post.data.text}</p>
                                                 :
-                                                <p>poll</p>
-                                    }
-                                </div>
-                            </>
+                                                post.data.image ? <ImageDisplay post={post} />
+                                                    :
+                                                    <p>poll</p>
+                                        }
+                                    </div>
+                                </>
                         }
 
                         <PostPreviewOptions showContent={showContent} darkMode={darkMode} post={post} />
@@ -85,11 +89,16 @@ const Container = styled.div`
     border-radius:4px;
     background-color: ${lightBackgroundColor};
     min-width : 690px;
+    border-bottom:none;
     
     &:hover {
         border:1px solid #898989;   
     }
 
+    &:hover + * {
+        border-top: none;
+    }
+    
     &.private {
         border-radius:0;
     }
@@ -102,7 +111,6 @@ const Container = styled.div`
     &.dark:hover {
         border: 1px solid ${lightDefaultBorder};
     }
-
 `
 
 const PostWrapper = styled.div`

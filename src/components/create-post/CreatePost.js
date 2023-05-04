@@ -1,29 +1,33 @@
 import { GlobalContext } from '../providers/GlobalProvider'
 import DropDownSub from './DropDownSub'
-import React, { useContext, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import NavBar from './NavBar'
 import CreatePostOptions from './CreatePostOptions'
 import styled from 'styled-components'
-import { darkTwo, lightBackgroundColor, lightBorder } from '../../sc-css/COLORS'
+import { darkBorder, darkTwo, lightBackgroundColor, lightBorder } from '../../sc-css/COLORS'
 import { ThemeContext } from '../providers/ThemeProvider'
-import { MainOutlet } from '../../sc-css/atomic'
+import { MainOutlet, TextArea } from '../../sc-css/atomic'
 import SideContent from '../home/SideContent'
 
 export default function CreatePost() {
 
     const { darkMode } = useContext(ThemeContext)
     const { subs } = useContext(GlobalContext)
-    const params = useParams()['*']
+    const params = useParams()
     const [error, setError] = useState(false)
-    const [subId, setSubId] = useState('null')
-
-    const [title, setTitle] = useState()
-    const [text, setText] = useState()
+    const [subId, setSubId] = useState(null)
+    const [defaultSub, setDefaultSub] = useState()
+    const [title, setTitle] = useState('')
+    const [text, setText] = useState('')
     const notified = useRef()
     const [image, setImage] = useState(null)
 
     const changeSub = (subId) => { setSubId(subId) }
+
+    useEffect(() => {
+        if (params.subId && subs) setDefaultSub(subs.filter(sub => sub.id === params.subId)[0])
+    }, [params, subs])
 
     return (
         <MainOutlet style={{ justifyContent: "center" }}>
@@ -33,8 +37,7 @@ export default function CreatePost() {
                     <p>Create Post</p>
                 </CreatePostStyled>
 
-                <DropDownSub error={error} setError={setError} changeSub={changeSub} subs={subs}
-                    darkMode={darkMode} />
+                <DropDownSub defaultSub={defaultSub} error={error} setError={setError} changeSub={changeSub} subs={subs} darkMode={darkMode} />
 
                 <Form className={`${darkMode}`}>
 
@@ -46,9 +49,9 @@ export default function CreatePost() {
 
                         {
                             <div>
-                                {params === '' ? <TextContainer text={text} darkMode={darkMode} setText={setText} /> : null}
-                                {params === 'img' ? <ImageContainer darkMode={darkMode} setImage={setImage} /> : null}
-                                {params === 'poll' ? <PollContainer darkMode={darkMode} /> : null}
+                                {params["*"] === '' ? <TextContainer text={text} darkMode={darkMode} setText={setText} /> : null}
+                                {params["*"] === 'img' ? <ImageContainer darkMode={darkMode} setImage={setImage} /> : null}
+                                {params["*"] === 'poll' ? <PollContainer darkMode={darkMode} /> : null}
                             </div>
                         }
                     </div>
@@ -65,34 +68,18 @@ export default function CreatePost() {
     )
 }
 
-const TextArea = styled.textarea`
-    width: 100%;
-    box-sizing:border-box;
-    resize:vertical;
-    border-radius:4px;
-    border:1px solid #EDEFF1;
-    margin-bottom: 8px;
-    min-height:122px;
-    padding: 8px 16px;
-    
-    &.dark {
-        background-color: ${darkTwo};
-    }
-    
-    &:focus {
-        outline: 1px solid black;
-        border: none;
-    }
-`
+
+// border:1px solid #EDEFF1;
 
 function TextContainer({ darkMode, text, setText }) {
     return (
         <TextArea
-            className={`${darkMode}`}
+            className={`${darkMode} whole`}
             placeholder='Text (required)'
             value={text}
             onChange={(e) => setText(e.target.value)}
             type='text'
+            style={{  marginBottom: "8px" }}
         ></TextArea>
     )
 }
@@ -128,7 +115,7 @@ const Container = styled.div`
 
 const CreatePostStyled = styled.div`
     font-size: 18px;
-    font-wight:500;
+    font-weight:500;
     border-bottom : 1px solid ${lightBackgroundColor};
     margin: 16px 0; 
 
@@ -140,9 +127,11 @@ const CreatePostStyled = styled.div`
 const Form = styled.form`
     background-color: ${lightBackgroundColor};
     border-radius:4px;
+    border: 1px solid ${lightBorder};
 
     &.dark{
         background-color: ${darkTwo};
+        border: 1px solid ${darkBorder};
     }
 `
 
@@ -156,11 +145,17 @@ const Input = styled.input`
     padding: 8px 16px;
 
     &.dark {
+        border: 1px solid ${darkBorder};
         background-color: ${darkTwo};
+        color:inherit;
     }
 
     &:focus {
         outline: 1px solid black;
         border: none;
+    }
+
+    &.dark:focus {
+        border: 1px solid ${lightBorder};
     }
 `

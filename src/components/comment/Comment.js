@@ -1,15 +1,15 @@
 import React, { useState, useContext } from 'react'
 import styled from 'styled-components'
 import { GlobalContext } from '../providers/GlobalProvider'
-import { HorizontalFlex } from '../../sc-css/atomic'
-import { darkTwo, lightBackgroundColor, lightGrayHover, darkHoverLight } from '../../sc-css/COLORS'
-import CommentOptions from './comment-options/CommentOptions'
-import UserAvatar from '../multi-usage/UserAvatar'
-import { ReplyContainer } from './comment-options/ReplyToComment'
+import { CommentContainer, UserName , UserAvatarContainer} from '../../sc-css/CommentStyle'
+import { lightBackgroundColor } from '../../sc-css/COLORS'
 import AuthenticateUser from '../log-in_sign-up/AuthenticateUser'
-import ExpandComment from './ExpandComment'
 import CommentDateStamp from './CommentDateStamp'
+import CommentOptions from './comment-options/CommentOptions'
+import ExpandComment from './ExpandComment'
 import EditComment from './EditComment'
+import { ReplyContainer } from './comment-options/ReplyToComment'
+import UserAvatar from '../multi-usage/UserAvatar'
 
 export function Comment({ comments, darkMode, comment }) {
 
@@ -92,18 +92,6 @@ export function Comment({ comments, darkMode, comment }) {
     )
 }
 
-export const CommentContainer = styled(HorizontalFlex)`
-    padding: 8px 0;
-    background-color:${lightBackgroundColor};
-    border-radius:inherit;
-    display: flex;
-    align-items: stretch;
-    
-    &.dark {
-        background-color:${darkTwo};
-    }
-`
-
 const CommentHeader = styled.div`
     display:flex;
     align-items:center;
@@ -111,23 +99,6 @@ const CommentHeader = styled.div`
     font-size:12px;
     font-weight:500;
     padding-top:6px;
-`
-
-export const UserName = styled.p`
-    font-size:12px;
-    font-weight:700;
-    margin:0;
-
-    &:hover {
-        text-decoration:underline;
-        cursor:pointer;
-    }
-`
-
-export const UserAvatarContainer = styled(HorizontalFlex)`
-    width: 28px;
-    height: 28px;
-    margin: auto;
 `
 
 const Thread = styled.div`

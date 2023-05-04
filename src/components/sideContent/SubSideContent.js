@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { GlobalContext } from '../providers/GlobalProvider'
 import { HorizontalFlex, SVGStyled, HR } from '../../sc-css/atomic'
 import { ThemeContext } from '../providers/ThemeProvider'
+import { lightBackgroundColor, darkButton, darkTwo } from '../../sc-css/COLORS'
 
 export default function SubSideContent({ subId }) {
 
@@ -13,15 +14,15 @@ export default function SubSideContent({ subId }) {
   const location = useLocation().pathname
   const navigate = useNavigate()
 
-  useEffect(() => {
-    if (subs !== undefined) { setSub(subs.filter(sub => sub.id === subId)[0]) }
-  }, [subs, subId])
+  useEffect(() => { if (subs) { setSub(subs.filter(sub => sub.id === subId)[0]) } }, [subs, subId])
 
-  if (sub === undefined) return <div>Loading</div>
+  if (!sub) return <div>Loading</div>
 
   return (
     <>
-      <p style={{ fontSize: "14px", fontWeight: "700" }}>About Community</p>
+      <Header darkMode={darkMode} color={sub.data.skin} className='padded'>
+        <p style={{ color: 'inherit', fontSize: "14px", fontWeight: "700", margin: "0" }}>About Community</p>
+      </Header>
 
       <p >{sub.data.description}</p>
 
@@ -61,42 +62,54 @@ export default function SubSideContent({ subId }) {
         <p style={{ margin: "0", fontSize: "14px", color: "rgb(124, 124, 124)", fontWeight: "400" }}>Created {sub.data.dateOfCreation.toDate().toDateString()}</p>
       </HorizontalFlex>
 
-      <HR className={darkMode} />
+      <HR className={darkMode} style={{ marginLeft: "8px", marginRight: "8px" }} />
 
       <HorizontalFlex style={{ gap: "4px" }}>
         <p style={{ margin: "0", fontSize: "16px", fontWeight: "500" }}>{sub.data.users.length}</p>
-        {sub.data.users.length <= 1 ?
-          <StyledText>Member</StyledText>
-          :
-          <StyledText>Members</StyledText>
+        {
+          sub.data.users.length <= 1 ?
+            <StyledText>Member</StyledText> : <StyledText>Members</StyledText>
         }
       </HorizontalFlex>
 
       {
         user ?
           <>
-            <HR />
-              <Button onClick={()=> location.split('/')[3] === 'p' ? navigate(`/r/${location.split('/')[2]}/submit`) : navigate(`${location}/submit`)} className={`${darkMode}`}>Create Post</Button>
+            <HR className={darkMode} style={{ marginLeft: "8px", marginRight: "8px" }} />
+            <Button backgroundColor={sub.data.skin} darkMode={darkMode}
+              onClick={() => {
+                location.split('/')[3] === 'p' ?
+                  navigate(`/r/${location.split('/')[2]}/submit`) : navigate(`${location}/submit`)
+              }} >Create Post</Button>
           </> : <EmptyDiv />
       }
     </>
   )
 }
 
+const Header = styled.div`
+  background-color: ${props => props.darkMode === 'dark' ? 'inherit' : `${props.color}`};
+  color: ${props => props.darkMode === 'dark' ? 'inherit' : `${lightBackgroundColor}`};
+  border-radius: 4px 4px 0 0;
+
+  &.padded {
+    padding: 14px 8px; 
+  }
+  `
+
 const Button = styled.button`
+  background-color: ${props => props.darkMode === 'dark' ? `${darkButton}` : `${props.backgroundColor}`};
+  color: ${props => props.darkMode === 'dark' ? `${darkTwo}` : `${lightBackgroundColor}`};
   font-size:14px;
   font-weight:700;
-  background-color: #4a96c4;
   min-height: 32px;
-  min-width: 100%;
+  width: calc(100% - 16px);
   padding:4px 0;
   border:none;
   border-radius: 1.5rem;
-  color:#ffffff;
-  margin-bottom:14px;
+  margin: 0 8px 14px 8px;
   box-sizing:border-box;
   position:relative;
-  text-decoration: none;
 
   &::before {
     position: absolute;
@@ -108,11 +121,6 @@ const Button = styled.button`
     background-color: #ffffff;
     content:"";
     opacity: 0;
-  }
-
-  &.dark {
-    color: #1a1a1b;
-    background-color: #d7dadc;
   }
 
   &:hover {

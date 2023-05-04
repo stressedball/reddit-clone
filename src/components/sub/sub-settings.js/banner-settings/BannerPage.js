@@ -1,69 +1,58 @@
 import { doc } from 'firebase/firestore'
 import React, { useEffect, useState } from 'react'
 import { handleBannerSubmit, getBanner } from './bannerData'
+import { Container, ImageContainer, PixelSelector } from '../subSettingsStyle'
+import { BottomButtonsDiv, CancelButton, ConfirmButton } from '../../../../sc-css/atomic'
 
-export default function BannerPage({ darkMode, banner, sub }) {
+export default function BannerPage({ setDisplay, darkMode, banner, sub }) {
 
-    const [display, setDisplay] = useState(false)
     const [bannerPath, setBannerPath] = useState()
     const [deltaDrag, setDelta] = useState()
     const [top, setTop] = useState()
+    const [bannerDimensions, setBannerDimensions] = useState()
 
     useEffect(() => {
-        if (banner !== undefined) {
-
-            setDisplay(true)
-
-            const reader = new FileReader(banner)
-            reader.readAsDataURL(banner)
-            reader.onload = () => {
-                setBannerPath(reader.result)
+        const reader = new FileReader(banner)
+        reader.readAsDataURL(banner)
+        reader.onload = () => {
+            const image = reader.result
+            setBannerPath(image)
+            const img = new Image()
+            img.src = image
+            img.onload = () => {
+                console.log(`Banner width: ${img.width}px, height: ${img.height}px`)
+                setBannerDimensions({ width: img.width, height: img.height })
             }
         }
-
     }, [banner])
 
-    if (!display) return null
-
     return (
-        <div className={`${darkMode}`} id='banner-page'>
+        <Container className={`${darkMode}`} >
 
-            <img id='banner' src={`${bannerPath}`} style={{ maxWidth: "100vw" }} />
+            <div>
+                {
+                    bannerDimensions ?
+                        <ImageContainer style={{ height: `${bannerDimensions.height}px` }}>
+                            <img id='banner' src={`${bannerPath}`} style={{ maxWidth: "100vw" }} />
+                        </ImageContainer>
+                        :
+                        <p>Loading</p>
+                }
+            </div>
+            <BottomButtonsDiv style={{ maxWidth: "500px", alignSelf: "center", justifyContent: "center" }} className={darkMode}>
 
-            <div className={`${darkMode} mouse-pointer`} id="image-selector"
-                draggable={true}
-                onDragStart={async (e) => {
-                    const initialCoord = await getInitialCoords(e)
-                    setDelta(initialCoord)
-                }}
-                onDragEnd={async (e) => {
-                    const temp = await moveBox(e, deltaDrag)
-                    setTop(temp)
-                    console.log(temp)
-                }} 
-            ></div>
+                <CancelButton className={`${darkMode}`} onClick={() => setDisplay(false)}
+                >Cancel</CancelButton>
 
-            <div className='flex horizontal'
-                style={{
-                    width: "100vw", justifyContent: "center", gap: "1rem",
-                    padding: "1rem"
-                }}>
-
-                <button
-                    className={`${darkMode} mouse-pointer buttonStyle`}
-                    onClick={() => setDisplay(false)}
-                >Cancel</button>
-
-                <button
-                    className={`${darkMode} mouse-pointer buttonStyle`}
+                <ConfirmButton className={`${darkMode}`}
                     onClick={() => {
                         getFinalCoords(sub, top, banner.name)
                         setDisplay(false)
                     }}
-                >Confirm</button>
+                >Confirm</ConfirmButton>
 
-            </div>
-        </div>
+            </BottomButtonsDiv>
+        </Container>
     )
 }
 
@@ -95,6 +84,6 @@ function getInitialCoords(e) {
 
 function moveBox(e, deltaDrag) {
     e.target.style = `top: ${e.screenY - deltaDrag}px`
-     
+
     return new Promise((res) => res(e.screenY - deltaDrag))
 }

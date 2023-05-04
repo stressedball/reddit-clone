@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import CreatePost from './create-post/CreatePost';
 import CreateSub from './menu/CreateSub';
+import EditPost from './post/edit-post/EditPost';
 import Header from './header/Header';
 import Home from '../components/home/Home'
 import Menu from './menu/Menu';
@@ -13,7 +14,7 @@ import SubSettings from './sub/sub-settings.js/SubSettings';
 import UserSpace from './user-space/UserSpace';
 import { GlobalContext } from './providers/GlobalProvider';
 import { ThemeContext } from './providers/ThemeProvider';
-import { darkMain, lightMain } from '../sc-css/COLORS';
+import { darkMain, lightBlue } from '../sc-css/COLORS';
 import { StyledMenu } from '../sc-css/StyledMenu';
 
 function App() {
@@ -24,7 +25,7 @@ function App() {
   const [gridArea, setGridArea] = useState('')
   const [makeSub, setMakeSub] = useState(false)
 
-    useEffect(() => {
+  useEffect(() => {
     if (dropdownMenu) setGridArea('whole')
     else if (!dropdownMenu || !user) setGridArea('')
   }, [dropdownMenu])
@@ -47,15 +48,15 @@ function App() {
 
         <StyledDiv className={`${gridArea}`}>
 
-            <Routes>
-              <Route path="reddit-clone/*" element={<Home />} />
-              <Route path='r/:subId' element={<Sub />} />
-              <Route path='r/:subId/submit/*' element={<CreatePost />} />
-              <Route path='r/:subId/subSettings' element={<SubSettings />} />
-              <Route path='r/:subId/p/:postId' element={<Post />} />
-              <Route path='u/:userId' element={<UserSpace />} />
-              <Route path='/submit/*' element={<CreatePost />} />
-            </Routes>
+          <Routes>
+            <Route path="reddit-clone/*" element={<Home />} />
+            <Route path='r/:subId' element={<Sub />} />
+            <Route path='r/:subId/submit/*' element={<CreatePost />} />
+            <Route path='r/:subId/subSettings' element={<SubSettings />} />
+            <Route path='r/:subId/p/:postId' element={<Post />} />
+            <Route path='u/:userId' element={<UserSpace />} />
+            <Route path='/submit/*' element={<CreatePost />} />
+          </Routes>
 
         </StyledDiv>
       </StyledApp >
@@ -68,7 +69,7 @@ function App() {
 
 
 const StyledApp = styled.div`
-  background-color: ${lightMain};
+  background-color: ${lightBlue};
   height:100vh;
   display: grid;
   grid-template-columns: 270px calc(100vw - 270px);

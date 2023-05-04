@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { db } from "../../firebase/getAuthDb";
 import { BottomButtonsDiv, CancelButton, CommentActiveContainer, ConfirmButton, TextArea } from "../../sc-css/atomic";
 import { ThemeContext } from "../providers/ThemeProvider";
+import { doc, setDoc } from "firebase/firestore";
 
 export default function EditComment({ handleEdit, comment }) {
 
@@ -21,9 +22,7 @@ export default function EditComment({ handleEdit, comment }) {
     return (
         <CommentActiveContainer>
 
-            <TextArea className={darkMode} value={newText}
-                onChange={(e) => setNewText(e.target.value)}
-            />
+            <TextArea className={darkMode} value={newText} onChange={(e) => setNewText(e.target.value)} />
 
             <BottomButtonsDiv className={darkMode}>
 
@@ -32,7 +31,7 @@ export default function EditComment({ handleEdit, comment }) {
                 }} className={darkMode}>Cancel</CancelButton>
 
                 <ConfirmButton onClick={() => {
-                    setEditComment(comment, newText)
+                    setEditComment(comment, newText, handleEdit)
                 }} className={`${darkMode} ${isEnabled}`}>Save</ConfirmButton>
 
             </BottomButtonsDiv>
@@ -40,9 +39,17 @@ export default function EditComment({ handleEdit, comment }) {
     )
 }
 
-async function setEditComment(comment, text) {
+async function setEditComment(comment, text, handleEdit) {
     if (comment.data.text === text || text === "") return
 
-    
+    try {
+        setDoc(doc(db, 'comments', comment.id),
+            { text: text },
+            { merge: true }
+        )
+        handleEdit()
+    } catch (error) {
+        alert('problem editing comment, try again')
+    }
 
 }

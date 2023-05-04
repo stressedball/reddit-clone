@@ -1,24 +1,29 @@
-import React from 'react'
+import { useContext } from 'react'
 import { db } from '../../firebase/getAuthDb'
 import { setDoc, doc, arrayUnion, arrayRemove, updateDoc } from 'firebase/firestore'
 import styled from 'styled-components'
-import { lightBorder } from '../../sc-css/COLORS'
+import { darkButton, lightBorder, darkTwo } from '../../sc-css/COLORS'
+import { ThemeContext } from '../providers/ThemeProvider'
 
 
-export default function SubSubscribe({ darkMode, sub, user }) {
+export default function SubSubscribe({ sub, user }) {
+
+  const { darkMode } = useContext(ThemeContext)
 
   if (!user || !sub) return null
 
   if (sub.data.users.filter(e => e === user.id).length > 0) {
     return (
-      <Button
-        onMouseEnter={e => e.target.textContent = "Leave"} onMouseLeave={e => e.target.textContent = "Joined"}
-        onClick={async () => await handleUnSub(sub, user)} className={`${darkMode} joined`}>Joined</Button>
+      <ButtonJoined skin={sub.data.skin} darkMode={darkMode}
+        onMouseEnter={e => e.target.textContent = "Leave"}
+        onMouseLeave={e => e.target.textContent = "Joined"}
+        onClick={async () => await handleUnSub(sub, user)} >Joined</ButtonJoined>
     )
   }
 
   return (
-    <Button onClick={async () => { await handleSub(sub, user) }} className={`${darkMode} join`}>Join</Button>
+    <ButtonJoin skin={sub.data.skin} darkMode={darkMode}
+      onClick={async () => { await handleSub(sub, user) }}>Join</ButtonJoin>
   )
 }
 
@@ -47,20 +52,18 @@ async function handleUnSub(sub, user) {
 
   } catch (error) {
     alert('Subscription to sub failed. Please try again.')
-    console.log(error)
   }
 }
 
 const Button = styled.button`
   width:96px;
-  border:1px solid #4a96c4;
   font-size:14px;
   font-weight:700;
   height:32px;
   border-radius:14px;
-  background-color: inherit;
   position:relative;
-  
+  border: 1px solid;
+
   &::before {
     content:'';
     position : absolute;
@@ -72,38 +75,28 @@ const Button = styled.button`
     opacity:0;
   }
 
-  &.join:hover::before {
-    background:#ffffff;
-    opacity: 0.08;
-  }
-
-  &.joined:hover::before {
-    opacity: 0.04;
-    background-color:#4a96c4;
-  }
-
-  &.join {
-    background-color: #4a96c4;
-    color: #ffffff;
-  }
-
-  &.joined {
-    background-color:inherit;
-    color: #4a96c4;
-  }
-
-  &.dark.join {
-    background-color: #d7dadc;
-    color: #1a1a1b;
-  }
-
   &:hover {
     cursor:pointer;
   }
+`
 
-  &.dark {
-    color: inherit;
-    border: 1px solid ${lightBorder};
+const ButtonJoined = styled(Button)`
+  color: ${props => props.darkMode === 'dark' ? 'inherit' : '#ffffff'};
+  background-color: ${props => props.darkMode === 'dark' ? 'inherit' : props.skin};
+  border-color: ${props => props.darkMode === 'dark'? `${lightBorder}` : props.skin };
+
+  &:hover::before {
+    opacity: 0.04;
+    background-color:#4a96c4;
   }
+`
 
+const ButtonJoin = styled(Button)`
+  background-color: ${props => props.darkMode === "dark" ? `${darkButton}` : props.skin};
+  color: ${props => props.darkMode === "dark" ? `${darkTwo}` : '#ffffff'};
+
+  &:hover::before {
+    background:#ffffff;
+    opacity: 0.08;
+  }
 `

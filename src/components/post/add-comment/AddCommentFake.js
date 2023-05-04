@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { HorizontalFlex  } from "../../../sc-css/atomic";
 import { CreatePostTile } from "../../multi-usage/SpecialMenuOptions";
 import AuthenticateUser from "../../log-in_sign-up/AuthenticateUser";
-import { darkBorder, lightBorder, lightGrayHover, lightSecondary } from "../../../sc-css/COLORS";
+import { darkBorder, lightBorder, lightGrayHover, bottomBoxColor } from "../../../sc-css/COLORS";
 
 export default function AddCommentFake({ darkMode }) {
 

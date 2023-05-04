@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
-import { darkDefaultBorder, darkSecondary, lightBackgroundColor, lightDefaultBorder } from '../../sc-css/COLORS'
+import { darkDefaultBorder, darkTwo, lightBackgroundColor, lightDefaultBorder } from '../../sc-css/COLORS'
 import { BlueButton, HorizontalFlex } from '../../sc-css/atomic'
 import { ThemeContext } from '../providers/ThemeProvider'
 import { GlobalContext } from '../providers/GlobalProvider'
@@ -55,7 +55,7 @@ const HeaderStyled = styled.header`
     max-width:100%; 
 
     &.dark {
-        background-color: ${darkSecondary};
+        background-color: ${darkTwo};
         border-bottom: 1px solid ${darkDefaultBorder};
     }
 `

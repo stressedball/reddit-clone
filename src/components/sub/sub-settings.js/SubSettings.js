@@ -1,13 +1,19 @@
 import React, { useRef, useState, useContext, useEffect } from 'react'
-import { useLocation, useParams } from 'react-router-dom'
-import { GlobalContext } from '../../providers/GlobalProvider'
+import { useParams } from 'react-router-dom'
 import { db } from '../../../firebase/getAuthDb'
 import { setDoc, doc } from 'firebase/firestore'
+import { MainDiv, H2, Text } from './subSettingsStyle'
+import { BottomButtonsDiv, ConfirmButton, HorizontalFlex, MainOutlet, TextArea, HR } from '../../../sc-css/atomic'
+import { GlobalContext } from '../../providers/GlobalProvider'
+import { ThemeContext } from '../../providers/ThemeProvider'
 import AvatarSettings from './avatar-settings/AvatarSettings'
 import BannerSettings from './banner-settings/BannerSettings'
+import SideContent from '../../home/SideContent'
+import SubSkin from './SubSkin'
 
-export default function SubSettings({ darkMode }) {
+export default function SubSettings() {
 
+    const { darkMode } = useContext(ThemeContext)
     const { subs } = useContext(GlobalContext)
     const [sub, setSub] = useState()
     const params = useParams()
@@ -37,59 +43,92 @@ export default function SubSettings({ darkMode }) {
         }
     }, [subs])
 
+    useEffect(() => { if (sub) setDescription(sub.data.description) }, [sub])
 
-    useEffect(() => {
-
-        if (sub !== undefined) setDescription(sub.data.description)
-
-    }, [sub])
-
-    if (sub === undefined) return <div>Loading Sub settings</div>
+    if (!sub) return <div>Loading Sub settings</div>
 
     return (
 
-        <div className='flex vertical' style={{ gap: "1rem", padding:"2rem"}}>
+        <MainOutlet>
+            <MainDiv className={darkMode}>
 
-            <div className='flex horizontal' style={{ gap: "1rem" }}>
+                <HorizontalFlex style={{ alignItems: "baseline" }}>
+                    <H2>r/{sub.data.name}</H2>
+                    <Text>&middot;</Text>
+                    <Text className='bold'>Created {sub.data.dateOfCreation.toDate().toDateString()}</Text>
+                </HorizontalFlex>
+
+                <HR className={darkMode} />
+
                 <AvatarSettings sub={sub} darkMode={darkMode} />
-                <h4>{sub.data.name}</h4>
-                {
-                    sub.data.dateOfCreation ?
-                    <p>Created : {sub.data.dateOfCreation.toDate().toDateString()}</p>
-                    : null
-                }
-            </div>
 
+                <HR className={darkMode} />
+                
+                <div style={{ display: "flex", flexDirection: "column" }}>
 
-            <div>
+                    <Text className='legend'>Change the sub description</Text>
 
-                <p>Sub description</p>
+                    <TextArea
+                        className={`${darkMode}`}
+                        ref={descriptionRef}
+                        value={description}
+                        onChange={(e) => { setDescription(e.target.value) }}
+                    ></TextArea>
 
-                <textarea
-                    style={{ width: "80%", height: "100px" }}
-                    className={`${darkMode}`}
-                    ref={descriptionRef}
-                    value={description}
-                    onChange={(e) => { setDescription(e.target.value) }}
-                ></textarea>
+                    <BottomButtonsDiv className={darkMode}>
+                        <ConfirmButton onClick={handleDescriptionChange} className={`${darkMode}`}>Save Changes</ConfirmButton>
+                        {
+                            confirmSave ?
+                                <p>Changes saved!</p>
+                                : null
+                        }
+                    </BottomButtonsDiv>
 
-            </div>
+                </div>
 
-            <div>
-                <button onClick={handleDescriptionChange} className={`${darkMode} buttonStyle mouse-pointer`}>Save Changes</button>
-                {
-                    confirmSave ?
-                        <p>Changes saved!</p>
-                        : null
-                }
-            </div>
+                <HR className={darkMode} />
+                
+                <BannerSettings sub={sub} darkMode={darkMode} />
 
-            <BannerSettings sub={sub} darkMode={darkMode} />
+                <HR className={darkMode} />
 
-            <div>
-                <p>Users</p>
-            </div>
-        </div>
+                <Text className='legend'>Change the sub skin</Text>
 
+                <SubSkin darkMode={darkMode} sub={sub} />
+
+                <HR className={darkMode} />
+                
+                <div>
+                    <Text className='legend'>Users</Text>
+
+                    <UsersList sub={sub} />
+
+                </div>
+
+            </MainDiv>
+
+            <SideContent />
+
+        </MainOutlet>
+
+    )
+}
+
+function UsersList({ sub }) {
+    const { users } = useContext(GlobalContext)
+    const [members, setMembers] = useState()
+
+    useEffect(() => {
+        if (users) setMembers(users.filter(user => sub.data.users.includes(user.id)))
+    }, [users])
+
+    if (!members) return
+
+    return (
+        members.map(member => {
+            return (
+                <p key={member.id}>{member.data.userName}</p>
+            )
+        })
     )
 }

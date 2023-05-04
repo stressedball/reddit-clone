@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { darkBorder, darkHoverLight, lightGrayHover, lightBorder } from "./COLORS";
+import { darkBorder, darkHoverLight, lightGrayHover, lightBorder, lightDefaultBorder } from "./COLORS";
 
 export const MainOutlet = styled.div`
     display: flex;
@@ -39,33 +39,23 @@ export const BlueButton = styled.button`
 `
 
 export const SVGStyled = styled.svg`
-    width : 20px;
-    height : 20px;
+    width : 22px;
+    height: 22px;
     fill: rgb(135, 138, 140);
+    stroke: rgb(135, 138, 140);
 
     &.small {
         width : 18px;
         height : 18px;
     }
-
-    & path, & * path {
-        stroke: rgb(135, 138, 140);
-    }
     
     &.dark {
-        fill : rgb(215 218 220);
-    }
-
-    &.dark > path {
-        stroke : rgb(215 218 220);
+        fill : rgb(129, 131, 132);
+        stroke : rgb(129, 131, 132);
     }
 
     &:hover {
         cursor : inherit;
-    }
-
-    &.hover {
-        background-color: #EDEFF1;
     }
 `
 
@@ -105,7 +95,18 @@ export const Tile = styled.div`
     align-items:center;
     padding : 8px 24px;
     box-sizing:border-box;
-    max-width:100%;
+    width:100%;
+    border-radius:inherit;
+    height:100%;
+
+    &.option {
+        font-size:12px;
+        font-weight:700;
+        border-radius:4px;
+        padding: 8px;
+        max-width:fit-content;
+        box-sizing: none;
+    }
 
     &:hover {
         cursor:pointer;
@@ -114,6 +115,11 @@ export const Tile = styled.div`
     
     &.dark:hover {
         background-color: ${darkHoverLight};
+    }
+
+    &.no-hover:hover {
+        cursor:default;
+        background-color:unset;
     }
 `
 
@@ -149,6 +155,7 @@ export const HR = styled.hr`
     border: none;
     background-color: rgb(26 26 27 / 7%); 
     height: 1px;
+    box-sizing:border-box;
 
     &.dark {
         background-color: ${darkBorder};
@@ -159,11 +166,29 @@ export const ListDiv = styled.div`
     gap : 16px;
     display : flex;
     flex-direction:column;
-
+    margin-right: 12px;
+    
     &.private{
         flex : 1;
         gap: 0;
     }
+
+    & > .private:last-child {
+        border-bottom: 1px solid ${lightBorder};
+    }
+
+    & > .private:last-child:hover {
+        border-bottom: 1px solid #898989;
+    }
+
+    & > .private.dark:last-child {
+        border-bottom: 1px solid ${darkBorder};
+    }
+
+    & > .private.dark:last-child:hover {
+        border-bottom: 1px solid ${lightDefaultBorder};
+    }
+
 `
 
 // COMMENTS MOSTLY
@@ -177,7 +202,6 @@ export const CommentActiveContainer = styled.div`
 
 export const TextArea = styled.textarea`
     width: 100%;
-    padding:0;
     resize:vertical;
     min-height:122px;
     border:1px solid ${lightBorder};
@@ -187,14 +211,31 @@ export const TextArea = styled.textarea`
     border-bottom: none;
     box-sizing:border-box;
     content:"";
+    padding: 8px 16px;
     
     &:focus {
         outline: none;
     }
 
-    &.dark {
+    &.dark, &.whole.dark {
         border:1px solid ${darkBorder};
         color: inherit;
+    }
+
+    &.dark:focus, &.whole.dark:focus {
+        border: 1px solid ${lightBorder};
+    }
+
+    &.whole {
+        border: 1px solid #EDEFF1;
+        border-bottom-right-radius:4px;
+        border-bottom-left-radius:4px;
+        border-bottom:1px solid inherit;
+    }
+
+    &.whole:focus {
+        border: 1px solid black;
+        outline: none;
     }
 `
 
@@ -250,6 +291,11 @@ export const ConfirmButton = styled.button`
     &:hover {
         cursor: not-allowed;
     }
+
+    &.dark.enabled {
+        background-color:rgb(215, 218, 220);
+        color:rgb(26, 26, 27);
+    }
 `
 
 export const BottomButtonsDiv = styled.div`
@@ -279,4 +325,4 @@ export const BottomButtonsDiv = styled.div`
         height: 24px;
         border: none;
     }
-    `
+`

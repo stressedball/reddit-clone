@@ -4,6 +4,7 @@ import { getAvatar } from '../sub/sub-settings.js/avatar-settings/avatarData'
 import { useLocation } from 'react-router-dom'
 
 export default function SubAvatar({ sub }) {
+    
     const [avatarPath, setAvatarPath] = useState()
     const [submit, setSubmit] = useState('')
     const location = useLocation().pathname.split('/')

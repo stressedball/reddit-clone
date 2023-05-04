@@ -7,6 +7,7 @@ import SubSideContent from '../sideContent/SubSideContent'
 import HomeSideContent from '../sideContent/HomeSideContent'
 import SubmitSideContent from '../sideContent/SubmitSideContent'
 import UserSideContent from '../sideContent/UserSideContent'
+import SubSettingsSideContent from '../sideContent/SubSettingsSideContent'
 
 export default function SideContent() {
 
@@ -16,17 +17,17 @@ export default function SideContent() {
 
   useEffect(() => {
 
-    if (location.split('/')[1] === 'reddit-clone')
-      setContent(<HomeSideContent darkMode={darkMode} />)
+    if (location.split('/')[1] === 'reddit-clone') setContent(<HomeSideContent darkMode={darkMode} />)
 
-    if (location.split('/')[1] === 'r' && location.split('/')[3] !== 'submit')
+    if (location.split('/')[1] === 'r' && location.split('/')[3] !== 'submit' && location.split('/')[3] !== 'subSettings')
       setContent(<SubSideContent subId={location.split('/')[2]} />)
 
     if (location === '/submit' || location.split('/')[3] === 'submit')
       setContent(<SubmitSideContent />)
 
-    if (location.split('/')[1] === 'u')
-      setContent(<UserSideContent />)
+    if (location.split('/')[1] === 'u') setContent(<UserSideContent />)
+
+    if (location.split('/')[3] === 'subSettings') setContent(<SubSettingsSideContent />)
 
   }, [location])
 
@@ -45,14 +46,16 @@ const StyledSideContent = styled.div`
   border: 1px solid ${lightBorder};
   background-color: ${lightBackgroundColor};
   font-size:14px;
-  padding : 0 8px 0 8px;
   border-box: box-sizing;
   height: fit-content;
   border-radius:4px;
-  margin-left:24px;
 
   &.dark {
     background-color: #1a1a1b;
     border: 1px solid ${darkDefaultBorder};
+  }
+
+  & > * {
+    padding : 0 8px;
   }
 `

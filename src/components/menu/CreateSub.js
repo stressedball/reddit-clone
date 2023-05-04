@@ -81,7 +81,8 @@ async function createSub(name, userId) {
         dateOfCreation: serverTimestamp(),
         creator: userId,
         description: '',
-        users: []
+        users: [],
+        skin:'#4A96C4'
     })
     return subDoc.id
 }

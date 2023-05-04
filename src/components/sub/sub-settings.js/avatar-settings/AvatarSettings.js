@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { getAvatar, handleAvatarSubmit } from './avatarData'
+import { Text } from '../subSettingsStyle'
+import styled from 'styled-components'
+import { darkHoverLight, lightGrayHover } from '../../../../sc-css/COLORS'
 
 export default function AvatarSettings({ sub, darkMode }) {
 
     const [path, setPath] = useState()
-    const [display, setDisplay] = useState()
 
     useEffect(() => {
         async function fetchData() {
@@ -16,33 +18,18 @@ export default function AvatarSettings({ sub, darkMode }) {
     }, [sub])
 
     return (
-        <div style={{ position: "relative" }} className={`${darkMode}`}>
-            <img
-                src={`${path}`}
-                onMouseOver={(e) => {
-                    e.preventDefault()
-                    setDisplay(true)
-                }}
-                onMouseOut={(e) => {
-                    e.preventDefault()
-                    setDisplay(false)
-                }}
-                onClick={() => {
-                    handleAvatarUpload(sub)
-                }}
-                style={{ width: "50px", height:"50px", borderRadius: "50%", border: "1px solid" }}
-                alt=""
-            />
+        <div className={`${darkMode}`}>
+            <Text className='legend'>Manage your sub avatar</Text>
 
-            {
-                display ?
-                    <p id='avatar-message' className={`${darkMode}`}
-                    >Click to upload a new avatar</p>
-                    : null
-            }
-
+            <ImageContainer className={darkMode}>
+                <img
+                    src={`${path}`}
+                    onClick={() => { handleAvatarUpload(sub) }}
+                    style={{ width: "80px", height: "80px", borderRadius: "50%", border: `1px solid inherit` }}
+                    alt="avatar-sub-settings"
+                />
+            </ImageContainer>
         </div>
-
     )
 }
 
@@ -58,3 +45,17 @@ async function handleAvatarUpload(sub) {
 }
 
 
+const ImageContainer = styled.div`
+    padding:8px;
+    max-width: fit-content;
+    border-radius:4px;
+
+    &:hover {
+        cursor:pointer;
+        background-color: ${lightGrayHover};
+    }
+
+    &.dark:hover {
+        background-color: ${darkHoverLight};
+    }
+`

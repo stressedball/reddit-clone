@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { GlobalContext } from '../providers/GlobalProvider'
 import handleSubmit from './handleSubmit'
 import styled from 'styled-components'
-import { darkThree, lightBackgroundColor, lightSecondary } from '../../sc-css/COLORS'
+import { darkThree, lightBackgroundColor, bottomBoxColor } from '../../sc-css/COLORS'
 import { HorizontalFlex } from '../../sc-css/atomic'
 
 export default function CreatePostOptions({ notified, darkMode, setError, subId, title, text, image }) {
@@ -20,10 +20,9 @@ export default function CreatePostOptions({ notified, darkMode, setError, subId,
     }
 
     useEffect(() => {
-        if (title === undefined || text === undefined) return
-        if (title.length <= 0 ||
-            subId === "null" ||
-            (params === '' && text.length <= 0) ||
+        if (title === "" ||
+            !subId ||
+            (params === '' && text === "") ||
             (params === 'img' && !image) ||
             params === 'poll') {
             setButtonStyled('')
@@ -111,7 +110,7 @@ const PostButton = styled.button`
 `
 
 const StyledDiv = styled(HorizontalFlex)`
-    background-color: ${lightSecondary};
+    background-color: ${bottomBoxColor};
     border-bottom-right-radius:4px;
     border-bottom-left-radius:4px;
 

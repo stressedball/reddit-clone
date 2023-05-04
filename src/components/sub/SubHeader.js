@@ -7,8 +7,9 @@ import SubSubscribe from './SubSubscribe'
 import { getAvatar } from './sub-settings.js/avatar-settings/avatarData'
 import styled from 'styled-components'
 import { HorizontalFlex } from '../../sc-css/atomic'
-import { darkTwo, lightBackgroundColor } from '../../sc-css/COLORS'
+import { Blue, darkTwo, lightBackgroundColor } from '../../sc-css/COLORS'
 import { ThemeContext } from '../providers/ThemeProvider'
+import SubSkin from './sub-settings.js/SubSkin'
 
 export default function SubHeader() {
 
@@ -24,64 +25,62 @@ export default function SubHeader() {
     if (location.split('/')[1] === 'r') setSubId(location.split('/')[2])
   }, [location])
 
+  useEffect(() => { if (subs && subId) setSub(subs.filter(sub => sub.id === subId)[0]) }, [subId, subs])
+
   useEffect(() => {
-    if (!subs || !subId) return
+    if (!sub) return
 
-    const tempSub = subs.filter(sub => sub.id === subId)[0]
-    setSub(tempSub)
+    if (sub.data.banner) getBanner(sub).then(path => { setBannerPath(path) })
+    else { setBannerPath(null) }
 
-    if (!tempSub) return
+    if (sub.data.avatar) getAvatar(sub).then(path => { setAvatarPath(path) })
+    else { setAvatarPath(null) }
 
-    if (tempSub.data.banner) {
-      getBanner(tempSub).then(path => {
-        setBannerPath(path)
-      })
-    } else { setBannerPath(null) }
+  }, [sub])
 
-    if (tempSub.data.avatar) {
-      getAvatar(tempSub).then(path => {
-        setAvatarPath(path)
-      })
-    } else { setAvatarPath(null) }
-
-  }, [subId, subs])
-
-  if(!sub) return<div>Loading</div>
+  if (!sub) return <div>Loading</div>
 
   return (
     <>
       <StyledDiv className={`${darkMode}`} >
 
-        <img src={`${bannerPath}`} style={{ height: "150px", width: "100%" }}></img>
+        {
+          bannerPath ?
+            <img src={`${bannerPath}`} style={{ maxHeight: "200px", minWidth: "calc(100vw - 270px)" }}></img>
+            :
+            <div style={{ minHeight: "100px", backgroundColor: `${sub.data.skin}` }}></div>
+        }
 
-        <HorizontalFlex style={{ justifyContent: "space-between", padding: "0 24px" }}>
 
-          <HorizontalFlex style={{ gap: "1rem", marginTop: "-14px" }}>
+        <HorizontalFlex style={{ marginTop: "-14px", justifyContent: "space-between", padding: "0 24px" }}>
+
+          <HorizontalFlex >
 
             <img src={`${avatarPath}`}
               style={{
-                height: "80px",
-                width: "80px",
-                borderRadius: '50%',
-                border: "1px solid"
+                height: "80px", width: "80px", borderRadius: '50%', border: "1px solid"
               }}></img>
 
             {
               sub ?
-              <h1 style={{ fontSize: "28px", fontWeight: "700" }}>{sub.data.name}</h1>
-              : null
+                <TitleDiv>
+                  <H1 style={{}}>{sub.data.name}</H1>
+                  <H2>r/{sub.data.name}</H2>
+                </TitleDiv>
+                : null
             }
 
-            <SubSubscribe darkMode={darkMode} subs={subs} sub={sub} user={user} />
+            <SubSubscribe subs={subs} sub={sub} user={user} />
 
           </HorizontalFlex>
 
           {
             user ?
               sub.data.creator === user.id ?
-                <SubSettingsShortcut darkMode={darkMode} sub={sub} /> : null
+                <SubSettingsShortcut sub={sub} /> : null
               : null
           }
+
         </HorizontalFlex>
       </StyledDiv>
     </>
@@ -90,9 +89,36 @@ export default function SubHeader() {
 
 const StyledDiv = styled.div`
   background-color:${lightBackgroundColor};
-  
+  padding-bottom:12px;
+
   &.dark {
     background-color: ${darkTwo};
     color: inherit;
   }
+`
+
+const H1 = styled.h1`
+  font-size: 28px;
+  font-weight: 700;
+  margin:0;
+  padding-bottom: 4px;
+  padding-right: 24px;
+`
+
+const H2 = styled.h2`
+  font-size: 14px;
+  color:#7c7c7c;
+  font-weight: 600;
+  margin:0;
+
+  &.dark {
+    color:#818384;
+  }
+`
+
+const TitleDiv = styled.div`
+  display:flex;
+  flex-direction:column;
+  padding-left: 16px;
+  margin-top: 24px;
 `

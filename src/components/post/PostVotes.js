@@ -4,7 +4,7 @@ import { collection, doc, setDoc } from 'firebase/firestore'
 import { db } from '../../firebase/getAuthDb'
 import { GlobalContext } from '../providers/GlobalProvider'
 import styled from 'styled-components'
-import { darkMain, lightSecondary } from '../../sc-css/COLORS'
+import { darkMain, bottomBoxColor } from '../../sc-css/COLORS'
 import Votes from '../multi-usage/Votes'
 
 export function PostVotes({ darkMode, post }) {
@@ -92,7 +92,7 @@ const StyledDiv = styled.div`
     align-items:center;
     justify-content: start;
     width:40px;
-    background-color: ${lightSecondary};
+    background-color: ${bottomBoxColor};
     padding-top : 4px;
     border-top-left-radius:4px;
     border-bottom-left-radius:4px;

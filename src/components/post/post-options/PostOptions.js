@@ -1,4 +1,3 @@
-import React from 'react'
 import CommentsCount from '../../multi-usage/CommentsCount'
 import ShareButton from '../../multi-usage/ShareButton'
 import Etcetera from './Etcetera'
@@ -6,14 +5,14 @@ import SaveButton from '../../multi-usage/SaveButton'
 import { HorizontalFlex } from '../../../sc-css/atomic'
 import styled from 'styled-components'
 
-export default function PostOptions({ user, post, darkMode }) {
+export default function PostOptions({handleEditPost, user, post, darkMode }) {
 
   return (
     <StyledDiv>
       <CommentsCount post={post} darkMode={darkMode} />
       <ShareButton darkMode={darkMode} />
       <SaveButton darkMode={darkMode} user={user} post={post} />
-      <Etcetera darkMode={darkMode} post={post} user={user} />
+      <Etcetera handleEditPost={handleEditPost} darkMode={darkMode} post={post} user={user} />
     </StyledDiv>
   )
 }
