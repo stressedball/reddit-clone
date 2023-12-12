@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import BannerPage from './BannerPage'
 import styled from 'styled-components'
-import { Blue, bottomBoxColor, darkBorder, darkTwo, lightBackgroundColor, lightBlue, lightBorder } from '../../../../sc-css/COLORS'
+import { Blue, bottomBoxColor, darkBorder, darkTwo, lightBackgroundColor, lightBorder } from '../../../../sc-css/COLORS'
 
-export default function BannerSettings({ sub, darkMode }) {
+export default function BannerShortcut({ sub, darkMode }) {
 
   const [display, setDisplay] = useState(false)
   const [banner, setBanner] = useState()
@@ -16,10 +16,10 @@ export default function BannerSettings({ sub, darkMode }) {
 
   return (
     <>
-      <BannerShortcut onClick={handleClick} className={darkMode}>
+      <Shortcut onClick={handleClick} className={darkMode}>
         <Text>Add a banner to your sub!</Text>
         <Text className='hint'>Max height : 200px. Max width : {window.innerWidth}px</Text>
-      </BannerShortcut>
+      </Shortcut>
 
       {
         display ? <BannerPage darkMode={darkMode} banner={banner} setDisplay={setDisplay} sub={sub} /> : null
@@ -42,7 +42,7 @@ function createInput() {
   })
 }
 
-const BannerShortcut = styled.div`
+const Shortcut = styled.div`
   width: 100%;
   box-sizing:border-box;
   border: 1px solid ${lightBorder};

@@ -19,7 +19,7 @@ export default function AvatarSettings({ sub, darkMode }) {
 
     return (
         <div className={`${darkMode}`}>
-            <Text className='legend'>Manage your sub avatar</Text>
+            <Text className='legend'>Manage the sub avatar</Text>
 
             <ImageContainer className={darkMode}>
                 <img

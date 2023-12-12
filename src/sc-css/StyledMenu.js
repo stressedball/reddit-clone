@@ -10,6 +10,7 @@ export const StyledMenu = styled.div`
     font-size:14px;
     border-right:1px solid ${lightBorder};
     box-sizing:border-box;
+    overflow-x:hidden;
     
     &.dark {
         border-right:1px solid ${darkBorder};
@@ -19,5 +20,9 @@ export const StyledMenu = styled.div`
     &.whole {
         border-right:none;
         grid-area : none;
+    }
+
+    &.drop-down-menu {
+        border-right: none;
     }
 `

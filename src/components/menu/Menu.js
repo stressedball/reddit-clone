@@ -1,11 +1,12 @@
 import { useNavigate } from "react-router-dom"
 import { useState, useContext } from "react"
 import styled from "styled-components"
-import { CreatePostTile, HomeMenuTile } from "../multi-usage/SpecialMenuOptions"
 import { ThemeContext } from "../providers/ThemeProvider"
 import { Tile, SVGStyled } from "../../sc-css/atomic"
 import { darkThree, lightBorder, lightText } from "../../sc-css/COLORS"
 import FilterFunction from "../multi-usage/FilterFunction"
+import CreateSVG from "../multi-usage/SVGs/CreateSVG"
+import HomeSVG from "../multi-usage/SVGs/HomeSVG"
 
 export default function Menu({ handleCreateSub, dropdownMenu, handleMenuDisplay }) {
 
@@ -28,7 +29,6 @@ export default function Menu({ handleCreateSub, dropdownMenu, handleMenuDisplay 
                             <SVGStyled className={`${darkMode}`}
                                 style={{  padding: "2px" }}
                                 viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-
                                 <g style={{ stroke: "inherit", fill: "none" }} id="Menu / Close_LG">
                                     <path style={{ stroke: "inherit", fill: "inherit" }} id="Vector" d="M21 21L12 12M12 12L3 3M12 12L21.0001 3M12 12L3 21.0001" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                 </g>
@@ -38,12 +38,12 @@ export default function Menu({ handleCreateSub, dropdownMenu, handleMenuDisplay 
                 }
             </div>
 
-            <StyledInput onChange={(e) => handleFilterSearch(e)} type='text' id="input" value={inputValue} className={`${darkMode}  drop-down-menu`} placeholder={'Filter'} onClick={(e) => e.stopPropagation()} />
+            <StyledInput onChange={(e) => handleFilterSearch(e)} type='text' id="input" value={inputValue} darkMode={darkMode} className={`${darkMode}  drop-down-menu`} placeholder={'Filter'} onClick={(e) => e.stopPropagation()} />
 
             {/* Create post */}
             <div>
                 <Tile className={`${darkMode}`} onClick={() => { navigate('/submit') }}>
-                    <CreatePostTile />
+                    <CreateSVG />
                     <p style={{ margin: '0', marginLeft: "8px" }}>Create Post</p>
                 </Tile>
             </div>
@@ -53,7 +53,7 @@ export default function Menu({ handleCreateSub, dropdownMenu, handleMenuDisplay 
             {/* Home */}
             <div>
                 <Tile className={`${darkMode}`} onClick={() => { navigate('reddit-clone/') }}>
-                    <HomeMenuTile />
+                    <HomeSVG />
                     <p style={{ margin: "0", marginLeft: "8px" }}>Home</p>
                 </Tile>
             </div>
@@ -66,26 +66,14 @@ const StyledInput = styled.input`
     height:30px;
     outline:none;
     border: 1px solid transparent;
-    background-color: #f6f7f8;
+    background-color: ${props => props.darkMode === 'dark' ? darkThree : '#f6f7f8'};
+    color: ${props => props.darkMode === 'dark' ? lightText : 'inherit'};
     margin : 4px 24px;
     width: calc(100% - 48px);
     box-sizing:border-box;        
 
-    &:hover {
-        border : 1px solid #0079d3;
+    &:hover, &:focus {
+        border-color : ${props => props.darkMode === 'dark' ? lightBorder : '#0079d3'};
     }
 
-    &:focus {
-        border : 1px solid #0079d3;
-        background-color: inherit;
-    }
-
-    &.dark{
-        background-color: ${darkThree};
-        color:${lightText};
-    }
-
-    &.dark:focus, &.dark:hover {
-        border : 1px solid ${lightBorder};
-    }
 `

@@ -19,7 +19,11 @@ export default function CommentsList({ darkMode, post }) {
 
     if (postComments.length === 0) return <NoComments darkMode={darkMode} />
 
-    postComments.sort((a, b) => Date.parse(b.data.timeStamp.toDate()) - Date.parse(a.data.timeStamp.toDate()))
+    if (postComments.filter(comment => comment.data.timeStamp === null).length > 0) return
+
+    postComments.sort((a, b) =>
+        Date.parse(b.data.timeStamp.toDate()) - Date.parse(a.data.timeStamp.toDate())
+    )
 
     return (
         <StyledDiv >
@@ -36,18 +40,18 @@ export default function CommentsList({ darkMode, post }) {
 
 const NoComments = ({ darkMode }) => {
 
-    const [color,setColor]=useState('')
+    const [color, setColor] = useState('')
 
     useEffect(() => {
         if (darkMode === '') setColor('rgb(74, 150, 196)')
         else setColor('')
-    },[darkMode])
+    }, [darkMode])
 
     return (
         <EmptyComments className={darkMode}>
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                 <SVGStyled
-                    style={{ height: "28px", width: "28px", marginBottom: "20px", fill:`${color}` }}
+                    style={{ height: "28px", width: "28px", marginBottom: "20px", fill: `${color}` }}
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 52 52" enableBackground="new 0 0 52 52" xmlSpace="preserve">
                     <g>

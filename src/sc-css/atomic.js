@@ -1,140 +1,198 @@
-import styled from "styled-components"
-import { darkBorder, darkHoverLight, lightGrayHover, lightBorder, lightDefaultBorder } from "./COLORS";
+import styled from 'styled-components';
+import {
+    Blue,
+    darkBorder,
+    darkHoverLight,
+    lightGrayHover,
+    lightBorder,
+    lightDefaultBorder,
+    lightBackgroundColor,
+} from './COLORS';
+
+export const Button = styled.button`
+    font-size: 12px;
+    font-weight: 700;
+    margin: 0;
+    border-radius: 14px;
+    padding: 0 20px;
+    margin: auto 8px;
+    height: 24px;
+    border: none;
+    position: relative;
+
+    &::before {
+        position: absolute;
+        left: 0;
+        top: 0;
+        content: '';
+        width: 100%;
+        height: 100%;
+        border-radius: inherit;
+        opacity: 0;
+    }
+`;
+
+export const Error = styled.p`
+    margin: 0;
+    color: #ed2b2a;
+    margin-bottom: -14px;
+    margin-top: -8px;
+    font-size: 14px;
+    font-weight: bold;
+`;
+
+export const SubAvatar = styled.img`
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    border: 1px solid inherit;
+    object-fit: cover;
+`;
 
 export const MainOutlet = styled.div`
     display: flex;
     padding: 20px 24px;
-    justify-content: center;    
-`
+    justify-content: center;
+`;
 
 export const BlueButton = styled.button`
-    font-weight:bold;
-    color:white;
-    background-color: #0079D3;
-    border-radius:12px;
-    border:none;
+    font-weight: bold;
+    color: white;
+    background-color: #0079d3;
+    border-radius: 12px;
+    border: none;
     padding: 4px 16px;
     width: 120px;
-    font-size:14px;
-    min-height:32px;
+    font-size: 14px;
+    min-height: 32px;
     min-width: fit-content;
-    position:relative;
+    position: relative;
 
     &::before {
         background-color: #ffffff;
-        position:absolute;
-        left:0;
-        top:0;
-        content:"";
-        width:100%;
-        height:100%;
-        border-radius : inherit;
+        position: absolute;
+        left: 0;
+        top: 0;
+        content: '';
+        width: 100%;
+        height: 100%;
+        border-radius: inherit;
         opacity: 0;
     }
 
     &:hover::before {
-        opacity:0.2;
-        cursor:pointer;
+        opacity: 0.2;
+        cursor: pointer;
     }
-`
+`;
 
 export const SVGStyled = styled.svg`
-    width : 22px;
+    width: 22px;
     height: 22px;
     fill: rgb(135, 138, 140);
     stroke: rgb(135, 138, 140);
 
     &.small {
-        width : 18px;
-        height : 18px;
+        width: 18px;
+        height: 18px;
     }
-    
+
     &.dark {
-        fill : rgb(129, 131, 132);
-        stroke : rgb(129, 131, 132);
+        fill: rgb(129, 131, 132);
+        stroke: rgb(129, 131, 132);
     }
 
     &:hover {
-        cursor : inherit;
+        cursor: inherit;
     }
-`
+`;
 
 export const StyledLink = styled.p`
-    font-size:12px;
-    text-decoration:underline;
+    font-size: 12px;
+    text-decoration: underline;
     margin: 0;
     min-height: 20px;
     margin-left: 4px;
 
-    &:hover{
-        cursor:pointer;
+    &:hover {
+        cursor: pointer;
     }
-`
+`;
 
 export const LightText = styled.p`
-    color:rgb(120, 124, 126);
-    margin-top:0;
+    color: rgb(120, 124, 126);
+    margin-top: 0;
     margin: 0;
     min-height: 20px;
-`
+`;
 
 export const Hoverable = styled.span`
     &:hover {
-        text-decoration:underline;
-        cursor:pointer;
+        text-decoration: underline;
+        cursor: pointer;
     }
-`
+`;
 
 export const HorizontalFlex = styled.div`
     display: flex;
     align-items: center;
-`
+`;
 
 export const Tile = styled.div`
     display: flex;
-    align-items:center;
-    padding : 8px 24px;
-    box-sizing:border-box;
-    width:100%;
-    border-radius:inherit;
-    height:100%;
+    align-items: center;
+    padding: 8px 24px;
+    box-sizing: border-box;
+    width: 100%;
+    border-radius: inherit;
+    height: 100%;
 
     &.option {
-        font-size:12px;
-        font-weight:700;
-        border-radius:4px;
+        font-size: 12px;
+        font-weight: 700;
+        border-radius: 4px;
         padding: 8px;
-        max-width:fit-content;
+        max-width: fit-content;
         box-sizing: none;
     }
 
     &:hover {
-        cursor:pointer;
+        cursor: pointer;
         background-color: ${lightGrayHover};
     }
-    
+
     &.dark:hover {
         background-color: ${darkHoverLight};
     }
 
     &.no-hover:hover {
-        cursor:default;
-        background-color:unset;
+        cursor: default;
+        background-color: unset;
     }
-`
+
+    &.drop-down-user {
+        justify-content: space-between;
+        gap: 3px;
+    }
+
+    &.public {
+        height: fit-content;
+        gap: 4px;
+        align-items: center;
+    }
+`;
 
 export const MenuSmallTitles = styled.p`
-    font-size:10px;
-    font-weight:500;
-    text-transform:uppercase;
-    color:#878A8C;
-    padding-left:20px;
-    margin-bottom: 1px;
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: #878a8c;
+    padding-left: 20px;
 
     &:hover {
         cursor: default;
     }
-`
+`;
 
 export const StyledOptionText = styled.p`
     font-size: 12px;
@@ -142,34 +200,33 @@ export const StyledOptionText = styled.p`
     color: rgb(135, 138, 140);
     margin: 0;
     min-width: fit-content;
-    
-    &.dark{
+
+    &.dark {
         color: rgb(133, 135, 137);
     }
-
-`
+`;
 
 export const HR = styled.hr`
     margin: 16px 0;
-    max-width: 100%; 
+    max-width: 100%;
     border: none;
-    background-color: rgb(26 26 27 / 7%); 
+    background-color: rgb(26 26 27 / 7%);
     height: 1px;
-    box-sizing:border-box;
+    box-sizing: border-box;
 
     &.dark {
         background-color: ${darkBorder};
     }
-`
+`;
 
 export const ListDiv = styled.div`
-    gap : 16px;
-    display : flex;
-    flex-direction:column;
+    gap: 16px;
+    display: flex;
+    flex-direction: column;
     margin-right: 12px;
-    
-    &.private{
-        flex : 1;
+
+    &.private {
+        flex: 1;
         gap: 0;
     }
 
@@ -188,68 +245,69 @@ export const ListDiv = styled.div`
     & > .private.dark:last-child:hover {
         border-bottom: 1px solid ${lightDefaultBorder};
     }
-
-`
+`;
 
 // COMMENTS MOSTLY
 export const CommentActiveContainer = styled.div`
-    box-sizing:border-box;
+    box-sizing: border-box;
     margin-top: 12px;
-    margin-right:40px;
-    display:flex;
-    flex-direction:column;
-`
+    margin-right: 40px;
+    display: flex;
+    flex-direction: column;
+`;
 
 export const TextArea = styled.textarea`
     width: 100%;
-    resize:vertical;
-    min-height:122px;
-    border:1px solid ${lightBorder};
-    background-color:inherit;
-    border-top-right-radius:4px;
-    border-top-left-radius:4px;
+    resize: vertical;
+    min-height: 122px;
+    border: 1px solid ${lightBorder};
+    background-color: inherit;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
     border-bottom: none;
-    box-sizing:border-box;
-    content:"";
+    box-sizing: border-box;
+    content: '';
     padding: 8px 16px;
-    
+
     &:focus {
         outline: none;
     }
 
-    &.dark, &.whole.dark {
-        border:1px solid ${darkBorder};
+    &.dark,
+    &.whole.dark {
+        border: 1px solid ${darkBorder};
         color: inherit;
     }
 
-    &.dark:focus, &.whole.dark:focus {
+    &.dark:focus,
+    &.whole.dark:focus {
         border: 1px solid ${lightBorder};
     }
 
     &.whole {
-        border: 1px solid #EDEFF1;
-        border-bottom-right-radius:4px;
-        border-bottom-left-radius:4px;
-        border-bottom:1px solid inherit;
+        border: 1px solid #edeff1;
+        border-bottom-right-radius: 4px;
+        border-bottom-left-radius: 4px;
+        border-bottom: 1px solid inherit;
     }
 
     &.whole:focus {
         border: 1px solid black;
         outline: none;
     }
-`
+`;
 
-export const CancelButton = styled.button`
-    color: #0079D3;
+export const CancelButton = styled(Button)`
+    color: #0079d3;
     background-color: inherit;
     position: relative;
 
     &::before {
-        content:'';
+        content: '';
         position: absolute;
-        background-color: #0079D3;
-        height:100%;
-        width:100%;
+        background-color: #0079d3;
+        height: 100%;
+        width: 100%;
         top: 0;
         left: 0;
         border-radius: inherit;
@@ -257,7 +315,7 @@ export const CancelButton = styled.button`
     }
 
     &.dark::before {
-        background-color: #D7DADC;
+        background-color: #d7dadc;
     }
 
     &:hover {
@@ -271,58 +329,52 @@ export const CancelButton = styled.button`
     &.dark {
         color: inherit;
     }
-`
+`;
 
-export const ConfirmButton = styled.button`
-    background-color:#364266;
-    filter:grayscale(1);
-    color:rgba(255, 255, 255, 0.5);
+export const ConfirmButton = styled(Button)`
+    background-color: #364266;
+    filter: grayscale(1);
+    color: rgba(255, 255, 255, 0.5);
+    cursor: not-allowed;
+
+    &::before {
+        background-color: ${lightBackgroundColor};
+    }
 
     &.enabled {
-        background-color:rgb(74 150 196);
-        filter : none;
+        background-color: ${Blue};
+        filter: none;
         color: rgb(255 255 255);
     }
 
-    &.enabled:hover {
-        cursor : pointer;
-    }
-
-    &:hover {
-        cursor: not-allowed;
+    &.enabled {
+        cursor: pointer;
     }
 
     &.dark.enabled {
-        background-color:rgb(215, 218, 220);
-        color:rgb(26, 26, 27);
+        background-color: rgb(215, 218, 220);
+        color: rgb(26, 26, 27);
     }
-`
+
+    &:hover::before {
+        opacity: 0.08;
+    }
+`;
 
 export const BottomButtonsDiv = styled.div`
     box-sizing: border-box;
-    display:flex;
+    display: flex;
     justify-content: end;
-    background-color: #F6F7F8;
-    padding:4px 8px 4px 8px;
+    background-color: #f6f7f8;
+    padding: 4px 8px 4px 8px;
     border-bottom-right-radius: 4px;
     border-bottom-left-radius: 4px;
-    margin-bottom:12px;
+    margin-bottom: 12px;
     border: 1px solid ${lightBorder};
-    width:inherit;
+    width: inherit;
 
     &.dark {
         background-color: #272729;
         border: 1px solid ${darkBorder};
     }
-
-    & > button {
-        font-size: 12px;
-        font-weight:700;
-        margin: 0;
-        border-radius: 14px;
-        padding: 0 20px;
-        margin: auto 8px;
-        height: 24px;
-        border: none;
-    }
-`
+`;

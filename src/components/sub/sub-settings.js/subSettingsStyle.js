@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { lightBorder,lightBackgroundColor, darkTwo, darkBorder, darkHoverLight, darkDefaultBorder } from "../../../sc-css/COLORS";
+import { lightBorder,lightBackgroundColor, darkTwo, darkBorder, darkHoverLight, darkDefaultBorder, darkMain } from "../../../sc-css/COLORS";
 
 // SubSettings
 export const MainDiv = styled.div`
@@ -51,15 +51,7 @@ export const Container = styled.div`
     flex-direction:column;
 `
 
-export const PixelSelector = styled.div`
-    min-height:150px;
-    position:fixed;
-    top:0;
-    left:0;
-    width : calc(100vw - 270px);
-    border: 2px solid ${lightBackgroundColor};
-`
-
 export const ImageContainer = styled.div`
-    position:relative;
+    height: ${props => props.height}px;
+    width: ${props => props.width}px;
 `

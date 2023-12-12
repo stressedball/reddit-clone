@@ -1,5 +1,7 @@
 {
     "cSpell.ignoreWords": [
         "Hoverable"
-    ]
+    ],
+    "prettier.printWidth": 120,
+    "prettier.tabWidth": 4
 }

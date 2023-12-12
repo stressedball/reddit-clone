@@ -5,8 +5,8 @@ import { ThemeContext } from '../providers/ThemeProvider'
 import UserAvatar from '../multi-usage/UserAvatar'
 import styled from 'styled-components'
 import { darkTwo, lightBackgroundColor, lightBorder, lightGrayHover, darkDefaultBorder, lightDefaultBorder, svgColor, darkHoverLight, svgDark } from '../../sc-css/COLORS'
-import ImageSVG from '../multi-usage/ImageSVG'
-import PollSVG from '../multi-usage/PollSVG'
+import ImageSVG from '../multi-usage/SVGs/ImageSVG'
+import PollSVG from '../multi-usage/SVGs/PollSVG'
 
 export default function CreatePostShortcut() {
 

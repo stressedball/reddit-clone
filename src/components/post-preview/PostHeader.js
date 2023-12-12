@@ -17,7 +17,9 @@ export default function PostHeader({ user, darkMode, post, sub }) {
         if (users) { setPoster(users.filter(user => user.id === post.data.poster)[0]) }
     }, [users])
 
-    useEffect(() => { if (!user && location.split('/')[3] !== 'p' && location.split('/')[1] !== 'u') setDivMarginTop(8) })
+    useEffect(() => {
+        if (!user && location.split('/')[3] !== 'p' && location.split('/')[1] !== 'u') setDivMarginTop(8)
+    })
 
     if (!poster) return <div>Loading</div>
 
@@ -63,4 +65,5 @@ const Section = styled.section`
     align-items:center;
     gap:3px;
     font-size:12px;
+    margin-bottom:8px;
 `

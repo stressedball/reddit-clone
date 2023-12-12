@@ -3,8 +3,8 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { HorizontalFlex, SVGStyled } from '../../sc-css/atomic'
 import styled from 'styled-components'
 import { darkBorder, lightDefaultBorder } from '../../sc-css/COLORS'
-import ImageSVG from '../multi-usage/ImageSVG'
-import PollSVG from '../multi-usage/PollSVG'
+import ImageSVG from '../multi-usage/SVGs/ImageSVG'
+import PollSVG from '../multi-usage/SVGs/PollSVG'
 
 export default function NavBar({ darkMode }) {
 

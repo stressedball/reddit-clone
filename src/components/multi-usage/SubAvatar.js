@@ -4,7 +4,7 @@ import { getAvatar } from '../sub/sub-settings.js/avatar-settings/avatarData'
 import { useLocation } from 'react-router-dom'
 
 export default function SubAvatar({ sub }) {
-    
+
     const [avatarPath, setAvatarPath] = useState()
     const [submit, setSubmit] = useState('')
     const location = useLocation().pathname.split('/')
@@ -21,13 +21,15 @@ export default function SubAvatar({ sub }) {
     }, [location])
 
     return (
-        <HorizontalFlex className={`${submit}`} style={{ width: 'inherit', height: "inherit" }}>
+        <>
             {
                 sub.data.avatar ?
-                    <img className={`drop-down-menu ${submit}`} src={`${avatarPath}`} style={{ margin: "auto", height: "100%", width: "100%", borderRadius: "50%", border: "1px solid" }} />
+                    <img className={`drop-down-menu ${submit}`} src={`${avatarPath}`}
+                        style={{ objectFit: "cover", minHeight: "100%", minWidth: "100%", borderRadius: "50%", border: "1px solid inherit" }} />
                     :
-                    <img className={`drop-down-menu ${submit}`} src="#" style={{ maxHeight: "100%", maxWidth: "100%", borderRadius: "50%" }} />
+                    <img className={`drop-down-menu ${submit}`} src="#"
+                        style={{ maxHeight: "100%", maxWidth: "100%", borderRadius: "50%" }} />
             }
-        </HorizontalFlex>
+        </>
     )
 }

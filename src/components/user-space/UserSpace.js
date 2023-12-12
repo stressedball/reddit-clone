@@ -67,9 +67,9 @@ export default function UserSpace() {
   if (!userFeed) return <div>Fetching data...</div>
 
   return (
-    <MainOutlet style={{justifyContent:"center"}}>
-      
-      <div>
+    <MainOutlet style={{ justifyContent: "center" }}>
+
+      <div style={{ marginRight: "12px" }}>
         {
           userFeed.map(el => {
             return (
@@ -81,7 +81,7 @@ export default function UserSpace() {
           })
         }
       </div>
-      
+
       <SideContent />
 
     </MainOutlet>

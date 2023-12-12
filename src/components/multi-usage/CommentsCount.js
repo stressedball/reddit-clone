@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react"
 import { StyledOptionText, Tile } from "../../sc-css/atomic"
 import { GlobalContext } from "../providers/GlobalProvider"
 import commentsPopulate from "../comment/commentPopulate"
-import CommentSVG from "./CommentSVG"
+import CommentSVG from "./SVGs/CommentSVG"
 
 export default function CommentsCount({ post, darkMode }) {
 

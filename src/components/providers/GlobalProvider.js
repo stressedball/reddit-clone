@@ -16,6 +16,7 @@ export function GlobalProvider({ children }) {
     const [likedComments, setLikedComments] = useState()
     const [comments, setComments] = useState([])
     const [subscribedSubs, setSubscribedSubs] = useState()
+    const [topics, setTopics] = useState()
 
     // Auth
     useEffect(() => {
@@ -173,6 +174,26 @@ export function GlobalProvider({ children }) {
         return () => unSub()
     }, [user])
 
+    // topics
+    useEffect(() => {
+
+        const q = query(collection(db, 'topics'))
+
+        const unSub = onSnapshot(q, (querySnapShot) => {
+
+            let topicsArr = []
+
+            querySnapShot.forEach((doc) => {
+                topicsArr.push({ id: doc.id, data: doc.data() })
+            })
+
+            setTopics(topicsArr)
+        })
+
+        return () => unSub()
+
+    }, [])
+
     const value = {
         user,
         subs,
@@ -181,7 +202,8 @@ export function GlobalProvider({ children }) {
         likedPosts,
         likedComments,
         subscribedSubs,
-        comments
+        comments,
+        topics
     }
 
     return (

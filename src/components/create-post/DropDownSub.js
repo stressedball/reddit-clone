@@ -4,6 +4,8 @@ import { HorizontalFlex, SVGStyled } from '../../sc-css/atomic'
 import { darkBorder, darkTwo, lightBackgroundColor, lightBorder } from '../../sc-css/COLORS'
 import SubAvatar from '../multi-usage/SubAvatar'
 import { lightDefaultBorder } from '../../sc-css/COLORS'
+import SearchSVG from '../multi-usage/SVGs/SearchSVG'
+import SmallArrow from '../multi-usage/SVGs/SmallArrow'
 
 export default function DropDownSub({ defaultSub, changeSub, darkMode, subs }) {
 
@@ -50,9 +52,7 @@ export default function DropDownSub({ defaultSub, changeSub, darkMode, subs }) {
                     displayMenu ?
                         <>
                             {/* Search icon */}
-                            <SVGStyled style={{ height: "22px", width: "22px" }} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M21.842 21.134l-6.843-6.843a7.317 7.317 0 1 0-.708.708l6.843 6.843a.5.5 0 1 0 .708-.708zM9.5 15.8a6.3 6.3 0 1 1 6.3-6.3 6.307 6.307 0 0 1-6.3 6.3z" /><path style={{ fill: "none", stroke: "none" }} d="M0 0h24v24H0z" />
-                            </SVGStyled>
+                            <SearchSVG darkMode={darkMode} />
                             <StyledInput
                                 autoFocus={true}
                                 value={inputValue}
@@ -96,7 +96,8 @@ export default function DropDownSub({ defaultSub, changeSub, darkMode, subs }) {
                         </>
                 }
 
-                <SVGStyled className='drop-down-create-sub' onClick={() => setDisplayMenu(!displayMenu)} viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M759.2 419.8L697.4 358 512 543.4 326.6 358l-61.8 61.8L512 667z" /></SVGStyled>
+                <SmallArrow className='drop-down-create-sub' onClick={() => setDisplayMenu(!displayMenu)} darkMode={darkMode} />
+
             </HorizontalFlex>
 
             {

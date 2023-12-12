@@ -1,4 +1,4 @@
-import { SVGStyled } from "../../sc-css/atomic"
+import { SVGStyled } from "../../../sc-css/atomic"
 
 export default function CommentSVG({ darkMode, size }) {
     return (

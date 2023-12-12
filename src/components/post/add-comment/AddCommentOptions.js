@@ -13,7 +13,7 @@ export default function AddCommentOptions({ reinitializeComment, darkMode, postI
         if (!comment || comment === "") return
 
         try {
-            addDoc(collection(db, 'comments'),
+            await addDoc(collection(db, 'comments'),
                 {
                     poster: `${user.id}`,
                     text: `${comment}`,
@@ -38,7 +38,7 @@ export default function AddCommentOptions({ reinitializeComment, darkMode, postI
 
             <CommentButton className={`${darkMode} ${buttonEnable}`} onClick={() => handleComment()}
             >Comment</CommentButton>
-        
+
         </BottomButtonsDiv>
     )
 }

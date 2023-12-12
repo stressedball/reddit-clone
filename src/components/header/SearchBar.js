@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styled from "styled-components"
 import { darkDefaultBorder, darkThree, lightBorder, bottomBoxColor, lightText } from "../../sc-css/COLORS"
 import FilterFunction from '../multi-usage/FilterFunction'
-import { SVGStyled } from '../../sc-css/atomic'
+import SearchSVG from '../multi-usage/SVGs/SearchSVG'
 
 export default function SearchBar({ handleCreateSub, darkMode }) {
 
@@ -15,20 +15,26 @@ export default function SearchBar({ handleCreateSub, darkMode }) {
         else setActiveSearch()
     }, [display])
 
+    useEffect(() => {
+        const handleDisplay = (e) => {
+            if (!e.target.classList.contains('search-redditClone')) setDisplay(false)
+        }
+        window.addEventListener('click', handleDisplay)
+        return () => window.removeEventListener('click', handleDisplay)
+    }, [])
+
     return (
-        <Container  className={`${darkMode} ${activeSearch}`}>
+        <Container className={`${darkMode} ${activeSearch} search-redditClone`}>
 
-            <SearchIcon viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" style={{ fill: "none" }} stroke="currentColor"><circle cx="24" cy="24" r="16" /><line x1="56" y1="56" x2="35.31" y2="35.31" /></SearchIcon>
+            <div className='search-redditClone' style={{ margin: "auto 10px", height: "100%", width: "25px", display: "flex", alignItems: "center", justifyContent: "center" }}><SearchSVG darkMode={darkMode} className='search-redditClone' /></div>
 
-            <StyledInput
-                onClick={() => { setDisplay(!display) }} onChange={e => setInputValue(e.target.value)}
-                placeholder='Search RedditClone' value={inputValue} />
+            <StyledInput className='search-redditClone' placeholder='Search RedditClone' value={inputValue} onClick={() => { setDisplay(!display) }} onChange={e => setInputValue(e.target.value)} />
 
             {
                 display ?
-                <DropDown className={darkMode}>
-                    <FilterFunction handleCreateSub={handleCreateSub} searchString={inputValue} darkMode={darkMode} />
-                </DropDown>
+                    <DropDown className={darkMode}>
+                        <FilterFunction handleCreateSub={handleCreateSub} searchString={inputValue} darkMode={darkMode} />
+                    </DropDown>
                     : null
             }
         </Container>
@@ -57,14 +63,15 @@ const Container = styled.div`
     height: 40px;
     position: relative;
     align-self:center;
+    margin: auto;
     background-color: inherit;
     max-width: 690px; 
     box-sizing: border-box;
-    flex: 1;
     display: flex;
     border-radius : 1.25rem;
     border: 1px solid ${lightBorder};
     background-color: ${bottomBoxColor};
+    width:100%;
 
     &:hover, &:focus {
         border : 1px solid #0079d3;
@@ -100,10 +107,4 @@ const StyledInput = styled.input`
     border: none;
     border-radius: inherit;
     color:inherit;
-`
-
-const SearchIcon = styled(SVGStyled)`
-    margin : auto 10px; 
-    height: 100%;
-    width: 25px;
 `

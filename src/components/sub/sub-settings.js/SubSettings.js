@@ -1,50 +1,41 @@
-import React, { useRef, useState, useContext, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import React, { useState, useContext, useEffect } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import { db } from '../../../firebase/getAuthDb'
 import { setDoc, doc } from 'firebase/firestore'
 import { MainDiv, H2, Text } from './subSettingsStyle'
-import { BottomButtonsDiv, ConfirmButton, HorizontalFlex, MainOutlet, TextArea, HR } from '../../../sc-css/atomic'
+import { BottomButtonsDiv, ConfirmButton, HorizontalFlex, MainOutlet, TextArea, HR, CancelButton } from '../../../sc-css/atomic'
 import { GlobalContext } from '../../providers/GlobalProvider'
 import { ThemeContext } from '../../providers/ThemeProvider'
 import AvatarSettings from './avatar-settings/AvatarSettings'
-import BannerSettings from './banner-settings/BannerSettings'
+import BannerShortcut from './banner-settings/BannerShortcut'
 import SideContent from '../../home/SideContent'
 import SubSkin from './SubSkin'
+import TopicSettings from './TopicSettings'
 
 export default function SubSettings() {
 
-    const { darkMode } = useContext(ThemeContext)
-    const { subs } = useContext(GlobalContext)
-    const [sub, setSub] = useState()
+    const navigate = useNavigate()
     const params = useParams()
-    const descriptionRef = useRef()
-    const [confirmSave, setConfirmSave] = useState(false)
+    const { darkMode } = useContext(ThemeContext)
+    const {user, subs } = useContext(GlobalContext)
+    const [sub, setSub] = useState()
     const [description, setDescription] = useState('')
-
-    async function handleDescriptionChange() {
-
-        if (descriptionRef.current.value === '') return
-
-        const docRef = doc(db, 'subs', sub.id)
-        await setDoc(docRef, {
-            description: descriptionRef.current.value
-        }, { merge: true })
-
-        setConfirmSave(true)
-
-        setTimeout(() => {
-            setConfirmSave(false)
-        }, [2000])
-    }
+    const [isEnabled, setIsEnabled] = useState()
 
     useEffect(() => {
-        if (subs) {
-            if (subs.filter(el => el.id === params.subId)) setSub(() => subs.filter(sub => sub.id === params.subId)[0])
-        }
+        if (!subs) return
+        if (subs.filter(el => el.id === params.subId))
+            setSub(() => subs.filter(sub => sub.id === params.subId)[0])
     }, [subs])
 
     useEffect(() => { if (sub) setDescription(sub.data.description) }, [sub])
 
+    useEffect(() => {
+        if (description !== '' && description !== sub.data.description) setIsEnabled('enabled')
+        else setIsEnabled('')
+    }, [description])
+
+    if (!user) navigate('/reddit-clone/')
     if (!sub) return <div>Loading Sub settings</div>
 
     return (
@@ -63,32 +54,31 @@ export default function SubSettings() {
                 <AvatarSettings sub={sub} darkMode={darkMode} />
 
                 <HR className={darkMode} />
-                
+
+                <TopicSettings sub={sub} darkMode={darkMode} />
+
+                <HR className={darkMode} />
+
                 <div style={{ display: "flex", flexDirection: "column" }}>
 
                     <Text className='legend'>Change the sub description</Text>
 
                     <TextArea
                         className={`${darkMode}`}
-                        ref={descriptionRef}
                         value={description}
-                        onChange={(e) => { setDescription(e.target.value) }}
+                        onChange={(e) => setDescription(e.target.value)}
                     ></TextArea>
 
                     <BottomButtonsDiv className={darkMode}>
-                        <ConfirmButton onClick={handleDescriptionChange} className={`${darkMode}`}>Save Changes</ConfirmButton>
-                        {
-                            confirmSave ?
-                                <p>Changes saved!</p>
-                                : null
-                        }
+                        <CancelButton className={darkMode} onClick={() => setDescription(sub.data.description)}>Cancel</CancelButton>
+                        <ConfirmButton onClick={() => handleDescriptionChange(description, sub)} className={`${darkMode} ${isEnabled}`}>Save Changes</ConfirmButton>
                     </BottomButtonsDiv>
 
                 </div>
 
                 <HR className={darkMode} />
-                
-                <BannerSettings sub={sub} darkMode={darkMode} />
+
+                <BannerShortcut sub={sub} darkMode={darkMode} />
 
                 <HR className={darkMode} />
 
@@ -97,12 +87,10 @@ export default function SubSettings() {
                 <SubSkin darkMode={darkMode} sub={sub} />
 
                 <HR className={darkMode} />
-                
+
                 <div>
                     <Text className='legend'>Users</Text>
-
                     <UsersList sub={sub} />
-
                 </div>
 
             </MainDiv>
@@ -131,4 +119,15 @@ function UsersList({ sub }) {
             )
         })
     )
+}
+
+async function handleDescriptionChange(description, sub) {
+
+    if (description === '') return
+
+    const docRef = doc(db, 'subs', sub.id)
+    await setDoc(docRef,
+        { description: description },
+        { merge: true })
+
 }

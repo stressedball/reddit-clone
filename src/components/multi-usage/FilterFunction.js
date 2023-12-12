@@ -1,7 +1,7 @@
-import Users from "../menu/Users"
-import Subs from "../menu/Subs"
 import { useContext, useEffect, useState } from "react"
 import { GlobalContext } from "../providers/GlobalProvider"
+import Subs from "../menu/Subs"
+import Users from "../menu/Users"
 
 export default function FilterFunction({ darkMode, searchString, handleCreateSub }) {
 
@@ -26,7 +26,7 @@ export default function FilterFunction({ darkMode, searchString, handleCreateSub
             {
                 searchString === '' ?
                     <>
-                        <Subs handleCreateSub={handleCreateSub} darkMode={darkMode} subs={userSubs} />
+                        <Subs user={user} handleCreateSub={handleCreateSub} darkMode={darkMode} subs={userSubs} />
                         <Users darkMode={darkMode} users={users} />
                     </>
                     :
@@ -40,11 +40,11 @@ export default function FilterFunction({ darkMode, searchString, handleCreateSub
 }
 
 function subsFilterFunction(string, subs) {
-    if (subs === undefined) return
+    if (!subs) return
     return subs.filter(sub => sub.data.name.toLowerCase().includes(string.toLowerCase()))
 }
 
 function usersFilterFunction(string, users) {
-    if (users === undefined) return
+    if (!users) return
     return users.filter(user => user.data.userName.toLowerCase().includes(string.toLowerCase()))
 }

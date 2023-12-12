@@ -2,10 +2,11 @@ import React from 'react'
 import styled from 'styled-components'
 import UserAvatar from '../multi-usage/UserAvatar'
 import SubAvatar from '../multi-usage/SubAvatar'
-import { CreatePostTile, HomeMenuTile } from '../multi-usage/SpecialMenuOptions'
 import { HorizontalFlex } from '../../sc-css/atomic'
+import HomeSVG from '../multi-usage/SVGs/HomeSVG'
+import CreateSVG from '../multi-usage/SVGs/CreateSVG'
 
-export default function getOption(locationArrStrings, users, subs, darkMode) {
+export default function getOption(locationArrStrings, users, subs) {
 
   if (locationArrStrings[1] === 'r') {
     if (subs === undefined) return
@@ -40,7 +41,7 @@ export default function getOption(locationArrStrings, users, subs, darkMode) {
   if (locationArrStrings[1] === 'reddit-clone') return (
     <HorizontalFlex>
       <SVGDiv className='drop-down-menu'>
-        <HomeMenuTile darkMode={darkMode} />
+        <HomeSVG />
       </SVGDiv>
       <StyledP className="drop-down-menu">Home</StyledP>
     </HorizontalFlex>
@@ -49,7 +50,7 @@ export default function getOption(locationArrStrings, users, subs, darkMode) {
   if (locationArrStrings[1] === 'submit') return (
     <HorizontalFlex>
       <SVGDiv className='drop-down-menu'>
-        <CreatePostTile darkMode={darkMode} />
+        <CreateSVG />
       </SVGDiv>
       <StyledP className="drop-down-menu">Create post</StyledP>
     </HorizontalFlex>

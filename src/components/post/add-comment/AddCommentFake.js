@@ -1,9 +1,9 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { HorizontalFlex  } from "../../../sc-css/atomic";
-import { CreatePostTile } from "../../multi-usage/SpecialMenuOptions";
 import AuthenticateUser from "../../log-in_sign-up/AuthenticateUser";
-import { darkBorder, lightBorder, lightGrayHover, bottomBoxColor } from "../../../sc-css/COLORS";
+import { darkBorder } from "../../../sc-css/COLORS";
+import CreateSVG from "../../multi-usage/SVGs/CreateSVG";
 
 export default function AddCommentFake({ darkMode }) {
 
@@ -13,7 +13,7 @@ export default function AddCommentFake({ darkMode }) {
     return (
         <>
             <Container className={darkMode} onClick={() => setFlag(true)}>
-                <CreatePostTile />
+                <CreateSVG />
                 <p style={{ margin: "0", marginLeft:"10px", fontWeight:'600', fontSize:"14px" }}>Add a comment</p>
             </Container>
             
@@ -27,8 +27,8 @@ const Container = styled(HorizontalFlex)`
     border:1px solid black;
     width:fit-content;
     padding: 10px 14px;
-    margin-bottom:20px;
-    margin-top: 20px;
+    margin-bottom:8px;
+    margin-top: 8px;
     position:relative;
 
     &::before {

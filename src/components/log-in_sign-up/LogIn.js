@@ -1,21 +1,30 @@
-import React, { useContext, useEffect, useState } from 'react'
+import { useState } from 'react'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../../firebase/getAuthDb'
 import { useRef } from 'react'
+import { SVGStyled, Error } from '../../sc-css/atomic'
+import { Button, Form, Input, StyledText } from './Style'
+import { useContext } from 'react'
 import { ThemeContext } from '../providers/ThemeProvider'
-import { SVGStyled } from '../../sc-css/atomic'
-import { Button, Input, StyledText } from './Style'
+import Separator from './Separator'
+import GoogleAuthenticate from './GoogleAuthenticate'
 
 export default function LogIn({ handleLoginScreen, handleSignUp }) {
 
+    const { darkMode } = useContext(ThemeContext)
     const email = useRef()
     const password = useRef()
     const [error, setError] = useState()
 
     async function handleLogIn(e) {
+
+        if (!email.current.value.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) return
+        if (password.current.value.length < 6) return
+
         e.preventDefault()
+        
         try {
-            signInWithEmailAndPassword(auth, email.current.value, password.current.value)
+            await signInWithEmailAndPassword(auth, email.current.value, password.current.value)
             handleLoginScreen()
         } catch (error) {
             setError('Failed to login')
@@ -24,13 +33,13 @@ export default function LogIn({ handleLoginScreen, handleSignUp }) {
 
     return (
         <>
-            {error ? <p id='error'>{error}</p> : null}
+            <div style={{ marginBottom: "12px" }}>
+                <StyledText style={{ paddingBottom: "12px" }} className='title'>Log in</StyledText>
 
-            <StyledText className='title'>Log in</StyledText>
+                <StyledText className='small'>By continuing, you don't need to agree to anything since this is a showcase project.</StyledText>
+            </div>
 
-            <StyledText className='small'>By continuing, you don't need to agree to anything since this is a showcase project.</StyledText>
-
-            <Button>
+            <Button className={`${darkMode} google`} onClick={(e) => GoogleAuthenticate(e)}>
                 <SVGStyled style={{ paddingLeft: "4px" }}>
                     <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M30.0014 16.3109C30.0014 15.1598 29.9061 14.3198 29.6998 13.4487H16.2871V18.6442H24.1601C24.0014 19.9354 23.1442 21.8798 21.2394 23.1864L21.2127 23.3604L25.4536 26.58L25.7474 26.6087C28.4458 24.1665 30.0014 20.5731 30.0014 16.3109Z" fill="#4285F4" />
@@ -39,33 +48,26 @@ export default function LogIn({ handleLoginScreen, handleSignUp }) {
                         <path d="M16.2864 7.4133C18.9689 7.4133 20.7784 8.54885 21.8102 9.4978L25.8419 5.64C23.3658 3.38445 20.1435 2 16.2864 2C10.699 2 5.8736 5.1422 3.52441 9.71549L8.14345 13.2311C9.30229 9.85555 12.5086 7.4133 16.2864 7.4133Z" fill="#EB4335" />
                     </svg>
                 </SVGStyled>
-                <p style={{ width: "100%" }}>Continue with Google</p>
+                <StyledText style={{ width: "100%" }}>Continue with Google</StyledText>
             </Button>
 
-            <StyledText style={{ textAlign: "center" }}>Or</StyledText>
+            <Separator darkMode={darkMode} />
 
-            <Input
-                type="email"
-                placeholder='email'
-                ref={email}
-                required={true}
-            ></Input>
+            <Form>
+                <Input style={{ marginTop: "12px" }} className={darkMode} type='email' placeholder='email' ref={email} required={true} />
 
-            <Input
-                type="password"
-                ref={password}
-                placeholder='password'
-                required={true}
-            ></Input>
+                <Input className={darkMode} type='password' ref={password} placeholder='password' required={true} minLength='6' />
 
-            <Button onClick={handleLogIn}>Log in</Button>
+                <Button className={`${darkMode} confirm`} onClick={handleLogIn}>Log in</Button>
+            </Form>
 
-            <div style={{ display: "flex", alignItems: "center" }}>
+            {error ? <Error className={darkMode}>{error}</Error> : null}
+
+            <div style={{ marginTop: "14px", display: "flex", gap: "4px" }}>
                 <StyledText className='small' >New to RedditClone?</StyledText>
 
-                <StyledText className='small link' onClick={() => handleSignUp()}>Sign-up</StyledText>
+                <StyledText className={`${darkMode} small link`} onClick={() => handleSignUp()}>Sign-up</StyledText>
             </div>
-
         </>
     )
 }

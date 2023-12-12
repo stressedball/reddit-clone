@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { darkBorder, darkTwo, lightBackgroundColor, lightBorder } from "../../sc-css/COLORS"
 import { HorizontalFlex } from '../../sc-css/atomic'
 import { ThemeContext } from '../providers/ThemeProvider'
-import CommentSVG from '../multi-usage/CommentSVG'
+import CommentSVG from '../multi-usage/SVGs/CommentSVG'
 
 export default function UserComments({ users, user, subs, comment }) {
 

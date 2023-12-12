@@ -6,10 +6,9 @@ import SubSettingsShortcut from './SubSettingsShortcut'
 import SubSubscribe from './SubSubscribe'
 import { getAvatar } from './sub-settings.js/avatar-settings/avatarData'
 import styled from 'styled-components'
-import { HorizontalFlex } from '../../sc-css/atomic'
-import { Blue, darkTwo, lightBackgroundColor } from '../../sc-css/COLORS'
+import { HorizontalFlex, SubAvatar } from '../../sc-css/atomic'
+import { darkTwo, lightBackgroundColor } from '../../sc-css/COLORS'
 import { ThemeContext } from '../providers/ThemeProvider'
-import SubSkin from './sub-settings.js/SubSkin'
 
 export default function SubHeader() {
 
@@ -46,7 +45,7 @@ export default function SubHeader() {
 
         {
           bannerPath ?
-            <img src={`${bannerPath}`} style={{ maxHeight: "200px", minWidth: "calc(100vw - 270px)" }}></img>
+            <img src={`${bannerPath}`} style={{ maxHeight: "150px" }}></img>
             :
             <div style={{ minHeight: "100px", backgroundColor: `${sub.data.skin}` }}></div>
         }
@@ -56,10 +55,7 @@ export default function SubHeader() {
 
           <HorizontalFlex >
 
-            <img src={`${avatarPath}`}
-              style={{
-                height: "80px", width: "80px", borderRadius: '50%', border: "1px solid"
-              }}></img>
+            <SubAvatar src={`${avatarPath}`} />
 
             {
               sub ?

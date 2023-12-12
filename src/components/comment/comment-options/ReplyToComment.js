@@ -4,7 +4,7 @@ import { addDoc, collection, serverTimestamp } from "firebase/firestore"
 import { ThemeContext } from "../../providers/ThemeProvider"
 import { GlobalContext } from "../../providers/GlobalProvider"
 import { Tile, StyledOptionText, TextArea, CancelButton, ConfirmButton, BottomButtonsDiv, CommentActiveContainer } from "../../../sc-css/atomic"
-import CommentSVG from "../../multi-usage/CommentSVG"
+import CommentSVG from "../../multi-usage/SVGs/CommentSVG"
 
 export function ReplyToComment({ user, handleReply, darkMode }) {
 

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import { Tile, MenuSmallTitles } from "../../sc-css/atomic"
+import { Tile, MenuSmallTitles, HorizontalFlex } from "../../sc-css/atomic"
 import UserAvatar from "../multi-usage/UserAvatar"
 
 export default function Users({ darkMode, users }) {
@@ -14,14 +14,14 @@ export default function Users({ darkMode, users }) {
                 users.map(user => {
                     return (
                         <Tile className={`${darkMode}`} key={user.id}
-                            onClick={() => { navigate(`u/${user.id}`) }}
-                            style={{ gap: "3px" }}
-                        >
-                            <div style={{ width: "20px", display: "flex" }}>
+                            onClick={() => { navigate(`u/${user.id}`) }}>
+
+                            <HorizontalFlex style={{ justifyContent: "center", height: "22x", width: "22px" }}>
                                 <UserAvatar user={user} />
-                            </div>
-                            
-                            <p style={{ margin: "0", boxSizing: "border-box" }}>u/{user.data.userName}</p>
+                            </HorizontalFlex>
+
+                            <p style={{ margin: "0", marginLeft: "8px" }}>u/{user.data.userName}</p>
+
                         </Tile>
                     )
                 })
